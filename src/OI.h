@@ -1,14 +1,32 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "WPILib.h"
+
 
 class OI {
 public:
-	OI();
+	frc::Joystick* drvStick;
+	frc::Joystick* opStick;
+
 	static OI* GetInstance();
+private:
+	OI();
+	static OI *m_instance;
+
+	JoystickButton* m_drvButton1;
+	JoystickButton* m_drvButton2;
+	JoystickButton* m_drvButton3;
+	JoystickButton* m_drvButton4;
+	JoystickButton* m_drvButton5;
+	JoystickButton* m_drvButton6;
+	JoystickButton* m_drvButton7;
+	JoystickButton* m_drvButton8;
+
+	JoystickButton* m_opButton1;
+	JoystickButton* m_opButton2;
+	JoystickButton* m_opButton3;
+	JoystickButton* m_opButton4;
+	JoystickButton* m_opButton5;
+	JoystickButton* m_opButton6;
+	JoystickButton* m_opButton7;
+
 };

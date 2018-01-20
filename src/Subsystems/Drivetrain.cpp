@@ -3,7 +3,7 @@
 #include "Commands/TankDriveJoystick.h"
 #include "../RobotMap.h"
 
-//Drivetrain *Drivetrain::m_instance
+Drivetrain *Drivetrain::m_instance = 0;
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
