@@ -10,4 +10,5 @@
 class OI {
 public:
 	OI();
+	static OI* GetInstance();
 };
