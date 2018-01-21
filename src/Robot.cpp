@@ -17,13 +17,11 @@
 #include "RobotMap.h"
 #include "OI.h"
 
-//#include "Commands/ExampleCommand.h"
-//#include "Commands/MyAutoCommand.h"
 #include "Subsystems/Drivetrain.h"
 //#include "Subsystems/Climber.h"
 //#include "Subsystems/Intake.h"
-//#include "Commands/DriveWithJoystick.h"
-//#include "Commands/TankDriveJoystick.h"
+#include "Commands/DriveWithJoystick.h"
+#include "Commands/TankDriveJoystick.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -82,6 +80,12 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
+		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
+		std::cout << "Roll:\t\t" << drivetrain->updateGyroRoll() << std::endl;
+
+//		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
+//		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
 	}
 
 	void TestPeriodic() override {}

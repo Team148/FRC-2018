@@ -17,6 +17,8 @@ private:
 	WPI_VictorSPX* m_rightMotor2;
 	WPI_VictorSPX* m_rightMotor3;
 
+	PigeonIMU* pigeon;
+
 	DifferentialDrive *m_drive;
 
 	Drivetrain();
@@ -33,6 +35,12 @@ public:
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
 	bool isClosedLoop();
+
+	double updateGyroYaw();
+	double updateGyroPitch();
+	double updateGyroRoll();
+	double updatePigey();
+	double updatePigeon();
 };
 
 #endif  // Drivetrain_H

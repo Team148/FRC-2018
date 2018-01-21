@@ -2,8 +2,12 @@
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "../RobotMap.h"
+#include <iostream>
 
 Drivetrain *Drivetrain::m_instance = 0;
+//create yawPitchRoll array
+double ypr [3];
+double yawPitchRoll [3];
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
@@ -15,6 +19,15 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor1 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_1);
 	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
 	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
+
+	//pigeon gyro initialization
+	pigeon = new PigeonIMU(PIGEON_GYRO);
+	PigeonIMU::GeneralStatus generalStatus;
+
+	//pigeon calibration
+	pigeon->GetGeneralStatus(generalStatus);
+	pigeon->GetYawPitchRoll(ypr);
+	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	//Set ALL motors to coast
 	SetBrakeMode(0);
@@ -86,48 +99,61 @@ void Drivetrain::SetBrakeMode(bool on) {
 	}
 }
 
-/*
 void Drivetrain::configClosedLoop() {
-	m_leftMotor1->SetControlMode(TalonSRX::ControlMode::kSpeed);
-	m_leftMotor1->SetFeedbackDevice(TalonSRX::FeedbackDevice::QuadEncoder);
-	m_leftMotor1->ConfigEncoderCodesPerRev(256*ENCODER_GEAR_REDUCTION);
-	m_leftMotor1->SetSensorDirection(true);
-	m_leftMotor1->SetAllowableClosedLoopErr(0);
-	m_leftMotor1->SetClosedLoopOutputDirection(true);
+	//left drive encoder initialize
+	m_leftMotor1->Set(ControlMode::MotionProfile,0.0);
+	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	//ConfigEncoderCodesPerRev
+	m_leftMotor1->SetSensorPhase(true);
+	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
 	m_leftMotor1->Set(0.0);
-	m_rightMotor1->SetControlMode(TalonSRX::ControlMode::kSpeed);
-	m_rightMotor1->SetFeedbackDevice(TalonSRX::FeedbackDevice::QuadEncoder);
-	m_rightMotor1->ConfigEncoderCodesPerRev(256*ENCODER_GEAR_REDUCTION);
-	m_rightMotor1->SetSensorDirection(false);
-	m_rightMotor1->SetAllowableClosedLoopErr(0);
+
+	//right drive encoder initialize
+	m_rightMotor1->Set(ControlMode::MotionProfile,0.0);
+	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	//ConfigEncoderCodesPerRev
+	m_rightMotor1->SetSensorPhase(false);
+	m_rightMotor1->ConfigAllowableClosedloopError(0,0,0);
 	m_rightMotor1->Set(0.0);
 
-	m_leftMotor1->DisableNominalClosedLoopVoltage();
-	m_rightMotor1->DisableNominalClosedLoopVoltage();
-	m_leftMotor1->SetNominalClosedLoopVoltage(10.0f);
-	m_rightMotor1->SetNominalClosedLoopVoltage(10.0f);
-	//Setup Ramp Rate
-	//m_leftMotor1->SetVoltageRampRate(24);
-	//m_rightMotor1->SetVoltageRampRate(24);
-
-	//Set some PIDF values
-
-	m_leftMotor1->SetF(DRIVETRAIN_F);
-	m_rightMotor1->SetF(DRIVETRAIN_F);
-	m_leftMotor1->SetP(DRIVETRAIN_P);
-	m_rightMotor1->SetP(DRIVETRAIN_P);
-	m_leftMotor1->SetI(DRIVETRAIN_I);
-	m_rightMotor1->SetI(DRIVETRAIN_I);
-	m_leftMotor1->SetD(DRIVETRAIN_D);
-	m_rightMotor1->SetD(DRIVETRAIN_D);
-	//m_leftMotor1->SetIzone(DRIVETRAIN_I_ZONE_L);
-	//m_rightMotor1->SetIzone(DRIVETRAIN_I_ZONE_R);
-
+	m_leftMotor1->ConfigNominalOutputForward(83,0);
+	m_rightMotor1->ConfigNominalOutputForward(83,0);
 
 	m_closedLoop = true;
 }
-*/
 
 bool Drivetrain::isClosedLoop() {
 	return m_closedLoop;
+}
+
+double Drivetrain::updateGyroYaw() {
+	pigeon->GetYawPitchRoll(ypr);
+
+	return ypr[0];
+}
+
+double Drivetrain::updateGyroPitch() {
+	pigeon->GetYawPitchRoll(ypr);
+
+	return ypr[1];
+}
+
+double Drivetrain::updateGyroRoll() {
+	pigeon->GetYawPitchRoll(ypr);
+
+	return ypr[2];
+}
+
+double Drivetrain::updatePigey() {
+	pigeon->GetAccumGyro(yawPitchRoll);
+
+	return yawPitchRoll[0];
+}
+double Drivetrain::updatePigeon() {
+	//need to include printout of current yaw
+	//pigeon calibration
+
+	pigeon->GetRawGyro(ypr);
+
+	return ypr[0];
 }
