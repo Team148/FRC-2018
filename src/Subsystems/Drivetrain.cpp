@@ -13,12 +13,17 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//left drive motors
 	m_leftMotor1 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_1);
-	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
-	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
+	m_leftMotor2 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_2);
+	m_leftMotor3 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_3);
+//	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
+//	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
+
 	//right drive motors
 	m_rightMotor1 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_1);
-	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
-	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
+	m_rightMotor2 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_2);
+	m_rightMotor3 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_3);
+//	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
+//	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
 
 	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_leftMotor1->SetInverted(false);
@@ -90,18 +95,18 @@ void Drivetrain::SetBrakeMode(bool on) {
 	if(on) {
 		m_leftMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 		m_leftMotor2->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-		//    m_leftMotor3->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
+		m_leftMotor3->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 		m_rightMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 		m_rightMotor2->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-		//    m_rightMotor3->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
+		m_rightMotor3->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 	}
 	else {
 		m_leftMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 		m_leftMotor2->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
-		//    m_leftMotor3->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Coast);
+		m_leftMotor3->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 		m_rightMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 		m_rightMotor2->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
-		//    m_rightMotor3->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Coast);
+		m_rightMotor3->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 	}
 }
 
@@ -109,16 +114,14 @@ void Drivetrain::configClosedLoop() {
 	//left drive encoder initialize
 	m_leftMotor1->Set(ControlMode::MotionProfile,0.0);
 	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	//ConfigEncoderCodesPerRev
-	m_leftMotor1->SetSensorPhase(true);
+	m_leftMotor1->SetInverted(false);
 	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
 	m_leftMotor1->Set(0.0);
 
 	//right drive encoder initialize
 	m_rightMotor1->Set(ControlMode::MotionProfile,0.0);
 	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	//ConfigEncoderCodesPerRev
-	m_rightMotor1->SetSensorPhase(false);
+	m_rightMotor1->SetInverted(true);
 	m_rightMotor1->ConfigAllowableClosedloopError(0,0,0);
 	m_rightMotor1->Set(0.0);
 

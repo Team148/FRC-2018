@@ -10,12 +10,16 @@
 class Drivetrain : public Subsystem {
 private:
 	WPI_TalonSRX* m_leftMotor1;
-	WPI_VictorSPX* m_leftMotor2;
-	WPI_VictorSPX* m_leftMotor3;
+	WPI_TalonSRX* m_leftMotor2;
+	WPI_TalonSRX* m_leftMotor3;
+//	WPI_VictorSPX* m_leftMotor2;
+//	WPI_VictorSPX* m_leftMotor3;
 
 	WPI_TalonSRX* m_rightMotor1;
-	WPI_VictorSPX* m_rightMotor2;
-	WPI_VictorSPX* m_rightMotor3;
+	WPI_TalonSRX* m_rightMotor2;
+	WPI_TalonSRX* m_rightMotor3;
+//	WPI_VictorSPX* m_rightMotor2;
+//	WPI_VictorSPX* m_rightMotor3;
 
 	PigeonIMU* pigeon;
 
