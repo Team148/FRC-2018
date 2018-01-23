@@ -36,6 +36,9 @@ public:
 	void configClosedLoop();
 	bool isClosedLoop();
 
+	int updateLeftEncoder();
+	int updateRightEncoder();
+
 	double updateGyroYaw();
 	double updateGyroPitch();
 	double updateGyroRoll();

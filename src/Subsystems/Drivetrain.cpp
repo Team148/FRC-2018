@@ -132,6 +132,18 @@ bool Drivetrain::isClosedLoop() {
 	return m_closedLoop;
 }
 
+int Drivetrain::updateLeftEncoder() {
+	int value = 0;
+	value = m_leftMotor1->GetSelectedSensorPosition(0);
+	return value;
+}
+
+int Drivetrain::updateRightEncoder() {
+	int value = 0;
+	value = m_rightMotor1->GetSelectedSensorPosition(0);
+	return value;
+}
+
 double Drivetrain::updateGyroYaw() {
 	pigeon->GetYawPitchRoll(ypr);
 

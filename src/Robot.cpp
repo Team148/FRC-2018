@@ -80,9 +80,15 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
-		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
-		std::cout << "Roll:\t\t" << drivetrain->updateGyroRoll() << std::endl;
+
+		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
+		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
+
+
+
+//		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
+//		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
+//		std::cout << "Roll:\t\t" << drivetrain->updateGyroRoll() << std::endl;
 
 //		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
 //		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
