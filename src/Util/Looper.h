@@ -8,7 +8,6 @@
 
 #include "Notifier.h"
 #include "Timer.h"
-#include <vector>
 #include <iostream>
 
 
@@ -18,18 +17,16 @@ public:
 	void StartLoop();
 	void StopLoop();
 	void RunLoop();
-	double kPeriod=0.02;	//timer period in ms 0.02 = 20 ms
+	double kPeriod=0.01;	//timer period in ms 0.02 = 20 ms
 
 	virtual void OnStart(double timestamp) =0;
 	virtual void OnLoop(double timestamp) =0;
 	virtual void OnStop(double timestamp) =0;
 
 private:
-	bool m_isRunning;
+	bool m_isRunning = false;
 	std::unique_ptr<Notifier> m_controlloop;
-	//static constexpr double m_timestamp=0;
-	//static double m_dt=0;
-
+	double m_timestamp=0;
 };
 
 #endif /* SRC_UTIL_LOOPER_H_ */

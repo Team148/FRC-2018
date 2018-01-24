@@ -4,7 +4,6 @@
 Looper::Looper() {
 	m_isRunning = false;
 	m_controlloop = std::make_unique<Notifier>(&Looper::RunLoop, this);
-
 }
 
 void Looper::RunLoop()
@@ -12,8 +11,10 @@ void Looper::RunLoop()
 	double now = Timer::GetFPGATimestamp();
 
 	OnLoop(now);
-	std::cout << "RunLoop" << std::endl;
 
+	double dt = now - m_timestamp;
+	std::cout << "RunLoop dt:" << dt << std::endl;
+	m_timestamp = now;
 }
 
 void Looper::StartLoop() {
