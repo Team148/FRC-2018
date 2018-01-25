@@ -5,10 +5,10 @@
 #include <WPILib.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
+#include <Commands/RunIntake.h>
 
 OI *OI::m_instance = 0;
 
-OI *OI::m_instance = 0;
 
 OI::OI() {
 	// Process operator interface input here.
@@ -30,15 +30,23 @@ OI::OI() {
 			m_opButton4 = new JoystickButton(opStick, 4);
 			m_opButton5 = new JoystickButton(opStick, 5);
 			m_opButton6 = new JoystickButton(opStick, 6);
-<<<<<<< HEAD
-=======
 
-			m_opButton1->WhenPressed(new RunClimber(true));
-			m_opButton1->WhenReleased(new RunClimber(false));
 
-			m_opButton3->WhenPressed(new GrabPartner(true));
-			m_opButton3->WhenReleased(new GrabPartner(false));
->>>>>>> origin/RogueClimber-Dev
+			//Intake
+			m_opButton1->WhenPressed(new RunIntake(true, false));
+			m_opButton1->WhenReleased(new RunIntake(false, false));
+
+			//Outtake
+			m_opButton3->WhenPressed(new RunIntake(true, true));
+			m_opButton3->WhenReleased(new RunIntake(false, true));
+
+			//GrabPartner
+			m_opButton5->WhenPressed(new GrabPartner(true));
+			m_opButton5->WhenReleased(new GrabPartner(false));
+
+			//Climber
+			m_opButton6->WhenPressed(new RunClimber(true));
+			m_opButton6->WhenReleased(new RunClimber(false));
 }
 
 OI* OI::GetInstance() {

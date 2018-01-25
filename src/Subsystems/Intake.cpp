@@ -24,3 +24,8 @@ Intake* Intake::GetInstance() {
 void Intake::InitDefaultCommand() {
 
 }
+
+void Intake::SetIntakeMotor(float percent)
+{
+	m_IntakeMotor1->Set(ControlMode::PercentOutput, percent);
+}
