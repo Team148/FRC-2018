@@ -3,6 +3,10 @@
 #include "OI.h"
 
 #include <WPILib.h>
+#include <Commands/RunClimber.h>
+#include <Commands/GrabPartner.h>
+
+OI *OI::m_instance = 0;
 
 OI *OI::m_instance = 0;
 
@@ -26,6 +30,15 @@ OI::OI() {
 			m_opButton4 = new JoystickButton(opStick, 4);
 			m_opButton5 = new JoystickButton(opStick, 5);
 			m_opButton6 = new JoystickButton(opStick, 6);
+<<<<<<< HEAD
+=======
+
+			m_opButton1->WhenPressed(new RunClimber(true));
+			m_opButton1->WhenReleased(new RunClimber(false));
+
+			m_opButton3->WhenPressed(new GrabPartner(true));
+			m_opButton3->WhenReleased(new GrabPartner(false));
+>>>>>>> origin/RogueClimber-Dev
 }
 
 OI* OI::GetInstance() {
