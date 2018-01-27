@@ -29,7 +29,8 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_leftMotor1->SetInverted(false);
 
 	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_rightMotor1->SetInverted(true);
+
+	m_rightMotor1->SetInverted(false);
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);

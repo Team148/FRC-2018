@@ -25,6 +25,7 @@ public:
 	static Elevator* GetInstance();
 	void InitDefaultCommand();
 
+	void JoystickControl(float ystick);
 	void ConfigureOpenLoop();
 	void ConfigureClosedLoop();
 	bool IsClosedLoop();
