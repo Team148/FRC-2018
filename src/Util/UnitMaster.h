@@ -13,26 +13,44 @@
 
 class UnitMaster {
 public:
-	UnitMaster(double WheelDiameter, double EncoderGearReduction, double EncoderTicksPerRev);
+	UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRev);
 	UnitMaster();
 
-	double FeetToInches(double feet);
-	double InchesToFeet(double inches);
+	void SetInches(double func_inches);
+	void SetInchesPerSec(double func_inches_per_sec);
+
+	void SetRotations(double func_rotations);
+	void SetRotationsPerSec(double func_rotations_per_sec);
+
+	void SetTicks(double func_ticks);
+	void SetTicksPerSec(double func_ticks_per_sec);
+	void SetTicksPer100ms(double func_ticks_per_100ms);
 
 
-	double InchesToTicks(double inches);
-	double TicksToInches(double ticks);
+	double GetInches();
+	double GetInchesPerSec();
 
-	double TicksToTicksPer100Ms(double ticks);
-	double TicksPer100MsToTicks(double ticks_per_100ms);
+	double GetRotations();
+	double GetRotationsPerSec();
+
+	double GetTicks();
+	double GetTicksPerSec();
+	double GetTicksPer100ms();
+
+
+
 
 
 
 
 private:
 	double m_WheelDiameter = WHEEL_DIAMETER_INCHES;
-	double m_EncoderGearReduction = ENCODER_GEAR_REDUCTION;
-	double m_EncoderTicksPerRev = ENCODER_TICKS_PER_REV;
+	double m_EncoderUpDuction = ENCODER_GEAR_UPDUCTION;
+	double m_TicksPerRotations = TICKS_PER_ROTATIONS;
+
+	double m_ticks = 0.0;
+	double m_ticks_per_sec = 0.0;
+
 
 };
 
