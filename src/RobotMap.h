@@ -1,25 +1,28 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+#ifndef ROBOTMAP_H
+#define ROBOTMAP_H
 
-#pragma once
+//CANBus PIDs	NAME				PID
+constexpr int DRIVE_LEFTMOTOR_1 	= 1;
+constexpr int DRIVE_LEFTMOTOR_2 	= 2;
+constexpr int DRIVE_LEFTMOTOR_3 	= 3;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
+constexpr int DRIVE_RIGHTMOTOR_1 	= 4;
+constexpr int DRIVE_RIGHTMOTOR_2 	= 5;
+constexpr int DRIVE_RIGHTMOTOR_3 	= 6;
 
-// For example to map the left and right motors, you could define the
-// following variables to use with your drivetrain subsystem.
-// constexpr int kLeftMotor = 1;
-// constexpr int kRightMotor = 2;
+constexpr int PIGEON_GYRO 			= 7;
 
-// If you are using multiple modules, make sure to define both the port
-// number and the module. For example you with a rangefinder:
-// constexpr int kRangeFinderPort = 1;
-// constexpr int kRangeFinderModule = 1;
+constexpr int INTAKE_MOTOR_1		= 8;
+constexpr int INTAKE_MOTOR_2		= 9;
+
+constexpr int ELEVATOR_MOTOR_1		= 9;
+constexpr int ELEVATOR_MOTOR_2		= 10;
+//constexpr int ELEVATOR_MOTOR_3	  = 11;
+
+constexpr int CLIMBER_MOTOR_1		= 11;
+constexpr int CLIMBER_MOTOR_2		= 12;
+//constexpr int CLIMBER_MOTOR_3		  =13;
+
+constexpr int FORKLIFT_MOTOR_1		= 13;
+
+#endif  // ROBOTMAP_H
