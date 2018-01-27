@@ -7,9 +7,9 @@ constexpr int DRIVE_LEFTMOTOR_2 	= 2;
 constexpr int DRIVE_LEFTMOTOR_3 	= 3;
 
 
-constexpr int DRIVE_RIGHTMOTOR_1 	= 6;
-constexpr int DRIVE_RIGHTMOTOR_2 	= 7;
-constexpr int DRIVE_RIGHTMOTOR_3 	= 8;
+constexpr int DRIVE_RIGHTMOTOR_1 	= 4;
+constexpr int DRIVE_RIGHTMOTOR_2 	= 5;
+constexpr int DRIVE_RIGHTMOTOR_3 	= 6;
 
 constexpr int PIGEON_GYRO 			= 7;
 
