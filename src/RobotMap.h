@@ -17,14 +17,14 @@ constexpr int PIGEON_GYRO 			= 7;
 constexpr int INTAKE_MOTOR_1		= 8;
 constexpr int INTAKE_MOTOR_2		= 9;
 
-constexpr int ELEVATOR_MOTOR_1		= 99;
-constexpr int ELEVATOR_MOTOR_2		= 99;
+constexpr int ELEVATOR_MOTOR_1		= 10;
+constexpr int ELEVATOR_MOTOR_2		= 11;
 //constexpr int ELEVATOR_MOTOR_3	  = 11;
 
-constexpr int CLIMBER_MOTOR_1		= 0;
-constexpr int CLIMBER_MOTOR_2		= 4;
+constexpr int CLIMBER_MOTOR_1		= 12;
+constexpr int CLIMBER_MOTOR_2		= 13;
 //constexpr int CLIMBER_MOTOR_3		  =13;
 
-constexpr int FORKLIFT_MOTOR_1		= 5;
+constexpr int FORKLIFT_MOTOR_1		= 14;
 
 #endif  // ROBOTMAP_H
