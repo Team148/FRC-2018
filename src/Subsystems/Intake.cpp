@@ -8,6 +8,7 @@ Intake::Intake() : Subsystem("Intake"){
 
 	//intake motors
 	m_IntakeMotor1 = new WPI_TalonSRX(INTAKE_MOTOR_1);
+	m_IntakeMotor2 = new WPI_TalonSRX(INTAKE_MOTOR_2);
 
 	//intake motor configuration
 	m_IntakeMotor1->SetSafetyEnabled(false);
