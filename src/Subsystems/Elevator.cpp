@@ -12,17 +12,14 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor2 = new WPI_TalonSRX(ELEVATOR_MOTOR_2);
 	//m_ElevatorMotor3 = new WPI_TalonSRX(ELEVATOR_MOTOR_3);
 
-	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Coast);
-	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Coast);
-	//m_ClimbMotor3->SetNeutralMode(NeutralMode::Brake);
+	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Brake);
+	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
+	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
 
 	m_ElevatorMotor1->EnableVoltageCompensation(true);
 	m_ElevatorMotor2->EnableVoltageCompensation(true);
-	//m_ClimbMotor3->EnableVoltageCompensation(true);
+	//m_ElevatorMotor3->EnableVoltageCompensation(true);
 
-	//climber ONLY goes backwards
-	m_ElevatorMotor1->ConfigVoltageCompSaturation(12.0,0);
-	m_ElevatorMotor2->ConfigVoltageCompSaturation(12.0,0);
 	//elevator motor configuration
 	m_ElevatorMotor1->SetSafetyEnabled(false);
 	m_ElevatorMotor2->SetSafetyEnabled(false);
