@@ -13,8 +13,7 @@ constexpr int DRIVE_RIGHTMOTOR_3 	= 8;
 
 constexpr int PIGEON_GYRO 			= 7;
 
-constexpr int INTAKE_MOTOR_1		= 99;
-//constexpr int INTAKE_MOTOR_2		  = 9;
+
 constexpr int INTAKE_MOTOR_1		= 8;
 constexpr int INTAKE_MOTOR_2		= 9;
 
