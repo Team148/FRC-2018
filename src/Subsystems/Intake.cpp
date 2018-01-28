@@ -12,6 +12,9 @@ Intake::Intake() : Subsystem("Intake"){
 
 	//intake motor configuration
 	m_IntakeMotor1->SetSafetyEnabled(false);
+	m_IntakeMotor2->SetSafetyEnabled(false);
+
+	m_IntakeMotor2->SetInverted(true);
 }
 
 Intake* Intake::GetInstance() {
@@ -29,4 +32,5 @@ void Intake::InitDefaultCommand() {
 void Intake::SetIntakeMotor(float percent)
 {
 	m_IntakeMotor1->Set(ControlMode::PercentOutput, percent);
+	m_IntakeMotor2->Set(ControlMode::PercentOutput, percent);
 }
