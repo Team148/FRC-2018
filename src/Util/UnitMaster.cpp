@@ -1,4 +1,5 @@
 #include <Util/UnitMaster.h>
+#include <iostream>
 #include <math.h>
 
 UnitMaster::UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRotations)

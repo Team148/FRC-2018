@@ -6,7 +6,7 @@
 #define CONSTANTS_H
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
-constexpr double TICKS_PER_ROTATIONS = 1024;
+constexpr double TICKS_PER_ROTATIONS = 4096;
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
 
