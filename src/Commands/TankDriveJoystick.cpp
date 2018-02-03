@@ -15,7 +15,7 @@ void TankDriveJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TankDriveJoystick::Execute() {
-	Drivetrain::GetInstance()->Tank(OI::GetInstance()->drvStick->GetY(Joystick::JoystickHand::kLeftHand), \
+	Drivetrain::GetInstance()->Tank(OI::GetInstance()->drvStick->GetY(Joystick::JoystickHand::kLeftHand),
 			OI::GetInstance()->drvStick->GetY(Joystick::JoystickHand::kRightHand));
 }
 

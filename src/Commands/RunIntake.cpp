@@ -11,14 +11,16 @@ RunIntake::RunIntake(bool on, bool reversed) {
 // Called once when the command executes
 void RunIntake::Initialize() {
 
-	if(m_on)
-	{
-		if(m_reversed) Intake::GetInstance()->SetIntakeMotor(-1.0);
-		else Intake::GetInstance()->SetIntakeMotor(1.0);
+	if(m_on) {
+		if(m_reversed) {
+			Intake::GetInstance()->SetIntakeMotor(-1.0);
+		}
+		else {
+			Intake::GetInstance()->SetIntakeMotor(1.0);
+		}
 
 	}
-	else
-	{
+	else {
 		Intake::GetInstance()->SetIntakeMotor(0.0);
 	}
 
