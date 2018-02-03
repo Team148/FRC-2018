@@ -182,6 +182,12 @@ double Drivetrain::updatePigeon() {
 
 void Drivetrain::unitConversionTest()
 {
-	unit_master.SetTicks(m_leftMotor1->GetSelectedSensorPosition(0));
-	std::cout << "Inches: " << unit_master.GetInches() << " Rotations: " << unit_master.GetRotations() << std::endl;
+//	unit_master.SetTicks(m_leftMotor1->GetSelectedSensorPosition(0));
+//	unit_master.SetTicksPer100ms(m_leftMotor1->GetSelectedSensorVelocity(0));
+//	unit_master.SetInches(18.8495);
+
+//	std::cout << "Inches: " << unit_master.GetInches() << " Rotations: " << unit_master.GetRotations() << std::endl;
+//	std::cout << "InchesPerSec: " << unit_master.GetInchesPerSec() << " RotationsPerSec: " << unit_master.GetRotationsPerSec() << std::endl;
+//	std::cout << "Ticks: " << unit_master.GetTicks() << " Rotations: " << unit_master.GetRotations() << std::endl;
+
 }
