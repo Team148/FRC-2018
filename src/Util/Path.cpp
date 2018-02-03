@@ -59,7 +59,7 @@ double Path::GetLeftValue(int index){
 
 	if(index < length)
 	{
-			return -(leftTrajectory[index].velocity/MAX_VELOCITY);
+			return (leftTrajectory[index].velocity/MAX_VELOCITY);
 	}
 	else
 	{
