@@ -27,7 +27,7 @@ private:
 	bool m_closedLoop = 0;
 
 public:
-	PowerDistributionPanel* m_pdp;
+//	PowerDistributionPanel* m_pdp;
 	static Drivetrain* GetInstance();
 	void InitDefaultCommand();
 	void Arcade(double ystick, double xstick);

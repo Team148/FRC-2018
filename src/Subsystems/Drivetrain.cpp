@@ -18,29 +18,32 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
 	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
 
-	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_leftMotor1->SetInverted(false);
+	m_leftMotor2->Follow(*m_leftMotor1);
+	m_leftMotor3->Follow(*m_leftMotor1);
 
-	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	m_rightMotor2->Follow(*m_rightMotor1);
+	m_rightMotor3->Follow(*m_rightMotor1);
+
+//	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	m_leftMotor1->SetInverted(false);
+	m_leftMotor2->SetInverted(false);
+	m_leftMotor3->SetInverted(false);
+
+//	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 
 	m_rightMotor1->SetInverted(true);
-
-	//pigeon gyro initialization
-	pigeon = new PigeonIMU(PIGEON_GYRO);
-	PigeonIMU::GeneralStatus generalStatus;
-
-	//pigeon calibration
-	pigeon->GetGeneralStatus(generalStatus);
+	m_rightMotor2->SetInverted(true);
+	m_rightMotor3->SetInverted(true);
 
 	//Set ALL motors to coast
 	SetBrakeMode(0);
 
-	//set left motors 2 and 3 to follow mode
-	m_leftMotor2->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-	m_leftMotor3->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-	//set right motors 2 and 3 to follow mode
-	m_rightMotor2->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
-	m_rightMotor3->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
+//	//set left motors 2 and 3 to follow mode
+//	m_leftMotor2->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
+//	m_leftMotor3->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
+//	//set right motors 2 and 3 to follow mode
+//	m_rightMotor2->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
+//	m_rightMotor3->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
 
 	//Set motors to safety disabled
 	m_leftMotor1->SetSafetyEnabled(false);
@@ -55,9 +58,14 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_drive->SetSafetyEnabled(false);
 
 	//PDP
-	m_pdp = new PowerDistributionPanel();
+	//m_pdp = new PowerDistributionPanel();
 
+	//pigeon gyro initialization
+	pigeon = new PigeonIMU(PIGEON_GYRO);
+	PigeonIMU::GeneralStatus generalStatus;
 
+	//pigeon calibration
+	pigeon->GetGeneralStatus(generalStatus);
 
 }
 

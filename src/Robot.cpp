@@ -27,7 +27,7 @@
 
 class Robot : public frc::TimedRobot {
 private:
-	float m_armAngle = 0.0;
+
 public:
 
 	Drivetrain *drivetrain = 0;
@@ -37,16 +37,20 @@ public:
 	Forklift *forklift = 0;
 	OI *oi = 0;
 
+
+
+
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
-		intake = Intake::GetInstance();
-		elevator = Elevator::GetInstance();
-		climber = Climber::GetInstance();
-		forklift = Forklift::GetInstance();
+		//intake = Intake::GetInstance();
+		//elevator = Elevator::GetInstance();
+		//climber = Climber::GetInstance();
+		//forklift = Forklift::GetInstance();
+
 	}
 
 	/**
@@ -84,12 +88,16 @@ public:
 		frc::Scheduler::GetInstance()->Run();
 	}
 
-	void TeleopInit() override {
+	void TeleopInit() override
+	{
+
 	}
 
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;

@@ -23,8 +23,8 @@ constexpr int ELEVATOR_MOTOR_2		= 11;
 
 constexpr int CLIMBER_MOTOR_1		= 12;
 constexpr int CLIMBER_MOTOR_2		= 13;
-constexpr int CLIMBER_MOTOR_3		= 13;
+constexpr int CLIMBER_MOTOR_3		= 14;
 
-constexpr int FORKLIFT_MOTOR_1		= 14;
+constexpr int FORKLIFT_MOTOR_1		= 15;
 
 #endif  // ROBOTMAP_H
