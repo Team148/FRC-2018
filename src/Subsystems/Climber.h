@@ -11,7 +11,7 @@ class Climber : public Subsystem {
 private:
 	WPI_TalonSRX* m_ClimbMotor1;
 	WPI_TalonSRX* m_ClimbMotor2;
-	//WPI_TalonSRX* m_ClimbMotor3;
+	WPI_TalonSRX* m_ClimbMotor3;
 
 	Climber();
 	static Climber *m_instance;
