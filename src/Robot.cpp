@@ -13,11 +13,8 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-<<<<<<< HEAD
 #include <Commands/Pathfind.h>
 //#include "constants.h"
-=======
->>>>>>> master
 #include "RobotMap.h"
 #include "OI.h"
 
@@ -32,12 +29,9 @@
 
 class Robot : public frc::TimedRobot {
 private:
-<<<<<<< HEAD
 	float m_armAngle = 0.0;
 	Command* command;
-=======
 
->>>>>>> master
 public:
 
 	Drivetrain *drivetrain = 0;

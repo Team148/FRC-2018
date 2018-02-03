@@ -15,8 +15,12 @@ Path::Path(){
 
 	    Waypoint *points = (Waypoint*)malloc(sizeof(Waypoint) * POINT_LENGTH);
 
+	    //Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
+	    //Waypoint p2 = { .7, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+
 	    Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
-	    Waypoint p2 = { 2, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+		Waypoint p2 = { .6, .35, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+
 	    //Waypoint p3 = {  10, 0, 0 };  // Waypoint @ x= 2, y= 4, exit angle= 0 radians
 	    //Waypoint p4 = {15,0,0};
 	    //Waypoint p5 = {20,0,0};
@@ -77,7 +81,7 @@ double Path::GetRightValue(int index){
 	//std::cout << leftTrajectory[index].velocity/MAX_VELOCITY <<  std::endl;
 	if(index < length)
 	{
-			return (rightTrajectory[index].velocity/MAX_VELOCITY);
+			return -(rightTrajectory[index].velocity/MAX_VELOCITY);
 	}
 	else
 	{
