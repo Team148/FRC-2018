@@ -77,7 +77,7 @@ double Path::GetRightValue(int index){
 	//std::cout << leftTrajectory[index].velocity/MAX_VELOCITY <<  std::endl;
 	if(index < length)
 	{
-			return -(rightTrajectory[index].velocity/MAX_VELOCITY);
+			return (rightTrajectory[index].velocity/MAX_VELOCITY);
 	}
 	else
 	{
