@@ -104,11 +104,13 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
 
+//		drivetrain->unitConversionTest();
 
 
 //		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
