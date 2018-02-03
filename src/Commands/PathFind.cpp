@@ -10,7 +10,7 @@ PathFind::PathFind() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
-
+	PathPlanner = new Path();
 
 }
 
@@ -20,7 +20,6 @@ void PathFind::Initialize() {
 	m_lastTime = 0;
 
 
-	PathPlanner = new Path();
 
 
 
@@ -55,7 +54,7 @@ void PathFind::Execute() {
     //std::cout << time_index;
 	std::cout << frc::Timer::GetFPGATimestamp() <<" ; "  << PathPlanner->GetLeftSegment(m_lastTime).x << " ; " << PathPlanner->GetRightSegment(m_lastTime).y << " ; "  << PathPlanner->GetLeftSegment(m_lastTime).velocity  << " ; " << PathPlanner->GetRightSegment(m_lastTime).velocity << " ; " << std::endl;
 
-	m_tempDrivetrain->Tank(PathPlanner->GetLeftValue(m_lastTime),PathPlanner->GetRightValue(m_lastTime));
+	//m_tempDrivetrain->Tank(PathPlanner->GetLeftValue(m_lastTime),PathPlanner->GetRightValue(m_lastTime));
 	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
     //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);
     //frc::SmartDashboard::PutNumber("Y Position",PathPlanner->GetLeftSegment(index).y);
