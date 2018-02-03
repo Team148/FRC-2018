@@ -40,8 +40,8 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::JoystickControl(float ystick)
 {
-	m_ElevatorMotor1->Set(ControlMode::PercentOutput, ystick);
-	m_ElevatorMotor2->Set(ControlMode::PercentOutput, -ystick);
+	m_ElevatorMotor1->Set(ControlMode::PercentOutput, ystick*ELEVATOR_OUTPUT_PERCENT);
+	m_ElevatorMotor2->Set(ControlMode::PercentOutput, ystick*ELEVATOR_OUTPUT_PERCENT);
 }
 
 
