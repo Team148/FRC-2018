@@ -27,6 +27,7 @@
 class Robot : public frc::TimedRobot {
 private:
 	float m_armAngle = 0.0;
+	Command* command;
 public:
 
 	Drivetrain *drivetrain = 0;
@@ -36,6 +37,7 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+		command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 	}
@@ -68,7 +70,9 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		frc:Scheduler::CommandSet(new PathFind());
+
+		frc::Scheduler::GetInstance()->AddCommand(command);
+
 	}
 
 	void AutonomousPeriodic() override {
