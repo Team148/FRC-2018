@@ -1,10 +1,16 @@
 #include "Drivetrain.h"
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
+#include "Util/UnitMaster.h"
 #include "../RobotMap.h"
 #include <iostream>
 
 Drivetrain *Drivetrain::m_instance = 0;
+UnitMaster unit_master;
+
+//create yawPitchRoll array
+double ypr [3];
+double yawPitchRoll [3];
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
@@ -172,4 +178,16 @@ double Drivetrain::updatePigeon() {
 	pigeon->GetRawGyro(yawPitchRoll);
 
 	return yawPitchRoll[0];
+}
+
+void Drivetrain::unitConversionTest()
+{
+//	unit_master.SetTicks(m_leftMotor1->GetSelectedSensorPosition(0));
+//	unit_master.SetTicksPer100ms(m_leftMotor1->GetSelectedSensorVelocity(0));
+//	unit_master.SetInches(18.8495);
+
+//	std::cout << "Inches: " << unit_master.GetInches() << " Rotations: " << unit_master.GetRotations() << std::endl;
+//	std::cout << "InchesPerSec: " << unit_master.GetInchesPerSec() << " RotationsPerSec: " << unit_master.GetRotationsPerSec() << std::endl;
+//	std::cout << "Ticks: " << unit_master.GetTicks() << " Rotations: " << unit_master.GetRotations() << std::endl;
+
 }

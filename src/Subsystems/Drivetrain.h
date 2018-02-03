@@ -44,6 +44,9 @@ public:
 	double updateGyroRoll();
 	double updatePigey();
 	double updatePigeon();
+
+	void unitConversionTest();
+
 };
 
 #endif  // Drivetrain_H
