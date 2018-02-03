@@ -4,7 +4,8 @@
 
 Forklift *Forklift::m_instance = 0;
 
-Forklift::Forklift() : Subsystem("Forklift") {
+Forklift::Forklift() : Subsystem("Forklift")
+{
 
 	//forklift motor
 	m_ForkliftMotor1 = new WPI_TalonSRX(FORKLIFT_MOTOR_1);

@@ -9,7 +9,7 @@ Climber::Climber() : Subsystem("Climber") {
 	//climb motors
 	m_ClimbMotor1 = new WPI_TalonSRX(CLIMBER_MOTOR_1);
 	m_ClimbMotor2 = new WPI_TalonSRX(CLIMBER_MOTOR_2);
-	//m_ClimbMotor3 = new WPI_TalonSRX(CLIMBER_MOTOR_3);
+	m_ClimbMotor3 = new WPI_TalonSRX(CLIMBER_MOTOR_3);
 
 	//climb motor configuration
 	m_ClimbMotor1->SetNeutralMode(NeutralMode::Brake);
@@ -44,6 +44,6 @@ void Climber::InitDefaultCommand() {
 
 void Climber::Set(float percent) {
 	m_ClimbMotor1->Set(ControlMode::PercentOutput, percent);
-	m_ClimbMotor2->Set(ControlMode::PercentOutput, -percent);
-	//m_ClimbMotor3->Set(ControlMode::PercentOutput, -percent);
+	m_ClimbMotor2->Set(ControlMode::PercentOutput, percent);
+	m_ClimbMotor3->Set(ControlMode::PercentOutput, percent);
 }
