@@ -5,32 +5,25 @@
 #include <iostream>
 
 Drivetrain *Drivetrain::m_instance = 0;
-//create yawPitchRoll array
-double ypr [3];
-double yawPitchRoll [3];
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//left drive motors
 	m_leftMotor1 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_1);
-	m_leftMotor2 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_2);
-	m_leftMotor3 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_3);
-//	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
-//	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
+	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
+	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
 
 	//right drive motors
 	m_rightMotor1 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_1);
-	m_rightMotor2 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_2);
-	m_rightMotor3 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_3);
-//	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
-//	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
+	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
+	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
 
 	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_leftMotor1->SetInverted(false);
 
 	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 
-	m_rightMotor1->SetInverted(false);
+	m_rightMotor1->SetInverted(true);
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
@@ -38,8 +31,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//pigeon calibration
 	pigeon->GetGeneralStatus(generalStatus);
-	pigeon->GetYawPitchRoll(ypr);
-	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	//Set ALL motors to coast
 	SetBrakeMode(0);
@@ -149,33 +140,28 @@ int Drivetrain::updateRightEncoder() {
 }
 
 double Drivetrain::updateGyroYaw() {
-	pigeon->GetYawPitchRoll(ypr);
-
-	return ypr[0];
-}
-
-double Drivetrain::updateGyroPitch() {
-	pigeon->GetYawPitchRoll(ypr);
-
-	return ypr[1];
-}
-
-double Drivetrain::updateGyroRoll() {
-	pigeon->GetYawPitchRoll(ypr);
-
-	return ypr[2];
-}
-
-double Drivetrain::updatePigey() {
-	pigeon->GetAccumGyro(yawPitchRoll);
+	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	return yawPitchRoll[0];
 }
+
+double Drivetrain::updateGyroPitch() {
+	pigeon->GetYawPitchRoll(yawPitchRoll);
+
+	return yawPitchRoll[1];
+}
+
+double Drivetrain::updateGyroRoll() {
+	pigeon->GetYawPitchRoll(yawPitchRoll);
+
+	return yawPitchRoll[2];
+}
+
 double Drivetrain::updatePigeon() {
 	//need to include printout of current yaw
 	//pigeon calibration
 
-	pigeon->GetRawGyro(ypr);
+	pigeon->GetRawGyro(yawPitchRoll);
 
-	return ypr[0];
+	return yawPitchRoll[0];
 }

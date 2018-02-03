@@ -13,15 +13,17 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-//#include "constants.h"
 #include "RobotMap.h"
 #include "OI.h"
 
 #include "Subsystems/Drivetrain.h"
-//#include "Subsystems/Climber.h"
-//#include "Subsystems/Intake.h"
+#include "Subsystems/Intake.h"
+#include "Subsystems/Elevator.h"
+#include "Subsystems/Forklift.h"
+#include "Subsystems/Climber.h"
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
+#include "Commands/RunIntake.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -29,7 +31,11 @@ private:
 public:
 
 	Drivetrain *drivetrain = 0;
-	OI* oi = 0;
+	Intake *intake = 0;
+	Elevator *elevator = 0;
+	Climber *climber = 0;
+	Forklift *forklift = 0;
+	OI *oi = 0;
 
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
@@ -37,6 +43,10 @@ public:
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
+		intake = Intake::GetInstance();
+		elevator = Elevator::GetInstance();
+		climber = Climber::GetInstance();
+		forklift = Forklift::GetInstance();
 	}
 
 	/**
@@ -81,8 +91,8 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
-		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
+//		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
+//		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
 
 
 
