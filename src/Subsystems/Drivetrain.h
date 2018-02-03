@@ -45,6 +45,8 @@ public:
 	double updatePigey();
 	double updatePigeon();
 
+	void getPigeonStatus();
+
 	void unitConversionTest();
 
 };

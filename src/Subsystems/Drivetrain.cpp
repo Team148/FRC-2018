@@ -44,13 +44,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	//Set ALL motors to coast
 	SetBrakeMode(0);
 
-//	//set left motors 2 and 3 to follow mode
-//	m_leftMotor2->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-//	m_leftMotor3->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-//	//set right motors 2 and 3 to follow mode
-//	m_rightMotor2->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
-//	m_rightMotor3->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
-
 	//Set motors to safety disabled
 	m_leftMotor1->SetSafetyEnabled(false);
 	m_leftMotor2->SetSafetyEnabled(false);
@@ -68,11 +61,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
-	PigeonIMU::GeneralStatus generalStatus;
-
-	//pigeon calibration
-	pigeon->GetGeneralStatus(generalStatus);
-
 }
 
 Drivetrain* Drivetrain::GetInstance() {
@@ -178,6 +166,11 @@ double Drivetrain::updatePigeon() {
 	pigeon->GetRawGyro(yawPitchRoll);
 
 	return yawPitchRoll[0];
+}
+
+void Drivetrain::getPigeonStatus() {
+	PigeonIMU::GeneralStatus generalStatus;
+	pigeon->GetGeneralStatus(generalStatus);
 }
 
 void Drivetrain::unitConversionTest()
