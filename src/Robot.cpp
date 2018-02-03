@@ -13,6 +13,7 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
+#include <Commands/Pathfind.h>
 //#include "constants.h"
 #include "RobotMap.h"
 #include "OI.h"
@@ -67,7 +68,7 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-
+		frc:Scheduler::CommandSet(new PathFind());
 	}
 
 	void AutonomousPeriodic() override {
