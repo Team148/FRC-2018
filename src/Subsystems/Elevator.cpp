@@ -16,8 +16,8 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
 	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
 
-	m_ElevatorMotor1->EnableVoltageCompensation(true);
-	m_ElevatorMotor2->EnableVoltageCompensation(true);
+//	m_ElevatorMotor1->EnableVoltageCompensation(true);
+//	m_ElevatorMotor2->EnableVoltageCompensation(true);
 	//m_ElevatorMotor3->EnableVoltageCompensation(true);
 
 	//elevator motor configuration

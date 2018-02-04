@@ -1,5 +1,6 @@
 #include "ElevatorWithJoystick.h"
 #include "OI.h"
+#include <iostream>
 
 
 ElevatorWithJoystick::ElevatorWithJoystick() {
@@ -16,8 +17,8 @@ void ElevatorWithJoystick::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ElevatorWithJoystick::Execute() {
 
-	//std::cout <<"drive execute" << std::endl;
-	Elevator::GetInstance()->JoystickControl(OI::GetInstance()->opStick->GetRawAxis(1));
+	std::cout <<"drive execute" << std::endl;
+	Elevator::GetInstance()->JoystickControl(OI::GetInstance()->drvStick->GetRawAxis(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()
