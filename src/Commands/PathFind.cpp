@@ -5,7 +5,6 @@
 #include <./SmartDashboard/SmartDashboard.h>
 
 
-
 PathFind::PathFind() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -18,7 +17,9 @@ PathFind::PathFind() {
 void PathFind::Initialize() {
 	index = 0;
 	m_lastTime = 0;
+	m_startTime = frc::Timer::GetFPGATimestamp();
 
+	Drivetrain::GetInstance()->configClosedLoop();
 
 
 
@@ -53,12 +54,15 @@ void PathFind::Execute() {
 
     //std::cout << time_index;
 	std::cout << frc::Timer::GetFPGATimestamp() <<" ; "  << PathPlanner->GetLeftSegment(m_lastTime).x << " ; " << PathPlanner->GetRightSegment(m_lastTime).y << " ; "  << PathPlanner->GetLeftSegment(m_lastTime).velocity  << " ; " << PathPlanner->GetRightSegment(m_lastTime).velocity << " ; " << std::endl;
+	m_lastTime = (int)((frc::Timer::GetFPGATimestamp() - m_startTime )/ 0.01);
 
-	m_tempDrivetrain->Tank(PathPlanner->GetLeftValue(m_lastTime),PathPlanner->GetRightValue(m_lastTime));
+	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
+//	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
+	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
 	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
     //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);
     //frc::SmartDashboard::PutNumber("Y Position",PathPlanner->GetLeftSegment(index).y);
-	m_lastTime++;
+	//m_lastTime++;
 
 }
 

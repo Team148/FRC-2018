@@ -7,10 +7,10 @@
 Path::Path(){
 
 		POINT_LENGTH = 2;
-		DRIVE_TRAIN_BASE = .5;
-		MAX_VELOCITY = 1;
-		MAX_ACCEL = 3;
-		MAX_JERK = 20;
+		DRIVE_TRAIN_BASE = 26;
+		MAX_VELOCITY = 150;
+		MAX_ACCEL = 100;
+		MAX_JERK = 700;
 		TIME_STEP = .01;
 
 	    Waypoint *points = (Waypoint*)malloc(sizeof(Waypoint) * POINT_LENGTH);
@@ -19,7 +19,9 @@ Path::Path(){
 	    //Waypoint p2 = { .7, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 	    Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
-		Waypoint p2 = { .6, .35, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+		Waypoint p2 = { 120, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+//		Waypoint p2 = { 1, 1, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+
 
 	    //Waypoint p3 = {  10, 0, 0 };  // Waypoint @ x= 2, y= 4, exit angle= 0 radians
 	    //Waypoint p4 = {15,0,0};
@@ -63,7 +65,9 @@ double Path::GetLeftValue(int index){
 
 	if(index < length)
 	{
-			return (leftTrajectory[index].velocity/MAX_VELOCITY);
+//			return (leftTrajectory[index].velocity/MAX_VELOCITY);
+		return (leftTrajectory[index].velocity);
+
 	}
 	else
 	{
@@ -81,7 +85,10 @@ double Path::GetRightValue(int index){
 	//std::cout << leftTrajectory[index].velocity/MAX_VELOCITY <<  std::endl;
 	if(index < length)
 	{
-			return -(rightTrajectory[index].velocity/MAX_VELOCITY);
+//			return -(rightTrajectory[index].velocity/MAX_VELOCITY);
+
+		return (rightTrajectory[index].velocity);
+
 	}
 	else
 	{

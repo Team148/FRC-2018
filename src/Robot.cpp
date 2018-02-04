@@ -86,7 +86,6 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-
 		frc::Scheduler::GetInstance()->AddCommand(command);
 
 	}

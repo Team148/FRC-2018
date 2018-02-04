@@ -4,6 +4,7 @@
 #include "pathfinder.h"
 #include "Commands/Command.h"
 #include "Timer.h"
+#include "Util/UnitMaster.h"
 #include "../Util/Path.h"
 #include "../Subsystems/Drivetrain.h"
 
@@ -22,6 +23,10 @@ private:
 	Path *PathPlanner;
 	Drivetrain *m_tempDrivetrain;
 	int m_lastTime;
+	double m_startTime;
+
+	UnitMaster unit_master;
+
 };
 
 #endif  // PathFind_H

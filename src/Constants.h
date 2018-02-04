@@ -5,9 +5,18 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+//Drivetrain constants.
+constexpr double DRIVETRAIN_F = 1.0;//.95;
+constexpr double DRIVETRAIN_P = 0.0; // 1.5
+constexpr double DRIVETRAIN_I = 0.00; // 0.001
+
+
+constexpr double DRIVETRAIN_D = 0.0;
+
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
 constexpr double TICKS_PER_ROTATIONS = 16384;
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
+
 
 
 

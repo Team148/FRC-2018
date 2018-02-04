@@ -81,9 +81,12 @@ double UnitMaster::GetTicksPerSec()
 	return m_ticks_per_sec;
 
 }
-double UnitMaster::GetTicksPer100ms()
+//double UnitMaster::GetTicksPer100ms()
+//{
+//	return (m_ticks_per_sec*0.10);
+//}
+
+double UnitMaster::GetTicksPer100ms(double func_inches_per_sec)
 {
-	return (m_ticks_per_sec*0.10);
+	return (func_inches_per_sec*m_TicksPerRotations)/(m_EncoderUpDuction*(M_PI*m_WheelDiameter));
 }
-
-

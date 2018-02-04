@@ -34,7 +34,9 @@ public:
 
 	double GetTicks();
 	double GetTicksPerSec();
-	double GetTicksPer100ms();
+//	double GetTicksPer100ms();
+
+	double GetTicksPer100ms(double func_inches_per_sec);
 
 
 
