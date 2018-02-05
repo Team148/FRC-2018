@@ -41,15 +41,8 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor2->SetInverted(true);
 	m_rightMotor3->SetInverted(true);
 
-
-	m_leftMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-	m_rightMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-
-	m_leftMotor1->ConfigOpenloopRamp(1, 0);
-	m_rightMotor1->ConfigOpenloopRamp(1, 0);
-
 	//Set ALL motors to coast
-	SetBrakeMode(1);
+	SetBrakeMode(0);
 
 	//Set motors to safety disabled
 	m_leftMotor1->SetSafetyEnabled(false);

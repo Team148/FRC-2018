@@ -1,6 +1,6 @@
 #include "Elevator.h"
-#include "../RobotMap.h"
 #include "Commands/ElevatorWithJoystick.h"
+#include "../RobotMap.h"
 #include <iostream>
 
 Elevator *Elevator::m_instance = 0;
@@ -15,6 +15,9 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Brake);
 	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
 	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
+
+	m_ElevatorMotor1->ConfigOpenloopRamp(1, 0);
+	m_ElevatorMotor2->ConfigOpenloopRamp(1, 0);
 
 //	m_ElevatorMotor1->EnableVoltageCompensation(true);
 //	m_ElevatorMotor2->EnableVoltageCompensation(true);
@@ -40,8 +43,8 @@ void Elevator::InitDefaultCommand() {
 
 void Elevator::JoystickControl(float ystick)
 {
-	m_ElevatorMotor1->Set(ControlMode::PercentOutput, ystick*ELEVATOR_OUTPUT_PERCENT);
-	m_ElevatorMotor2->Set(ControlMode::PercentOutput, ystick*ELEVATOR_OUTPUT_PERCENT);
+	m_ElevatorMotor1->Set(ControlMode::PercentOutput, ystick);
+	m_ElevatorMotor2->Set(ControlMode::PercentOutput, ystick);
 }
 
 

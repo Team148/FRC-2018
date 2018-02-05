@@ -17,7 +17,7 @@ void DriveWithJoystick::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
 
-	std::cout <<"drive execute" << std::endl;
+//	std::cout <<"drive execute" << std::endl;
 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -(OI::GetInstance()->drvStick->GetRawAxis(1)));
 }
 
