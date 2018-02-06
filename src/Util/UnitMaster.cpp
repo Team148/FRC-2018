@@ -2,12 +2,15 @@
 #include <iostream>
 #include <math.h>
 
-UnitMaster::UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRotations)
-{
-	m_WheelDiameter = WheelDiameter;
-	m_EncoderUpDuction = EncoderUpDuction;
-	m_TicksPerRotations = TicksPerRotations;
-}
+//UnitMaster::UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRotations)
+//{
+//	m_WheelDiameter = WheelDiameter;
+//	m_EncoderUpDuction = EncoderUpDuction;
+//	m_TicksPerRotations = TicksPerRotations;
+//}
+
+UnitMaster *UnitMaster::m_instance = 0;
+
 UnitMaster::UnitMaster()
 {
 	m_WheelDiameter = WHEEL_DIAMETER_INCHES;
@@ -15,6 +18,13 @@ UnitMaster::UnitMaster()
 	m_TicksPerRotations = TICKS_PER_ROTATIONS;
 }
 
+UnitMaster* UnitMaster::GetInstance() {
+	if (m_instance ==  0) {
+		//std::cout << "info: GetInstance Creating UnitMaster Class" << std::endl;
+		m_instance = new UnitMaster();
+	}
+	return m_instance;
+}
 
 void UnitMaster::SetInches(double func_inches)
 {

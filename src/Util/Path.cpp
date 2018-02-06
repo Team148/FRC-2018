@@ -71,10 +71,10 @@ void Path::EncoderFollowerSetup(){
 	rightFollower = (EncoderFollower*)malloc(sizeof(EncoderFollower));
 	rightFollower->last_error = 0; rightFollower->segment = 0; rightFollower->finished = 0;
 
-	configLeft = {tempDrive->updateLeftEncoder() , TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+	configLeft = {tempDrive->getLeftDrivePosition() , TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
 				                         DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};
 
-	configRight = {tempDrive->updateRightEncoder(), TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+	configRight = {tempDrive->getRightDrivePosition(), TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
 											 DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};         // Kp, Ki, Kd and Kv, Ka
 
 
@@ -139,7 +139,7 @@ double Path::LeftENCCorrectionValue(int index)
 	double l;
 	if(index < length)
 	{
-		l = pathfinder_follow_encoder(configLeft, leftFollower, &leftTrajectory[index], length,tempDrive->updateLeftEncoder() );
+		l = pathfinder_follow_encoder(configLeft, leftFollower, &leftTrajectory[index], length,tempDrive->getLeftDrivePosition());
 		return l;
 	}
 	else
@@ -156,7 +156,7 @@ double Path::RightENCCorrectionValue(int index)
 	if(index < length)
 	{
 
-		r = pathfinder_follow_encoder(configRight, rightFollower, &rightTrajectory[index], length, tempDrive->updateRightEncoder());
+		r = pathfinder_follow_encoder(configRight, rightFollower, &rightTrajectory[index], length, tempDrive->getRightDrivePosition());
 		return r;
 	}
 	else

@@ -1,5 +1,5 @@
 /*
- * Looper.h
+ * UnitMaster.h
  *
  */
 
@@ -11,9 +11,15 @@
 
 
 class UnitMaster {
+private:
+//	UnitMaster();
+	static UnitMaster *m_instance;
+
 public:
-	UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRev);
+//	UnitMaster(double WheelDiameter, double EncoderUpDuction, double TicksPerRev);
 	UnitMaster();
+	static UnitMaster* GetInstance();
+
 
 	void SetInches(double func_inches);
 	void SetInchesPerSec(double func_inches_per_sec);

@@ -40,8 +40,8 @@ public:
 	void configOpenLoop();
 	bool isClosedLoop();
 
-	int updateLeftEncoder();
-	int updateRightEncoder();
+	int getLeftDrivePosition();
+	int getRightDrivePosition();
 	double getLeftDriveVelocity();
 	double getRightDriveVelocity();
 

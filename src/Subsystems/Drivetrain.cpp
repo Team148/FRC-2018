@@ -75,12 +75,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	//Set ALL motors to coast
 	SetBrakeMode(0);
 
-//	//set left motors 2 and 3 to follow mode
-//	m_leftMotor2->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-//	m_leftMotor3->Set(ControlMode::Follower,DRIVE_LEFTMOTOR_1);
-//	//set right motors 2 and 3 to follow mode
-//	m_rightMotor2->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
-//	m_rightMotor3->Set(ControlMode::Follower,DRIVE_RIGHTMOTOR_1);
 
 	//Set motors to safety disabled
 	m_leftMotor1->SetSafetyEnabled(false);
@@ -137,7 +131,8 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
-	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
+	frc::SmartDashboard::PutNumber("RightEncoderVelocity", getRightDriveVelocity());
+	frc::SmartDashboard::PutNumber("VelocityError", unit_master.GetInchesPerSec(right_velocity-getRightDriveVelocity()));
 }
 
 
@@ -218,22 +213,22 @@ void Drivetrain::configOpenLoop()
 
 	m_rightMotor1->ConfigPeakOutputForward(1, 0);
 	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
+
+	SetBrakeMode(false);
 }
 
 bool Drivetrain::isClosedLoop() {
 	return m_closedLoop;
 }
 
-int Drivetrain::updateLeftEncoder() {
-	int value = 0;
-	value = m_leftMotor1->GetSelectedSensorPosition(0);
-	return value;
+int Drivetrain::getLeftDrivePosition() {
+	return m_leftMotor1->GetSelectedSensorPosition(0);
+;
 }
 
-int Drivetrain::updateRightEncoder() {
-	int value = 0;
-	value = m_rightMotor1->GetSelectedSensorPosition(0);
-	return value;
+int Drivetrain::getRightDrivePosition() {
+	return m_rightMotor1->GetSelectedSensorPosition(0);
+;
 }
 double Drivetrain::getLeftDriveVelocity()
 {
@@ -274,7 +269,7 @@ double Drivetrain::updatePigeon() {
 void Drivetrain::unitConversionTest()
 {
 //	unit_master.SetTicks(m_leftMotor1->GetSelectedSensorPosition(0));
-	unit_master.SetTicksPer100ms(m_leftMotor1->GetSelectedSensorVelocity(0));
+//	unit_master.SetTicksPer100ms(m_leftMotor1->GetSelectedSensorVelocity(0));
 //	unit_master.SetInches(18.8495);
 
 //	std::cout << "Inches: " << unit_master.GetInches() << " Rotations: " << unit_master.GetRotations() << std::endl;
