@@ -56,20 +56,20 @@ double UnitMaster::GetInches()
 	//	double m_ticks = inches*m_TicksPerRev/(m_EncoderUpDuction*M_PI*m_WheelDiameter);
 	return m_ticks*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
 }
-double UnitMaster::GetInchesPerSec()
-{
-	////	double return_ticks_per_sec = (inches_per_sec*m_TicksPerRec)/(m_EncoderUpDuction*(M_PI*m_WheelDiameter));
-	return m_ticks_per_sec*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
-}
+//double UnitMaster::GetInchesPerSec()
+//{
+//	////	double return_ticks_per_sec = (inches_per_sec*m_TicksPerRec)/(m_EncoderUpDuction*(M_PI*m_WheelDiameter));
+//	return m_ticks_per_sec*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
+//}
 
 double UnitMaster::GetRotations()
 {
 	return GetInches()*(1/(M_PI*m_WheelDiameter));
 }
-double UnitMaster::GetRotationsPerSec()
-{
-	return GetInchesPerSec()*(1/(M_PI*m_WheelDiameter));
-}
+//double UnitMaster::GetRotationsPerSec()
+//{
+//	return GetInchesPerSec()*(1/(M_PI*m_WheelDiameter));
+//}
 
 double UnitMaster::GetTicks()
 {
@@ -88,5 +88,10 @@ double UnitMaster::GetTicksPerSec()
 
 double UnitMaster::GetTicksPer100ms(double func_inches_per_sec)
 {
-	return (func_inches_per_sec*m_TicksPerRotations)/(m_EncoderUpDuction*(M_PI*m_WheelDiameter));
+	return ((func_inches_per_sec*m_TicksPerRotations)/(m_EncoderUpDuction*(M_PI*m_WheelDiameter)))*0.10;
+}
+double UnitMaster::GetInchesPerSec(double func_ticks_per_100_ms)
+{
+	return (m_ticks_per_sec*10)*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
+
 }

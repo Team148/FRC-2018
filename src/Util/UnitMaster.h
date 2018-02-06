@@ -27,7 +27,7 @@ public:
 
 
 	double GetInches();
-	double GetInchesPerSec();
+	double GetInchesPerSec(double func_ticks_per_100_ms);
 
 	double GetRotations();
 	double GetRotationsPerSec();

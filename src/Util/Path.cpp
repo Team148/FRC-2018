@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 //#include "stdio.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 Path::Path(){
 
@@ -10,8 +11,8 @@ Path::Path(){
 		DRIVE_TRAIN_BASE = 26;
 		MAX_VELOCITY = 150;
 		MAX_ACCEL = 100;
-		MAX_JERK = 700;
-		TIME_STEP = .01;
+		MAX_JERK = 600;
+		TIME_STEP = .02;
 
 	    Waypoint *points = (Waypoint*)malloc(sizeof(Waypoint) * POINT_LENGTH);
 
@@ -19,7 +20,7 @@ Path::Path(){
 	    //Waypoint p2 = { .7, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 	    Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
-		Waypoint p2 = { 24, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+		Waypoint p2 = { 240, 0, 0 };           // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 //		Waypoint p2 = { 1, 1, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 
