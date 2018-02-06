@@ -102,7 +102,7 @@ public:
 
 	void TeleopInit() override
 	{
-
+		drivetrain->configOpenLoop();
 	}
 
 

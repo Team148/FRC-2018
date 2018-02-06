@@ -57,8 +57,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor1->ConfigPeakOutputForward(1, 0);
 	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
 
-	m_leftMotor1->ConfigNominalOutputForward(0,0);
-	m_rightMotor1->ConfigNominalOutputForward(0,0);
 
 	m_leftMotor1->Config_kF(0, DRIVETRAIN_F, 0);
 	m_rightMotor1->Config_kF(0, DRIVETRAIN_F, 0);
@@ -179,6 +177,13 @@ void Drivetrain::configClosedLoop() {
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
 	m_rightMotor1->ConfigNominalOutputForward(0,0);
 
+	m_leftMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_leftMotor1->EnableVoltageCompensation(true);
+
+	m_rightMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_rightMotor1->EnableVoltageCompensation(true);
+
+
 	m_leftMotor1->Config_kF(0, DRIVETRAIN_F, 0);
 	m_rightMotor1->Config_kF(0, DRIVETRAIN_F, 0);
 
@@ -194,6 +199,23 @@ void Drivetrain::configClosedLoop() {
 
 
 	m_closedLoop = true;
+}
+
+void Drivetrain::configOpenLoop()
+{
+	m_leftMotor1->EnableVoltageCompensation(false);
+	m_rightMotor1->EnableVoltageCompensation(false);
+	m_leftMotor1->ConfigNominalOutputForward(0,0);
+	m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+	m_leftMotor1->ConfigNominalOutputReverse(0,0);
+	m_rightMotor1->ConfigNominalOutputReverse(0,0);
+
+	m_leftMotor1->ConfigPeakOutputForward(1, 0);
+	m_leftMotor1->ConfigPeakOutputReverse(-1, 0);
+
+	m_rightMotor1->ConfigPeakOutputForward(1, 0);
+	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
 }
 
 bool Drivetrain::isClosedLoop() {

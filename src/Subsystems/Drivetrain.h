@@ -35,6 +35,7 @@ public:
 	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
+	void configOpenLoop();
 	bool isClosedLoop();
 
 	int updateLeftEncoder();
