@@ -45,6 +45,8 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor2->SetInverted(true);
 	m_rightMotor3->SetInverted(true);
 
+
+
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
 	m_rightMotor1->ConfigNominalOutputForward(0,0);
 
@@ -163,16 +165,16 @@ void Drivetrain::configClosedLoop() {
 	//left drive encoder initialize
 	m_leftMotor1->Set(ControlMode::Velocity,0.0);
 	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_leftMotor1->SetInverted(false);
-	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
+	m_leftMotor1->SetSensorPhase(false);
+//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
 
 
 	//right drive encoder initialize
 	m_rightMotor1->Set(ControlMode::Velocity,0.0);
 	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_rightMotor1->SetInverted(true);
-	m_rightMotor1->ConfigAllowableClosedloopError(0,0,0);
-	m_rightMotor1->Set(0.0);
+	m_rightMotor1->SetSensorPhase(false);
+//	m_rightMotor1->ConfigAllowableClosedloopError(0,0,0);
+//	m_rightMotor1->Set(0.0);
 
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
 	m_rightMotor1->ConfigNominalOutputForward(0,0);

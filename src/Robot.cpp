@@ -102,12 +102,14 @@ public:
 
 	void TeleopInit() override
 	{
-		drivetrain->configOpenLoop();
+//		drivetrain->configOpenLoop();
+		drivetrain->configClosedLoop();
+
 	}
 
 
 	void TeleopPeriodic() override {
-		frc::Scheduler::GetInstance()->Run();
+		//frc::Scheduler::GetInstance()->Run();
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
@@ -119,7 +121,6 @@ public:
 //		drivetrain->unitConversionTest();
 
 //		drivetrain->getLeftDriveVelocity();
-		frc::SmartDashboard::PutNumber("TeleopDriveVelocity",drivetrain->getLeftDriveVelocity());
 
 //		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
 //		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
@@ -127,9 +128,15 @@ public:
 
 //		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
 //		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
+		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
+
 	}
 
-	void TestPeriodic() override {}
+	void TestPeriodic() override {
+		drivetrain->SetDriveVelocity(0.0, unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
+//		frc::SmartDashboard::PutNumber("DriveVelocity",drivetrain->getLeftDriveVelocity());
+
+	}
 
 private:
 	// Have it null by default so that if testing teleop it
