@@ -2,9 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <math.h>
+#include <./Subsystems/Drivetrain.h>
 //#include "stdio.h"
 
 Path::Path(){
+
+		TICKS_PER_REV = 4096;
+		WHEEL_CIRC = 6 * PI;
+
 
 		POINT_LENGTH = 2;
 		DRIVE_TRAIN_BASE = 26;
@@ -12,6 +18,8 @@ Path::Path(){
 		MAX_ACCEL = 100;
 		MAX_JERK = 700;
 		TIME_STEP = .01;
+
+
 
 	    Waypoint *points = (Waypoint*)malloc(sizeof(Waypoint) * POINT_LENGTH);
 
@@ -47,12 +55,27 @@ Path::Path(){
 
 
 
+
 		//FILE *fp = fopen("halensFPfile.csv", "w");
 		////pathfinder_serialize_csv(fp, trajectory, length * sizeof(trajectory));
 		//fclose(fp);
 }
 
-void Path::CreatePath(){
+void Path::EncoderFollowerSetup(){
+	Drivetrain *tempDrive  = Drivetrain::GetInstance();
+
+	leftFollower = (EncoderFollower*) malloc(sizeof(EncoderFollower));
+	leftFollower->last_error = 0; leftFollower->segment = 0; leftFollower->finished = 0;
+
+	rightFollower = (EncoderFollower*)malloc(sizeof(EncoderFollower));
+	rightFollower->last_error = 0; rightFollower->segment = 0; rightFollower->finished = 0;
+
+	configLeft = {tempDrive->updateLeftEncoder() , TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+				                         DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};
+
+	configRight = {tempDrive->updateRightEncoder(), TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+											 DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};         // Kp, Ki, Kd and Kv, Ka
+
 
 
 }
@@ -79,6 +102,7 @@ double Path::GetLeftValue(int index){
 
 }
 
+
 double Path::GetRightValue(int index){
 	//std::cout << "Right Drive" << std::endl;
 	//std::cout << index << std::endl;
@@ -100,12 +124,44 @@ double Path::GetRightValue(int index){
 
 Segment Path::GetLeftSegment(int index)
 {
-
 	return leftTrajectory[index];
 }
 
-Segment Path::GetRightSegment(int index){
+Segment Path::GetRightSegment(int index)
+{
 	return rightTrajectory[index];
+}
+
+double Path::LeftENCCorrectionValue(int index)
+{
+	Drivetrain *tempDrive  = Drivetrain::GetInstance();
+	double l;
+	if(index < length)
+	{
+		l = pathfinder_follow_encoder(configLeft, leftFollower, &leftTrajectory[index], length,tempDrive->updateLeftEncoder() );
+		return l;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+
+double Path::RightENCCorrectionValue(int index)
+{
+	Drivetrain *tempDrive  = Drivetrain::GetInstance();
+	double r;
+	if(index < length)
+	{
+
+		r = pathfinder_follow_encoder(configRight, rightFollower, &rightTrajectory[index], length, tempDrive->updateRightEncoder());
+		return r;
+	}
+	else
+	{
+		return 0;
+	}
 
 }
 
