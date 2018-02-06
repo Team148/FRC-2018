@@ -14,11 +14,20 @@ private:
 	double MAX_JERK;
 	double TIME_STEP;
 	int POINT_LENGTH;
+	int TICKS_PER_REV;
+	double WHEEL_CIRC;
+
+	EncoderFollower* leftFollower;
+	EncoderFollower* rightFollower;
+	EncoderConfig configLeft;
+	EncoderConfig configRight;
+
 
 	Segment* leftTrajectory;
 	Segment* rightTrajectory;
 	Segment* trajectory;
 	int length;
+
 	TrajectoryCandidate candidate;
 
 
@@ -28,8 +37,12 @@ public:
 	void CreatePath();
 	double GetLeftValue(int index);
 	double GetRightValue(int index);
+	double LeftENCCorrectionValue(int index);
+	double RightENCCorrectionValue(int index);
 	Segment GetLeftSegment(int index);
 	Segment GetRightSegment(int index);
+
+	void EncoderFollowerSetup();
 	void End();
 
 };
