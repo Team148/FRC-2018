@@ -5,6 +5,7 @@
 #include "Util/UnitMaster.h"
 #include "../RobotMap.h"
 #include <iostream>
+#include "SmartDashboard/SmartDashboard.h"
 
 Drivetrain *Drivetrain::m_instance = 0;
 UnitMaster unit_master;
@@ -128,11 +129,14 @@ void Drivetrain::Tank(double leftstick, double rightstick) {
 
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
-	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+//	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+
+
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
 	m_rightMotor1->Set(ControlMode::Velocity, right_velocity);
 
-
+	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
+	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
 }
 
 
@@ -205,6 +209,14 @@ int Drivetrain::updateRightEncoder() {
 	int value = 0;
 	value = m_rightMotor1->GetSelectedSensorPosition(0);
 	return value;
+}
+double Drivetrain::getLeftDriveVelocity()
+{
+	return m_leftMotor1->GetSelectedSensorVelocity(0);
+}
+double Drivetrain::getRightDriveVelocity()
+{
+	return m_rightMotor1->GetSelectedSensorVelocity(0);
 }
 
 double Drivetrain::updateGyroYaw() {

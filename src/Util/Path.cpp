@@ -19,7 +19,7 @@ Path::Path(){
 	    //Waypoint p2 = { .7, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 	    Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
-		Waypoint p2 = { 120, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+		Waypoint p2 = { 24, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 //		Waypoint p2 = { 1, 1, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 

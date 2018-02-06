@@ -39,6 +39,8 @@ public:
 
 	int updateLeftEncoder();
 	int updateRightEncoder();
+	double getLeftDriveVelocity();
+	double getRightDriveVelocity();
 
 	double updateGyroYaw();
 	double updateGyroPitch();

@@ -53,10 +53,10 @@ void PathFind::Execute() {
 	//int index = (int)(timeEnlapsed);
 
     //std::cout << time_index;
-	std::cout << frc::Timer::GetFPGATimestamp() <<" ; "  << PathPlanner->GetLeftSegment(m_lastTime).x << " ; " << PathPlanner->GetRightSegment(m_lastTime).y << " ; "  << PathPlanner->GetLeftSegment(m_lastTime).velocity  << " ; " << PathPlanner->GetRightSegment(m_lastTime).velocity << " ; " << std::endl;
+//	std::cout << frc::Timer::GetFPGATimestamp() <<" ; "  << PathPlanner->GetLeftSegment(m_lastTime).x << " ; " << PathPlanner->GetRightSegment(m_lastTime).y << " ; "  << PathPlanner->GetLeftSegment(m_lastTime).velocity  << " ; " << PathPlanner->GetRightSegment(m_lastTime).velocity << " ; " << std::endl;
 	m_lastTime = (int)((frc::Timer::GetFPGATimestamp() - m_startTime )/ 0.01);
 
-	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
+//	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
 //	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
 	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
 	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));

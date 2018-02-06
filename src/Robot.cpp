@@ -92,6 +92,10 @@ public:
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
+		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
+
 	}
 
 	void TeleopInit() override
@@ -108,6 +112,7 @@ public:
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
+
 
 //		drivetrain->unitConversionTest();
 
