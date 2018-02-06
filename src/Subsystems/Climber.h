@@ -2,9 +2,9 @@
 #define Climber_H
 
 #include <Commands/Subsystem.h>
+#include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
-#include "WPILib.h"
 #include "Constants.h"
 
 class Climber : public Subsystem {
