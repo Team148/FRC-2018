@@ -16,9 +16,9 @@ Climber::Climber() : Subsystem("Climber") {
 	m_ClimbMotor2->SetNeutralMode(NeutralMode::Brake);
 	m_ClimbMotor3->SetNeutralMode(NeutralMode::Brake);
 
-	m_ClimbMotor1->EnableVoltageCompensation(true);
-	m_ClimbMotor2->EnableVoltageCompensation(true);
-	m_ClimbMotor3->EnableVoltageCompensation(true);
+	m_ClimbMotor1->EnableVoltageCompensation(false);
+	m_ClimbMotor2->EnableVoltageCompensation(false);
+	m_ClimbMotor3->EnableVoltageCompensation(false);
 
 	//climber ONLY goes backwards
 	m_ClimbMotor1->ConfigVoltageCompSaturation(12.0,0);

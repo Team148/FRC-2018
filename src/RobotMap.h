@@ -10,8 +10,8 @@ constexpr int DRIVE_RIGHTMOTOR_1 	= 31;
 constexpr int DRIVE_RIGHTMOTOR_2 	= 32;
 constexpr int DRIVE_RIGHTMOTOR_3 	= 33;
 
-constexpr int INTAKE_MOTOR_1		= 28;
-constexpr int INTAKE_MOTOR_2		= 29;
+constexpr int INTAKE_MOTOR_1		= 5;
+constexpr int INTAKE_MOTOR_2		= 6;
 
 constexpr int ELEVATOR_MOTOR_1		= 9;
 constexpr int ELEVATOR_MOTOR_2		= 10;

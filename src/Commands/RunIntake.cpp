@@ -17,7 +17,7 @@ void RunIntake::Initialize() {
 			Intake::GetInstance()->SetIntakeMotor(OUTTAKE_PERCENT);
 		}
 		else {
-			Intake::GetInstance()->SetIntakeMotor(1.0);
+			Intake::GetInstance()->SetIntakeMotor(INTAKE_PERCENT);
 		}
 
 	}
