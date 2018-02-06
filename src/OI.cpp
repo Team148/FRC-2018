@@ -1,9 +1,10 @@
 #include "OI.h"
 #include <WPILib.h>
+#include <iostream>
 
+#include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
-#include <Commands/RunIntake.h>
 
 OI *OI::m_instance = 0;
 
@@ -28,6 +29,7 @@ OI::OI() {
 	m_opButton4 = new JoystickButton(opStick, 4);
 	m_opButton5 = new JoystickButton(opStick, 5);
 	m_opButton6 = new JoystickButton(opStick, 6);
+	m_opButton7 = new JoystickButton(opStick, 7);
 
 
 	//Intake
@@ -49,7 +51,7 @@ OI::OI() {
 
 OI* OI::GetInstance() {
 	if (m_instance ==  0) {
-		//std::cout << "info: GetInstance Creating OperatorInterface Class" << std::endl;
+		std::cout << "info: GetInstance Creating OperatorInterface Class" << std::endl;
 		m_instance = new OI();
 	}
 	return m_instance;

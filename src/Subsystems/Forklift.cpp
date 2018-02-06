@@ -32,6 +32,6 @@ void Forklift::InitDefaultCommand() {
 
 }
 
-void Forklift::Set(float percent) {
+void Forklift::SetForkliftMotor(float percent) {
 	m_ForkliftMotor1->Set(ControlMode::PercentOutput, percent);
 }

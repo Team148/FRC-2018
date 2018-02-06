@@ -15,12 +15,11 @@ private:
 
 	Climber();
 	static Climber *m_instance;
-
 public:
 	static Climber* GetInstance();
 
 	void InitDefaultCommand();
-	void Set(float percent);
+	void SetClimberMotor(float percent);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "RunIntake.h"
+#include "OI.h"
 
 RunIntake::RunIntake(bool on, bool reversed) {
 	// Use Requires() here to declare subsystem dependencies

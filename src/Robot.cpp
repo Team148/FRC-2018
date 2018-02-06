@@ -21,10 +21,13 @@
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Forklift.h"
 #include "Subsystems/Climber.h"
+
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
 #include "Commands/ElevatorWithJoystick.h"
+#include "Commands/RunClimber.h"
+#include "Commands/GrabPartner.h"
 
 class Robot : public frc::TimedRobot {
 private:

@@ -1,7 +1,5 @@
 #include "ElevatorWithJoystick.h"
 #include "OI.h"
-#include <iostream>
-
 
 ElevatorWithJoystick::ElevatorWithJoystick() {
 	// Use Requires() here to declare subsystem dependencies
@@ -16,8 +14,6 @@ void ElevatorWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorWithJoystick::Execute() {
-
-//	std::cout << "elevator execute" << std::endl;
 	Elevator::GetInstance()->JoystickControl(OI::GetInstance()->opStick->GetRawAxis(1));
 }
 
@@ -29,7 +25,6 @@ bool ElevatorWithJoystick::IsFinished() {
 // Called once after isFinished returns true
 void ElevatorWithJoystick::End() {
 	Elevator::GetInstance()->JoystickControl(0.0);
-
 }
 
 // Called when another command which requires one or more of the same

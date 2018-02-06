@@ -25,6 +25,6 @@ private:
 	JoystickButton* m_opButton4;
 	JoystickButton* m_opButton5;
 	JoystickButton* m_opButton6;
-//	JoystickButton* m_opButton7;
+	JoystickButton* m_opButton7;
 
 };

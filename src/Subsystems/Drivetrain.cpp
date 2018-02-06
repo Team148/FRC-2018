@@ -65,7 +65,7 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 Drivetrain* Drivetrain::GetInstance() {
 	if (m_instance ==  0) {
-		//std::cout << "info: GetInstance Creating Drivetrain Class" << std::endl;
+		std::cout << "info: GetInstance Creating Drivetrain Class" << std::endl;
 		m_instance = new Drivetrain();
 	}
 	return m_instance;

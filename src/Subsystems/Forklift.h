@@ -13,11 +13,10 @@ private:
 
 	Forklift();
 	static Forklift *m_instance;
-
 public:
 	static Forklift* GetInstance();
 	void InitDefaultCommand();
-	void Set(float percent);
+	void SetForkliftMotor(float percent);
 };
 
 #endif
