@@ -58,6 +58,8 @@ void PathFind::Execute() {
 
 //	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
 //	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
+	frc::SmartDashboard::PutNumber("RightVelocityBeforeConv", PathPlanner->GetRightValue(m_lastTime));
+
 	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
 	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
     //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);

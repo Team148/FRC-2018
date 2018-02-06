@@ -137,6 +137,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
+	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 }
 
 
@@ -253,7 +254,7 @@ void Drivetrain::unitConversionTest()
 //	unit_master.SetInches(18.8495);
 
 //	std::cout << "Inches: " << unit_master.GetInches() << " Rotations: " << unit_master.GetRotations() << std::endl;
-	std::cout << "Time: " << frc::Timer::GetFPGATimestamp() << "InchesPerSec: " << unit_master.GetInchesPerSec() << std::endl;
+//	std::cout << "Time: " << frc::Timer::GetFPGATimestamp() << "InchesPerSec: " << unit_master.GetInchesPerSec() << std::endl;
 //	std::cout << "Ticks: " << unit_master.GetTicks() << " Rotations: " << unit_master.GetRotations() << std::endl;
 
 }

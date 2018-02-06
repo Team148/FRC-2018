@@ -26,6 +26,7 @@
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
+#include "Util/UnitMaster.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -40,6 +41,7 @@ public:
 	Climber *climber = 0;
 	Forklift *forklift = 0;
 	OI *oi = 0;
+	UnitMaster unit_master;
 
 
 
@@ -116,6 +118,8 @@ public:
 
 //		drivetrain->unitConversionTest();
 
+//		drivetrain->getLeftDriveVelocity();
+		frc::SmartDashboard::PutNumber("TeleopDriveVelocity",drivetrain->getLeftDriveVelocity());
 
 //		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
 //		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
