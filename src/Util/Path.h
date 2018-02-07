@@ -2,31 +2,34 @@
 #define SRC_PATH_H_
 
 #include "pathfinder.h"
+#include "../constants.h"
+
 
 
 class Path {
 private:
-	Waypoint* points;
+	Waypoint* points = 0;
 
-	double DRIVE_TRAIN_BASE;
-	double MAX_VELOCITY;
-	double MAX_ACCEL;
-	double MAX_JERK;
-	double TIME_STEP;
-	int POINT_LENGTH;
-	int TICKS_PER_REV;
-	double WHEEL_CIRC;
-
-	EncoderFollower* leftFollower;
-	EncoderFollower* rightFollower;
-	EncoderConfig configLeft;
-	EncoderConfig configRight;
+	double DRIVE_TRAIN_BASE = DRIVE_TRAIN_BASE_INCHES;
+	double MAX_VELOCITY = PATH_MAX_VELOCITY;
+	double MAX_ACCEL = PATH_MAX_ACCEL;
+	double MAX_JERK = PATH_MAX_JERK;
+	double TIME_STEP = PATH_TIME_STEP;
+	int POINT_LENGTH = 0;
+	int TICKS_PER_REV = TICKS_PER_ROTATIONS;
+	double WHEEL_CIRC = WHEEL_CIRC_INCHES;
 
 
-	Segment* leftTrajectory;
-	Segment* rightTrajectory;
-	Segment* trajectory;
-	int length;
+	EncoderFollower* leftEncoderFollower = 0;
+	EncoderFollower* rightEncoderFollower = 0;
+	EncoderConfig configLeftEncoder;
+	EncoderConfig configRightEncoder;
+
+
+	Segment* leftTrajectory = 0;
+	Segment* rightTrajectory = 0;
+	Segment* trajectory = 0;
+	int length = 0;
 
 	TrajectoryCandidate candidate;
 

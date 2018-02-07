@@ -12,12 +12,19 @@ constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
-constexpr double TICKS_PER_ROTATIONS = 16384;
+constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
+constexpr int TICKS_PER_ROTATIONS = 16384;
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
+//PATHFINDER
+constexpr double DRIVE_TRAIN_BASE_INCHES = 26.0;
+constexpr double PATH_MAX_VELOCITY = 150.0;
+constexpr double PATH_MAX_ACCEL = 100.0;
+constexpr double PATH_MAX_JERK = 600.0;
+constexpr double PATH_TIME_STEP = 0.02;
 
 
-
+//OUTPUTS
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float ELEVATOR_OUTPUT_PERCENT = 0.30;
 
