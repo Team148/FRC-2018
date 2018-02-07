@@ -102,6 +102,6 @@ double UnitMaster::GetTicksPer100ms(double func_inches_per_sec)
 }
 double UnitMaster::GetInchesPerSec(double func_ticks_per_100_ms)
 {
-	return (m_ticks_per_sec*10)*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
+	return (func_ticks_per_100_ms*10)*((m_EncoderUpDuction*(M_PI*m_WheelDiameter))/m_TicksPerRotations);
 
 }

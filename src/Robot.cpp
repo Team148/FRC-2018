@@ -102,14 +102,14 @@ public:
 
 	void TeleopInit() override
 	{
-//		drivetrain->configOpenLoop();
-		drivetrain->configClosedLoop();
+		drivetrain->configOpenLoop();
+//		drivetrain->configClosedLoop();
 
 	}
 
 
 	void TeleopPeriodic() override {
-		//frc::Scheduler::GetInstance()->Run();
+		frc::Scheduler::GetInstance()->Run();
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
@@ -128,7 +128,7 @@ public:
 
 //		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
 //		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
-		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
+//		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
 
 	}
 

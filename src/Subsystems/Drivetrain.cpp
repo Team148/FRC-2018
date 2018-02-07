@@ -131,8 +131,8 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
-	frc::SmartDashboard::PutNumber("RightEncoderVelocity", getRightDriveVelocity());
-	frc::SmartDashboard::PutNumber("VelocityError", unit_master.GetInchesPerSec(right_velocity-getRightDriveVelocity()));
+	frc::SmartDashboard::PutNumber("RightEncoderVelocity", unit_master.GetInchesPerSec(getRightDriveVelocity()));
+	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 }
 
 
@@ -190,6 +190,10 @@ void Drivetrain::configClosedLoop() {
 	m_leftMotor1->Config_kI(0, DRIVETRAIN_I, 0);
 	m_rightMotor1->Config_kI(0, DRIVETRAIN_I, 0);
 
+//	m_leftMotor1->Config_IntegralZone(0, 300, 0);
+//	m_rightMotor1->Config_IntegralZone(0, 300, 0);
+
+
 	m_leftMotor1->Config_kD(0, DRIVETRAIN_D, 0);
 	m_rightMotor1->Config_kD(0, DRIVETRAIN_D, 0);
 	SetBrakeMode(1);
@@ -200,6 +204,9 @@ void Drivetrain::configClosedLoop() {
 
 void Drivetrain::configOpenLoop()
 {
+	m_leftMotor1->Set(ControlMode::PercentOutput, 0.0);
+	m_rightMotor1->Set(ControlMode::PercentOutput, 0.0);
+
 	m_leftMotor1->EnableVoltageCompensation(false);
 	m_rightMotor1->EnableVoltageCompensation(false);
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
@@ -223,12 +230,12 @@ bool Drivetrain::isClosedLoop() {
 
 int Drivetrain::getLeftDrivePosition() {
 	return m_leftMotor1->GetSelectedSensorPosition(0);
-;
+
 }
 
 int Drivetrain::getRightDrivePosition() {
 	return m_rightMotor1->GetSelectedSensorPosition(0);
-;
+
 }
 double Drivetrain::getLeftDriveVelocity()
 {
