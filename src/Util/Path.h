@@ -31,7 +31,6 @@ private:
 	Segment* trajectory = 0;
 	int length = 0;
 
-	TrajectoryCandidate candidate;
 
 
 
