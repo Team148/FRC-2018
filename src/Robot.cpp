@@ -23,10 +23,14 @@
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Forklift.h"
 #include "Subsystems/Climber.h"
+
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
 #include "Util/UnitMaster.h"
+#include "Commands/ElevatorWithJoystick.h"
+#include "Commands/RunClimber.h"
+#include "Commands/GrabPartner.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -53,10 +57,10 @@ public:
 		command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
-		//intake = Intake::GetInstance();
-		//elevator = Elevator::GetInstance();
-		//climber = Climber::GetInstance();
-		//forklift = Forklift::GetInstance();
+		intake = Intake::GetInstance();
+		elevator = Elevator::GetInstance();
+		climber = Climber::GetInstance();
+		forklift = Forklift::GetInstance();
 
 	}
 

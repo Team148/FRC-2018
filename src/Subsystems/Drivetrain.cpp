@@ -18,13 +18,13 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//left drive motors
 	m_leftMotor1 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_1);
-	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
-	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
+	m_leftMotor2 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_2);
+	m_leftMotor3 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_3);
 
 	//right drive motors
 	m_rightMotor1 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_1);
-	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
-	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
+	m_rightMotor2 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_2);
+	m_rightMotor3 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_3);
 
 
 
@@ -75,7 +75,6 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	//Set ALL motors to coast
 	SetBrakeMode(0);
 
-
 	//Set motors to safety disabled
 	m_leftMotor1->SetSafetyEnabled(false);
 	m_leftMotor2->SetSafetyEnabled(false);
@@ -93,16 +92,11 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
-	PigeonIMU::GeneralStatus generalStatus;
-
-	//pigeon calibration
-	pigeon->GetGeneralStatus(generalStatus);
-
 }
 
 Drivetrain* Drivetrain::GetInstance() {
 	if (m_instance ==  0) {
-		//std::cout << "info: GetInstance Creating Drivetrain Class" << std::endl;
+		std::cout << "info: GetInstance Creating Drivetrain Class" << std::endl;
 		m_instance = new Drivetrain();
 	}
 	return m_instance;
@@ -271,6 +265,11 @@ double Drivetrain::updatePigeon() {
 	pigeon->GetRawGyro(yawPitchRoll);
 
 	return yawPitchRoll[0];
+}
+
+void Drivetrain::getPigeonStatus() {
+	PigeonIMU::GeneralStatus generalStatus;
+	pigeon->GetGeneralStatus(generalStatus);
 }
 
 void Drivetrain::unitConversionTest()

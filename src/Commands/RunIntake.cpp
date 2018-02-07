@@ -1,4 +1,5 @@
 #include "RunIntake.h"
+#include "OI.h"
 
 RunIntake::RunIntake(bool on, bool reversed) {
 	// Use Requires() here to declare subsystem dependencies
@@ -13,10 +14,10 @@ void RunIntake::Initialize() {
 
 	if(m_on) {
 		if(m_reversed) {
-			Intake::GetInstance()->SetIntakeMotor(-1.0);
+			Intake::GetInstance()->SetIntakeMotor(OUTTAKE_PERCENT);
 		}
 		else {
-			Intake::GetInstance()->SetIntakeMotor(1.0);
+			Intake::GetInstance()->SetIntakeMotor(INTAKE_PERCENT);
 		}
 
 	}

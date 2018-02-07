@@ -1,7 +1,6 @@
 #include "DriveWithJoystick.h"
 #include "OI.h"
 
-
 DriveWithJoystick::DriveWithJoystick() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -15,9 +14,7 @@ void DriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-
-	//std::cout <<"drive execute" << std::endl;
-	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -(OI::GetInstance()->drvStick->GetRawAxis(1)));
+	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()

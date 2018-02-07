@@ -2,9 +2,9 @@
 #define Forklift_H
 
 #include <Commands/Subsystem.h>
+#include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
-#include "WPILib.h"
 #include "Constants.h"
 
 class Forklift : public Subsystem {
@@ -13,11 +13,10 @@ private:
 
 	Forklift();
 	static Forklift *m_instance;
-
 public:
 	static Forklift* GetInstance();
 	void InitDefaultCommand();
-	void Set(float percent);
+	void SetForkliftMotor(float percent);
 };
 
 #endif

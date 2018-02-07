@@ -24,9 +24,13 @@ constexpr double PATH_MAX_JERK = 600.0;
 constexpr double PATH_TIME_STEP = 0.02;
 
 
-//OUTPUTS
+constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
+constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
+
+constexpr float INTAKE_PERCENT = 1.0;
+constexpr float OUTTAKE_PERCENT = -1.0;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
-constexpr float ELEVATOR_OUTPUT_PERCENT = 0.30;
+constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 
 
 
