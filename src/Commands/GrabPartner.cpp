@@ -1,9 +1,10 @@
 #include "GrabPartner.h"
+#include "OI.h"
 
 GrabPartner::GrabPartner(bool on) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Forklift::GetInstance());
+	Requires(Wrangler::GetInstance());
 	m_on = on;
 }
 
@@ -12,11 +13,11 @@ void GrabPartner::Initialize() {
 
 	if(m_on)
 	{
-		Forklift::GetInstance()->Set(CLIMBER_OUTPUT_PERCENT);
+		Wrangler::GetInstance()->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
 	}
 	else
 	{
-		Forklift::GetInstance()->Set(0.0);
+		Wrangler::GetInstance()->SetWranglerMotor(0.0);
 
 	}
 }

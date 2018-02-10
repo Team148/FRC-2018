@@ -1,8 +1,8 @@
 #ifndef TankDriveJoystick_H
 #define TankDriveJoystick_H
 
-#include "Commands/Command.h"
 #include "Subsystems/Drivetrain.h"
+#include "Commands/Command.h"
 
 class TankDriveJoystick : public frc::Command {
 public:

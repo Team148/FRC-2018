@@ -13,20 +13,29 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
+#include <Commands/Pathfind.h>
+#include <Subsystems/Wrangler.h>
+//#include "constants.h"
 #include "RobotMap.h"
 #include "OI.h"
 
 #include "Subsystems/Drivetrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Elevator.h"
-#include "Subsystems/Forklift.h"
 #include "Subsystems/Climber.h"
+
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
+#include "Util/UnitMaster.h"
+#include "Commands/ElevatorWithJoystick.h"
+#include "Commands/RunClimber.h"
+#include "Commands/GrabPartner.h"
 
 class Robot : public frc::TimedRobot {
 private:
+	float m_armAngle = 0.0;
+	Command* command;
 
 public:
 
@@ -34,8 +43,9 @@ public:
 	Intake *intake = 0;
 	Elevator *elevator = 0;
 	Climber *climber = 0;
-	Forklift *forklift = 0;
+	Wrangler *wrangler = 0;
 	OI *oi = 0;
+	UnitMaster unit_master;
 
 
 
@@ -44,12 +54,13 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+		command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
-		//intake = Intake::GetInstance();
-		//elevator = Elevator::GetInstance();
-		//climber = Climber::GetInstance();
-		//forklift = Forklift::GetInstance();
+		intake = Intake::GetInstance();
+		elevator = Elevator::GetInstance();
+		climber = Climber::GetInstance();
+		wrangler = Wrangler::GetInstance();
 
 	}
 
@@ -81,15 +92,22 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
+		frc::Scheduler::GetInstance()->AddCommand(command);
 
 	}
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
+		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
+
 	}
 
 	void TeleopInit() override
 	{
+		drivetrain->configOpenLoop();
+//		drivetrain->configClosedLoop();
 
 	}
 
@@ -103,8 +121,10 @@ public:
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
 
+
 //		drivetrain->unitConversionTest();
 
+//		drivetrain->getLeftDriveVelocity();
 
 //		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
 //		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
@@ -112,9 +132,15 @@ public:
 
 //		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
 //		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
+//		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
+
 	}
 
-	void TestPeriodic() override {}
+	void TestPeriodic() override {
+//		drivetrain->SetDriveVelocity(0.0, unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
+//		frc::SmartDashboard::PutNumber("DriveVelocity",drivetrain->getLeftDriveVelocity());
+
+	}
 
 private:
 	// Have it null by default so that if testing teleop it

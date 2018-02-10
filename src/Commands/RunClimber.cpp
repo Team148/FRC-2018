@@ -1,4 +1,5 @@
 #include "RunClimber.h"
+#include "OI.h"
 
 RunClimber::RunClimber(bool on) {
 	// Use Requires() here to declare subsystem dependencies
@@ -12,11 +13,11 @@ void RunClimber::Initialize() {
 
 	if(m_on)
 	{
-		Climber::GetInstance()->Set(CLIMBER_OUTPUT_PERCENT);
+		Climber::GetInstance()->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
 	}
 	else
 	{
-		Climber::GetInstance()->Set(0.0);
+		Climber::GetInstance()->SetClimberMotor(0.0);
 
 	}
 }

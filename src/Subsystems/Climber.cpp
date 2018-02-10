@@ -14,20 +14,20 @@ Climber::Climber() : Subsystem("Climber") {
 	//climb motor configuration
 	m_ClimbMotor1->SetNeutralMode(NeutralMode::Brake);
 	m_ClimbMotor2->SetNeutralMode(NeutralMode::Brake);
-	//m_ClimbMotor3->SetNeutralMode(NeutralMode::Brake);
+	m_ClimbMotor3->SetNeutralMode(NeutralMode::Brake);
 
-	m_ClimbMotor1->EnableVoltageCompensation(true);
-	m_ClimbMotor2->EnableVoltageCompensation(true);
-	//m_ClimbMotor3->EnableVoltageCompensation(true);
+	m_ClimbMotor1->EnableVoltageCompensation(false);
+	m_ClimbMotor2->EnableVoltageCompensation(false);
+	m_ClimbMotor3->EnableVoltageCompensation(false);
 
 	//climber ONLY goes backwards
 	m_ClimbMotor1->ConfigVoltageCompSaturation(12.0,0);
 	m_ClimbMotor2->ConfigVoltageCompSaturation(12.0,0);
-	//m_ClimbMotor3->ConfigVoltageCompSaturation(12.0,0);
+	m_ClimbMotor3->ConfigVoltageCompSaturation(12.0,0);
 
 	m_ClimbMotor1->SetSafetyEnabled(false);
 	m_ClimbMotor2->SetSafetyEnabled(false);
-	//m_ClimbMotor3->SetSafetyEnabled(false);
+	m_ClimbMotor3->SetSafetyEnabled(false);
 }
 
 Climber* Climber::GetInstance() {
@@ -42,7 +42,7 @@ void Climber::InitDefaultCommand() {
 
 }
 
-void Climber::Set(float percent) {
+void Climber::SetClimberMotor(float percent) {
 	m_ClimbMotor1->Set(ControlMode::PercentOutput, percent);
 	m_ClimbMotor2->Set(ControlMode::PercentOutput, percent);
 	m_ClimbMotor3->Set(ControlMode::PercentOutput, percent);

@@ -1,8 +1,8 @@
 #ifndef RunIntake_H
 #define RunIntake_H
 
-#include "Commands/Command.h"
 #include <Subsystems/Intake.h>
+#include "Commands/Command.h"
 
 class RunIntake : public frc::InstantCommand {
 public:

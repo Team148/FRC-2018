@@ -1,6 +1,6 @@
 #include "Elevator.h"
-#include "../RobotMap.h"
 #include "Commands/ElevatorWithJoystick.h"
+#include "../RobotMap.h"
 #include <iostream>
 
 Elevator *Elevator::m_instance = 0;
@@ -16,8 +16,11 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
 	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
 
-	m_ElevatorMotor1->EnableVoltageCompensation(true);
-	m_ElevatorMotor2->EnableVoltageCompensation(true);
+	m_ElevatorMotor1->ConfigOpenloopRamp(1, 0);
+	m_ElevatorMotor2->ConfigOpenloopRamp(1, 0);
+
+//	m_ElevatorMotor1->EnableVoltageCompensation(true);
+//	m_ElevatorMotor2->EnableVoltageCompensation(true);
 	//m_ElevatorMotor3->EnableVoltageCompensation(true);
 
 	//elevator motor configuration

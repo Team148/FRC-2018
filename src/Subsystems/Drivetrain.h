@@ -16,6 +16,8 @@ private:
 	WPI_VictorSPX* m_rightMotor2;
 	WPI_VictorSPX* m_rightMotor3;
 
+
+
 	PigeonIMU* pigeon;
 	double* yawPitchRoll = new double [3];
 
@@ -32,12 +34,16 @@ public:
 	void InitDefaultCommand();
 	void Arcade(double ystick, double xstick);
 	void Tank(double leftstick, double rightstick);
+	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
+	void configOpenLoop();
 	bool isClosedLoop();
 
-	int updateLeftEncoder();
-	int updateRightEncoder();
+	int getLeftDrivePosition();
+	int getRightDrivePosition();
+	double getLeftDriveVelocity();
+	double getRightDriveVelocity();
 
 	double updateGyroYaw();
 	double updateGyroPitch();
