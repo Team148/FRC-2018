@@ -141,12 +141,16 @@ double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double ri
 
 	double x_error = (leftTrajectory[index].x - getRobotPosition_x());
 	double y_error = (leftTrajectory[index].y - getRobotPosition_y());
-//	double pos_error =
+	double pos_error = pow((pow(x_error, 2.0) + pow(y_error, 2.0)), 0.5);
+	double vel_error = (leftTrajectory[index].velocity );
+	static double error_sum = 0;
+
+	error_sum += pos_error;
 
 
 	double corrected_velocity[1] = { 0 };
 
-//	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P*getLeftDrivetrainError()) + (DRIVETRAIN_I*);
+	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P*pos_error) + (DRIVETRAIN_I*error_sum) + (DRIVETRAIN_D*getLeftDriveVelocity());
 
 
 	return corrected_velocity;
