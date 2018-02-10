@@ -1,11 +1,11 @@
 #ifndef PathFind_H
 #define PathFind_H
 
-#include "pathfinder.h"
+//#include "pathfinder.h"
 #include "Commands/Command.h"
 #include "Timer.h"
 #include "Util/UnitMaster.h"
-#include "../Util/Path.h"
+//#include "../Util/Path.h"
 #include "../Subsystems/Drivetrain.h"
 
 class PathFind : public frc::Command {
@@ -20,10 +20,11 @@ public:
 
 private:
 	int index;
-	Path *PathPlanner;
+//	Path *PathPlanner;
 	Drivetrain *m_tempDrivetrain;
 	int m_lastTime;
 	double m_startTime;
+	bool m_finished = false;
 
 	UnitMaster unit_master;
 

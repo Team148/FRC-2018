@@ -115,6 +115,11 @@ void Drivetrain::Tank(double leftstick, double rightstick) {
 	m_drive->TankDrive(leftstick,rightstick);
 }
 
+void Drivetrain::SetLeftRight(double left, double right){
+	m_leftMotor1->Set(left);
+	m_rightMotor1->Set(right);
+}
+
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
 //	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;

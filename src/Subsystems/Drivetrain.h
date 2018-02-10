@@ -34,6 +34,7 @@ public:
 	void InitDefaultCommand();
 	void Arcade(double ystick, double xstick);
 	void Tank(double leftstick, double rightstick);
+	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
