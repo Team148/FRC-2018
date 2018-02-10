@@ -173,10 +173,10 @@ void Drivetrain::configClosedLoop() {
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
 	m_rightMotor1->ConfigNominalOutputForward(0,0);
 
-	m_leftMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_leftMotor1->EnableVoltageCompensation(true);
 
-	m_rightMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_rightMotor1->EnableVoltageCompensation(true);
 
 

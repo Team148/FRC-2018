@@ -4,6 +4,7 @@
 
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
+#include <Commands/RunDrivetrain.h>
 #include <Commands/GrabPartner.h>
 
 OI *OI::m_instance = 0;
@@ -47,6 +48,9 @@ OI::OI() {
 	//Climber
 	m_opButton6->WhenPressed(new RunClimber(true));
 	m_opButton6->WhenReleased(new RunClimber(false));
+
+	//Drivetrain Test Code Closed Loop
+	m_drvButton1->WhenPressed(new RunDrivetrain());
 }
 
 OI* OI::GetInstance() {
