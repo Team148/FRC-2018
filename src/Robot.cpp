@@ -14,6 +14,7 @@
 #include "math.h"
 #include <iostream>
 #include <Commands/Pathfind.h>
+#include <Subsystems/Wrangler.h>
 //#include "constants.h"
 #include "RobotMap.h"
 #include "OI.h"
@@ -21,7 +22,6 @@
 #include "Subsystems/Drivetrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Elevator.h"
-#include "Subsystems/Forklift.h"
 #include "Subsystems/Climber.h"
 
 #include "Commands/DriveWithJoystick.h"
@@ -43,7 +43,7 @@ public:
 	Intake *intake = 0;
 	Elevator *elevator = 0;
 	Climber *climber = 0;
-	Forklift *forklift = 0;
+	Wrangler *wrangler = 0;
 	OI *oi = 0;
 	UnitMaster unit_master;
 
@@ -60,7 +60,7 @@ public:
 		intake = Intake::GetInstance();
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
-		forklift = Forklift::GetInstance();
+		wrangler = Wrangler::GetInstance();
 
 	}
 

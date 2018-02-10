@@ -30,6 +30,7 @@ constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 constexpr float INTAKE_PERCENT = 1.0;
 constexpr float OUTTAKE_PERCENT = -0.50;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
+constexpr float WRANGLER_OUTPUT_PERCENT = 1.0;
 constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 
 
