@@ -33,12 +33,12 @@ OI::OI() {
 
 
 	//Intake
-	m_opButton1->WhenPressed(new RunIntake(true, false));
-	m_opButton1->WhenReleased(new RunIntake(false, false));
+	m_opButton1->WhenPressed(new RunIntake(true, true));
+	m_opButton1->WhenReleased(new RunIntake(false, true));
 
 	//Outtake
-	m_opButton3->WhenPressed(new RunIntake(true, true));
-	m_opButton3->WhenReleased(new RunIntake(false, true));
+	m_opButton3->WhenPressed(new RunIntake(true, false));
+	m_opButton3->WhenReleased(new RunIntake(false, false));
 
 	//GrabPartner
 	m_opButton5->WhenPressed(new GrabPartner(true));
