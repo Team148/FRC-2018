@@ -4,6 +4,7 @@
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
+#include "pathfinder.h"
 #include "Constants.h"
 
 class Drivetrain : public Subsystem {
@@ -35,6 +36,7 @@ public:
 	void Arcade(double ystick, double xstick);
 	void Tank(double leftstick, double rightstick);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
+	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
 	void configOpenLoop();
@@ -44,6 +46,9 @@ public:
 	int getRightDrivePosition();
 	double getLeftDriveVelocity();
 	double getRightDriveVelocity();
+
+	double getLeftDrivetrainError();
+	double getRightDrivetrainError();
 
 	double updateGyroYaw();
 	double updateGyroPitch();

@@ -118,16 +118,37 @@ void Drivetrain::Tank(double leftstick, double rightstick) {
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
 //	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+	double FA = 1; // what is FA
+
+	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*  /getLeftDrivetrainError();
+
+
 
 
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
 	m_rightMotor1->Set(ControlMode::Velocity, right_velocity);
+
+
+
 
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
 	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 }
+double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory)
+{
+	double FA = 1; // what is FA
+
+
+	double corrected_velocity[1] = { 0 };
+
+//	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*leftTrajectory[index]
+
+
+	return corrected_velocity;
+}
+
 
 
 
@@ -239,6 +260,17 @@ double Drivetrain::getRightDriveVelocity()
 {
 	return m_rightMotor1->GetSelectedSensorVelocity(0);
 }
+
+double Drivetrain::getLeftDrivetrainError()
+{
+	return m_leftMotor1->GetClosedLoopError(0);
+}
+double Drivetrain::getRightDrivetrainError()
+{
+	return m_rightMotor1->GetClosedLoopError(0);
+
+}
+
 
 double Drivetrain::updateGyroYaw() {
 	pigeon->GetYawPitchRoll(yawPitchRoll);
