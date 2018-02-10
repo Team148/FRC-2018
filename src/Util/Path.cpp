@@ -120,12 +120,40 @@ double Path::GetRightValue(int index){
 
 Segment Path::GetLeftSegment(int index)
 {
+	if(index < length)
+	{
+		return leftTrajectory[index];
+	}
+	else if(index == length)
+	{
+		leftTrajectory[length - 1].velocity = 0;
+		leftTrajectory[length - 1].acceleration = 0;
+		return leftTrajectory[length - 1];
+	}
+	else
+	{
+		return leftTrajectory[length];
+	}
+
 	return leftTrajectory[index];
 }
 
 Segment Path::GetRightSegment(int index)
 {
-	return rightTrajectory[index];
+	if(index < length)
+		{
+			return rightTrajectory[index];
+		}
+		else if(index == length)
+		{
+			rightTrajectory[length - 1].velocity = 0;
+			rightTrajectory[length - 1].acceleration = 0;
+			return rightTrajectory[length - 1];
+		}
+		else
+		{
+			return rightTrajectory[length - 1];
+		}
 }
 
 double Path::LeftENCCorrectionValue(int index)
