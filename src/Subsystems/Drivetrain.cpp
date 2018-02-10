@@ -125,7 +125,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
-	frc::SmartDashboard::PutNumber("RightEncoderVelocity", unit_master.GetInchesPerSec(getRightDriveVelocity()));
+	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 }
 
@@ -168,10 +168,10 @@ void Drivetrain::configClosedLoop() {
 	m_leftMotor1->ConfigNominalOutputForward(0,0);
 	m_rightMotor1->ConfigNominalOutputForward(0,0);
 
-	m_leftMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_leftMotor1->EnableVoltageCompensation(true);
 
-	m_rightMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_rightMotor1->EnableVoltageCompensation(true);
 
 
