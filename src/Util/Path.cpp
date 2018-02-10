@@ -16,12 +16,12 @@ Path::Path()
 	//Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
 	//Waypoint p2 = { .7, 0, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
-	Waypoint p1 = { 0,0,0 };      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
-	Waypoint p2 = { 0, 0, 0 };           // Waypoint @ x=-1, y= 2, exit angle= 0 radians
+	Waypoint p1 = { 0, 0, 0};      // Waypoint @ x=-4, y=-1, exit angle=45 degrees
+	Waypoint p2 = { 100, -10, 0 };           // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 //		Waypoint p2 = { 1, 1, 0 };             // Waypoint @ x=-1, y= 2, exit angle= 0 radians
 
 
-	Waypoint p3 = {  0, 0, 0 };  // Waypoint @ x= 2, y= 4, exit angle= 0 radians
+	Waypoint p3 = { 180, -1000, d2r(45)};  // Waypoint @ x= 2, y= 4, exit angle= 0 radians
 	//Waypoint p4 = {15,0,0};
 	//Waypoint p5 = {20,0,0};
 

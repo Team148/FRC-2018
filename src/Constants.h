@@ -7,7 +7,7 @@
 
 //Drivetrain constants.
 constexpr double DRIVETRAIN_F = 0.28;// 0.0575
-constexpr double DRIVETRAIN_P = 0.035; // 1.5 .06
+constexpr double DRIVETRAIN_P = 0.005; // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
