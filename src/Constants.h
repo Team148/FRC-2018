@@ -27,7 +27,7 @@ constexpr double PATH_TIME_STEP = 0.02;
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
-constexpr float INTAKE_PERCENT = 1.0;
+constexpr float INTAKE_PERCENT = 0.8;
 constexpr float OUTTAKE_PERCENT = -0.30;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_OUTPUT_PERCENT = 1.0;
