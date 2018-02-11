@@ -4,6 +4,7 @@
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
+#include "pathfinder.h"
 #include "Constants.h"
 
 class Drivetrain : public Subsystem {
@@ -16,7 +17,8 @@ private:
 	WPI_VictorSPX* m_rightMotor2;
 	WPI_VictorSPX* m_rightMotor3;
 
-
+	double pos_x = 0;
+	double pos_y = 0;
 
 	PigeonIMU* pigeon;
 	double* yawPitchRoll = new double [3];
@@ -36,6 +38,7 @@ public:
 	void Tank(double leftstick, double rightstick);
 	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
+	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
 	void configOpenLoop();
@@ -46,13 +49,20 @@ public:
 	double getLeftDriveVelocity();
 	double getRightDriveVelocity();
 
-	double updateGyroYaw();
-	double updateGyroPitch();
-	double updateGyroRoll();
-	double updatePigey();
+	double getLeftDriveVelocityError();
+	double getRightDriveVelocityError();
+
+	double getGyroYaw();
+	double getGyroPitch();
+	double getGyroRoll();
 	double updatePigeon();
 
 	void getPigeonStatus();
+
+	void accumRobotPosition();
+	double getRobotPosition_x();
+	double getRobotPosition_y();
+
 
 	void unitConversionTest();
 

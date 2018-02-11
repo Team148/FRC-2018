@@ -73,12 +73,13 @@ void PathFind::Execute() {
 //	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
 	//frc::SmartDashboard::PutNumber("RightVelocityBeforeConv", PathPlanner->GetRightValue(m_lastTime));
 //	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
+
 //	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->LeftENCCorrectionValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->RightENCCorrectionValue(m_lastTime)));
 
 	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
     //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);
     //frc::SmartDashboard::PutNumber("Y Position",PathPlanner->GetLeftSegment(index).y);
-	//m_lastTime++;
+	m_lastTime++;
 
 
 }

@@ -10,7 +10,7 @@
 class Intake : public Subsystem {
 private:
 	WPI_TalonSRX* m_IntakeMotor1;
-	WPI_TalonSRX* m_IntakeMotor2;
+	WPI_VictorSPX* m_IntakeMotor2;
 
 	Intake();
 	static Intake *m_instance;

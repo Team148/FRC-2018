@@ -13,7 +13,8 @@ constexpr double DRIVETRAIN_D = 4.0;
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
 constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
-constexpr int TICKS_PER_ROTATIONS = 1250*4;
+
+constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
 //PATHFINDER
@@ -28,7 +29,7 @@ constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
 constexpr float INTAKE_PERCENT = 1.0;
-constexpr float OUTTAKE_PERCENT = -0.50;
+constexpr float OUTTAKE_PERCENT = -0.30;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_OUTPUT_PERCENT = 1.0;
 constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;

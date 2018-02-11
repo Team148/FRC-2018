@@ -129,17 +129,45 @@ void Drivetrain::SetLeftRight(double left, double right){
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
 //	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+	double FA = 1; // what is FA
+
+
+
 
 
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
 	m_rightMotor1->Set(ControlMode::Velocity, right_velocity);
 
+
+
+
 	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
-	frc::SmartDashboard::PutNumber("RightEncoderVelocity", unit_master.GetInchesPerSec(getRightDriveVelocity()));
+	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 	//std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
+double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index)
+{
+	double FA = 1; // what is FA
+
+	double x_error = (leftTrajectory[index].x - getRobotPosition_x());
+	double y_error = (leftTrajectory[index].y - getRobotPosition_y());
+	double pos_error = pow((pow(x_error, 2.0) + pow(y_error, 2.0)), 0.5);
+	double vel_error = (leftTrajectory[index].velocity );
+	static double error_sum = 0;
+
+	error_sum += pos_error;
+
+
+	double corrected_velocity[1] = { 0 };
+
+	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P*pos_error) + (DRIVETRAIN_I*error_sum) + (DRIVETRAIN_D*getLeftDriveVelocity());
+
+
+	return corrected_velocity;
+}
+
 
 
 
@@ -252,19 +280,32 @@ double Drivetrain::getRightDriveVelocity()
 	return m_rightMotor1->GetSelectedSensorVelocity(0);
 }
 
-double Drivetrain::updateGyroYaw() {
+double Drivetrain::getLeftDriveVelocityError()
+{
+	return m_leftMotor1->GetClosedLoopError(0);
+}
+double Drivetrain::getRightDriveVelocityError()
+{
+	return m_rightMotor1->GetClosedLoopError(0);
+
+}
+
+
+
+
+double Drivetrain::getGyroYaw() {
 	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	return yawPitchRoll[0];
 }
 
-double Drivetrain::updateGyroPitch() {
+double Drivetrain::getGyroPitch() {
 	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	return yawPitchRoll[1];
 }
 
-double Drivetrain::updateGyroRoll() {
+double Drivetrain::getGyroRoll() {
 	pigeon->GetYawPitchRoll(yawPitchRoll);
 
 	return yawPitchRoll[2];
@@ -284,6 +325,38 @@ void Drivetrain::getPigeonStatus() {
 	pigeon->GetGeneralStatus(generalStatus);
 }
 
+void Drivetrain::accumRobotPosition()
+{
+	static bool init = false;
+
+	static double d_position = 0;
+	static double lastPosition = 0;
+	static double currentPosition = 0;
+
+	if(!init)
+	{
+
+		lastPosition = ((getRightDrivePosition() + getLeftDrivePosition())/2);
+		init = true;
+
+	}
+
+	currentPosition = ((getRightDrivePosition() + getLeftDrivePosition())/2);
+	d_position = currentPosition - lastPosition;
+	pos_x += d_position *cos(getGyroYaw());
+	pos_y += d_position *sin(getGyroYaw());
+
+	lastPosition = currentPosition;
+}
+
+double Drivetrain::getRobotPosition_x()
+{
+	return pos_x;
+}
+double Drivetrain::getRobotPosition_y()
+{
+	return pos_y;
+}
 void Drivetrain::unitConversionTest()
 {
 //	unit_master.SetTicks(m_leftMotor1->GetSelectedSensorPosition(0));

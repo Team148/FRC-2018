@@ -14,7 +14,7 @@ void ElevatorWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ElevatorWithJoystick::Execute() {
-	Elevator::GetInstance()->JoystickControl(OI::GetInstance()->opStick->GetRawAxis(1));
+	Elevator::GetInstance()->JoystickControl(-(OI::GetInstance()->opStick->GetRawAxis(1)));
 }
 
 // Make this return true when this Command no longer needs to run execute()
