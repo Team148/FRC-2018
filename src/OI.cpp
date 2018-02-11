@@ -40,6 +40,9 @@ OI::OI() {
 	m_opButton3->WhenPressed(new RunIntake(true, false));
 	m_opButton3->WhenReleased(new RunIntake(false, false));
 
+	//Elevator
+
+
 	//GrabPartner
 	m_opButton5->WhenPressed(new GrabPartner(true));
 	m_opButton5->WhenReleased(new GrabPartner(false));

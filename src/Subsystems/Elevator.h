@@ -26,12 +26,16 @@ public:
 	void InitDefaultCommand();
 
 	void JoystickControl(float ystick);
-	void ConfigureOpenLoop();
-	void ConfigureClosedLoop();
+	void ConfigOpenLoop();
+	void ConfigClosedLoop();
 	bool IsClosedLoop();
 
 	bool IsElevatorDown();
 	bool IsElevatorUp();
+	int GetElevatorPosition();
+	int GetElevatorVelocity();
+
+	void SetElevatorPosition(double position);
 };
 
 #endif

@@ -93,7 +93,9 @@ public:
 	 */
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->AddCommand(command);
-
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 	void AutonomousPeriodic() override {
@@ -109,18 +111,23 @@ public:
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();
 
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
+		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
+
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
-
 
 //		drivetrain->unitConversionTest();
 

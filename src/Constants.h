@@ -23,6 +23,20 @@ constexpr double PATH_MAX_ACCEL = 100.0;
 constexpr double PATH_MAX_JERK = 600.0;
 constexpr double PATH_TIME_STEP = 0.02;
 
+//Elevator constants
+constexpr double ELEVATOR_F = 0.00;
+constexpr double ELEVATOR_P = 0.00;
+constexpr double ELEVATOR_I = 0.00;
+constexpr double ELEVATOR_D = 0.00;
+
+constexpr int MOTION_MAGIC_VELOCITY = 15000;
+constexpr int MOTION_MAGIC_ACCELERATION = 6000;
+constexpr int EE_TICKS_PER_ROTATION = 4096;
+
+constexpr double ELEVATOR_SWITCH = 4096;
+constexpr double ELEVATOR_SCALE = 8192;
+constexpr double ELEVATOR_SCALE_LOW = 7168;
+constexpr double ELEVATOR_SCALE_HIGH = 12288;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
