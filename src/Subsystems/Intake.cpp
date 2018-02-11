@@ -34,3 +34,9 @@ void Intake::SetIntakeMotor(float percent)
 	m_IntakeMotor1->Set(ControlMode::PercentOutput, percent);
 	m_IntakeMotor2->Set(ControlMode::PercentOutput, percent);
 }
+void Intake::SetIntakeMotorOpposite(float percent)
+{
+	m_IntakeMotor1->Set(ControlMode::PercentOutput, percent);
+	m_IntakeMotor2->Set(ControlMode::PercentOutput, -percent);
+}
+

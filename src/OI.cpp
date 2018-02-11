@@ -5,6 +5,7 @@
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
+#include <Commands/RunIntakeOpposite.h>
 
 OI *OI::m_instance = 0;
 
@@ -35,6 +36,9 @@ OI::OI() {
 	//Intake
 	m_opButton1->WhenPressed(new RunIntake(true, true));
 	m_opButton1->WhenReleased(new RunIntake(false, true));
+
+	m_opButton2->WhenPressed(new RunIntakeOpposite(true));
+	m_opButton2->WhenReleased(new RunIntakeOpposite(false));
 
 	//Outtake
 	m_opButton3->WhenPressed(new RunIntake(true, false));
