@@ -13,7 +13,7 @@ constexpr double DRIVETRAIN_D = 0.0;
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
 constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
-constexpr int TICKS_PER_ROTATIONS = 16384;
+constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
 //PATHFINDER
