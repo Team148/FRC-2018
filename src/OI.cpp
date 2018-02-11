@@ -30,6 +30,9 @@ OI::OI() {
 	m_opButton5 = new JoystickButton(opStick, 5);
 	m_opButton6 = new JoystickButton(opStick, 6);
 	m_opButton7 = new JoystickButton(opStick, 7);
+	m_opButton8 = new JoystickButton(opStick, 8);
+	m_opButton9 = new JoystickButton(opStick, 9);
+	m_opButton10 = new JoystickButton(opStick, 10);
 
 
 	//Intake

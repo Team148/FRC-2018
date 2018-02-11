@@ -15,11 +15,11 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor2->Set(ControlMode::Follower, ELEVATOR_MOTOR_1);
 
 	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Brake);
-//	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
+	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
 	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
 
 	m_ElevatorMotor1->ConfigOpenloopRamp(1, 0);
-//	m_ElevatorMotor2->ConfigOpenloopRamp(1, 0);
+	m_ElevatorMotor2->ConfigOpenloopRamp(0, 0);
 
 	//elevator motor configuration
 	m_ElevatorMotor1->SetSafetyEnabled(false);
@@ -51,7 +51,7 @@ void Elevator::ConfigOpenLoop()
 }
 
 void Elevator::ConfigClosedLoop() {
-	m_ElevatorMotor1->Set(ControlMode::MotionMagic,0.0);
+	m_ElevatorMotor1->Set(ControlMode::Position,0.0);
 	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_ElevatorMotor1->SetSensorPhase(false);
 
@@ -60,9 +60,7 @@ void Elevator::ConfigClosedLoop() {
 	m_ElevatorMotor1->Config_kI(0, ELEVATOR_I, 0);
 	m_ElevatorMotor1->Config_kD(0, ELEVATOR_D, 0);
 
-	// zero sensor
-	m_ElevatorMotor1->ConfigMotionCruiseVelocity(MOTION_MAGIC_VELOCITY, 0);
-	m_ElevatorMotor1->ConfigMotionAcceleration(MOTION_MAGIC_ACCELERATION, 0);
+	m_ElevatorMotor1->SetSelectedSensorPosition(0, 0, 0);
 
 	m_isClosedLoop = 1;
 }
@@ -96,5 +94,5 @@ int Elevator::GetElevatorVelocity() {
 }
 
 void Elevator::SetElevatorPosition(double position) {
-	m_ElevatorMotor1->Set(ControlMode::MotionMagic, position);
+	m_ElevatorMotor1->Set(ControlMode::Position, position);
 }
