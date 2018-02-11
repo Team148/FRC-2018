@@ -14,7 +14,7 @@ constexpr double DRIVETRAIN_D = 0.0;
 constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.0;
 
-constexpr double DRIVETRAIN_TURN_FILTER = 0.50;
+constexpr double DRIVETRAIN_TURN_FILTER = 0.65;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 0.85;
 
 
