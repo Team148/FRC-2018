@@ -20,11 +20,11 @@ void DriveWithJoystick::Initialize() {
 void DriveWithJoystick::Execute() {
 	//Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
 	if(OI::GetInstance()->drvStick->GetRawButton(1)){
-		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(70.0), unit_master.GetTicksPer100ms(70.0));
+		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(140.0), unit_master.GetTicksPer100ms(140.0));
 	//	std::cout << "works" << std::endl;
 	}
 	else
-		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
+		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -OI::GetInstance()->drvStick->GetRawAxis(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -26,6 +26,12 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
 	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
 
+	m_leftMotor1->ConfigVelocityMeasurementWindow(50, 0);
+	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_50Ms , 0 );
+	m_rightMotor1->ConfigVelocityMeasurementWindow(50, 0);
+	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_50Ms , 0 );
+
+
 
 
 	m_leftMotor2->Follow(*m_leftMotor1);
@@ -132,6 +138,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
 	frc::SmartDashboard::PutNumber("RightEncoderVelocity", unit_master.GetInchesPerSec(getRightDriveVelocity()));
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
+	//std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
 
 

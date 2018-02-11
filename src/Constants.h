@@ -6,14 +6,14 @@
 #define CONSTANTS_H
 
 //Drivetrain constants.
-constexpr double DRIVETRAIN_F = 0.0634;// 0.0575
-constexpr double DRIVETRAIN_P = 0.025;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_F = 0.175;// 0.0575
+constexpr double DRIVETRAIN_P = 0.7;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
-constexpr double DRIVETRAIN_D = 0.0;
+constexpr double DRIVETRAIN_D = 4.0;
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
 constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
-constexpr int TICKS_PER_ROTATIONS = 16384;
+constexpr int TICKS_PER_ROTATIONS = 1250*4;
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
 //PATHFINDER
