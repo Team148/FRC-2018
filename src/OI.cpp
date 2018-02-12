@@ -5,6 +5,7 @@
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
+#include <Commands/SetElevator.h>
 
 OI *OI::m_instance = 0;
 
@@ -34,25 +35,37 @@ OI::OI() {
 	m_opButton9 = new JoystickButton(opStick, 9);
 	m_opButton10 = new JoystickButton(opStick, 10);
 
+//	m_opPOVTOP = new JoystickButton(opStick->GetPOV(90));
+//	m_opPOVDOWN = new JoystickButton(opStick->GetPOV(270));
 
-	//Intake
-	m_opButton1->WhenPressed(new RunIntake(true, true));
-	m_opButton1->WhenReleased(new RunIntake(false, true));
-
-	//Outtake
-	m_opButton3->WhenPressed(new RunIntake(true, false));
-	m_opButton3->WhenReleased(new RunIntake(false, false));
 
 	//Elevator
+	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));
 
+	m_opButton2->WhenPressed(new SetElevator(true, ELEVATOR_SWITCH));
 
-	//GrabPartner
-	m_opButton5->WhenPressed(new GrabPartner(true));
-	m_opButton5->WhenReleased(new GrabPartner(false));
+	m_opButton3->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_LOW));
 
-	//Climber
-	m_opButton6->WhenPressed(new RunClimber(true));
-	m_opButton6->WhenReleased(new RunClimber(false));
+	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
+
+//	m_opPOVDOWN->WhenPressed(new SetElevator(true, ELEVATOR_HANG));
+//
+//	m_opPOVTOP->WhenPressed(new SetElevator(true, ELEVATOR_DOUBLE_STACK));
+//	//Intake
+//	m_opButton1->WhenPressed(new RunIntake(true, true));
+//	m_opButton1->WhenReleased(new RunIntake(false, true));
+//
+//	//Outtake
+//	m_opButton3->WhenPressed(new RunIntake(true, false));
+//	m_opButton3->WhenReleased(new RunIntake(false, false));
+//
+//	//GrabPartner
+//	m_opButton5->WhenPressed(new GrabPartner(true));
+//	m_opButton5->WhenReleased(new GrabPartner(false));
+//
+//	//Climber
+//	m_opButton6->WhenPressed(new RunClimber(true));
+//	m_opButton6->WhenReleased(new RunClimber(false));
 }
 
 OI* OI::GetInstance() {

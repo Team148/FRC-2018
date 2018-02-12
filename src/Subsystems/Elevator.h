@@ -36,6 +36,7 @@ public:
 	int GetElevatorVelocity();
 
 	void SetElevatorPosition(double position);
+	void SetElevatorEncoderZero();
 };
 
 #endif
