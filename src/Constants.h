@@ -11,6 +11,10 @@ constexpr double DRIVETRAIN_P = 0.005; // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
+
+constexpr float DRIVE_VELOCITY_P = 0;
+constexpr float DRIVE_GYRO_COMP_P = 0;
+
 //Auto/TurnPID
 constexpr float DRIVE_TURN_P = 0.01;
 constexpr float DRIVE_TURN_I = 0.000;

@@ -144,13 +144,13 @@ void Drive::Execute() {
 	m_trajectory.pop();
 
 	//read actual velocity (returns native units)
-	int act_lvel = Drivetrain::GetInstance()->GetLeftVelocity();
-	int act_rvel = Drivetrain::GetInstance()->GetRightVelocity();
+	int act_lvel = Drivetrain::GetInstance()->getLeftDriveVelocity();
+	int act_rvel = Drivetrain::GetInstance()->getRightDriveVelocity();
 
 
 	//find actual distance
-	int act_ldist = Drivetrain::GetInstance()->GetLeftPosition();
-	int act_rdist = Drivetrain::GetInstance()->GetRightPosition();
+	int act_ldist = Drivetrain::GetInstance()->getLeftDrivePosition();
+	int act_rdist = Drivetrain::GetInstance()->getRightDrivePosition();
 
 	//find left/right velocity error (needs conversion to native units)
 	float vel_lerr = cur_v_l-act_lvel;
@@ -159,14 +159,13 @@ void Drive::Execute() {
 	float vel_rcomp = DRIVE_VELOCITY_P*vel_rerr;
 
 	//get gyro angle and compensate
-	double cur_angle = Drivetrain::GetInstance()->GetGyroYaw();
+	double cur_angle = Drivetrain::GetInstance()->updateGyroYaw();
 	float cur_angle_err = cur_angle - m_initangle;
 	float gyro_comp = (DRIVE_GYRO_COMP_P*cur_angle_err);
 
 
-	//SetLeft and SetRight to current queue with gyro compensation (in native units)
-	Drivetrain::GetInstance()->(cur_v_l-gyro_comp);
-	Drivetrain::GetInstance()->SetRightVelocity(cur_v_r+gyro_comp);
+	//SetLeft and SetRight to current queue with gyro compensation (in native unit
+	Drivetrain::GetInstance()->SetDriveVelocity(cur_v_r+gyro_comp,cur_v_l-gyro_comp);
 
 
 	if(m_trajectory.empty())

@@ -16,7 +16,7 @@ void TurnPID::Initialize() {
 	//Set Drivetrain to OpenLoop
 	Drivetrain::GetInstance()->configOpenLoop();
 
-	m_initalAngle = Drivetrain::GetInstance()->GetAngle();
+	m_initalAngle = Drivetrain::GetInstance()->updateGyroYaw();
 	m_setpoint += m_initalAngle;
 }
 
@@ -24,7 +24,7 @@ void TurnPID::Initialize() {
 void TurnPID::Execute() {
 
 	//read current angle
-	float current_angle = Drivetrain::GetInstance()->GetAngle();
+	float current_angle = Drivetrain::GetInstance()->updateGyroYaw();
 
 	//calculate output
 	float curr_err = m_setpoint - current_angle;
@@ -35,8 +35,8 @@ void TurnPID::Execute() {
 
 
 	//SetLeft and SetRight
-	Drivetrain::GetInstance()->SetLeft(output);
-	Drivetrain::GetInstance()->SetRight(-output);
+	Drivetrain::GetInstance()->SetDriveVelocity(output, -output);
+
 
 	prev_err = curr_err;
 
@@ -52,9 +52,7 @@ bool TurnPID::IsFinished() {
 
 // Called once after isFinished returns true
 void TurnPID::End() {
-	Drivetrain::GetInstance()->SetLeft(0);
-	Drivetrain::GetInstance()->SetRight(0);
-
+	Drivetrain::GetInstance()->SetDriveVelocity(0,0);
 }
 
 // Called when another command which requires one or more of the same
