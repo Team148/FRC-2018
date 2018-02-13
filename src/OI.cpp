@@ -5,7 +5,6 @@
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
-#include <Commands/RunIntakeOpposite.h>
 
 OI *OI::m_instance = 0;
 
@@ -21,6 +20,8 @@ OI::OI() {
 	m_drvButton6 = new JoystickButton(drvStick, 6);
 	m_drvButton7 = new JoystickButton(drvStick, 7);
 	m_drvButton8 = new JoystickButton(drvStick, 8);
+	m_drvButton9 = new JoystickButton(drvStick, 9);
+	m_drvButton10 = new JoystickButton(drvStick, 10);
 
 
 	opStick = new Joystick(1);
@@ -31,26 +32,48 @@ OI::OI() {
 	m_opButton5 = new JoystickButton(opStick, 5);
 	m_opButton6 = new JoystickButton(opStick, 6);
 	m_opButton7 = new JoystickButton(opStick, 7);
+	m_opButton8 = new JoystickButton(opStick, 8);
+	m_opButton9 = new JoystickButton(opStick, 9);
+	m_opButton10 = new JoystickButton(opStick, 10);
 
+	//DriveJoystick Controls
+	//100% Outtake
+	m_drvButton5->WhenPressed(new RunIntake(true, false, true));
 
-	//Intake
-	m_opButton1->WhenPressed(new RunIntake(true, true));
-	m_opButton1->WhenReleased(new RunIntake(false, true));
+	//Normal Outtake
+	if(drvStick->GetRawAxis(2) > 0.2) {
+		RunIntake(true, true, false);
+	}
 
-	m_opButton2->WhenPressed(new RunIntakeOpposite(true));
-	m_opButton2->WhenReleased(new RunIntakeOpposite(false));
+	//AutoScore
+	if(drvStick->GetRawAxis(3) > 0.2) {
 
-	//Outtake
-	m_opButton3->WhenPressed(new RunIntake(true, false));
-	m_opButton3->WhenReleased(new RunIntake(false, false));
-
-	//GrabPartner
-	m_opButton5->WhenPressed(new GrabPartner(true));
-	m_opButton5->WhenReleased(new GrabPartner(false));
+	}
 
 	//Climber
-	m_opButton6->WhenPressed(new RunClimber(true));
-	m_opButton6->WhenReleased(new RunClimber(false));
+	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
+		RunClimber(true);
+	}
+
+	//OperatorJoystick Controls
+
+	//AutoIntake
+	if(drvStick->GetRawAxis(2) > 0.2) {
+
+	}
+
+	//100% Outtake
+	m_drvButton6->WhenPressed(new RunIntake(true, false, true));
+
+	//Normal Outtake
+	if(opStick->GetRawAxis(2) > 0.2) {
+		RunIntake(true, true, false);
+	}
+
+	//RobotWrangler
+	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
+		GrabPartner(true);
+	}
 }
 
 OI* OI::GetInstance() {
