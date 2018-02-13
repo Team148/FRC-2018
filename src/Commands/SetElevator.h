@@ -12,6 +12,8 @@ public:
 private:
 	bool m_on = false;
 	double m_position;
+	double m_inches;
+
 };
 
 #endif  // SetElevator_H
