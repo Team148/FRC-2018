@@ -1,58 +1,50 @@
-/*
- * DriveFor.c
- *
- *  Created on: Feb 12, 2018
- *      Author: Halen
- */
-
 #include "Drive.h"
 
-
-Drive::Drive(double inches, double velocity) {
+Drive::Drive(double inches, double cruise_velocity, double final_velocity) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
-	m_travelDistance  = inches; //How far we want to go in inches
-	m_cruiseVelocity = velocity;
 
+	m_travelDistance = inches;
+	m_cruiseVelocity = cruise_velocity;
+	m_finalVelocity = final_velocity;
+
+	//check is we're going backwards
 	if(inches<0) {
 		m_isReverse=true;
 		m_travelDistance = -m_travelDistance;
 	}
 
+	//check if the requested velocity is too high
 	if(m_cruiseVelocity > m_maxdrivevelocity) {
 		m_cruiseVelocity = m_maxdrivevelocity;
 	}
-
 }
 
 // Called just before this Command runs the first time
 void Drive::Initialize() {
-
 	//reset isFinished
 	m_isFinished=0;
+
 	float decel_dist,accel_dist,hold_time,hold_segments=0;
 	bool isTriangular=0;
 
-
-	//check where we pointing
-	m_initangle = Drivetrain::GetInstance()->updateGyroYaw();
+	//read gyro and store to m_initangle
 
 	//reset encoder distance
-	//Drivetrain::GetInstance()->ZeroSensors();
 
 	//check that the Drivetrain is in closed loop
 	if(!Drivetrain::GetInstance()->isClosedLoop())
 		Drivetrain::GetInstance()->configClosedLoop();
 
+	//set Brake Mode
 	Drivetrain::GetInstance()->SetBrakeMode(true);
 
-	//ensure queue is empty
-	while(!m_velocity.empty())
-		m_velocity.pop();
+	//ensure the queue is empty
+	while(!m_trajectory.empty())
+		m_trajectory.pop();
 
-	while(!m_distance.empty())
-		m_distance.pop();
-
-	//to begin, calculate the time we would need to accelerate to the theoretical max speed.
+	//calculate the time we would need to accelerate to the theoretical max speed.
 	float decel_time = sqrt((2*m_travelDistance)/((pow(m_maxDecelRate,2)/m_maxAccelRate) + m_maxDecelRate));
 	float accel_time = (m_maxDecelRate/m_maxAccelRate)*decel_time;
 
@@ -60,68 +52,57 @@ void Drive::Initialize() {
 	float max_decel_vel = m_maxDecelRate*decel_time;
 	float max_vel = min(max_accel_vel,max_decel_vel);
 
-   if(max_vel>m_cruiseVelocity) {
-    max_vel = m_cruiseVelocity;
-    cout <<"trapezoid profile" << endl;
-    accel_time = m_cruiseVelocity/m_maxAccelRate;
-    accel_dist = 0.5*m_maxAccelRate*pow(accel_time,2);
+	//If we can reach the max velocity, the profile is trapezoidal
+	if(max_vel>m_cruiseVelocity) {
+	    max_vel = m_cruiseVelocity;
+	    accel_time = m_cruiseVelocity/m_maxAccelRate;
+	    accel_dist = 0.5*m_maxAccelRate*pow(accel_time,2);
 
-	decel_time = m_cruiseVelocity/m_maxDecelRate;
-	decel_dist = 0.5*m_maxDecelRate*pow(decel_time,2);
+		decel_time = m_cruiseVelocity/m_maxDecelRate;
+		decel_dist = 0.5*m_maxDecelRate*pow(decel_time,2);
 
-	hold_time = (m_travelDistance-accel_dist-decel_dist)/m_cruiseVelocity;
-    //hold_dist = m_travelDistance - accel_dist - accel_dist;
-    hold_segments = ceil(hold_time/m_dt);
-   }
-   else {
-	   cout <<"triangle profile" << endl;
+		hold_time = (m_travelDistance-accel_dist-decel_dist)/m_cruiseVelocity;
+
+	} else { //if we can't reach reach the max velocity, the profile is triangular
 	   isTriangular=true;
 	   accel_dist = 0.5*m_maxAccelRate*pow(accel_time,2);
 	   decel_dist = 0.5*m_maxDecelRate*pow(decel_time,2);
 	   hold_time = 0;
-   }
+	}
 
-	//calculate the segments needed
-    float end_time = accel_time + accel_time + hold_time;
+	//calculate the number of points needed
+    float end_time = accel_time + decel_time + hold_time;
     int accel_segments = ceil(accel_time/m_dt);
 	int decel_segments = ceil(decel_time/m_dt);
-
-
 
 
 	//generate acceleration curve
 	for(int i = 0;i < accel_segments;i++) {
 		double t = m_dt*i;
-	    float v = (m_maxAccelRate*t);
-	    float d = (0.5*m_maxAccelRate*t*t);
+		float v = (m_maxAccelRate*t);
+		float d = (0.5*m_maxAccelRate*t*t);
 
 		if(m_isReverse) {
-        v=-v;
-        d = -d;
-        }
+			v=-v;
+			d = -d;
+		}
 
-	    m_velocity.push(v);
-	    m_distance.push(d);
-	    //Log
+		m_trajectory.push({t,v,v,d,d});
+	}
 
-	 }
-
-
-	//if needed, generate hold
+	//if needed, generate the velocity hold
 	if(!isTriangular) {
 		for(int i = 0;i <= hold_segments;i++) {
 			double t = m_dt*i;
-			float v = (m_cruiseVelocity);
-			float d = (accel_dist+m_cruiseVelocity*t);
+			float v = m_cruiseVelocity;
+			float d = accel_dist+m_cruiseVelocity*t;
 
 			if(m_isReverse) {
 				v=-v;
 				d = -d;
 			}
 
-			m_velocity.push(v);
-			m_distance.push(d);
-
+			m_trajectory.push({accel_time + t,v,v,d,d});
 		}
 	}
 
@@ -137,85 +118,59 @@ void Drive::Initialize() {
 			d = -d;
 		}
 
-	    m_velocity.push(v);
-	    m_distance.push(d);
+		m_trajectory.push({accel_time + hold_time + t,v,v,d,d});
 
+	}
 
-	 }
-	 //push last point
-	 m_velocity.push(0);
-
-	 if(m_isReverse)
-		m_distance.push(-m_travelDistance);
+	//push last point
+	if(m_isReverse)
+		m_trajectory.push({end_time,0,0,-m_travelDistance,-m_travelDistance});
 	else
-		m_distance.push(m_travelDistance);
+		m_trajectory.push({end_time,0,0,m_travelDistance,m_travelDistance});
 
 
-	 //log->CloseFile();
-
-	cout<<"info: generated profile with"<< accel_segments+hold_segments+decel_segments << " Points. time: " << end_time <<"sec"<< endl;
 }
-
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
-
-	float cur_vel = m_velocity.front();
-	float cur_dist = m_distance.front();
+	//read current values from queue
+	float cur_t = m_trajectory.front().t;
+	float cur_v_l = m_trajectory.front().v_left;
+	float cur_v_r = m_trajectory.front().v_right;
+	float cur_d_l = m_trajectory.front().d_left;
+	float cur_d_r = m_trajectory.front().d_right;
 
 	//after setting, remove from queue
-	m_velocity.pop();
-	m_distance.pop();
+	m_trajectory.pop();
+
+	//read actual velocity (returns native units)
+	int act_lvel = Drivetrain::GetInstance()->GetLeftVelocity();
+	int act_rvel = Drivetrain::GetInstance()->GetRightVelocity();
 
 
-	//find actual velocity(rpm)
-	int act_lvel = Drivetrain::GetInstance()->getLeftDriveVelocity();
-	int act_rvel = Drivetrain::GetInstance()->getRightDriveVelocity();
+	//find actual distance
+	int act_ldist = Drivetrain::GetInstance()->GetLeftPosition();
+	int act_rdist = Drivetrain::GetInstance()->GetRightPosition();
 
-	//find actual distance and convert to inches
-	int act_ldist = Drivetrain::GetInstance()->RotationtoInch(Drivetrain::GetInstance()->GetLeftDistance());
-	int act_rdist = Drivetrain::GetInstance()->RotationtoInch(Drivetrain::GetInstance()->GetRightDistance());
+	//find left/right velocity error (needs conversion to native units)
+	float vel_lerr = cur_v_l-act_lvel;
+	float vel_rerr = cur_v_r-act_rvel;
+	float vel_lcomp = DRIVE_VELOCITY_P*vel_lerr;
+	float vel_rcomp = DRIVE_VELOCITY_P*vel_rerr;
 
-	//convert IPS to RPM and account
-	cur_vel = Drivetrain::GetInstance()->IPStoRPM(cur_vel);
-
-
-
-	//Find left and right velocity error
-	float vel_lerr = cur_vel-act_lvel;
-	float vel_rerr = cur_vel-act_rvel;
-	float vel_lcomp = DRIVETRAIN_P*vel_lerr;
-	float vel_rcomp = DRIVETRAIN_P*vel_rerr;
-
-	//compute heading hold compensation
-	float cur_angle = Drivetrain::GetInstance()->updateGyroYaw();
+	//get gyro angle and compensate
+	double cur_angle = Drivetrain::GetInstance()->GetGyroYaw();
 	float cur_angle_err = cur_angle - m_initangle;
-	float gyro_comp = (DRIVE_GYRO_P*cur_angle_err);
+	float gyro_comp = (DRIVE_GYRO_COMP_P*cur_angle_err);
 
 
+	//SetLeft and SetRight to current queue with gyro compensation (in native units)
+	Drivetrain::GetInstance()->(cur_v_l-gyro_comp);
+	Drivetrain::GetInstance()->SetRightVelocity(cur_v_r+gyro_comp);
 
-	//SetLeft and SetRight to current queue with gyro compensation
-	Drivetrain::GetInstance()->SetDriveVelocity(cur_vel-gyro_comp,cur_vel+gyro_comp)
 
-
-	//for Testing
-	//cout <<"info: set drivetrain to " << cur_vel <<" RPM" << endl;
-	//cout <<"info: heading error is " << cur_angle_err << "Degrees" << endl;
-	//cout <<"info: gyro_comp " << gyro_comp << "" << endl;
-	//cout << "info: Left Distance " << act_ldist << endl;
-	//cout <<"info: Set drivetrain V to" << Drivetrain::GetInstance()->RPMtoIPS(cur_vel) << "IPS" << endl;
-
-	frc::SmartDashboard::PutNumber("profileV", Drivetrain::GetInstance()->RPMtoIPS(cur_vel));
-	frc::SmartDashboard::PutNumber("profileD", cur_dist);
-	frc::SmartDashboard::PutNumber("ActualLV", Drivetrain::GetInstance()->RPMtoIPS(Drivetrain::GetInstance()->GetLeftVelocity()));
-	frc::SmartDashboard::PutNumber("ActualRV", Drivetrain::GetInstance()->RPMtoIPS(Drivetrain::GetInstance()->GetRightVelocity()));
-	frc::SmartDashboard::PutNumber("ActualD", Drivetrain::GetInstance()->GetLeftDistance());
-	frc::SmartDashboard::PutNumber("outputLeftV", Drivetrain::GetInstance()->GetLeftThrottle());
-	frc::SmartDashboard::PutNumber("outputRightV", Drivetrain::GetInstance()->GetRightThrottle());
-
-	//once the queue is empty, set isFinished
-	if(m_velocity.empty())
-		m_isFinished=true;
+	if(m_trajectory.empty())
+		m_isFinished = true;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -225,17 +180,11 @@ bool Drive::IsFinished() {
 
 // Called once after isFinished returns true
 void Drive::End() {
-	Drivetrain::GetInstance()->SetDriveVelocity(0,0);
-
-
+	Drivetrain::GetInstance()->SetDriveVelocity(m_finalVelocity,m_finalVelocity);
 
 	//empty the queue if interrupted
-	while(!m_velocity.empty())
-		m_velocity.pop();
-
-	while(!m_distance.empty())
-		m_distance.pop();
-
+	while(!m_trajectory.empty())
+		m_trajectory.pop();
 }
 
 // Called when another command which requires one or more of the same
@@ -243,5 +192,3 @@ void Drive::End() {
 void Drive::Interrupted() {
 	End();
 }
-
-
