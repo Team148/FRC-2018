@@ -14,7 +14,8 @@ Intake::Intake() : Subsystem("Intake"){
 	m_IntakeMotor1->SetSafetyEnabled(false);
 	m_IntakeMotor2->SetSafetyEnabled(false);
 
-	m_IntakeMotor2->SetInverted(true);
+	m_IntakeMotor1->SetInverted(true);
+	m_IntakeMotor2->SetInverted(false);
 }
 
 Intake* Intake::GetInstance() {

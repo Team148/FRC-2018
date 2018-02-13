@@ -39,11 +39,11 @@ constexpr double ELEVATOR_D = 0.50;
 constexpr int EE_TICKS_PER_ROTATION = 4096;
 
 constexpr double ELEVATOR_ZERO = 0;
-constexpr double ELEVATOR_SWITCH = 8500.0;
-constexpr double ELEVATOR_SCALE_LOW = 21500.0;
-constexpr double ELEVATOR_SCALE_HIGH = 30000.0;
-constexpr double ELEVATOR_DOUBLE_STACK = 32000.0;
-constexpr double ELEVATOR_HANG = 27500.0;
+constexpr double ELEVATOR_SWITCH = 10100.0;
+constexpr double ELEVATOR_SCALE_LOW = 21500.0 + 1600;
+constexpr double ELEVATOR_SCALE_HIGH = 30000.0 + 1600;
+constexpr double ELEVATOR_DOUBLE_STACK = 32000.0 + 1600;
+constexpr double ELEVATOR_HANG = 27500.0 + 1600;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;

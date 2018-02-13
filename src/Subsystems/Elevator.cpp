@@ -57,7 +57,7 @@ void Elevator::ConfigClosedLoop() {
 	m_ElevatorMotor1->ConfigVoltageCompSaturation(11.0, 0);
 	m_ElevatorMotor1->EnableVoltageCompensation(true);
 
-	m_ElevatorMotor1->ConfigNominalOutputForward(0.20,0);
+	m_ElevatorMotor1->ConfigNominalOutputForward(0.22,0);
 	m_ElevatorMotor1->ConfigNominalOutputReverse(0.0,0);
 
 	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.1,0);

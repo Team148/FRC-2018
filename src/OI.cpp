@@ -37,9 +37,25 @@ OI::OI() {
 	m_opButton9 = new JoystickButton(opStick, 9);
 	m_opButton10 = new JoystickButton(opStick, 10);
 
-//	m_opPOVTOP = new JoystickButton(opStick->GetPOV(90));
-//	m_opPOVDOWN = new JoystickButton(opStick->GetPOV(270));
+	//DriveJoystick Controls
+	//100% Outtake
+	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_drvButton5->WhenReleased(new RunIntake(0.0));
 
+//	//Climber
+//	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
+//		RunClimber(true);
+//	}
+
+	//OperatorJoystick Controls
+
+	//100% Outtake
+	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_opButton6->WhenReleased(new RunIntake(0.0));
+
+	//100% Outtake
+	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
+	m_opButton5->WhenReleased(new RunIntake(0.0));
 
 	//Elevator
 	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));
@@ -50,62 +66,18 @@ OI::OI() {
 
 	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
 
-//	m_opPOVDOWN->WhenPressed(new SetElevator(true, ELEVATOR_HANG));
+//	if(opStick->GetPOV(0) == true) {
+//		SetElevator(true, ELEVATOR_DOUBLE_STACK);
+//	}
 //
-//	m_opPOVTOP->WhenPressed(new SetElevator(true, ELEVATOR_DOUBLE_STACK));
-//	//Intake
-//	m_opButton1->WhenPressed(new RunIntake(true, true));
-//	m_opButton1->WhenReleased(new RunIntake(false, true));
-//
-//	//Outtake
-//	m_opButton3->WhenPressed(new RunIntake(true, false));
-//	m_opButton3->WhenReleased(new RunIntake(false, false));
-//
-//	//GrabPartner
-//	m_opButton5->WhenPressed(new GrabPartner(true));
-//	m_opButton5->WhenReleased(new GrabPartner(false));
-//
-//	//Climber
-//	m_opButton6->WhenPressed(new RunClimber(true));
-//	m_opButton6->WhenReleased(new RunClimber(false));
-	//DriveJoystick Controls
-	//100% Outtake
-	m_drvButton5->WhenPressed(new RunIntake(true, false, true));
+//	if(opStick->GetPOV(180 == true)) {
+//		SetElevator(true, ELEVATOR_HANG);
+//	}
 
-	//Normal Outtake
-	if(drvStick->GetRawAxis(2) > 0.2) {
-		RunIntake(true, true, false);
-	}
-
-	//AutoScore
-	if(drvStick->GetRawAxis(3) > 0.2) {
-
-	}
-
-	//Climber
-	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
-		RunClimber(true);
-	}
-
-	//OperatorJoystick Controls
-
-	//AutoIntake
-	if(drvStick->GetRawAxis(2) > 0.2) {
-
-	}
-
-	//100% Outtake
-	m_drvButton6->WhenPressed(new RunIntake(true, false, true));
-
-	//Normal Outtake
-	if(opStick->GetRawAxis(2) > 0.2) {
-		RunIntake(true, true, false);
-	}
-
-	//RobotWrangler
-	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
-		GrabPartner(true);
-	}
+//	//RobotWrangler
+//	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
+//		GrabPartner(true);
+//	}
 }
 
 OI* OI::GetInstance() {
