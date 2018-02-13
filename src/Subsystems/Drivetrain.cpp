@@ -131,6 +131,8 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 
 
+
+
 void Drivetrain::SetBrakeMode(bool on) {
 	if(on) {
 		m_leftMotor1->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);

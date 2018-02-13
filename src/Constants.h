@@ -11,6 +11,8 @@ constexpr double DRIVETRAIN_P = 0.005; // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
+constexpr float DRIVETRAIN_BASE_DIAMETER = 24;
+
 constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.0;
 
@@ -29,6 +31,14 @@ constexpr double PATH_MAX_VELOCITY = 150.0;
 constexpr double PATH_MAX_ACCEL = 100.0;
 constexpr double PATH_MAX_JERK = 600.0;
 constexpr double PATH_TIME_STEP = 0.02;
+
+constexpr float DRIVE_GYRO_P = 15.0;
+
+constexpr float DRIVE_TURN_P = 0;
+constexpr float DRIVE_TURN_I = 0;
+constexpr float DRIVE_TURN_D = 0;
+
+//constexpr float DRIVE_TURN_
 
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
