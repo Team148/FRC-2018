@@ -75,6 +75,7 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+	//	std::cout << OI::GetInstance()->opStick->GetRawAxis(2) << std::endl;
 	}
 
 	/**
@@ -93,7 +94,9 @@ public:
 	 */
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->AddCommand(command);
-
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 	void AutonomousPeriodic() override {
@@ -109,21 +112,45 @@ public:
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();
 
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
+		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
 
-
+//		//Driver Outtake
+//		if(oi->drvStick->GetRawAxis(2) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
+//		else
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false, false, false));
+//
+//		//Operator Intake
+//		if((oi->opStick->GetRawAxis(2)) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, false, false));
+//		else {
+//			if(oi->opStick->GetRawButton(6)){
+//
+//			}
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
+//			}
+//
+//		//Operator Outtake
+//		if((oi->opStick->GetRawAxis(3)) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
+//		else
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
-
 
 //		drivetrain->unitConversionTest();
 

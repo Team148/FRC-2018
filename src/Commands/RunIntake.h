@@ -6,12 +6,10 @@
 
 class RunIntake : public frc::InstantCommand {
 public:
-	RunIntake(bool on, bool reversed, bool reversedFull);
+	RunIntake(double percent);
 	void Initialize();
 private:
-	bool m_on = false;
-	bool m_reversed = false;
-	bool m_reversedFull = false;
+	double m_percent;
 };
 
 #endif  // RunIntake_H
