@@ -18,6 +18,8 @@ private:
 	JoystickButton* m_drvButton6;
 	JoystickButton* m_drvButton7;
 	JoystickButton* m_drvButton8;
+	JoystickButton* m_drvButton9;
+	JoystickButton* m_drvButton10;
 
 	JoystickButton* m_opButton1;
 	JoystickButton* m_opButton2;
