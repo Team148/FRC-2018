@@ -11,6 +11,14 @@ constexpr double DRIVETRAIN_P = 0.005; // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
+//Auto/TurnPID
+constexpr float DRIVE_TURN_P = 0.01;
+constexpr float DRIVE_TURN_I = 0.000;
+constexpr float DRIVE_TURN_TOLERANCE = 0.05;
+
+//Auto/TurnTMP
+constexpr float TURN_DIST_P = 0.05;
+
 constexpr float DRIVETRAIN_BASE_DIAMETER = 24;
 
 constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.75;
@@ -34,9 +42,6 @@ constexpr double PATH_TIME_STEP = 0.02;
 
 constexpr float DRIVE_GYRO_P = 15.0;
 
-constexpr float DRIVE_TURN_P = 0;
-constexpr float DRIVE_TURN_I = 0;
-constexpr float DRIVE_TURN_D = 0;
 
 //constexpr float DRIVE_TURN_
 
