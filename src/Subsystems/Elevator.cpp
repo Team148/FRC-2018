@@ -57,16 +57,16 @@ void Elevator::ConfigClosedLoop() {
 	m_ElevatorMotor1->ConfigVoltageCompSaturation(11.0, 0);
 	m_ElevatorMotor1->EnableVoltageCompensation(true);
 
-	m_ElevatorMotor1->ConfigNominalOutputForward(0.22,0);
+	m_ElevatorMotor1->ConfigNominalOutputForward(0.0,0);
 	m_ElevatorMotor1->ConfigNominalOutputReverse(0.0,0);
 
-	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.1,0);
+	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.25,0);
 
 	m_ElevatorMotor1->Set(ControlMode::Position,0.0);
 	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_ElevatorMotor1->SetSensorPhase(false);
 
-	m_ElevatorMotor1->ConfigClosedloopRamp(0.5, 0);
+	m_ElevatorMotor1->ConfigClosedloopRamp(0.25, 0);
 
 	m_ElevatorMotor1->Config_kF(0, ELEVATOR_F, 0);
 	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P, 0);
@@ -107,7 +107,12 @@ int Elevator::GetElevatorVelocity() {
 }
 
 void Elevator::SetElevatorPosition(double position) {
+
+	double scaled_elevator_F = ELEVATOR_F / position;
+
+	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
 	m_ElevatorMotor1->Set(ControlMode::Position, position);
+//	m_ElevatorMotor1->Set(ControlMode::Position, position);
 }
 
 void Elevator::SetElevatorEncoderZero() {

@@ -16,6 +16,6 @@ void SetElevator::Initialize() {
 		Elevator::GetInstance()->SetElevatorPosition(m_position);
 	}
 	else {
-		Elevator::GetInstance()->SetElevatorPosition(0.0);
+		Elevator::GetInstance()->SetElevatorPosition(1.0);
 	}
 }
