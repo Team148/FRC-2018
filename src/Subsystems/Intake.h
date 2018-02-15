@@ -18,9 +18,6 @@ public:
 	static Intake* GetInstance();
 	void InitDefaultCommand();
 	void SetIntakeMotor(float percent);
-	void SetIntakeMotorOpposite(float percent);
-	void SetSingleIntakeMotor(float percent, int leftOrRight);
-
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
+#include <Commands/SetElevator.h>
 
 OI *OI::m_instance = 0;
 
@@ -38,42 +39,45 @@ OI::OI() {
 
 	//DriveJoystick Controls
 	//100% Outtake
-	m_drvButton5->WhenPressed(new RunIntake(true, false, true));
+	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_drvButton5->WhenReleased(new RunIntake(0.0));
 
-	//Normal Outtake
-	if(drvStick->GetRawAxis(2) > 0.2) {
-		RunIntake(true, true, false);
-	}
-
-	//AutoScore
-	if(drvStick->GetRawAxis(3) > 0.2) {
-
-	}
-
-	//Climber
-	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
-		RunClimber(true);
-	}
+//	//Climber
+//	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
+//		RunClimber(true);
+//	}
 
 	//OperatorJoystick Controls
 
-	//AutoIntake
-	if(drvStick->GetRawAxis(2) > 0.2) {
-
-	}
+	//100% Outtake
+	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_opButton6->WhenReleased(new RunIntake(0.0));
 
 	//100% Outtake
-	m_drvButton6->WhenPressed(new RunIntake(true, false, true));
+	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
+	m_opButton5->WhenReleased(new RunIntake(0.0));
 
-	//Normal Outtake
-	if(opStick->GetRawAxis(2) > 0.2) {
-		RunIntake(true, true, false);
+	//Elevator
+	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));
+
+	m_opButton2->WhenPressed(new SetElevator(true, ELEVATOR_SWITCH));
+
+	m_opButton3->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_LOW));
+
+	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
+
+	if(opStick->GetPOV(0) == true) {
+		SetElevator(true, ELEVATOR_DOUBLE_STACK);
 	}
 
-	//RobotWrangler
-	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
-		GrabPartner(true);
+	if(opStick->GetPOV(180 == true)) {
+		SetElevator(true, ELEVATOR_HANG);
 	}
+
+//	//RobotWrangler
+//	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
+//		GrabPartner(true);
+//	}
 }
 
 OI* OI::GetInstance() {
