@@ -66,13 +66,13 @@ OI::OI() {
 
 	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
 
-//	if(opStick->GetPOV(0) == true) {
-//		SetElevator(true, ELEVATOR_DOUBLE_STACK);
-//	}
-//
-//	if(opStick->GetPOV(180 == true)) {
-//		SetElevator(true, ELEVATOR_HANG);
-//	}
+	if(opStick->GetPOV(0) == true) {
+		SetElevator(true, ELEVATOR_DOUBLE_STACK);
+	}
+
+	if(opStick->GetPOV(180 == true)) {
+		SetElevator(true, ELEVATOR_HANG);
+	}
 
 //	//RobotWrangler
 //	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
