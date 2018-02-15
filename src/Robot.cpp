@@ -14,7 +14,6 @@
 #include "math.h"
 #include <iostream>
 #include <Commands/Pathfind.h>
-#include <Subsystems/Wrangler.h>
 //#include "constants.h"
 #include "RobotMap.h"
 #include "OI.h"
@@ -23,6 +22,7 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Climber.h"
+#include <Subsystems/Wrangler.h>
 
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
@@ -75,7 +75,6 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-	//	std::cout << OI::GetInstance()->opStick->GetRawAxis(2) << std::endl;
 	}
 
 	/**
@@ -121,30 +120,29 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
-		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
+		//Operator Controller POV commands
+		if(oi->opStick->GetPOV(0) == true) {
+			SetElevator(true, ELEVATOR_DOUBLE_STACK);
+		}
 
-//		//Driver Outtake
-//		if(oi->drvStick->GetRawAxis(2) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
-//		else
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false, false, false));
-//
-//		//Operator Intake
-//		if((oi->opStick->GetRawAxis(2)) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, false, false));
-//		else {
-//			if(oi->opStick->GetRawButton(6)){
-//
-//			}
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
-//			}
-//
-//		//Operator Outtake
-//		if((oi->opStick->GetRawAxis(3)) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
-//		else
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
+		if(oi->opStick->GetPOV(180 == true)) {
+			SetElevator(true, ELEVATOR_HANG);
+		}
+
+		//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFE
+		//Driver call climber command
+		if (oi->drvStick->GetRawButtonPressed(7) && oi->drvStick->GetRawButtonPressed(8)) {
+			new RunClimber(true);
+		}
+		else
+			new RunClimber(false);
+
+		//Operator call grabpartner command
+		if (oi->opStick->GetRawButtonPressed(7) && oi->opStick->GetRawButtonPressed(8)) {
+			new GrabPartner(true);
+		}
+		else
+			new GrabPartner(false);
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
@@ -169,7 +167,6 @@ public:
 	void TestPeriodic() override {
 //		drivetrain->SetDriveVelocity(0.0, unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
 //		frc::SmartDashboard::PutNumber("DriveVelocity",drivetrain->getLeftDriveVelocity());
-
 	}
 
 private:

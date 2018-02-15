@@ -42,18 +42,15 @@ OI::OI() {
 	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
 	m_drvButton5->WhenReleased(new RunIntake(0.0));
 
-//	//Climber
-//	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
-//		RunClimber(true);
-//	}
-
 	//OperatorJoystick Controls
 
-	//100% Outtake
-	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	//Outtake
+	//This needs to change to outtake 100% when I figure out the triggers
+
+	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_PERCENT));
 	m_opButton6->WhenReleased(new RunIntake(0.0));
 
-	//100% Outtake
+	//Intake
 	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
 	m_opButton5->WhenReleased(new RunIntake(0.0));
 
@@ -65,19 +62,6 @@ OI::OI() {
 	m_opButton3->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_LOW));
 
 	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
-
-	if(opStick->GetPOV(0) == true) {
-		SetElevator(true, ELEVATOR_DOUBLE_STACK);
-	}
-
-	if(opStick->GetPOV(180 == true)) {
-		SetElevator(true, ELEVATOR_HANG);
-	}
-
-//	//RobotWrangler
-//	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
-//		GrabPartner(true);
-//	}
 }
 
 OI* OI::GetInstance() {
