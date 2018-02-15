@@ -44,9 +44,6 @@ OI::OI() {
 
 	//OperatorJoystick Controls
 
-	//Outtake
-	//This needs to change to outtake 100% when I figure out the triggers
-
 	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_PERCENT));
 	m_opButton6->WhenReleased(new RunIntake(0.0));
 

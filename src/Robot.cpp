@@ -14,7 +14,7 @@
 #include "math.h"
 #include <iostream>
 #include <Commands/Pathfind.h>
-//#include "constants.h"
+//#include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
 
@@ -29,6 +29,7 @@
 #include "Commands/RunIntake.h"
 #include "Util/UnitMaster.h"
 #include "Commands/ElevatorWithJoystick.h"
+#include "Commands/SetElevator.h"
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
 
@@ -46,9 +47,6 @@ public:
 	Wrangler *wrangler = 0;
 	OI *oi = 0;
 	UnitMaster unit_master;
-
-
-
 
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
@@ -122,14 +120,14 @@ public:
 
 		//Operator Controller POV commands
 		if(oi->opStick->GetPOV(0) == true) {
-			SetElevator(true, ELEVATOR_DOUBLE_STACK);
+			new SetElevator(true, ELEVATOR_DOUBLE_STACK);
 		}
 
-		if(oi->opStick->GetPOV(180 == true)) {
-			SetElevator(true, ELEVATOR_HANG);
+		if(oi->opStick->GetPOV(180) == true) {
+			new SetElevator(true, ELEVATOR_HANG);
 		}
 
-		//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFE
+		//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFES
 		//Driver call climber command
 		if (oi->drvStick->GetRawButtonPressed(7) && oi->drvStick->GetRawButtonPressed(8)) {
 			new RunClimber(true);
