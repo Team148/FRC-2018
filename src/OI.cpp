@@ -70,7 +70,7 @@ OI::OI() {
 		SetElevator(true, ELEVATOR_DOUBLE_STACK);
 	}
 
-	if(opStick->GetPOV(180 == true)) {
+	if(opStick->GetPOV(180) == true) {
 		SetElevator(true, ELEVATOR_HANG);
 	}
 

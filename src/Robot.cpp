@@ -102,9 +102,6 @@ public:
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
-		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
-
 	}
 
 	void TeleopInit() override
@@ -120,31 +117,6 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-
-		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
-		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
-
-//		//Driver Outtake
-//		if(oi->drvStick->GetRawAxis(2) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
-//		else
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false, false, false));
-//
-//		//Operator Intake
-//		if((oi->opStick->GetRawAxis(2)) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, false, false));
-//		else {
-//			if(oi->opStick->GetRawButton(6)){
-//
-//			}
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
-//			}
-//
-//		//Operator Outtake
-//		if((oi->opStick->GetRawAxis(3)) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
-//		else
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
