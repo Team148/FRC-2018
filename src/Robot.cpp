@@ -99,9 +99,6 @@ public:
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
-		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
-
 	}
 
 	void TeleopInit() override

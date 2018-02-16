@@ -11,11 +11,11 @@ constexpr double DRIVETRAIN_P = 0.005; // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
 constexpr double DRIVETRAIN_D = 0.0;
 
-constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.75;
+constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.85;
 constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.0;
 
-constexpr double DRIVETRAIN_TURN_FILTER = 0.65;
-constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 0.85;
+constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
+constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
