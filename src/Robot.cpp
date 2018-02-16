@@ -4,7 +4,8 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+//#include <Commands/Auto/Drive.h>
+#include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -54,13 +55,15 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-		command = new PathFind();
+		//command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+
+
 
 	}
 
@@ -93,7 +96,8 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		frc::Scheduler::GetInstance()->AddCommand(command);
+		//frc::Scheduler::GetInstance()->AddCommand(new Drive(60,150,0));
+		frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}

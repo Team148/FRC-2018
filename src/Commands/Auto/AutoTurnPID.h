@@ -1,11 +1,12 @@
 #ifndef TurnPID_H
 #define TurnPID_H
 
-#include "../../CommandBase.h"
-#include "WPIlib.h"
+
+#include "Commands/Command.h"
+#include "CommandBase.h"
 #include "constants.h"
 
-class TurnPID : public CommandBase {
+class TurnPID : public Command {
 public:
 	TurnPID(float degrees);
 	void Initialize();

@@ -1,12 +1,12 @@
 #ifndef ElevatorUpAfterDriveDist_H
 #define ElevatorUpAfterDriveDist_H
 
-#include "../CommandBase.h"
+#include "../../CommandBase.h"
 
 class ElevatorUpAfterDriveDist : public CommandBase {
 public:
 
-	ElevatorUpAfterDriveDist();
+	ElevatorUpAfterDriveDist(bool on,int position, double inchesToDrive);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

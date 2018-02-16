@@ -1,4 +1,4 @@
-#include <Commands/Auto/TurnPID.h>
+#include <Commands/Auto/AutoTurnPID.h>
 
 TurnPID::TurnPID(float degrees) {
 	// Use Requires() here to declare subsystem dependencies
@@ -22,7 +22,6 @@ void TurnPID::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TurnPID::Execute() {
-
 	//read current angle
 	float current_angle = Drivetrain::GetInstance()->updateGyroYaw();
 
@@ -33,9 +32,10 @@ void TurnPID::Execute() {
 	float output = m_Kp * curr_err + m_Ki*m_i_err;
 
 
+    //frc::SmartDashboard::PutData( Drivetrain::GetInstance()->updateGyroYaw());
 
 	//SetLeft and SetRight
-	Drivetrain::GetInstance()->SetDriveVelocity(output, -output);
+	Drivetrain::GetInstance()->Tank(output, output);
 
 
 	prev_err = curr_err;

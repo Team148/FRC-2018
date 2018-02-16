@@ -1,4 +1,4 @@
-#include "ElevatorUpAfterDriveDist.h"
+#include <Commands/Auto/AutoElevatorUpAfterDriveDist.h>
 
 ElevatorUpAfterDriveDist::ElevatorUpAfterDriveDist(bool on,int position, double inchesToDrive) {
 	// Use Requires() here to declare subsystem dependencies
@@ -8,7 +8,7 @@ ElevatorUpAfterDriveDist::ElevatorUpAfterDriveDist(bool on,int position, double 
 
 	m_on = on;
 	m_position = position;
-	m_inchesToDrivce = inchesToDrive;
+	m_inchesToDrive = inchesToDrive;
 }
 
 // Called just before this Command runs the first time
@@ -20,7 +20,7 @@ void ElevatorUpAfterDriveDist::Initialize() {
 void ElevatorUpAfterDriveDist::Execute() {
 	double m_posAvg;
 	m_posAvg = (Drivetrain::GetInstance()->getLeftDrivePosition() + Drivetrain::GetInstance()->getRightDrivePosition()) * (WHEEL_CIRC_INCHES/TICKS_PER_ROTATIONS);
-	if(m_posAvg >= )
+	if(m_posAvg >= m_inchesToDrive )
 	{
 		if (m_on)
 			{
