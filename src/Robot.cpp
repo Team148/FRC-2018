@@ -134,6 +134,12 @@ public:
 		else
 			climber->SetClimberMotor(0.0);
 
+		//POV buttons
+		if (oi->opStick->GetPOV() == 0)
+			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
+		if (oi->opStick->GetPOV() == 180)
+			elevator->SetElevatorPosition(ELEVATOR_HANG);
+
 //		//Intake Commands
 //		if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
 //			new RunIntake(OUTTAKE_FULL_PERCENT);
