@@ -14,7 +14,7 @@
 #include "math.h"
 #include <iostream>
 #include <Commands/Pathfind.h>
-//#include "Constants.h"
+#include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
 
@@ -114,6 +114,40 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+//		if ((oi->drvStick->GetRawAxis(2) >= 0.2))// || opStick->GetRawButtonPressed(6))
+//			new RunIntake(OUTTAKE_FULL_PERCENT);
+//		else
+//			new RunIntake(0.0);
+
+		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
+			intake->SetIntakeMotor(OUTTAKE_PERCENT);
+		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
+			intake->SetIntakeMotor(OUTTAKE_FULL_PERCENT);
+		else if (oi->opStick->GetRawButton(5))
+			intake->SetIntakeMotor(INTAKE_PERCENT);
+		else
+			intake->SetIntakeMotor(0.0);
+
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			wrangler->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
+		else
+			wrangler->SetWranglerMotor(0.0);
+
+		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
+			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
+		else
+			climber->SetClimberMotor(0.0);
+
+//		//Intake Commands
+//		if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
+//			new RunIntake(OUTTAKE_FULL_PERCENT);
+//		else if (oi->opStick->GetRawButton(5))
+//			new RunIntake(INTAKE_PERCENT);
+//		else if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
+//			new RunIntake(OUTTAKE_PERCENT);
+//		else
+//			new RunIntake(0.0);
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
