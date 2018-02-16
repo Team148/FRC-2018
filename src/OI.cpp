@@ -37,14 +37,6 @@ OI::OI() {
 	m_opButton9 = new JoystickButton(opStick, 9);
 	m_opButton10 = new JoystickButton(opStick, 10);
 
-//	new RunIntake(0.0);
-
-//	//Intake Commands
-//	if ((drvStick->GetRawAxis(2) >= 0.2))// || opStick->GetRawButtonPressed(6))
-//		new RunIntake(OUTTAKE_FULL_PERCENT);
-//	else
-//		new RunIntake(0.0);
-
 //	//DriveJoystick Controls
 ////	//100% Outtake
 //	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));

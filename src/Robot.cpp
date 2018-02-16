@@ -115,11 +115,6 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-//		if ((oi->drvStick->GetRawAxis(2) >= 0.2))// || opStick->GetRawButtonPressed(6))
-//			new RunIntake(OUTTAKE_FULL_PERCENT);
-//		else
-//			new RunIntake(0.0);
-
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			intake->SetIntakeMotor(OUTTAKE_PERCENT);
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
