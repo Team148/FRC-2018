@@ -118,30 +118,6 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		//Operator Controller POV commands
-		if(oi->opStick->GetPOV(0) == true) {
-			new SetElevator(true, ELEVATOR_DOUBLE_STACK);
-		}
-
-		if(oi->opStick->GetPOV(180) == true) {
-			new SetElevator(true, ELEVATOR_HANG);
-		}
-
-		//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFES
-		//Driver call climber command
-		if (oi->drvStick->GetRawButtonPressed(7) && oi->drvStick->GetRawButtonPressed(8)) {
-			new RunClimber(true);
-		}
-		else
-			new RunClimber(false);
-
-		//Operator call grabpartner command
-		if (oi->opStick->GetRawButtonPressed(7) && oi->opStick->GetRawButtonPressed(8)) {
-			new GrabPartner(true);
-		}
-		else
-			new GrabPartner(false);
-
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
 
