@@ -16,8 +16,8 @@ constexpr float DRIVE_VELOCITY_P = 0;
 constexpr float DRIVE_GYRO_COMP_P = 0;
 
 //Auto/TurnPID
-constexpr float DRIVE_TURN_P = 0.000;
-constexpr float DRIVE_TURN_I = 0.000;
+constexpr float DRIVE_TURN_P = .05;
+constexpr float DRIVE_TURN_I = 0;
 constexpr float DRIVE_TURN_TOLERANCE = 0.05;
 
 //Auto/TurnTMP

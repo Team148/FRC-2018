@@ -4,8 +4,12 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-//#include <Commands/Auto/Drive.h>
+#include <Commands/Auto/AutoDrive.h>
 #include <Commands/Auto/AutoTurnPID.h>
+#include <Commands/Auto/AutoIntake.h>
+
+
+#include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -96,8 +100,10 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		//frc::Scheduler::GetInstance()->AddCommand(new Drive(60,150,0));
-		frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(48,150,0));
+		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
+		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
+		frc::Scheduler::GetInstance()->AddCommand(new DriveAndScore());
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}

@@ -11,22 +11,15 @@
 #include "CommandBase.h"
 #include "constants.h"
 
-class AutoIntake : public CommandBase {
-private:
-	bool m_isIntakeOn = false;
-	bool m_IsFinished = false;
-
-	double m_percent = 0;
-	double m_runTime = 0;
-	double m_startTime = 0;
-	double m_currentTime = 0;
-
+class AutoSetElevator : public CommandBase {
 public:
-	AutoIntake(double percent, double runTime);
+	AutoSetElevator(bool on, double position);
 	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+
+private:
+	bool m_on = false;
+	double m_position;
+	double m_inches;
+
 };
 

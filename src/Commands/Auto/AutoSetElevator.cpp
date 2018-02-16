@@ -5,28 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "AutoSetElevator.h"
 
-#include "Commands/Command.h"
-#include "CommandBase.h"
-#include "constants.h"
+AutoSetElevator::AutoSetElevator(bool on, double position) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Elevator::GetInstance());
+}
 
-class AutoIntake : public CommandBase {
-private:
-	bool m_isIntakeOn = false;
-	bool m_IsFinished = false;
+// Called just before this Command runs the first time
+void AutoSetElevator::Initialize() {
+	if (m_on)
+	{
+		Elevator::GetInstance()->SetElevatorPosition(m_position);
+	}
+	else
+	{
+		Elevator::GetInstance()->SetElevatorPosition(1.0);
+	}
+}
 
-	double m_percent = 0;
-	double m_runTime = 0;
-	double m_startTime = 0;
-	double m_currentTime = 0;
-
-public:
-	AutoIntake(double percent, double runTime);
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
-};
 

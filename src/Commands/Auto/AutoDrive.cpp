@@ -2,7 +2,7 @@
 #include <Util/UnitMaster.h>
 
 
-Drive::Drive(double inches, double cruise_velocity, double final_velocity) {
+AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
@@ -24,7 +24,7 @@ Drive::Drive(double inches, double cruise_velocity, double final_velocity) {
 }
 
 // Called just before this Command runs the first time
-void Drive::Initialize() {
+void AutoDrive::Initialize() {
 	//reset isFinished
 	m_isFinished=0;
 
@@ -134,7 +134,7 @@ void Drive::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Drive::Execute() {
+void AutoDrive::Execute() {
 	//read current values from queue
 	float cur_t = m_trajectory.front().t;
 	float cur_v_l = m_trajectory.front().v_left;
@@ -175,12 +175,12 @@ void Drive::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Drive::IsFinished() {
+bool AutoDrive::IsFinished() {
 	return m_isFinished;
 }
 
 // Called once after isFinished returns true
-void Drive::End() {
+void AutoDrive::End() {
 	Drivetrain::GetInstance()->SetDriveVelocity(m_finalVelocity,m_finalVelocity);
 
 	//empty the queue if interrupted
@@ -190,6 +190,6 @@ void Drive::End() {
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Drive::Interrupted() {
+void AutoDrive::Interrupted() {
 	End();
 }

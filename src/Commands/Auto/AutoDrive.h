@@ -4,13 +4,14 @@
 #include <queue>
 #include "math.h"
 #include "Commands/Command.h"
+#include "CommandBase.h"
 #include "Subsystems/Drivetrain.h"
 #include "Constants.h"
 
 using namespace std;
-class Drive : public Command {
+class AutoDrive : public CommandBase {
 public:
-	Drive(double inches, double cruise_velocity, double final_velocity=0);
+	AutoDrive(double inches, double cruise_velocity, double final_velocity=0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

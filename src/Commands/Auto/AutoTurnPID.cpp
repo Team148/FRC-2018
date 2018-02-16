@@ -1,4 +1,5 @@
 #include <Commands/Auto/AutoTurnPID.h>
+#include <iostream>
 
 TurnPID::TurnPID(float degrees) {
 	// Use Requires() here to declare subsystem dependencies
@@ -36,7 +37,8 @@ void TurnPID::Execute() {
 
 	//SetLeft and SetRight
 	Drivetrain::GetInstance()->Tank(output, output);
-
+	std::cout << "yaw " << Drivetrain::GetInstance()->updateGyroYaw() << std::endl;
+	std::cout << "output " << output << std::endl;
 
 	prev_err = curr_err;
 

@@ -6,7 +6,7 @@
 #include "CommandBase.h"
 #include "constants.h"
 
-class TurnPID : public Command {
+class TurnPID : public CommandBase {
 public:
 	TurnPID(float degrees);
 	void Initialize();

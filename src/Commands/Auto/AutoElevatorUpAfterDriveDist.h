@@ -1,7 +1,9 @@
 #ifndef ElevatorUpAfterDriveDist_H
 #define ElevatorUpAfterDriveDist_H
 
-#include "../../CommandBase.h"
+#include "Commands/Command.h"
+#include "CommandBase.h"
+#include "constants.h"
 
 class ElevatorUpAfterDriveDist : public CommandBase {
 public:
@@ -17,6 +19,8 @@ private:
 	bool m_on = false;
 	double m_position;
 	double m_inchesToDrive;
+	bool m_IsFinished = false;
+
 };
 
 #endif  // ElevatorUpAfterDriveDist_H

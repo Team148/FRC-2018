@@ -7,26 +7,14 @@
 
 #pragma once
 
-#include "Commands/Command.h"
-#include "CommandBase.h"
-#include "constants.h"
+#include <Commands/CommandGroup.h>
+#include "Commands/Auto/AutoDrive.h"
+#include "Commands/Auto/AutoElevatorUpAfterDriveDist.h"
+#include "Commands/Auto/AutoIntake.h"
 
-class AutoIntake : public CommandBase {
-private:
-	bool m_isIntakeOn = false;
-	bool m_IsFinished = false;
 
-	double m_percent = 0;
-	double m_runTime = 0;
-	double m_startTime = 0;
-	double m_currentTime = 0;
-
+class DriveAndScore : public frc::CommandGroup {
 public:
-	AutoIntake(double percent, double runTime);
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	DriveAndScore();
 };
 
