@@ -1,4 +1,5 @@
 #include "WPILib.h"
+#include "Constants.h"
 
 class OI {
 public:
@@ -18,6 +19,8 @@ private:
 	JoystickButton* m_drvButton6;
 	JoystickButton* m_drvButton7;
 	JoystickButton* m_drvButton8;
+	JoystickButton* m_drvButton9;
+	JoystickButton* m_drvButton10;
 
 	JoystickButton* m_opButton1;
 	JoystickButton* m_opButton2;
@@ -26,5 +29,10 @@ private:
 	JoystickButton* m_opButton5;
 	JoystickButton* m_opButton6;
 	JoystickButton* m_opButton7;
+	JoystickButton* m_opButton8;
+	JoystickButton* m_opButton9;
+	JoystickButton* m_opButton10;
 
+//	JoystickButton* m_opPOVTOP;
+//	JoystickButton* m_opPOVDOWN;
 };

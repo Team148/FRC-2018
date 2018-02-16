@@ -6,6 +6,7 @@
 #include <Commands/RunClimber.h>
 #include <Commands/RunDrivetrain.h>
 #include <Commands/GrabPartner.h>
+#include <Commands/SetElevator.h>
 
 OI *OI::m_instance = 0;
 
@@ -21,6 +22,8 @@ OI::OI() {
 	m_drvButton6 = new JoystickButton(drvStick, 6);
 	m_drvButton7 = new JoystickButton(drvStick, 7);
 	m_drvButton8 = new JoystickButton(drvStick, 8);
+	m_drvButton9 = new JoystickButton(drvStick, 9);
+	m_drvButton10 = new JoystickButton(drvStick, 10);
 
 
 	opStick = new Joystick(1);
@@ -31,26 +34,52 @@ OI::OI() {
 	m_opButton5 = new JoystickButton(opStick, 5);
 	m_opButton6 = new JoystickButton(opStick, 6);
 	m_opButton7 = new JoystickButton(opStick, 7);
+	m_opButton8 = new JoystickButton(opStick, 8);
+	m_opButton9 = new JoystickButton(opStick, 9);
+	m_opButton10 = new JoystickButton(opStick, 10);
+
+	//DriveJoystick Controls
+	//100% Outtake
+	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_drvButton5->WhenReleased(new RunIntake(0.0));
+
+//	//Climber
+//	if((drvStick->GetRawButtonPressed(7)) && (drvStick->GetRawButtonPressed(8))) {
+//		RunClimber(true);
+//	}
+
+	//OperatorJoystick Controls
+
+	//100% Outtake
+	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_opButton6->WhenReleased(new RunIntake(0.0));
 
 
-	//Intake
-	m_opButton1->WhenPressed(new RunIntake(true, true));
-	m_opButton1->WhenReleased(new RunIntake(false, true));
+	//100% Outtake
+	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
+	m_opButton5->WhenReleased(new RunIntake(0.0));
 
-	//Outtake
-	m_opButton3->WhenPressed(new RunIntake(true, false));
-	m_opButton3->WhenReleased(new RunIntake(false, false));
+	//Elevator
+	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));
 
-	//GrabPartner
-	m_opButton5->WhenPressed(new GrabPartner(true));
-	m_opButton5->WhenReleased(new GrabPartner(false));
+	m_opButton2->WhenPressed(new SetElevator(true, ELEVATOR_SWITCH));
 
-	//Climber
-	m_opButton6->WhenPressed(new RunClimber(true));
-	m_opButton6->WhenReleased(new RunClimber(false));
+	m_opButton3->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_LOW));
 
-	//Drivetrain Test Code Closed Loop
-	m_drvButton1->WhenPressed(new RunDrivetrain());
+	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
+
+	if(opStick->GetPOV(0) == true) {
+		SetElevator(true, ELEVATOR_DOUBLE_STACK);
+	}
+
+	if(opStick->GetPOV(180 == true)) {
+		SetElevator(true, ELEVATOR_HANG);
+	}
+
+//	//RobotWrangler
+//	if((opStick->GetRawButtonPressed(7)) && (opStick->GetRawButtonPressed(8))) {
+//		GrabPartner(true);
+//	}
 }
 
 OI* OI::GetInstance() {

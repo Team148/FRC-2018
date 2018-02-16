@@ -4,7 +4,12 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#include <Commands/Auto/AutoDrive.h>
+#include <Commands/Auto/AutoTurnPID.h>
+#include <Commands/Auto/AutoIntake.h>
 
+
+#include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -54,13 +59,15 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-		command = new PathFind();
+		//command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+
+
 
 	}
 
@@ -75,6 +82,7 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+	//	std::cout << OI::GetInstance()->opStick->GetRawAxis(2) << std::endl;
 	}
 
 	/**
@@ -92,8 +100,13 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		frc::Scheduler::GetInstance()->AddCommand(command);
-
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(48,150,0));
+		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
+		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
+		frc::Scheduler::GetInstance()->AddCommand(new DriveAndScore());
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 	void AutonomousPeriodic() override {
@@ -109,18 +122,45 @@ public:
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();
 
+		if (!elevator->IsClosedLoop()){
+			elevator->ConfigClosedLoop();
+		}
 	}
 
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
+		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
+
+//		//Driver Outtake
+//		if(oi->drvStick->GetRawAxis(2) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
+//		else
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false, false, false));
+//
+//		//Operator Intake
+//		if((oi->opStick->GetRawAxis(2)) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, false, false));
+//		else {
+//			if(oi->opStick->GetRawButton(6)){
+//
+//			}
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
+//			}
+//
+//		//Operator Outtake
+//		if((oi->opStick->GetRawAxis(3)) > 0.1)
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
+//		else
+//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
+
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
 
 //		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 //		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
-
 
 //		drivetrain->unitConversionTest();
 

@@ -18,13 +18,15 @@ void DriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-	//Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
-	if(OI::GetInstance()->drvStick->GetRawButton(1)){
-		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(140.0), unit_master.GetTicksPer100ms(140.0));
-	//	std::cout << "works" << std::endl;
-	}
-	else
-		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -OI::GetInstance()->drvStick->GetRawAxis(1));
+//	//Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
+//	if(OI::GetInstance()->drvStick->GetRawButton(1)){
+//		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(140.0), unit_master.GetTicksPer100ms(140.0));
+//	//	std::cout << "works" << std::endl;
+//	}
+//	else
+//		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -OI::GetInstance()->drvStick->GetRawAxis(1));
+	if(!OI::GetInstance()->drvStick->GetRawButton(6)) 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
+	else Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
 
 }
 
