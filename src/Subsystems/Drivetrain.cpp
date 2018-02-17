@@ -134,6 +134,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 
 
+
 //	if(m_closedLoop)
 //	{
 //		m_leftMotor1->Set(ControlMode::Velocity, unit_master.GetTicksPer100ms(left_velocity));
@@ -141,6 +142,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 //	}
 //	else
 //	{
+
 
 //	}
 
