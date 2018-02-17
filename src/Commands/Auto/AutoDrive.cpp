@@ -161,7 +161,7 @@ void AutoDrive::Execute() {
 	float vel_rcomp = DRIVE_VELOCITY_P*vel_rerr;
 
 	//get gyro angle and compensate
-	double cur_angle = Drivetrain::GetInstance()->updateGyroYaw();
+	double cur_angle = Drivetrain::GetInstance()->getGyroYaw();
 	float cur_angle_err = cur_angle - m_initangle;
 	float gyro_comp = (DRIVE_GYRO_COMP_P*cur_angle_err);
 

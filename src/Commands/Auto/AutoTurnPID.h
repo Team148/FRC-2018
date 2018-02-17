@@ -6,9 +6,9 @@
 #include "CommandBase.h"
 #include "constants.h"
 
-class TurnPID : public CommandBase {
+class AutoTurnPID : public CommandBase {
 public:
-	TurnPID(float degrees);
+	AutoTurnPID(float degrees);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
