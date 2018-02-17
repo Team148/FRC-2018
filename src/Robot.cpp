@@ -125,14 +125,14 @@ public:
 			intake->SetIntakeMotor(0.0);
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
-			wrangler->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
-		else
-			wrangler->SetWranglerMotor(0.0);
-
-		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
 			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
 		else
 			climber->SetClimberMotor(0.0);
+
+		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
+			wrangler->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
+		else
+			wrangler->SetWranglerMotor(0.0);
 
 		//POV buttons
 		if (oi->opStick->GetPOV() == 0)
