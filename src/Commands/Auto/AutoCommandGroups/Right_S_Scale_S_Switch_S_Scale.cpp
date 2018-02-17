@@ -20,7 +20,7 @@ Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// arm.
 
 	AddSequential(new PathFind());
-	AddSequential(new ArcadeDriveTurn(-90.0));
+	AddSequential(new TurnPosition(380.0));
 	AddSequential(new driveToCubeFromScale());
 
 }

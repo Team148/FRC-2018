@@ -71,11 +71,11 @@ void Path::EncoderFollowerSetup(){
 	rightEncoderFollower = (EncoderFollower*)malloc(sizeof(EncoderFollower));
 	rightEncoderFollower->last_error = 0; rightEncoderFollower->segment = 0; rightEncoderFollower->finished = 0;
 
-	configLeftEncoder = {Drivetrain::GetInstance()->getLeftDrivePosition() , TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
-				                         DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};
-
-	configRightEncoder = {Drivetrain::GetInstance()->getRightDrivePosition(), TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
-											 DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};         // Kp, Ki, Kd and Kv, Ka
+//	configLeftEncoder = {Drivetrain::GetInstance()->getLeftDrivePosition() , TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+//				                         DRIVETRAIN_P_VEL, DRIVETRAIN_I_VEL, DRIVETRAIN_D_VEL, 1.0 / MAX_VELOCITY, 0.0};
+//
+//	configRightEncoder = {Drivetrain::GetInstance()->getRightDrivePosition(), TICKS_PER_REV, WHEEL_CIRC,      // Position, Ticks per Rev, Wheel Circumference
+//											 DRIVETRAIN_P, DRIVETRAIN_I, DRIVETRAIN_D, 1.0 / MAX_VELOCITY, 0.0};         // Kp, Ki, Kd and Kv, Ka
 
 
 

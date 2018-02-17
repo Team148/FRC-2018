@@ -31,6 +31,9 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor1->ConfigVelocityMeasurementWindow(50, 0);
 	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_50Ms , 0 );
 
+//
+//	m_leftMotor1->SetStatusFramePeriod(StatusFrame::Status_1_General_, 50 , 0 );
+//	m_rightMotor1->SetStatusFramePeriod(StatusFrame::Status_1_General_ ,50 , 0 );
 
 
 
@@ -66,17 +69,20 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
 
 
-	m_leftMotor1->Config_kF(0, DRIVETRAIN_F, 0);
-	m_rightMotor1->Config_kF(0, DRIVETRAIN_F, 0);
+	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
 
-	m_leftMotor1->Config_kP(0, DRIVETRAIN_P, 0);
-	m_rightMotor1->Config_kP(0, DRIVETRAIN_P, 0);
+	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
 
-	m_leftMotor1->Config_kI(0, DRIVETRAIN_I, 0);
-	m_rightMotor1->Config_kI(0, DRIVETRAIN_I, 0);
+	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
 
-	m_leftMotor1->Config_kD(0, DRIVETRAIN_D, 0);
-	m_rightMotor1->Config_kD(0, DRIVETRAIN_D, 0);
+	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+
+	m_leftMotor1->Config_IntegralZone(0, 0, 0);
+	m_rightMotor1->Config_kD(0, 0, 0);
 
 	//Set ALL motors to coast
 	SetBrakeMode(0);
@@ -98,6 +104,7 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
+//	pigeon->SetStatusFramePeriod(PigeonIMU_StatusFrame::PigeonIMU_CondStatus_1_General, 50, 0);
 }
 
 Drivetrain* Drivetrain::GetInstance() {
@@ -114,7 +121,7 @@ void Drivetrain::InitDefaultCommand() {
 }
 
 void Drivetrain::Arcade(double ystick, double xstick) {
-	m_drive->ArcadeDrive(ystick,xstick);
+	m_drive->ArcadeDrive(xstick, ystick);
 }
 
 void Drivetrain::Tank(double leftstick, double rightstick) {
@@ -157,6 +164,13 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 	//std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
+
+void Drivetrain::SetDrivePosition(double left_position, double right_position)
+{
+	m_leftMotor1->Set(ControlMode::Position, left_position);
+	m_rightMotor1->Set(ControlMode::Position, right_position);
+}
+
 double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index)
 {
 	double FA = 1; // what is FA
@@ -172,7 +186,7 @@ double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double ri
 
 	double corrected_velocity[1] = { 0 };
 
-	double left_corrected_velocity = (DRIVETRAIN_F*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P*pos_error) + (DRIVETRAIN_I*error_sum) + (DRIVETRAIN_D*getLeftDriveVelocity());
+	double left_corrected_velocity = (DRIVETRAIN_F_VEL*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P_VEL*pos_error) + (DRIVETRAIN_I_VEL*error_sum) + (DRIVETRAIN_D_VEL*getLeftDriveVelocity());
 
 
 	return corrected_velocity;
@@ -197,7 +211,7 @@ void Drivetrain::SetBrakeMode(bool on) {
 	}
 }
 
-void Drivetrain::configClosedLoop() {
+void Drivetrain::configClosedLoopVelocity() {
 	//left drive encoder initialize
 	m_leftMotor1->Set(ControlMode::Velocity,0.0);
 	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
@@ -221,26 +235,78 @@ void Drivetrain::configClosedLoop() {
 	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_rightMotor1->EnableVoltageCompensation(true);
 
+	m_rightMotor1->ConfigClosedloopRamp(0, 0);
+	m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
-	m_leftMotor1->Config_kF(0, DRIVETRAIN_F, 0);
-	m_rightMotor1->Config_kF(0, DRIVETRAIN_F, 0);
 
-	m_leftMotor1->Config_kP(0, DRIVETRAIN_P, 0);
-	m_rightMotor1->Config_kP(0, DRIVETRAIN_P, 0);
+	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
 
-	m_leftMotor1->Config_kI(0, DRIVETRAIN_I, 0);
-	m_rightMotor1->Config_kI(0, DRIVETRAIN_I, 0);
+	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+
+	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
 
 //	m_leftMotor1->Config_IntegralZone(0, 300, 0);
 //	m_rightMotor1->Config_IntegralZone(0, 300, 0);
 
 
-	m_leftMotor1->Config_kD(0, DRIVETRAIN_D, 0);
-	m_rightMotor1->Config_kD(0, DRIVETRAIN_D, 0);
+	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
 	SetBrakeMode(1);
 
 
-	m_closedLoop = true;
+	m_closedLoopVelocity = true;
+}
+void Drivetrain::configClosedLoopPosition() {
+	//left drive encoder initialize
+	m_leftMotor1->Set(ControlMode::Position,0.0);
+	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	m_leftMotor1->SetSensorPhase(false);
+//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
+
+	m_leftMotor1->SetSelectedSensorPosition(0,0,0);
+	m_rightMotor1->SetSelectedSensorPosition(0,0,0);
+	//right drive encoder initialize
+	m_rightMotor1->Set(ControlMode::Position,0.0);
+	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	m_rightMotor1->SetSensorPhase(false);
+//	m_rightMotor1->ConfigAllowableClosedloopError(0,0,0);
+//	m_rightMotor1->Set(0.0);
+
+	m_leftMotor1->ConfigNominalOutputForward(0,0);
+	m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+	m_leftMotor1->EnableVoltageCompensation(true);
+
+	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+	m_rightMotor1->EnableVoltageCompensation(true);
+
+	m_rightMotor1->ConfigClosedloopRamp(.25, 0);
+	m_rightMotor1->ConfigClosedloopRamp(.25, 0);
+
+
+	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+
+	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+
+	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+
+//	m_leftMotor1->Config_IntegralZone(0, 300, 0);
+//	m_rightMotor1->Config_IntegralZone(0, 300, 0);
+
+
+	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+	SetBrakeMode(1);
+
+
+	m_closedLoopPosition = true;
 }
 
 void Drivetrain::configOpenLoop()
@@ -265,10 +331,12 @@ void Drivetrain::configOpenLoop()
 	SetBrakeMode(false);
 }
 
-bool Drivetrain::isClosedLoop() {
-	return m_closedLoop;
+bool Drivetrain::isClosedLoopPosition() {
+	return m_closedLoopPosition;
 }
-
+bool Drivetrain::isClosedLoopVelocity() {
+	return m_closedLoopVelocity;
+}
 int Drivetrain::getLeftDrivePosition() {
 	return m_leftMotor1->GetSelectedSensorPosition(0);
 
@@ -301,8 +369,9 @@ double Drivetrain::getRightDriveVelocityError()
 
 
 double Drivetrain::getGyroYaw() {
-	pigeon->GetYawPitchRoll(yawPitchRoll);
 
+	pigeon->GetYawPitchRoll(yawPitchRoll);
+//	std::cout << yawPitchRoll[0] << std::endl;
 	return yawPitchRoll[0];
 }
 

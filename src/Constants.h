@@ -5,11 +5,18 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include <math.h>
+
 //Drivetrain constants.
-constexpr double DRIVETRAIN_F = 0.175;// 0.0575
-constexpr double DRIVETRAIN_P = 0.7;//0.025 // 1.5 .06
-constexpr double DRIVETRAIN_I = 0.00; // 0.001
-constexpr double DRIVETRAIN_D = 4.0;
+constexpr double DRIVETRAIN_F_VEL = 0.175;// 0.0575
+constexpr double DRIVETRAIN_P_VEL = 0.7;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
+constexpr double DRIVETRAIN_D_VEL = 4.0;
+
+constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
+constexpr double DRIVETRAIN_P_POS = 0.13;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
+constexpr double DRIVETRAIN_D_POS = 0.0;
 
 
 constexpr float DRIVE_VELOCITY_P = 0;
@@ -21,7 +28,7 @@ constexpr float DRIVE_TURN_I = 0;
 constexpr float DRIVE_TURN_TOLERANCE = 0.05;
 
 //Auto Arcade Turn
-constexpr float ARCADE_TURN_P = 0.01;
+constexpr float ARCADE_TURN_P = 0.006;
 constexpr float ARCADE_TURN_I = 0;
 constexpr float ARCADE_TURN_TOLERANCE = 0;
 
@@ -37,8 +44,8 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.65;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 0.85;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 6.0;
-constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
+constexpr double WHEEL_DIAMETER_INCHES = 6.125; // avg between 6 and 6.25
+constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
@@ -82,6 +89,16 @@ constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 constexpr int LEFT_VALUE = -1;
 constexpr int RIGHT_VALUE = 1;
 
+enum tUnits
+{
+	TICKS = 0,
+	INCHES,
+	ROTATIONS,
+	TICKS_PER_SEC,
+	INCHES_PER_SEC,
+	ROTATIONS_PER_SEC,
+	TICKS_PER_100MS,
+};
 
 
 

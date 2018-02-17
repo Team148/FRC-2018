@@ -20,7 +20,7 @@ void PathFind::Initialize() {
 	m_lastTime = 0;
 	m_startTime = frc::Timer::GetFPGATimestamp();
 
-	Drivetrain::GetInstance()->configClosedLoop();
+	Drivetrain::GetInstance()->configClosedLoopVelocity();
 
 
 
