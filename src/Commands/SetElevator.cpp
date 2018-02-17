@@ -15,18 +15,22 @@ void SetElevator::Initialize() {
 
 	if (m_on) {
 		Elevator::GetInstance()->SetElevatorPosition(m_position);
-		if(m_position != ELEVATOR_ZERO){
-			m_isFinished = true;
-		}
+//		if(m_position != ELEVATOR_ZERO){
+//			m_isFinished = true;
+//		}
 	}
 	else {
-		Elevator::GetInstance()->SetElevatorPosition(1.0);
+		Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
 	}
+	m_isFinished = true;
 }
 
 void SetElevator::Execute() {
-	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION)
-		m_isFinished = true;
+//	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION){
+//		Elevator::GetInstance()->ConfigNeutralClosedLoop();
+//		m_isFinished = true;
+//	}
+
 }
 
 bool SetElevator::IsFinished() {
