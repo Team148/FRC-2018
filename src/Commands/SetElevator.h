@@ -8,6 +8,7 @@ class SetElevator : public InstantCommand {
 public:
 	SetElevator(bool on, double position);
 	void Initialize();
+	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
