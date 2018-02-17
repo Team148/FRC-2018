@@ -24,7 +24,7 @@ void TurnPosition::Initialize()
 	Drivetrain::GetInstance()->configClosedLoopPosition();
 	Drivetrain::GetInstance()->SetBrakeMode(true);
 
-	SetTimeout(2.0);
+//	SetTimeout(2.0);
 
 }
 
@@ -43,7 +43,7 @@ void TurnPosition::Execute()
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
 	m_l_pos_err = m_l_init_pos - m_l_cur_pos;
-	m_r_pos_err = m_r_init_pos - m_r_cur_pos; // NEED TO FEEDBACK POSITION CORRECT
+	m_r_pos_err = m_r_init_pos - m_r_cur_pos; // NEED TO FEEDBACK POSITION CORRECT TIMEOUT
 
 	double m_output = ticksNeeded;
 
