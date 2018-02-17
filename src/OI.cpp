@@ -37,6 +37,9 @@ OI::OI() {
 	m_opButton9 = new JoystickButton(opStick, 9);
 	m_opButton10 = new JoystickButton(opStick, 10);
 
+
+
+
 //	//DriveJoystick Controls
 ////	//100% Outtake
 //	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));

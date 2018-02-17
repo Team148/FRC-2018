@@ -34,6 +34,9 @@
 #include "Commands/GrabPartner.h"
 //#include "Commands/OI_Refresh.h"
 
+
+#include "Commands/SetDrivetrainVelocity.h"
+
 class Robot : public frc::TimedRobot {
 private:
 	float m_armAngle = 0.0;
@@ -53,7 +56,7 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-		command = new PathFind();
+//		command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
@@ -71,7 +74,9 @@ public:
 	 * when
 	 * the robot is disabled.
 	 */
-	void DisabledInit() override {}
+	void DisabledInit() override {
+		frc::Scheduler::GetInstance()->RemoveAll();
+	}
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
@@ -92,7 +97,10 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		frc::Scheduler::GetInstance()->AddCommand(command);
+
+		frc::Scheduler::GetInstance()->RemoveAll();
+
+//		frc::Scheduler::GetInstance()->AddCommand(command);
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
@@ -105,13 +113,15 @@ public:
 
 	void TeleopInit() override
 	{
+		frc::Scheduler::GetInstance()->RemoveAll();
+
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh);
+//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 	}
 
 
@@ -142,6 +152,10 @@ public:
 			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
 		if (oi->opStick->GetPOV() == 180)
 			elevator->SetElevatorPosition(ELEVATOR_HANG);
+
+//
+
+
 
 //		if (oi->opStick->GetRawAxis(1) >= 0.2) {
 //			elevator->SetElevatorJoystickPosition(oi->opStick->GetRawAxis(1));

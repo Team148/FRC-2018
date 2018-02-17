@@ -1,10 +1,10 @@
-#include "AutoScoreCube.h"
+#include "ExitAutoScoreCube.h"
 #include "RunIntake.h"
 #include "SetDrivetrainVelocity.h"
 #include "ConfigDriveVelocityClosedLoop.h"
 #include <iostream>
 
-AutoScoreCube::AutoScoreCube() {
+ExitAutoScoreCube::ExitAutoScoreCube() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -21,15 +21,10 @@ AutoScoreCube::AutoScoreCube() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	std::cout << "Exitautoscorecube" << std::endl;
 
 
-//	AddParallel(new RunIntake(OUTTAKE_AUTOSCORE_PERCENT));
-
-	std::cout << "autoscorecube" << std::endl;
-
-	AddParallel(new ConfigDriveVelocityClosedLoop(true));
-	AddParallel(new RunIntake(OUTTAKE_AUTOSCORE_PERCENT));
-	AddSequential(new SetDrivetrainVelocity(-10));
-
-
+	AddSequential(new SetDrivetrainVelocity(0));
+	AddSequential(new ConfigDriveVelocityClosedLoop(false));
+	AddSequential(new RunIntake(0));
 }
