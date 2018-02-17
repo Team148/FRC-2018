@@ -5,6 +5,7 @@
 #include "../PathFind.h"
 #include "../driveToCubeFromScale.h"
 #include "../AutoTurnPID.h"
+#include "../ArcadeDriveTurn.h"
 
 class Right_S_Scale_S_Switch_S_Scale : public CommandGroup {
 public:
