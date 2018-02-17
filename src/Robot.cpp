@@ -32,6 +32,7 @@
 #include "Commands/SetElevator.h"
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
+//#include "Commands/OI_Refresh.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -59,6 +60,7 @@ public:
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+
 
 	}
 
@@ -109,6 +111,7 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
+//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh);
 	}
 
 
@@ -139,6 +142,10 @@ public:
 			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
 		if (oi->opStick->GetPOV() == 180)
 			elevator->SetElevatorPosition(ELEVATOR_HANG);
+
+//		if (oi->opStick->GetRawAxis(1) >= 0.2) {
+//			elevator->SetElevatorJoystickPosition(oi->opStick->GetRawAxis(1));
+//		}
 
 //		//Intake Commands
 //		if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
