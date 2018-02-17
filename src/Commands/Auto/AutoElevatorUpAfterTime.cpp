@@ -1,28 +1,29 @@
-#include <Commands/Auto/AutoElevatorUpAfterDriveDist.h>
+#include <Commands/Auto/AutoElevatorUpAfterTime.h>
 
-ElevatorUpAfterDriveDist::ElevatorUpAfterDriveDist(bool on,int position, double inchesToDrive) {
+ElevatorUpAfterTime::ElevatorUpAfterTime(bool on,int position, double timeToWait) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Drivetrain::GetInstance());
 	Requires(Elevator::GetInstance());
 
 	m_IsFinished = false;
 
 	m_on = on;
 	m_position = position;
-	m_inchesToDrive = inchesToDrive;
+	m_timeToWait = timeToWait;
 }
 
 // Called just before this Command runs the first time
-void ElevatorUpAfterDriveDist::Initialize() {
+void ElevatorUpAfterTime::Initialize() {
 	m_IsFinished = false;
+	m_startTime = frc::Timer::GetFPGATimestamp();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorUpAfterDriveDist::Execute() {
-	double m_posAvg;
-	m_posAvg = (Drivetrain::GetInstance()->getLeftDrivePosition() + Drivetrain::GetInstance()->getRightDrivePosition()) * (WHEEL_CIRC_INCHES/TICKS_PER_ROTATIONS);
-	if(m_posAvg >= m_inchesToDrive )
+void ElevatorUpAfterTime::Execute() {
+	double elaspedTime = frc::Timer::GetFPGATimestamp() - m_startTime;
+
+	if(   elaspedTime >= m_timeToWait)
 	{
 		if (m_on)
 			{
@@ -40,17 +41,17 @@ void ElevatorUpAfterDriveDist::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorUpAfterDriveDist::IsFinished() {
+bool ElevatorUpAfterTime::IsFinished() {
 	return m_IsFinished;
 }
 
 // Called once after isFinished returns true
-void ElevatorUpAfterDriveDist::End() {
+void ElevatorUpAfterTime::End() {
 	m_IsFinished = false;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorUpAfterDriveDist::Interrupted() {
+void ElevatorUpAfterTime::Interrupted() {
 	m_IsFinished = false;
 }

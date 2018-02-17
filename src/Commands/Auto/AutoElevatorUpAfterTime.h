@@ -5,10 +5,10 @@
 #include "CommandBase.h"
 #include "constants.h"
 
-class ElevatorUpAfterDriveDist : public CommandBase {
+class ElevatorUpAfterTime : public CommandBase {
 public:
 
-	ElevatorUpAfterDriveDist(bool on,int position, double inchesToDrive);
+	ElevatorUpAfterTime(bool on,int position, double inchesToDrive);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -18,8 +18,9 @@ public:
 private:
 	bool m_on = false;
 	double m_position;
-	double m_inchesToDrive;
+	double m_timeToWait;
 	bool m_IsFinished = false;
+	double m_startTime = 0;
 
 };
 
