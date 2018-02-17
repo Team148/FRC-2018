@@ -44,7 +44,6 @@ constexpr double ELEVATOR_SCALE_LOW = 21500.0;
 constexpr double ELEVATOR_SCALE_HIGH = 30000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 32000.0;
 constexpr double ELEVATOR_HANG = 27500.0;
-constexpr int ELEVATOR_BOTTOM_NEUTRAL = 100;	//sets PID to 0 when below this value
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;

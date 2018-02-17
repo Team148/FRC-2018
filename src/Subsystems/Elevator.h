@@ -28,7 +28,6 @@ public:
 	void JoystickControl(float ystick);
 	void ConfigOpenLoop();
 	void ConfigClosedLoop();
-	void ConfigNeutralClosedLoop();
 	bool IsClosedLoop();
 
 	bool IsElevatorDown();

@@ -78,14 +78,6 @@ void Elevator::ConfigClosedLoop() {
 	m_isClosedLoop = 1;
 }
 
-void Elevator::ConfigNeutralClosedLoop(){
-	m_ElevatorMotor1->Config_kF(0, 0, 0);
-	m_ElevatorMotor1->Config_kP(0, 0, 0);
-	m_ElevatorMotor1->Config_kI(0, 0, 0);
-	m_ElevatorMotor1->Config_kD(0, 0, 0);
-
-}
-
 bool Elevator::IsClosedLoop() {
 	return m_isClosedLoop;
 }
