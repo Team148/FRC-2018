@@ -17,14 +17,14 @@ void TurnPID::Initialize() {
 	//Set Drivetrain to OpenLoop
 	Drivetrain::GetInstance()->configOpenLoop();
 
-	m_initalAngle = Drivetrain::GetInstance()->updateGyroYaw();
+	m_initalAngle = Drivetrain::GetInstance()->getGyroYaw();
 	m_setpoint += m_initalAngle;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TurnPID::Execute() {
 	//read current angle
-	float current_angle = Drivetrain::GetInstance()->updateGyroYaw();
+	float current_angle = Drivetrain::GetInstance()->getGyroYaw();
 
 	//calculate output
 	float curr_err = m_setpoint - current_angle;
@@ -37,7 +37,7 @@ void TurnPID::Execute() {
 
 	//SetLeft and SetRight
 	Drivetrain::GetInstance()->Tank(output, output);
-	std::cout << "yaw " << Drivetrain::GetInstance()->updateGyroYaw() << std::endl;
+	std::cout << "yaw " << Drivetrain::GetInstance()->getGyroYaw() << std::endl;
 	std::cout << "output " << output << std::endl;
 
 	prev_err = curr_err;

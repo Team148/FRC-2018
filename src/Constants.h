@@ -20,6 +20,11 @@ constexpr float DRIVE_TURN_P = .05;
 constexpr float DRIVE_TURN_I = 0;
 constexpr float DRIVE_TURN_TOLERANCE = 0.05;
 
+//Auto Arcade Turn
+constexpr float ARCADE_TURN_P = 0;
+constexpr float ARCADE_TURN_I = 0;
+constexpr float ARCADE_TURN_TOLERANCE = 0;
+
 //Auto/TurnTMP
 constexpr float TURN_DIST_P = 0.05;
 
