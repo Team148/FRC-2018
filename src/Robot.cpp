@@ -105,13 +105,10 @@ public:
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(48,150,0));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-<<<<<<< HEAD
-		frc::Scheduler::GetInstance()->AddCommand(new AutoDriveTurnPID(-90));
-=======
+
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
 		frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
 
->>>>>>> f6e4661db8626788944430aac0159dfad6af1d26
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
