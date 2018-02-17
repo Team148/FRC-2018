@@ -36,8 +36,8 @@ void AutoDrive::Initialize() {
 	//reset encoder distance
 
 	//check that the Drivetrain is in closed loop
-	if(!Drivetrain::GetInstance()->isClosedLoop())
-		Drivetrain::GetInstance()->configClosedLoop();
+	if(!Drivetrain::GetInstance()->isClosedLoopVelocity())
+		Drivetrain::GetInstance()->configClosedLoopVelocity();
 
 	//set Brake Mode
 	Drivetrain::GetInstance()->SetBrakeMode(true);

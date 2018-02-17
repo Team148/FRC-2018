@@ -5,7 +5,7 @@ RunDrivetrain::RunDrivetrain() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
-	Drivetrain::GetInstance()->configClosedLoop();
+	Drivetrain::GetInstance()->configClosedLoopVelocity();
 //	m_on = on;
 //	m_reversed = reversed;
 }

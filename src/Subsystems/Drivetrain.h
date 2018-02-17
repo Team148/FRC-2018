@@ -28,7 +28,9 @@ private:
 	Drivetrain();
 	static Drivetrain *m_instance;
 
-	bool m_closedLoop = 0;
+	bool m_closedLoopVelocity = 0;
+	bool m_closedLoopPosition = 0;
+
 
 public:
 //	PowerDistributionPanel* m_pdp;
@@ -38,11 +40,15 @@ public:
 	void Tank(double leftstick, double rightstick);
 	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
+	void SetDrivePosition(double left_position, double right_position);
 	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index);
 	void SetBrakeMode(bool on);
-	void configClosedLoop();
+	void configClosedLoopVelocity();
+	void configClosedLoopPosition();
 	void configOpenLoop();
-	bool isClosedLoop();
+	bool isClosedLoopVelocity();
+	bool isClosedLoopPosition();
+
 
 	int getLeftDrivePosition();
 	int getRightDrivePosition();

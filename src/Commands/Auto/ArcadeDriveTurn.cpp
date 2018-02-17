@@ -12,7 +12,7 @@ void ArcadeDriveTurn::Initialize() {
 	m_isFinished=0;
 	tolerance_delay=0;
 	m_integral_err=0;
-	SetTimeout(1.5);
+//	SetTimeout(1.5);
 	//Drivetrain::GetInstance()->ResetGyro();
 	m_init_angle = 0;
 	m_final_angle = 0;
@@ -55,7 +55,7 @@ void ArcadeDriveTurn::Execute() {
 		stick_input = -.65;
 
 
-	Drivetrain::GetInstance()->Arcade(0,stick_input);
+	Drivetrain::GetInstance()->Arcade(0, stick_input);
 
 	SmartDashboard::PutNumber("Final Angle: ", m_final_angle);
 	SmartDashboard::PutNumber("init Angle: ", m_init_angle);
