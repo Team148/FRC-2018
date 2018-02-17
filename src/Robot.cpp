@@ -13,7 +13,8 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-#include <Commands/Pathfind.h>
+//#include <Commands/Pathfind.h>
+#include <Commands/AutoPaths/GoStraightPath.h>
 #include <Subsystems/Wrangler.h>
 //#include "constants.h"
 #include "RobotMap.h"
@@ -54,7 +55,7 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-		command = new PathFind();
+	//	command = new PathFind();
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
@@ -92,7 +93,7 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		frc::Scheduler::GetInstance()->AddCommand(command);
+		frc::Scheduler::GetInstance()->AddCommand(new GoStraightPath);
 
 	}
 

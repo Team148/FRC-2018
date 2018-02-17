@@ -1,5 +1,5 @@
 #include "PathFind.h"
-#include "../Paths/GoStraightTurnRight.h"
+//#include "../Paths/GoStraightTurnRight.h"
 #include "Timer.h"
 #include "iostream"
 #include <./SmartDashboard/SendableChooser.h>
@@ -58,27 +58,27 @@ void PathFind::Execute() {
 	double timeEnlapsed = frc::Timer::GetFPGATimestamp() - m_startTime;
     int timeIndex = (int)(timeEnlapsed/ 0.01);
 
-	if(timeIndex > num_index){
-		m_tempDrivetrain->SetLeftRight(0,0);
-		m_finished = true;
-		return;
-	}
-	double m_leftVel  = left_wheel[timeIndex][1];
-	double m_rightVel = right_wheel[timeIndex][1];
-	std::cout << "Time: " << timeEnlapsed << " Index: " << timeIndex << " Left Velocity: " << m_leftVel << " Right Velocity: " << m_rightVel << std::endl;
-	//m_tempDrivetrain->SetLeftRight(unit_master.GetTicksPer100ms(m_leftVel), unit_master.GetTicksPer100ms(m_rightVel));
-	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(m_leftVel), unit_master.GetTicksPer100ms(m_rightVel));
-
-//	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
-//	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
-	//frc::SmartDashboard::PutNumber("RightVelocityBeforeConv", PathPlanner->GetRightValue(m_lastTime));
-//	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
-//	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->LeftENCCorrectionValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->RightENCCorrectionValue(m_lastTime)));
-
-	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
-    //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);
-    //frc::SmartDashboard::PutNumber("Y Position",PathPlanner->GetLeftSegment(index).y);
-	//m_lastTime++;
+//	//if(timeIndex > num_index){
+//	//	m_tempDrivetrain->SetLeftRight(0,0);
+//	//	m_finished = true;
+//	//	return;
+//	//}
+//	//double m_leftVel  = left_wheel[timeIndex][1];
+//	//double m_rightVel = right_wheel[timeIndex][1];
+//	std::cout << "Time: " << timeEnlapsed << " Index: " << timeIndex << " Left Velocity: " << m_leftVel << " Right Velocity: " << m_rightVel << std::endl;
+//	//m_tempDrivetrain->SetLeftRight(unit_master.GetTicksPer100ms(m_leftVel), unit_master.GetTicksPer100ms(m_rightVel));
+//	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(m_leftVel), unit_master.GetTicksPer100ms(m_rightVel));
+//
+////	std::cout << "DriveTicksPer100ms: " << unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)) << std::endl;
+////	m_tempDrivetrain->Tank(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)), unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
+//	//frc::SmartDashboard::PutNumber("RightVelocityBeforeConv", PathPlanner->GetRightValue(m_lastTime));
+////	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->GetLeftValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->GetRightValue(m_lastTime)));
+////	m_tempDrivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms(PathPlanner->LeftENCCorrectionValue(m_lastTime)),unit_master.GetTicksPer100ms(PathPlanner->RightENCCorrectionValue(m_lastTime)));
+//
+//	//m_tempDrivetrain->SetLeft(PathPlanner->GetLeftValue(m_lastTime));
+//    //frc::SmartDashboard::PutNumber("X Position",PathPlanner->GetLeftSegment(index).x);
+//    //frc::SmartDashboard::PutNumber("Y Position",PathPlanner->GetLeftSegment(index).y);
+//	//m_lastTime++;
 
 
 }

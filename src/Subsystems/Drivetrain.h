@@ -36,15 +36,22 @@ public:
 	void Tank(double leftstick, double rightstick);
 	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
+	void InitPathDrive();
+	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading);
 	void SetBrakeMode(bool on);
 	void configClosedLoop();
+	void configPathLoop();
 	void configOpenLoop();
 	bool isClosedLoop();
+
 
 	int getLeftDrivePosition();
 	int getRightDrivePosition();
 	double getLeftDriveVelocity();
 	double getRightDriveVelocity();
+
+	int initLeftDrivePos;
+	int initRightDrivePos;
 
 	double updateGyroYaw();
 	double updateGyroPitch();

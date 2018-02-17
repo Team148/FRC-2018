@@ -129,8 +129,6 @@ void Drivetrain::SetLeftRight(double left, double right){
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
 //	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
-
-
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
 	m_rightMotor1->Set(ControlMode::Velocity, right_velocity);
 
@@ -138,7 +136,32 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
 	frc::SmartDashboard::PutNumber("RightEncoderVelocity", unit_master.GetInchesPerSec(getRightDriveVelocity()));
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
-	//std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
+	std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
+}
+
+void Drivetrain::InitPathDrive()
+{
+	initLeftDrivePos = getLeftDrivePosition();
+	initRightDrivePos = getRightDrivePosition();
+}
+
+//Need to Add Simple Heading P Controller
+void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading){
+
+	double left_error = l_pos - getLeftDrivePosition() + initLeftDrivePos;
+	double right_error = r_pos - getRightDrivePosition() + initRightDrivePos;
+
+
+	double left_output = 	DRIVETRAIN_PATH_FV * l_velo +
+							DRIVETRAIN_PATH_FA * l_accel +
+							DRIVETRAIN_PATH_KP * left_error;
+	double right_output =	DRIVETRAIN_PATH_FV * r_velo +
+							DRIVETRAIN_PATH_FA * r_accel +
+							DRIVETRAIN_PATH_KP * right_error;
+	std::cout << "left_output" << left_output << std::endl;
+
+	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
+//	SetDriveVelocity(unit_master.GetTicksPer100ms(-right_output), unit_master.GetTicksPer100ms(-left_output));
 }
 
 
@@ -228,6 +251,24 @@ void Drivetrain::configOpenLoop()
 	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
 
 	SetBrakeMode(false);
+}
+
+void Drivetrain::configPathLoop()
+{
+	if(!m_closedLoop)
+		configClosedLoop();
+
+	m_leftMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+	m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+	m_leftMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+	m_rightMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+
+	m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
+	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
+	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+
+
 }
 
 bool Drivetrain::isClosedLoop() {

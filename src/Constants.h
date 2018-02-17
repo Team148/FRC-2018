@@ -6,10 +6,18 @@
 #define CONSTANTS_H
 
 //Drivetrain constants.
-constexpr double DRIVETRAIN_F = 0.175;// 0.0575
-constexpr double DRIVETRAIN_P = 0.7;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_F = 0.18;// 0.0575
+constexpr double DRIVETRAIN_P = 0.7; //0.7 //0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I = 0.00; // 0.001
-constexpr double DRIVETRAIN_D = 4.0;
+constexpr double DRIVETRAIN_D = 4.0; //4.0
+
+constexpr double DRIVETRAIN_PATH_FV = 1.0;
+constexpr double DRIVETRAIN_PATH_FA = 0.1;
+constexpr double DRIVETRAIN_PATH_KP = 0.00;
+constexpr double DRIVETRAIN_PATH_KI = 0.0;
+constexpr double DRIVETRAIN_PATH_KD = 0.0;
+constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.0;
+
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.0;
 constexpr double WHEEL_CIRC_INCHES = 18.8495559215;
