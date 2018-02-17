@@ -63,6 +63,9 @@ public:
 	double getRobotPosition_x();
 	double getRobotPosition_y();
 
+	double getLeftThrottle();
+
+
 
 	void unitConversionTest();
 

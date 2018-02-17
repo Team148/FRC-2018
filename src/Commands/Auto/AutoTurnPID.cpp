@@ -1,7 +1,7 @@
 #include <Commands/Auto/AutoTurnPID.h>
 #include <iostream>
 
-TurnPID::TurnPID(float degrees) {
+AutoTurnPID::AutoTurnPID(float degrees) {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Drivetrain::GetInstance());
 	m_setpoint = degrees;
@@ -10,7 +10,7 @@ TurnPID::TurnPID(float degrees) {
 }
 
 // Called just before this Command runs the first time
-void TurnPID::Initialize() {
+void AutoTurnPID::Initialize() {
 	//reset isFinished
 	m_isFinished = 0;
 
@@ -22,7 +22,7 @@ void TurnPID::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void TurnPID::Execute() {
+void AutoTurnPID::Execute() {
 	//read current angle
 	float current_angle = Drivetrain::GetInstance()->getGyroYaw();
 
@@ -48,17 +48,17 @@ void TurnPID::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool TurnPID::IsFinished() {
+bool AutoTurnPID::IsFinished() {
 	return m_isFinished;
 }
 
 // Called once after isFinished returns true
-void TurnPID::End() {
+void AutoTurnPID::End() {
 	Drivetrain::GetInstance()->SetDriveVelocity(0,0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void TurnPID::Interrupted() {
+void AutoTurnPID::Interrupted() {
 	End();
 }

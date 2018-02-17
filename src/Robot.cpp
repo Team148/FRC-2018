@@ -7,6 +7,7 @@
 #include <Commands/Auto/AutoDrive.h>
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
+#include <Commands/Auto/AutoCommandGroups/Right_S_Scale_S_Switch_S_Scale.h>
 
 
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
@@ -18,7 +19,7 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-#include <Commands/Pathfind.h>
+//#include <Commands/Pathfind.h>
 #include <Subsystems/Wrangler.h>
 //#include "constants.h"
 #include "RobotMap.h"
@@ -103,7 +104,7 @@ public:
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(48,150,0));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-		frc::Scheduler::GetInstance()->AddCommand(new DriveAndScore());
+		frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
