@@ -19,3 +19,13 @@ void SetElevator::Initialize() {
 		Elevator::GetInstance()->SetElevatorPosition(1.0);
 	}
 }
+
+bool SetElevator::IsFinished() {
+	return m_isFinished;
+}
+void SetElevator::End() {
+
+}
+void SetElevator::Interrupted(){
+
+}
