@@ -116,7 +116,8 @@ public:
 		frc::Scheduler::GetInstance()->Run();
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
-			intake->SetIntakeMotor(OUTTAKE_PERCENT);
+		//	intake->SetIntakeMotor(OUTTAKE_PERCENT);
+			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(OUTTAKE_PERCENT));
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
 			intake->SetIntakeMotor(OUTTAKE_FULL_PERCENT);
 		else if (oi->opStick->GetRawButton(5))
