@@ -129,14 +129,17 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		static double IntakeSpeed = 0.0;
+
+		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
+
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
-			intake->SetIntakeMotor(OUTTAKE_PERCENT);
+			IntakeSpeed = OUTTAKE_PERCENT;
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
-			intake->SetIntakeMotor(OUTTAKE_FULL_PERCENT);
+			IntakeSpeed = OUTTAKE_FULL_PERCENT;
 		else if (oi->opStick->GetRawButton(5))
-			intake->SetIntakeMotor(INTAKE_PERCENT);
-		else
-			intake->SetIntakeMotor(0.0);
+			IntakeSpeed = INTAKE_PERCENT;
+
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
 			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
@@ -153,6 +156,14 @@ public:
 			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
 		if (oi->opStick->GetPOV() == 180)
 			elevator->SetElevatorPosition(ELEVATOR_HANG);
+
+//		if
+		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
+		{
+			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
+		}
+
+		intake->SetIntakeMotor(IntakeSpeed);
 
 //
 
