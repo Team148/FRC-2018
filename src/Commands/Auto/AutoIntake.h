@@ -13,13 +13,22 @@
 
 class AutoIntake : public CommandBase {
 private:
+
 	bool m_isIntakeOn = false;
 	bool m_IsFinished = false;
+	bool m_startToIntakeCube = false;
 
+
+
+
+	int m_timesExecuted;
+	float m_totalCurrent;
 	double m_percent = 0;
 	double m_runTime = 0;
 	double m_startTime = 0;
 	double m_currentTime = 0;
+	float  m_startIntakeTime = 0;
+
 
 public:
 	AutoIntake(double percent, double runTime);
@@ -28,5 +37,7 @@ public:
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
+	void InTake();
+	void OutTake();
 };
 

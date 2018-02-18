@@ -17,26 +17,38 @@ AutoIntake::AutoIntake(double percent, double runTime) {
 
 // Called just before this Command runs the first time
 void AutoIntake::Initialize() {
-	m_startTime = frc::Timer::GetFPGATimestamp();
 	Intake::GetInstance()->SetIntakeMotor(m_percent);
+
+
+	m_totalCurrent = 0;
+	m_timesExecuted = 0;
+	m_startTime = frc::Timer::GetFPGATimestamp();
+
 	m_isIntakeOn = true;
 	m_IsFinished = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoIntake::Execute() {
-	double deltaTime;
 
-	m_currentTime =  frc::Timer::GetFPGATimestamp();
-	deltaTime = m_currentTime - m_startTime;
-    std::cout << deltaTime << std::endl;
-	if(deltaTime >= m_runTime   )
+	//Intake
+	if(m_percent > 0)
+	{
+		InTake();
+	}
+
+	//OutTake
+	else if(m_percent < 0)
+	{
+		OutTake();
+	}
+
+	//Doesn't Run if m_percent == 0
+	else
 	{
 		Intake::GetInstance()->SetIntakeMotor(0);
 		m_IsFinished = true;
 	}
-
-
 
 }
 
@@ -55,3 +67,60 @@ void AutoIntake::End() {
 void AutoIntake::Interrupted() {
 	m_IsFinished = false;
 }
+
+
+void AutoIntake::OutTake()
+{
+
+	double deltaTime;
+
+	m_currentTime =  frc::Timer::GetFPGATimestamp();
+	deltaTime = m_currentTime - m_startTime;
+	std::cout << deltaTime << std::endl;
+	if(deltaTime >= m_runTime   )
+	{
+		Intake::GetInstance()->SetIntakeMotor(0);
+		m_IsFinished = true;
+	}
+
+}
+void AutoIntake::InTake()
+{
+	float totalRunTime = frc::Timer::GetFPGATimestamp() - m_startTime;
+
+
+	float avgCurrent = Intake::GetInstance()->GetAverageCurrent();
+
+	if(avgCurrent >= CUBE_IN_CURRENT_CURRENT || m_startToIntakeCube == true)
+	{
+		if(m_startToIntakeCube == false)
+		{
+			std::cout << "IntakeTimeOutTime: " << totalRunTime << std::endl;
+			m_startToIntakeCube = true;
+			m_startIntakeTime = frc::Timer::GetFPGATimestamp();
+		}
+
+		float elapsedTime = frc::Timer::GetFPGATimestamp() - m_startIntakeTime;
+
+		if(elapsedTime >= TIME_TO_RUN_INTAKE)
+		{
+			Intake::GetInstance()->SetIntakeMotor(0);
+			m_IsFinished = true;
+		}
+
+	}
+
+	if(totalRunTime >= m_runTime)
+	{
+		std::cout << "commandTimeOutTime: " << totalRunTime << std::endl;
+		Intake::GetInstance()->SetIntakeMotor(0);
+		m_IsFinished = true;
+	}
+
+}
+
+
+
+
+
+

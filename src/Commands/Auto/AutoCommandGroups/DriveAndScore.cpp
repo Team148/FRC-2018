@@ -26,7 +26,7 @@ DriveAndScore::DriveAndScore() {
 	// arm.
 
 	AddSequential(new AutoDrive(65,150,0));
-	AddSequential(new ElevatorUpAfterTime(true,ELEVATOR_SCALE_HIGH,12));
+	//AddSequential(new ElevatorUpAfterTime(true,ELEVATOR_SCALE_HIGH,12));
 	AddSequential(new WaitCommand(1.5));
 	AddSequential(new AutoIntake(OUTTAKE_PERCENT,1.5));
 }

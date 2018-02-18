@@ -18,6 +18,9 @@ constexpr double DRIVETRAIN_P_POS = 0.13;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
 
+//Intake
+constexpr float CUBE_IN_CURRENT_CURRENT = 20;
+constexpr float TIME_TO_RUN_INTAKE = 0.3;
 
 constexpr float DRIVE_VELOCITY_P = 0;
 constexpr float DRIVE_GYRO_COMP_P = 0;

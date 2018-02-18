@@ -35,3 +35,10 @@ void Intake::SetIntakeMotor(float percent)
 	m_IntakeMotor1->Set(ControlMode::PercentOutput, percent);
 	m_IntakeMotor2->Set(ControlMode::PercentOutput, percent);
 }
+
+float Intake::GetAverageCurrent()
+{
+	return (m_IntakeMotor1->GetOutputCurrent() + m_IntakeMotor2->GetOutputCurrent())/2;
+}
+
+

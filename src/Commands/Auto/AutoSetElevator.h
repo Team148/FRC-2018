@@ -1,11 +1,5 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-#pragma once
+#ifndef AutoSetElevator_H
+#define AutoSetElevator_H
 
 #include "Commands/Command.h"
 #include "CommandBase.h"
@@ -13,13 +7,21 @@
 
 class AutoSetElevator : public CommandBase {
 public:
-	AutoSetElevator(bool on, double position);
-	void Initialize() override;
+
+	AutoSetElevator(bool on,int position, double timeToWait = 0);
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 
 private:
 	bool m_on = false;
 	double m_position;
-	double m_inches;
+	double m_timeToWait;
+	bool m_IsFinished = false;
+	double m_startTime = 0;
 
 };
 
+#endif  // AutoSetElevator_H

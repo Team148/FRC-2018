@@ -10,8 +10,9 @@
 #include <Commands/Auto/TurnPosition.h>
 #include <Commands/Auto/AutoCommandGroups/Right_S_Scale_S_Switch_S_Scale.h>
 #include <Commands/Auto/AutoDriveTurnPID.h>
-
+#include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
+#include <Commands/Auto/AutoSetElevator.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -71,6 +72,7 @@ public:
 
 
 
+
 	}
 
 	/**
@@ -102,12 +104,13 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(48,150,0));
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
 
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
 		frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
+
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
@@ -138,8 +141,11 @@ public:
 
 		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
 		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
+		frc::SmartDashboard::PutNumber("Average Intake Current",Intake::GetInstance()->GetAverageCurrent());
+		std::cout<< "Time: " << frc::Timer::GetFPGATimestamp() <<"Avg Current" << Intake::GetInstance()->GetAverageCurrent() << std::endl;
+		//
 
-//		//Driver Outtake
+		//Driver Outtake
 //		if(oi->drvStick->GetRawAxis(2) > 0.1)
 //			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
 //		else
