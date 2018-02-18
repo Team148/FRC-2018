@@ -14,7 +14,7 @@ void ConfigDriveVelocityClosedLoop::Initialize()
 {
 	if(m_closedloop)
 	{
-		Drivetrain::GetInstance()->configClosedLoopVelocity();
+		Drivetrain::GetInstance()->configClosedLoop();
 	}
 	else
 	{

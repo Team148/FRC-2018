@@ -41,6 +41,7 @@ OI::OI() {
 
 
 
+<<<<<<< HEAD
 	//100% Outtake
 	m_opButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
 	m_opButton6->WhenReleased(new RunIntake(0.0));
@@ -49,6 +50,7 @@ OI::OI() {
 	//100% Outtake
 	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
 	m_opButton5->WhenReleased(new RunIntake(0.0));
+=======
 //	//DriveJoystick Controls
 ////	//100% Outtake
 //	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
@@ -61,6 +63,7 @@ OI::OI() {
 ////	//Intake
 //	m_opButton5->WhenPressed(new RunIntake(INTAKE_PERCENT));
 //	m_opButton5->WhenReleased(new RunIntake(0.0));
+>>>>>>> master
 
 	//Elevator
 	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));

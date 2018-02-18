@@ -96,6 +96,7 @@ constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 constexpr int LEFT_VALUE = -1;
 constexpr int RIGHT_VALUE = 1;
 
+<<<<<<< HEAD
 enum tUnits
 {
 	TICKS = 0,
@@ -107,7 +108,9 @@ enum tUnits
 	TICKS_PER_100MS,
 };
 
+=======
 constexpr double PERIODIC_DT = 0.020;
+>>>>>>> master
 
 
 #endif //CONSTANTS_H

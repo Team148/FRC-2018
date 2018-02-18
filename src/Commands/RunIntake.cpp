@@ -13,6 +13,7 @@ RunIntake::RunIntake(double percent) {
 void RunIntake::Initialize() {
 
 	Intake::GetInstance()->SetIntakeMotor(m_percent);
+<<<<<<< HEAD
 
 
 //	if(m_on) {
@@ -30,5 +31,7 @@ void RunIntake::Initialize() {
 //	else {
 //		Intake::GetInstance()->SetIntakeMotor(0.0);
 //	}
+=======
+>>>>>>> master
 
 }
