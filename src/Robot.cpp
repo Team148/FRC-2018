@@ -21,14 +21,11 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-<<<<<<< HEAD
 //#include <Commands/Pathfind.h>
 #include <Subsystems/Wrangler.h>
 //#include "constants.h"
-=======
-#include <Commands/Pathfind.h>
+#include <Commands/Auto/Pathfind.h>
 #include "Constants.h"
->>>>>>> master
 #include "RobotMap.h"
 #include "OI.h"
 
@@ -70,11 +67,8 @@ public:
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-<<<<<<< HEAD
 		//command = new PathFind();
-=======
 //		command = new PathFind();
->>>>>>> master
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
@@ -83,11 +77,8 @@ public:
 		wrangler = Wrangler::GetInstance();
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> master
 	}
 
 	/**
@@ -120,7 +111,6 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-<<<<<<< HEAD
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
@@ -131,12 +121,10 @@ public:
 		//frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
 
 
-=======
 
 		frc::Scheduler::GetInstance()->RemoveAll();
 
 //		frc::Scheduler::GetInstance()->AddCommand(command);
->>>>>>> master
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
@@ -145,12 +133,9 @@ public:
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-<<<<<<< HEAD
 //		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
 //		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
 
-=======
->>>>>>> master
 	}
 
 	void TeleopInit() override
@@ -171,7 +156,6 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-<<<<<<< HEAD
 		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
 		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
 		frc::SmartDashboard::PutNumber("Average Intake Current",Intake::GetInstance()->GetAverageCurrent());
@@ -193,7 +177,6 @@ public:
 //			}
 //			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
 //			}
-=======
 		static double IntakeSpeed = 0.0;
 
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
@@ -230,7 +213,6 @@ public:
 
 		intake->SetIntakeMotor(IntakeSpeed);
 
->>>>>>> master
 //
 
 

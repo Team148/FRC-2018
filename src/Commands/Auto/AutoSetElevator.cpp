@@ -1,6 +1,6 @@
 #include <Commands/Auto/AutoSetElevator.h>
 
-AutoSetElevator::AutoSetElevator(bool on,int position, double timeToWait = 0) {
+AutoSetElevator::AutoSetElevator(bool on,int position, double timeToWait = 0.0) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
