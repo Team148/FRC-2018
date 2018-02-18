@@ -20,6 +20,7 @@ private:
 	//m_downLimit
 
 	bool m_isClosedLoop = 0;
+	double m_position;
 
 public:
 	static Elevator* GetInstance();
@@ -36,8 +37,10 @@ public:
 	int GetElevatorPosition();
 	int GetElevatorVelocity();
 
+//	void SetElevatorJoystickPosition(double triggerValue);
 	void SetElevatorPosition(double position);
 	void SetElevatorEncoderZero();
+	void IncrementElevatorPosition(double dPosition);
 };
 
 #endif

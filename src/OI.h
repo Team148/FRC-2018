@@ -32,6 +32,4 @@ private:
 	JoystickButton* m_opButton9;
 	JoystickButton* m_opButton10;
 
-//	JoystickButton* m_opPOVTOP;
-//	JoystickButton* m_opPOVDOWN;
 };

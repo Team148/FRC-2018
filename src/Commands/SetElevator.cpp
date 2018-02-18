@@ -1,5 +1,6 @@
 #include "SetElevator.h"
 #include "OI.h"
+#include <iostream>
 
 SetElevator::SetElevator(bool on, double position) {
 	// Use Requires() here to declare subsystem dependencies
@@ -19,14 +20,19 @@ void SetElevator::Initialize() {
 			m_isFinished = true;
 		}
 	}
-	else {
-		Elevator::GetInstance()->SetElevatorPosition(1.0);
-	}
+//	else {
+//		Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
+//	}
+	m_isFinished = false;
 }
 
 void SetElevator::Execute() {
-	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION)
+	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION){
+		Elevator::GetInstance()->ConfigNeutralClosedLoop();
+		std::cout << "set elevator neutral" << std::endl;
 		m_isFinished = true;
+	}
+
 }
 
 bool SetElevator::IsFinished() {

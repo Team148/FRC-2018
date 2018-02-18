@@ -117,7 +117,7 @@ void Drivetrain::Tank(double leftstick, double rightstick) {
 
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
-//	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
 
 
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
