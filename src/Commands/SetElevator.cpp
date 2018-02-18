@@ -29,7 +29,7 @@ void SetElevator::Initialize() {
 void SetElevator::Execute() {
 	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION){
 		Elevator::GetInstance()->ConfigNeutralClosedLoop();
-		std::cout << "set elevator neutral" << std::endl;
+//		std::cout << "set elevator neutral" << std::endl;
 		m_isFinished = true;
 	}
 

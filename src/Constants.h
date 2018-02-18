@@ -45,7 +45,7 @@ constexpr double ELEVATOR_SCALE_HIGH = 33000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 27500.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
-constexpr double ELEVATOR_MANUAL_DEADBAND = 0.1;
+constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 3000; // Ticks/second
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
