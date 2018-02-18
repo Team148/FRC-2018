@@ -1,8 +1,5 @@
 #include "Right_S_Scale_S_Switch_S_Scale.h"
-#include "../PathFind.h"
-#include "../driveToCubeFromScale.h"
-#include "../AutoTurnPID.h"
-#include "../TurnPosition.h"
+
 
 Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// Add Commands here:
