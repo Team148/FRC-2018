@@ -32,7 +32,7 @@
 #include "Commands/SetElevator.h"
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
-//#include "Commands/OI_Refresh.h"
+#include "Commands/OI_Refresh.h"
 
 
 #include "Commands/SetDrivetrainVelocity.h"
@@ -121,7 +121,7 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
+		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}
 
