@@ -21,9 +21,14 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
+<<<<<<< HEAD
 //#include <Commands/Pathfind.h>
 #include <Subsystems/Wrangler.h>
 //#include "constants.h"
+=======
+#include <Commands/Pathfind.h>
+#include "Constants.h"
+>>>>>>> master
 #include "RobotMap.h"
 #include "OI.h"
 
@@ -31,14 +36,20 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Climber.h"
+#include <Subsystems/Wrangler.h>
 
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
 #include "Util/UnitMaster.h"
 #include "Commands/ElevatorWithJoystick.h"
+#include "Commands/SetElevator.h"
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
+//#include "Commands/OI_Refresh.h"
+
+
+#include "Commands/SetDrivetrainVelocity.h"
 
 class Robot : public frc::TimedRobot {
 private:
@@ -55,14 +66,15 @@ public:
 	OI *oi = 0;
 	UnitMaster unit_master;
 
-
-
-
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+<<<<<<< HEAD
 		//command = new PathFind();
+=======
+//		command = new PathFind();
+>>>>>>> master
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
@@ -71,8 +83,11 @@ public:
 		wrangler = Wrangler::GetInstance();
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
 	}
 
 	/**
@@ -82,11 +97,12 @@ public:
 	 * when
 	 * the robot is disabled.
 	 */
-	void DisabledInit() override {}
+	void DisabledInit() override {
+		frc::Scheduler::GetInstance()->RemoveAll();
+	}
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-	//	std::cout << OI::GetInstance()->opStick->GetRawAxis(2) << std::endl;
 	}
 
 	/**
@@ -104,14 +120,23 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
+<<<<<<< HEAD
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
+        frc::Scheduler::GetInstance()->AddCommand(new AutoSetElevator(true,ELEVATOR_SCALE_HIGH,5));
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
-		frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
+		//frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
 
 
+=======
+
+		frc::Scheduler::GetInstance()->RemoveAll();
+
+//		frc::Scheduler::GetInstance()->AddCommand(command);
+>>>>>>> master
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
@@ -120,25 +145,33 @@ public:
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+<<<<<<< HEAD
 //		frc::SmartDashboard::PutNumber("LeftEncoderVelocity", drivetrain->getLeftDriveVelocity());
 //		frc::SmartDashboard::PutNumber("RightEncoderVelocity", drivetrain->getRightDriveVelocity());
 
+=======
+>>>>>>> master
 	}
 
 	void TeleopInit() override
 	{
+		frc::Scheduler::GetInstance()->RemoveAll();
+
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
+//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
+
 	}
 
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+<<<<<<< HEAD
 		frc::SmartDashboard::PutNumber("ElevatorEncoderPosition", elevator->GetElevatorPosition());
 		frc::SmartDashboard::PutNumber("ElevatorEncoderVelocity", elevator->GetElevatorVelocity());
 		frc::SmartDashboard::PutNumber("Average Intake Current",Intake::GetInstance()->GetAverageCurrent());
@@ -160,12 +193,61 @@ public:
 //			}
 //			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
 //			}
+=======
+		static double IntakeSpeed = 0.0;
+
+		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
+
+		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
+			IntakeSpeed = OUTTAKE_PERCENT;
+		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
+			IntakeSpeed = OUTTAKE_FULL_PERCENT;
+		else if (oi->opStick->GetRawButton(5))
+			IntakeSpeed = INTAKE_PERCENT;
+
+
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
+		else
+			climber->SetClimberMotor(0.0);
+
+		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
+			wrangler->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
+		else
+			wrangler->SetWranglerMotor(0.0);
+
+		//POV buttons
+		if (oi->opStick->GetPOV() == 0)
+			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
+		if (oi->opStick->GetPOV() == 180)
+			elevator->SetElevatorPosition(ELEVATOR_HANG);
+
+//		if
+		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
+		{
+			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
+		}
+
+		intake->SetIntakeMotor(IntakeSpeed);
+
+>>>>>>> master
 //
-//		//Operator Outtake
-//		if((oi->opStick->GetRawAxis(3)) > 0.1)
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(true, true, false));
+
+
+
+//		if (oi->opStick->GetRawAxis(1) >= 0.2) {
+//			elevator->SetElevatorJoystickPosition(oi->opStick->GetRawAxis(1));
+//		}
+
+//		//Intake Commands
+//		if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
+//			new RunIntake(OUTTAKE_FULL_PERCENT);
+//		else if (oi->opStick->GetRawButton(5))
+//			new RunIntake(INTAKE_PERCENT);
+//		else if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
+//			new RunIntake(OUTTAKE_PERCENT);
 //		else
-//			frc::Scheduler::GetInstance()->AddCommand(new RunIntake(false,false,false));
+//			new RunIntake(0.0);
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
@@ -190,7 +272,6 @@ public:
 	void TestPeriodic() override {
 //		drivetrain->SetDriveVelocity(0.0, unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
 //		frc::SmartDashboard::PutNumber("DriveVelocity",drivetrain->getLeftDriveVelocity());
-
 	}
 
 private:

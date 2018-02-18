@@ -78,6 +78,13 @@ void Elevator::ConfigClosedLoop() {
 	m_isClosedLoop = 1;
 }
 
+void Elevator::ConfigNeutralClosedLoop() {
+	m_ElevatorMotor1->Config_kF(0, 0, 0);
+	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P, 0);
+	m_ElevatorMotor1->Config_kI(0, ELEVATOR_I, 0);
+	m_ElevatorMotor1->Config_kD(0, ELEVATOR_D, 0);
+}
+
 bool Elevator::IsClosedLoop() {
 	return m_isClosedLoop;
 }
@@ -106,15 +113,31 @@ int Elevator::GetElevatorVelocity() {
 	return m_ElevatorMotor1->GetSelectedSensorVelocity(0);
 }
 
-void Elevator::SetElevatorPosition(double position) {
+//void Elevator::SetElevatorJoystickPosition(double triggerValue) {
+//
+//}
 
-	double scaled_elevator_F = ELEVATOR_F / position;
+void Elevator::SetElevatorPosition(double position) {
+	if(!m_isClosedLoop)
+		ConfigClosedLoop();
+
+	m_position = position;
+	double scaled_elevator_F = ELEVATOR_F / m_position;
 
 	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
-	m_ElevatorMotor1->Set(ControlMode::Position, position);
+	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
 //	m_ElevatorMotor1->Set(ControlMode::Position, position);
 }
 
 void Elevator::SetElevatorEncoderZero() {
 	m_ElevatorMotor1->SetSelectedSensorPosition(0,0,0);
+}
+
+void Elevator::IncrementElevatorPosition(double dPosition){
+	if(!m_isClosedLoop)
+		ConfigClosedLoop();
+
+	m_position += dPosition;
+
+	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
 }

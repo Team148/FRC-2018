@@ -40,11 +40,11 @@ constexpr float TURN_DIST_P = 0.05;
 
 constexpr float DRIVETRAIN_BASE_DIAMETER = 24;
 
-constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.75;
-constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.0;
+constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.85;
+constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.00;
 
-constexpr double DRIVETRAIN_TURN_FILTER = 0.65;
-constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 0.85;
+constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
+constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
 constexpr double WHEEL_DIAMETER_INCHES = 6.125; // avg between 6 and 6.25
@@ -73,19 +73,23 @@ constexpr double ELEVATOR_D = 0.50;
 
 constexpr int EE_TICKS_PER_ROTATION = 4096;
 
-constexpr double ELEVATOR_ZERO = 1.0;
+constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 10100.0;
-constexpr double ELEVATOR_SCALE_LOW = 21500.0;
-constexpr double ELEVATOR_SCALE_HIGH = 30000.0;
-constexpr double ELEVATOR_DOUBLE_STACK = 32000.0;
+constexpr double ELEVATOR_SCALE_LOW = 23000.0;
+constexpr double ELEVATOR_SCALE_HIGH = 33000.0;
+constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 27500.0;
+constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
+constexpr double ELEVATOR_MANUAL_DEADBAND = 0.1;
+constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 3000; // Ticks/second
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
 constexpr float INTAKE_PERCENT = 0.8;
-constexpr float OUTTAKE_PERCENT = -0.30;
-constexpr float OUTTAKE_FULL_PERCENT = -1.0;
+constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
+constexpr float OUTTAKE_PERCENT = -0.20;
+constexpr float OUTTAKE_FULL_PERCENT = -0.60;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_OUTPUT_PERCENT = -1.0;
 constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
@@ -103,6 +107,7 @@ enum tUnits
 	TICKS_PER_100MS,
 };
 
+
 enum tCubeAmount
 {
 	ONE_CUBE = 0,
@@ -115,6 +120,9 @@ enum tStartingPosition
 	LEFT_POS = 0,
 	RIGHT_POS
 };
+
+constexpr double PERIODIC_DT = 0.020;
+
 
 
 #endif //CONSTANTS_H
