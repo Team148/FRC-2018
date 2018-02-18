@@ -11,10 +11,8 @@
 #include <Commands/Auto/AutoCommandGroups/Right_S_Scale_S_Switch_S_Scale.h>
 #include <Commands/Auto/AutoDriveTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
-#include <Commands/Auto/AutoSetElevatorAfterTime.h>
-
-
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
+#include <Commands/Auto/AutoSetElevator.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -109,7 +107,7 @@ public:
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-        frc::Scheduler::GetInstance()->AddCommand(new AutoSetElevatorAfterTime(true,ELEVATOR_SCALE_HIGH,5));
+        frc::Scheduler::GetInstance()->AddCommand(new AutoSetElevator(true,ELEVATOR_SCALE_HIGH,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));

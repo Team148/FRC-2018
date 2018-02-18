@@ -2,7 +2,7 @@
 #define DriveAndScore_H
 
 
-#include <Commands/Auto/AutoSetElevatorAfterTime.h>
+#include <Commands/Auto/AutoSetElevator.h>
 #include <Commands/CommandGroup.h>
 #include "Commands/Auto/AutoDrive.h"
 #include "Commands/Auto/AutoIntake.h"
