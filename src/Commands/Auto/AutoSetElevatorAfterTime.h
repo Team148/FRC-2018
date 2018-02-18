@@ -5,10 +5,10 @@
 #include "CommandBase.h"
 #include "constants.h"
 
-class ElevatorUpAfterTime : public CommandBase {
+class AutoSetElevatorAfterTime : public CommandBase {
 public:
 
-	ElevatorUpAfterTime(bool on,int position, double inchesToDrive);
+	AutoSetElevatorAfterTime(bool on,int position, double timeToWait);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

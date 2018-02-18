@@ -1,6 +1,6 @@
-#include <Commands/Auto/AutoElevatorUpAfterTime.h>
+#include <Commands/Auto/AutoSetElevatorAfterTime.h>
 
-ElevatorUpAfterTime::ElevatorUpAfterTime(bool on,int position, double timeToWait) {
+AutoSetElevatorAfterTime::AutoSetElevatorAfterTime(bool on,int position, double timeToWait = 0) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
@@ -13,17 +13,17 @@ ElevatorUpAfterTime::ElevatorUpAfterTime(bool on,int position, double timeToWait
 }
 
 // Called just before this Command runs the first time
-void ElevatorUpAfterTime::Initialize() {
+void AutoSetElevatorAfterTime::Initialize() {
 	m_IsFinished = false;
 	m_startTime = frc::Timer::GetFPGATimestamp();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ElevatorUpAfterTime::Execute() {
+void AutoSetElevatorAfterTime::Execute() {
 	double elaspedTime = frc::Timer::GetFPGATimestamp() - m_startTime;
 
-	if(   elaspedTime >= m_timeToWait)
+	if(elaspedTime >= m_timeToWait)
 	{
 		if (m_on)
 			{
@@ -41,17 +41,17 @@ void ElevatorUpAfterTime::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ElevatorUpAfterTime::IsFinished() {
+bool AutoSetElevatorAfterTime::IsFinished() {
 	return m_IsFinished;
 }
 
 // Called once after isFinished returns true
-void ElevatorUpAfterTime::End() {
+void AutoSetElevatorAfterTime::End() {
 	m_IsFinished = false;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ElevatorUpAfterTime::Interrupted() {
+void AutoSetElevatorAfterTime::Interrupted() {
 	m_IsFinished = false;
 }

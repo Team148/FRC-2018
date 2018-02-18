@@ -18,6 +18,7 @@ public:
 	static Intake* GetInstance();
 	void InitDefaultCommand();
 	void SetIntakeMotor(float percent);
+	float GetAverageCurrent();
 };
 
 #endif
