@@ -1,16 +1,15 @@
-#ifndef driveToCubeFromScale_H
-#define driveToCubeFromScale_H
+#ifndef FromRightScale_ToFirstCube_H
+#define FromRightScale_ToFirstCube_H
 
-//#include "pathfinder.h"
+#include <Subsystems/Drivetrain.h>
 #include "Commands/Command.h"
-#include "Timer.h"
+//#include <./Paths/GoStraight.h>
 #include "Util/UnitMaster.h"
-//#include "../Util/Path.h"
 
-class driveToCubeFromScale : public frc::Command {
+
+class FromRightScale_ToFirstCube : public frc::Command {
 public:
-
-	driveToCubeFromScale();
+	FromRightScale_ToFirstCube();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -18,13 +17,10 @@ public:
 	void Interrupted();
 
 private:
-	int index;
-//	Path *PathPlanner;
-	int m_lastTime;
-	double m_startTime;
-	bool m_finished = false;
-
 	UnitMaster unit_master;
+	double m_initTime;
+	double m_pathDT = 0.010;
+	bool m_isFinished = false;
 
 	int num_index = 202;
 	double left_wheel[202][8] ={
@@ -434,7 +430,6 @@ private:
 	{84.000, 0.011, -5.058, 586.108, 0.000, 0.010, 84.000, -17.500},
 	{84.000, 0.000, -1.064, 399.409, 0.000, 0.010, 84.000, -17.500}};
 
-
 };
 
-#endif  // PathFind_H
+#endif  // GoStraightPath_H

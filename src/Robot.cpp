@@ -8,7 +8,7 @@
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/TurnPosition.h>
-#include <Commands/Auto/AutoCommandGroups/Right_S_Scale_S_Switch_S_Scale.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelectorGroup.h>
 #include <Commands/Auto/AutoDriveTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
@@ -109,11 +109,12 @@ public:
 	 */
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->RemoveAll();
-
+		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-        frc::Scheduler::GetInstance()->AddCommand(new AutoSetElevator(true,ELEVATOR_SCALE_HIGH,5));
+		char* meh = 0;
+        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
@@ -136,6 +137,7 @@ public:
 	void TeleopInit() override
 	{
 		frc::Scheduler::GetInstance()->RemoveAll();
+		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();

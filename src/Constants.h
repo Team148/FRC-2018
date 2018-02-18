@@ -14,7 +14,7 @@ constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 4.0;
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
-constexpr double DRIVETRAIN_P_POS = 0.13;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_P_POS = 0.16;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
 
@@ -26,7 +26,7 @@ constexpr double DRIVETRAIN_PATH_KD = 0.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.0;
 
 //Intake
-constexpr float CUBE_IN_CURRENT_CURRENT = 20;
+constexpr float CUBE_IN_CURRENT_CURRENT = 18;
 constexpr float TIME_TO_RUN_INTAKE = 0.3;
 
 constexpr float DRIVE_VELOCITY_P = 0;
@@ -93,6 +93,7 @@ constexpr double ELEVATOR_HANG = 27500.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.1;
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 3000; // Ticks/second
+constexpr double ELEVATOR_ERROR_TOLERANCE = 5000;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
@@ -132,7 +133,9 @@ enum tStartingPosition
 	RIGHT_POS
 };
 
-constexpr double PERIODIC_DT = 0.020;
+constexpr double TELE_PERIODIC_DT = 0.020;
+constexpr double AUTO_PERIODIC_DT = 0.010;
+
 
 
 

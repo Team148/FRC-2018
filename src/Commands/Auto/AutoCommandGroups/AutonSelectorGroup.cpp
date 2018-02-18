@@ -1,7 +1,10 @@
 #include "AutonSelectorGroup.h"
-#include "../FromRightPos_RightScale.h"
-#include "../driveToCubeFromScale.h"
+#include "../../AutoPaths/FromRightPos_ToRightScale.h"
+#include "../../AutoPaths/FromRightScale_ToFirstCube.h"
 #include "../TurnPosition.h"
+#include "../AutoIntake.h"
+#include "../AutoSetElevator.h"
+
 
 AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Data, tCubeAmount cube_amount)
 {
@@ -24,8 +27,19 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 	// arm.
 
 
-	AddSequential(new FromRightPos_RightScale());
+	AddParallel(new AutoSetElevator(true, ELEVATOR_SCALE_HIGH, 3.0));
+	AddSequential(new FromRightPos_ToRightScale());
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+	AddSequential(new AutoSetElevator(true, ELEVATOR_ZERO, 0.0));
 	AddSequential(new TurnPosition(180.0));
-	AddSequential(new driveToCubeFromScale());
+	AddParallel(new AutoIntake(INTAKE_PERCENT, 3.0));
+	AddSequential(new FromRightScale_ToFirstCube());
+	AddSequential(new TurnPosition(-180.0));
+	AddParallel(new AutoSetElevator(true, ELEVATOR_SCALE_HIGH, 0.0));
+	AddSequential(new FromRightScale_ToFirstCube());
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+
+
+
 
 }

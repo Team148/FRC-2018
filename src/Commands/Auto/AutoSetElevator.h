@@ -8,7 +8,7 @@
 class AutoSetElevator : public CommandBase {
 public:
 
-	AutoSetElevator(bool on,int position, double timeToWait);
+	AutoSetElevator(int position, double timeToWait);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,7 +16,6 @@ public:
 	void Interrupted();
 
 private:
-	bool m_on = false;
 	double m_position;
 	double m_timeToWait;
 	bool m_IsFinished = false;

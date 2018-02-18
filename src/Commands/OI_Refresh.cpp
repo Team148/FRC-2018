@@ -16,7 +16,7 @@ void OI_Refresh::Initialize() {
 void OI_Refresh::Execute() {
 	if(fabs(OI::GetInstance()->opStick->GetRawAxis(1)) > ELEVATOR_MANUAL_DEADBAND)
 	{
-		Elevator::GetInstance()->IncrementElevatorPosition(-OI::GetInstance()->opStick->GetRawAxis(1) * ELEVATOR_MANUAL_DPOS_SCALAR * PERIODIC_DT);
+		Elevator::GetInstance()->IncrementElevatorPosition(-OI::GetInstance()->opStick->GetRawAxis(1) * ELEVATOR_MANUAL_DPOS_SCALAR * TELE_PERIODIC_DT);
 		std::cout << "running" << std::endl;
 	}
 }

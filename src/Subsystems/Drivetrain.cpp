@@ -26,10 +26,10 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
 	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
 
-	m_leftMotor1->ConfigVelocityMeasurementWindow(50, 0);
-	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_50Ms , 0 );
-	m_rightMotor1->ConfigVelocityMeasurementWindow(50, 0);
-	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_50Ms , 0 );
+	m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
+	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
+	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
 
 //
 //	m_leftMotor1->SetStatusFramePeriod(StatusFrame::Status_1_General_, 50 , 0 );
@@ -120,7 +120,7 @@ void Drivetrain::InitDefaultCommand() {
 	SetDefaultCommand(new DriveWithJoystick());
 }
 
-void Drivetrain::Arcade(double ystick, double xstick) {
+void Drivetrain::Arcade(double xstick, double ystick) {
 	m_drive->ArcadeDrive(xstick, ystick);
 }
 

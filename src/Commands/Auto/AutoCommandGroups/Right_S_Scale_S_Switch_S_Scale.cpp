@@ -1,6 +1,6 @@
-#include <Commands/Auto/FromRightPos_RightScale.h>
+//#include <Commands/Auto/AutoCommandGroups/FromRightPos_RightScale.h>
 #include "Right_S_Scale_S_Switch_S_Scale.h"
-#include "../driveToCubeFromScale.h"
+//#include "../driveToCubeFromScale.h"
 #include "../TurnPosition.h"
 
 

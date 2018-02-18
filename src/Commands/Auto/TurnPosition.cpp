@@ -24,7 +24,7 @@ void TurnPosition::Initialize()
 	Drivetrain::GetInstance()->configClosedLoopPosition();
 	Drivetrain::GetInstance()->SetBrakeMode(true);
 
-//	SetTimeout(2.0);
+	SetTimeout(3.0);
 
 }
 
@@ -50,6 +50,8 @@ void TurnPosition::Execute()
 	Drivetrain::GetInstance()->SetDrivePosition(-m_output, m_output);
 //	std::cout << Drivetrain::GetInstance()->getGyroYaw() << std::endl;
 	std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
+
+	if(abs(m_angle_err) < 10.0) m_isFinished = true;
 
 }
 

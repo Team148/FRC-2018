@@ -77,7 +77,7 @@ void AutoIntake::OutTake()
 	m_currentTime =  frc::Timer::GetFPGATimestamp();
 	deltaTime = m_currentTime - m_startTime;
 	std::cout << deltaTime << std::endl;
-	if(deltaTime >= m_runTime   )
+	if(deltaTime >= m_runTime)
 	{
 		Intake::GetInstance()->SetIntakeMotor(0);
 		m_IsFinished = true;

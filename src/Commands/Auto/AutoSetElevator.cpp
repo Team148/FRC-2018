@@ -1,19 +1,19 @@
 #include <Commands/Auto/AutoSetElevator.h>
-
-AutoSetElevator::AutoSetElevator(bool on,int position, double timeToWait = 0) {
+#include <iostream>
+AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
 
 	m_IsFinished = false;
 
-	m_on = on;
 	m_position = position;
 	m_timeToWait = timeToWait;
 }
 
 // Called just before this Command runs the first time
 void AutoSetElevator::Initialize() {
+	SetTimeout(3.0);
 	m_IsFinished = false;
 	m_startTime = frc::Timer::GetFPGATimestamp();
 
@@ -22,19 +22,17 @@ void AutoSetElevator::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutoSetElevator::Execute() {
 	double elaspedTime = frc::Timer::GetFPGATimestamp() - m_startTime;
+	double currentPosition = Elevator::GetInstance()->GetElevatorPosition();
+	double posErr = m_position - currentPosition;
 
 	if(elaspedTime >= m_timeToWait)
 	{
-		if (m_on)
-			{
-				Elevator::GetInstance()->SetElevatorPosition(m_position);
-				m_IsFinished = true;
-			}
-			else
-			{
-				Elevator::GetInstance()->SetElevatorPosition(0.0);
-				m_IsFinished = true;
-			}
+		Elevator::GetInstance()->SetElevatorPosition(m_position);
+
+		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
+		{
+			m_IsFinished = true;
+		}
 	}
 
 
@@ -42,11 +40,12 @@ void AutoSetElevator::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoSetElevator::IsFinished() {
-	return m_IsFinished;
+	return m_IsFinished || IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void AutoSetElevator::End() {
+	std::cout << "AutoSetElevator: DONE" << std::endl;
 	m_IsFinished = false;
 }
 
