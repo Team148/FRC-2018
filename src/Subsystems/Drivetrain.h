@@ -45,9 +45,13 @@ public:
 	void SetBrakeMode(bool on);
 	void configClosedLoopVelocity();
 	void configClosedLoopPosition();
+	void InitPathDrive();
+	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading);
+	void configPathLoop();
 	void configOpenLoop();
 	bool isClosedLoopVelocity();
 	bool isClosedLoopPosition();
+
 
 
 	int getLeftDrivePosition();
@@ -61,6 +65,10 @@ public:
 	double getGyroYaw();
 	double getGyroPitch();
 	double getGyroRoll();
+	int initLeftDrivePos;
+	int initRightDrivePos;
+
+
 	double updatePigeon();
 
 	void getPigeonStatus();

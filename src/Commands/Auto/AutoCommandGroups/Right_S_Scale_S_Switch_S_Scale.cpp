@@ -1,11 +1,8 @@
 #include <Commands/Auto/FromRightPos_RightScale.h>
 #include "Right_S_Scale_S_Switch_S_Scale.h"
-<<<<<<< HEAD
 #include "../driveToCubeFromScale.h"
 #include "../TurnPosition.h"
-=======
 
->>>>>>> d0ec56f399ba19556bfa8273dc713f1e6cd55ddd
 
 Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// Add Commands here:
@@ -25,8 +22,8 @@ Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new FromRightPos_RightScale());
-	AddSequential(new TurnPosition(180.0));
-	AddSequential(new driveToCubeFromScale());
+//	AddSequential(new FromRightPos_RightScale());
+//	AddSequential(new TurnPosition(180.0));
+//	AddSequential(new driveToCubeFromScale());
 
 }

@@ -1,13 +1,9 @@
 #include "DriveWithJoystick.h"
 #include "OI.h"
-<<<<<<< HEAD
 #include <iostream>
-
-=======
 #include <Commands/Scheduler.h>
 #include "Commands/AutoScoreCube.h"
 #include "Commands/ExitAutoScoreCube.h"
->>>>>>> master
 
 DriveWithJoystick::DriveWithJoystick() {
 	// Use Requires() here to declare subsystem dependencies
@@ -17,23 +13,14 @@ DriveWithJoystick::DriveWithJoystick() {
 }
 
 // Called just before this Command runs the first time
-void DriveWithJoystick::Initialize() {
+void DriveWithJoystick::Initialize()
+{
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-<<<<<<< HEAD
-//	//Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
-//	if(OI::GetInstance()->drvStick->GetRawButton(1)){
-//		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(140.0), unit_master.GetTicksPer100ms(140.0));
-//	//	std::cout << "works" << std::endl;
-//	}
-//	else
-//		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -OI::GetInstance()->drvStick->GetRawAxis(1));
-	if(!OI::GetInstance()->drvStick->GetRawButton(6))  Drivetrain::GetInstance()->Arcade(-(OI::GetInstance()->drvStick->GetRawAxis(1)), OI::GetInstance()->drvStick->GetRawAxis(4));
-	else Drivetrain::GetInstance()->Arcade((-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER), OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER);
-=======
+
 
 	static bool isAutoScoreActive = false;
 	if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2 && !isAutoScoreActive)
@@ -52,7 +39,6 @@ void DriveWithJoystick::Execute() {
 		if(!OI::GetInstance()->drvStick->GetRawButton(6)) 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
 		else Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
 	}
->>>>>>> master
 
 }
 // Make this return true when this Command no longer needs to run execute()

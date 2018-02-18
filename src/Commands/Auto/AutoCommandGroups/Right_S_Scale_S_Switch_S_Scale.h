@@ -2,7 +2,7 @@
 #define Right_S_Scale_S_Switch_S_Scale_H
 
 #include <Commands/CommandGroup.h>
-#include "../PathFind.h"
+//#include "../PathFind.h"
 #include "../driveToCubeFromScale.h"
 #include "../AutoTurnPID.h"
 #include "../TurnPosition.h"

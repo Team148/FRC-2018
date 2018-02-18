@@ -13,7 +13,7 @@ RunDrivetrain::RunDrivetrain() {
 // Called once when the command executes
 void RunDrivetrain::Initialize() {
 
-	Drivetrain::GetInstance()->SetLeftRight(70.0,70.0);
+	Drivetrain::GetInstance()->SetDriveVelocity(70.0,70.0);
 //	if(m_on) {
 //		if(m_reversed) {
 //			Drivetrain::GetInstance()->SetIntakeMotor(OUTTAKE_PERCENT);

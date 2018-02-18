@@ -18,6 +18,13 @@ constexpr double DRIVETRAIN_P_POS = 0.13;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
 
+constexpr double DRIVETRAIN_PATH_FV = 1.0;
+constexpr double DRIVETRAIN_PATH_FA = 0.1;
+constexpr double DRIVETRAIN_PATH_KP = 0.00;
+constexpr double DRIVETRAIN_PATH_KI = 0.0;
+constexpr double DRIVETRAIN_PATH_KD = 0.0;
+constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.0;
+
 //Intake
 constexpr float CUBE_IN_CURRENT_CURRENT = 20;
 constexpr float TIME_TO_RUN_INTAKE = 0.3;
@@ -51,6 +58,10 @@ constexpr double WHEEL_DIAMETER_INCHES = 6.125; // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
+
+
+
+
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
 //PATHFINDER
