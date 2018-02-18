@@ -1,7 +1,13 @@
 #include "DriveWithJoystick.h"
 #include "OI.h"
+<<<<<<< HEAD
 #include <iostream>
 
+=======
+#include <Commands/Scheduler.h>
+#include "Commands/AutoScoreCube.h"
+#include "Commands/ExitAutoScoreCube.h"
+>>>>>>> master
 
 DriveWithJoystick::DriveWithJoystick() {
 	// Use Requires() here to declare subsystem dependencies
@@ -17,6 +23,7 @@ void DriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
+<<<<<<< HEAD
 //	//Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), OI::GetInstance()->drvStick->GetRawAxis(1));
 //	if(OI::GetInstance()->drvStick->GetRawButton(1)){
 //		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(140.0), unit_master.GetTicksPer100ms(140.0));
