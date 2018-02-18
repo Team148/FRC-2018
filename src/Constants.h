@@ -103,6 +103,18 @@ enum tUnits
 	TICKS_PER_100MS,
 };
 
+enum tCubeAmount
+{
+	ONE_CUBE = 0,
+	TWO_CUBE,
+	THREE_CUBE,
+	FOUR_CUBE
+};
+enum tStartingPosition
+{
+	LEFT_POS = 0,
+	RIGHT_POS
+};
 
 
 #endif //CONSTANTS_H

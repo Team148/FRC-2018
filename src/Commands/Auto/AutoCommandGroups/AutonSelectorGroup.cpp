@@ -1,10 +1,11 @@
-#include <Commands/Auto/FromRightPos_RightScale.h>
-#include "Right_S_Scale_S_Switch_S_Scale.h"
+#include "AutonSelectorGroup.h"
+#include "../FromRightPos_RightScale.h"
 #include "../driveToCubeFromScale.h"
-#include "../AutoTurnPID.h"
 #include "../TurnPosition.h"
 
-Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
+AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Data, tCubeAmount cube_amount)
+{
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -22,8 +23,9 @@ Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new PathFind());
-	AddSequential(new TurnPosition(380.0));
+
+	AddSequential(new FromRightPos_RightScale());
+	AddSequential(new TurnPosition(180.0));
 	AddSequential(new driveToCubeFromScale());
 
 }

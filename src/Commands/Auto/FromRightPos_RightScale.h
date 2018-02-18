@@ -1,5 +1,5 @@
-#ifndef PathFind_H
-#define PathFind_H
+#ifndef FromRightPos_RightScale_H
+#define FromRightPos_RightScale_H
 
 //#include "pathfinder.h"
 #include "Commands/Command.h"
@@ -8,10 +8,10 @@
 //#include "../Util/Path.h"
 #include "../../Subsystems/Drivetrain.h"
 
-class PathFind : public frc::Command {
+class FromRightPos_RightScale : public frc::Command {
 public:
 
-	PathFind();
+	FromRightPos_RightScale();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

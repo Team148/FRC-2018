@@ -1,7 +1,6 @@
+#include <Commands/Auto/FromRightPos_RightScale.h>
 #include "Right_S_Scale_S_Switch_S_Scale.h"
-#include "../PathFind.h"
 #include "../driveToCubeFromScale.h"
-#include "../AutoTurnPID.h"
 #include "../TurnPosition.h"
 
 Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
@@ -22,8 +21,8 @@ Right_S_Scale_S_Switch_S_Scale::Right_S_Scale_S_Switch_S_Scale() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new PathFind());
-	AddSequential(new TurnPosition(380.0));
+	AddSequential(new FromRightPos_RightScale());
+	AddSequential(new TurnPosition(180.0));
 	AddSequential(new driveToCubeFromScale());
 
 }

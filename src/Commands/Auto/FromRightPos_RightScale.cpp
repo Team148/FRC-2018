@@ -1,12 +1,11 @@
-#include "PathFind.h"
-//#include "../../Paths/GoStraightTurnRight.h"
 #include "Timer.h"
 #include "iostream"
 #include <./SmartDashboard/SendableChooser.h>
 #include <./SmartDashboard/SmartDashboard.h>
+#include <Commands/Auto/FromRightPos_RightScale.h>
 
 
-PathFind::PathFind() {
+FromRightPos_RightScale::FromRightPos_RightScale() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
@@ -15,7 +14,7 @@ PathFind::PathFind() {
 }
 
 // Called just before this Command runs the first time
-void PathFind::Initialize() {
+void FromRightPos_RightScale::Initialize() {
 	index = 0;
 	m_lastTime = 0;
 	m_startTime = frc::Timer::GetFPGATimestamp();
@@ -24,15 +23,10 @@ void PathFind::Initialize() {
 
 
 
-
-	double startTime;
-	double finishTime;
-	double totalTime;
-
 }
 
 // Called repeatedly when this Command is scheduled to run
-void PathFind::Execute() {
+void FromRightPos_RightScale::Execute() {
     m_tempDrivetrain = Drivetrain::GetInstance();
 
 	double timeEnlapsed = frc::Timer::GetFPGATimestamp() - m_startTime;
@@ -58,20 +52,20 @@ void PathFind::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool PathFind::IsFinished() {
+bool FromRightPos_RightScale::IsFinished() {
 
 	return m_finished;
 }
 
 // Called once after isFinished returns true
-void PathFind::End() {
+void FromRightPos_RightScale::End() {
 	//PathPlanner->End();
 	index = 0;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void PathFind::Interrupted() {
+void FromRightPos_RightScale::Interrupted() {
 //	PathPlanner->End();
 	index = 0;
 }
