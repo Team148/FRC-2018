@@ -135,6 +135,7 @@ void Drivetrain::SetLeftRight(double left, double right){
 
 void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 {
+<<<<<<< HEAD
 //	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
 	double FA = 1; // what is FA
 
@@ -150,6 +151,9 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 //	else
 //	{
 
+=======
+	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+>>>>>>> master
 
 //	}
 

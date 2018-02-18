@@ -26,6 +26,26 @@ void DriveWithJoystick::Execute() {
 //		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4), -OI::GetInstance()->drvStick->GetRawAxis(1));
 	if(!OI::GetInstance()->drvStick->GetRawButton(6))  Drivetrain::GetInstance()->Arcade(-(OI::GetInstance()->drvStick->GetRawAxis(1)), OI::GetInstance()->drvStick->GetRawAxis(4));
 	else Drivetrain::GetInstance()->Arcade((-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER), OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER);
+=======
+
+	static bool isAutoScoreActive = false;
+	if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2 && !isAutoScoreActive)
+	{
+		frc::Scheduler::GetInstance()->AddCommand(new AutoScoreCube());
+		isAutoScoreActive = true;
+	}
+	if(OI::GetInstance()->drvStick->GetRawAxis(3) < 0.2 && isAutoScoreActive)
+	{
+		frc::Scheduler::GetInstance()->AddCommand(new ExitAutoScoreCube());
+		isAutoScoreActive = false;
+
+	}
+	if(!isAutoScoreActive)
+	{
+		if(!OI::GetInstance()->drvStick->GetRawButton(6)) 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
+		else Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
+	}
+>>>>>>> master
 
 }
 // Make this return true when this Command no longer needs to run execute()
