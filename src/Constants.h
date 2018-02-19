@@ -54,7 +54,7 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 6.125; // avg between 6 and 6.25
+constexpr double WHEEL_DIAMETER_INCHES = 6.0; // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4

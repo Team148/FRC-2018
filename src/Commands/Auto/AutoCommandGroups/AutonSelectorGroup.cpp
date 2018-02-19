@@ -34,8 +34,15 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 	AddSequential(new TurnPosition(180.0));
 	AddParallel(new AutoIntake(INTAKE_PERCENT, 3.0));
 	AddSequential(new FromRightScale_ToFirstCube());
-	AddSequential(new TurnPosition(-180.0));
-	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 1.0));
+	AddParallel(new AutoSetElevator(ELEVATOR_ZERO , 0.0));
+	AddSequential(new TurnPosition(-45.0));
+	AddParallel(new AutoIntake(INTAKE_PERCENT, 3.0));
+	AddSequential(new FromRightScale_ToFirstCube());
+	AddSequential(new TurnPosition(-135.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
 	AddSequential(new FromRightScale_ToFirstCube());
 	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
 
