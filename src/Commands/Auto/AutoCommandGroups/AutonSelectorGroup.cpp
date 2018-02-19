@@ -27,17 +27,17 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 	// arm.
 
 
-	AddParallel(new AutoSetElevator(true, ELEVATOR_SCALE_HIGH, 3.0));
+	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
 	AddSequential(new FromRightPos_ToRightScale());
-	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
-	AddSequential(new AutoSetElevator(true, ELEVATOR_ZERO, 0.0));
+	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	AddSequential(new TurnPosition(180.0));
 	AddParallel(new AutoIntake(INTAKE_PERCENT, 3.0));
 	AddSequential(new FromRightScale_ToFirstCube());
 	AddSequential(new TurnPosition(-180.0));
-	AddParallel(new AutoSetElevator(true, ELEVATOR_SCALE_HIGH, 0.0));
+	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 	AddSequential(new FromRightScale_ToFirstCube());
-	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
 
 
 
