@@ -3,6 +3,7 @@
 #include <Commands/Scheduler.h>
 #include "Commands/AutoScoreCube.h"
 #include "Commands/ExitAutoScoreCube.h"
+#include <iostream>
 
 DriveWithJoystick::DriveWithJoystick() {
 	// Use Requires() here to declare subsystem dependencies
@@ -32,8 +33,14 @@ void DriveWithJoystick::Execute() {
 	}
 	if(!isAutoScoreActive)
 	{
-		if(!OI::GetInstance()->drvStick->GetRawButton(6)) 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
-		else Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
+		if(!OI::GetInstance()->drvStick->GetRawButton(6)) 	Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
+		else
+		{
+			Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
+			std::cout << "Currently filtered" << std::endl;
+
+		}
+
 	}
 
 }

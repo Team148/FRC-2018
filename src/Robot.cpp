@@ -32,7 +32,7 @@
 #include "Commands/SetElevator.h"
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
-//#include "Commands/OI_Refresh.h"
+#include "Commands/OI_Refresh.h"
 
 
 #include "Commands/SetDrivetrainVelocity.h"
@@ -121,7 +121,7 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-//		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
+		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}
 
@@ -138,18 +138,22 @@ public:
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
 			IntakeSpeed = OUTTAKE_FULL_PERCENT;
 		else if (oi->opStick->GetRawButton(5))
-			IntakeSpeed = INTAKE_PERCENT;
+			IntakeSpeed = INTAKE_FAST_PERCENT;
+		else if (oi->opStick->GetRawAxis(2) >= 0.2)
+			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
 
-		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+//		if (oi->drvStick->GetRawButton(1))
+//			wrangler->SetWranglerMotor(WRANGLER_HALF_PERCENT);
+//		if (oi->drvStick->GetRawButton(2))
+//			wrangler->SetWranglerMotor(WRANGLER_FULL_PERCENT);
+//		else
+//			wrangler->SetWranglerMotor(0.0);
+
+		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
 			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
 		else
 			climber->SetClimberMotor(0.0);
-
-		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
-			wrangler->SetWranglerMotor(WRANGLER_OUTPUT_PERCENT);
-		else
-			wrangler->SetWranglerMotor(0.0);
 
 		//POV buttons
 		if (oi->opStick->GetPOV() == 0)
