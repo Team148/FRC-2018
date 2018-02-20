@@ -46,17 +46,19 @@ constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 22000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
-constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 3000; // Ticks/second
+constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 6000; // Ticks/second
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
-constexpr float INTAKE_PERCENT = 0.8;
+constexpr float INTAKE_FAST_PERCENT = 0.8;
+constexpr float INTAKE_SLOW_PERCENT = 0.4;
 constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
 constexpr float OUTTAKE_PERCENT = -0.20;
 constexpr float OUTTAKE_FULL_PERCENT = -0.60;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
-constexpr float WRANGLER_OUTPUT_PERCENT = -1.0;
+constexpr float WRANGLER_FAST_PERCENT = -1.0;
+constexpr float WRANGLER_SLOW_PERCENT = -0.5;
 constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 constexpr int LEFT_VALUE = -1;
 constexpr int RIGHT_VALUE = 1;
