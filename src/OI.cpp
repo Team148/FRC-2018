@@ -43,6 +43,11 @@ OI::OI() {
 
 
 //	//DriveJoystick Controls
+	m_drvButton1->WhenPressed(new GrabPartner(WRANGLER_SLOW_PERCENT));
+	m_drvButton1->WhenReleased(new GrabPartner(0.0));
+
+	m_drvButton2->WhenPressed(new GrabPartner(WRANGLER_FAST_PERCENT));
+	m_drvButton2->WhenReleased(new GrabPartner(0.0));
 ////	//100% Outtake
 //	m_drvButton5->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
 //	m_drvButton5->WhenReleased(new RunIntake(0.0));
@@ -64,29 +69,29 @@ OI::OI() {
 
 	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
 
-	//Operator Controller POV commands
-	if(opStick->GetPOV(0)) {
-		new SetElevator(true, ELEVATOR_DOUBLE_STACK);
-	}
+//	//Operator Controller POV commands
+//	if(opStick->GetPOV(0)) {
+//		new SetElevator(true, ELEVATOR_DOUBLE_STACK);
+//	}
+//
+//	if(opStick->GetPOV(180)) {
+//		new SetElevator(true, ELEVATOR_HANG);
+//	}
 
-	if(opStick->GetPOV(180)) {
-		new SetElevator(true, ELEVATOR_HANG);
-	}
-
-	//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFES
-	//Driver call climber command
-	if (drvStick->GetRawButton(7) && drvStick->GetRawButton(8)) {
-		new RunClimber(true);
-	}
-	else
-		new RunClimber(false);
-
-	//Operator call grabpartner command
-	if (opStick->GetRawButton(7) && opStick->GetRawButton(8)) {
-		new GrabPartner(true);
-	}
-	else
-		new GrabPartner(false);
+//	//TWO BUTTON CLIMBER AND ROBOTWRANGLER FAILSAFES
+//	//Driver call climber command
+//	if (drvStick->GetRawButton(7) && drvStick->GetRawButton(8)) {
+//		new RunClimber(true);
+//	}
+//	else
+//		new RunClimber(false);
+//
+//	//Operator call grabpartner command
+//	if (opStick->GetRawButton(7) && opStick->GetRawButton(8)) {
+//		new GrabPartner(true);
+//	}
+//	else
+//		new GrabPartner(false);
 }
 
 OI* OI::GetInstance() {

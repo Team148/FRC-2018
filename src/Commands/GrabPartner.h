@@ -6,11 +6,12 @@
 
 class GrabPartner : public frc::InstantCommand  {
 public:
-	GrabPartner(bool on);
+	GrabPartner(double percent);
 	void Initialize();
 
 private:
 	bool m_on = false;
+	double m_percent = 0.0;
 };
 
 #endif  // RunClimber_H
