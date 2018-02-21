@@ -77,12 +77,10 @@ constexpr float DRIVE_GYRO_P = 15.0;
 //constexpr float DRIVE_TURN_
 
 //Elevator constants
-constexpr double ELEVATOR_F = 120.00;
+constexpr double ELEVATOR_F = 140.00;
 constexpr double ELEVATOR_P = 0.05;
 constexpr double ELEVATOR_I = 0.00;
 constexpr double ELEVATOR_D = 0.50;
-
-constexpr int EE_TICKS_PER_ROTATION = 4096;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 15000.0;
