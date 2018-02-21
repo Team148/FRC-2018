@@ -64,7 +64,6 @@ public:
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
 
-
 	}
 
 	/**
@@ -100,10 +99,10 @@ public:
 
 		frc::Scheduler::GetInstance()->RemoveAll();
 
-//		frc::Scheduler::GetInstance()->AddCommand(command);
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
+		elevator->SetElevatorPosition(ELEVATOR_ZERO);
 	}
 
 	void AutonomousPeriodic() override {
@@ -121,6 +120,7 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
+		elevator->SetElevatorPosition(ELEVATOR_ZERO);
 		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}
@@ -128,6 +128,8 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
 		static double IntakeSpeed = 0.0;
 
@@ -141,14 +143,6 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
-
-
-//		if (oi->drvStick->GetRawButton(1))
-//			wrangler->SetWranglerMotor(WRANGLER_HALF_PERCENT);
-//		if (oi->drvStick->GetRawButton(2))
-//			wrangler->SetWranglerMotor(WRANGLER_FULL_PERCENT);
-//		else
-//			wrangler->SetWranglerMotor(0.0);
 
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
 			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
@@ -168,24 +162,6 @@ public:
 		}
 
 		intake->SetIntakeMotor(IntakeSpeed);
-
-//
-
-
-
-//		if (oi->opStick->GetRawAxis(1) >= 0.2) {
-//			elevator->SetElevatorJoystickPosition(oi->opStick->GetRawAxis(1));
-//		}
-
-//		//Intake Commands
-//		if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
-//			new RunIntake(OUTTAKE_FULL_PERCENT);
-//		else if (oi->opStick->GetRawButton(5))
-//			new RunIntake(INTAKE_PERCENT);
-//		else if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
-//			new RunIntake(OUTTAKE_PERCENT);
-//		else
-//			new RunIntake(0.0);
 
 		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
 
