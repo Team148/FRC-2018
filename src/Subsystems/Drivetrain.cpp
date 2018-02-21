@@ -172,7 +172,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double right_output =	DRIVETRAIN_PATH_FV * r_velo +
 							DRIVETRAIN_PATH_FA * r_accel +
 							DRIVETRAIN_PATH_KP * right_error;
-	std::cout << "left_output" << left_output << std::endl;
+//	std::cout << "left_output" << left_output << std::endl;
 
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 //	SetDriveVelocity(unit_master.GetTicksPer100ms(-right_output), unit_master.GetTicksPer100ms(-left_output));
@@ -322,6 +322,12 @@ void Drivetrain::configClosedLoopPosition() {
 	m_closedLoopPosition = true;
 }
 
+void Drivetrain::configClosedLoopPositionKF(double kF)
+{
+	m_leftMotor1->Config_kF(0, kF, 0);
+	m_rightMotor1->Config_kF(0, kF, 0);
+}
+
 void Drivetrain::configOpenLoop()
 {
 	m_leftMotor1->Set(ControlMode::PercentOutput, 0.0);
@@ -355,16 +361,17 @@ void Drivetrain::configPathLoop()
 	if(!m_closedLoopVelocity)
 		configClosedLoopVelocity();
 
+	InitPathDrive();
+
 	m_leftMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
-	m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
 	m_leftMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+	m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
 	m_rightMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
 
 	m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
 	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
 	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
 	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
-
 
 }
 

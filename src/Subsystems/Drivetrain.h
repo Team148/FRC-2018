@@ -43,6 +43,7 @@ public:
 	void SetDrivePosition(double left_position, double right_position);
 	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index);
 	void SetBrakeMode(bool on);
+	void configClosedLoopPositionKF(double kF);
 	void configClosedLoopVelocity();
 	void configClosedLoopPosition();
 	void InitPathDrive();

@@ -20,7 +20,6 @@ constexpr double DRIVETRAIN_D_POS = 0.0;
 
 constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
 
-
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
 constexpr double DRIVETRAIN_PATH_FA = 0.1;
 constexpr double DRIVETRAIN_PATH_KP = 0.00;
@@ -36,6 +35,7 @@ constexpr float DRIVE_VELOCITY_P = 0;
 constexpr float DRIVE_GYRO_COMP_P = 0;
 
 //Auto/TurnPID
+constexpr float DRIVE_TURN_KF = 0.0;
 constexpr float DRIVE_TURN_P = .006;
 constexpr float DRIVE_TURN_I = 0;
 constexpr float DRIVE_TURN_TOLERANCE = 0.05;
