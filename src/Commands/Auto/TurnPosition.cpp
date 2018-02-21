@@ -13,7 +13,7 @@ TurnPosition::TurnPosition(double angle) {
 // Called just before this Command runs the first time
 void TurnPosition::Initialize()
 {
-	m_init_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
+	m_end_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
 	m_cur_angle = Drivetrain::GetInstance()->getGyroYaw();
 
 	m_l_init_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
@@ -32,26 +32,32 @@ void TurnPosition::Initialize()
 void TurnPosition::Execute()
 {
 	m_cur_angle = Drivetrain::GetInstance()->getGyroYaw();
-	m_angle_err = m_init_angle - m_cur_angle;
+	m_angle_err = m_end_angle - m_cur_angle;
 	double rotationsNeeded = m_angle_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
 	double ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
 
 
-
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-	m_l_pos_err = m_l_init_pos - m_l_cur_pos;
-	m_r_pos_err = m_r_init_pos - m_r_cur_pos; // NEED TO FEEDBACK POSITION CORRECT TIMEOUT
+//	m_l_pos_err = m_l_init_pos - m_l_cur_pos;
+//	m_r_pos_err = m_r_init_pos - m_r_cur_pos; // NEED TO FEEDBACK POSITION CORRECT TIMEOUT
 
-	double m_output = ticksNeeded;
 
-	Drivetrain::GetInstance()->SetDrivePosition(-m_output, m_output);
-	std::cout << "PIGEON: " << Drivetrain::GetInstance()->getGyroYaw() << std::endl;
-	std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
+		m_l_cur_pos -= ticksNeeded/2.0;
+		m_r_cur_pos += ticksNeeded/2.0;
 
-	if(abs(m_angle_err) < 10.0) m_isFinished = true;
+
+	//double m_output = ticksNeeded;
+
+
+
+	Drivetrain::GetInstance()->SetDrivePosition(m_l_cur_pos, m_r_cur_pos);
+	std::cout << "PIGEON ERROR: " << m_angle_err << std::endl;
+	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
+
+	if(abs(m_angle_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
 }
 

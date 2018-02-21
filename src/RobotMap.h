@@ -23,6 +23,6 @@ constexpr int CLIMBER_MOTOR_3		= 9;
 
 constexpr int WRANGLER_MOTOR_1		= 13;
 
-constexpr int PIGEON_GYRO 			= 48;
+constexpr int PIGEON_GYRO 			= 0;
 
 #endif  // ROBOTMAP_H

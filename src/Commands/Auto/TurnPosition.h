@@ -16,7 +16,7 @@ public:
 private:
 	UnitMaster unit_master;
 	double m_given_angle = 0.0;
-	double m_init_angle = 0.0;
+	double m_end_angle = 0.0;
 	double m_cur_angle = 0.0;
 	double m_angle_err = 0.0;
 	int m_l_cur_pos = 0.0;

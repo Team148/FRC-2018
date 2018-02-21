@@ -14,9 +14,12 @@ constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 4.0;
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
-constexpr double DRIVETRAIN_P_POS = 0.16;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_P_POS = 0.18;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
+
+constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
+
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
 constexpr double DRIVETRAIN_PATH_FA = 0.1;

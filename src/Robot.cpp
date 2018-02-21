@@ -116,7 +116,7 @@ public:
         frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
-//		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
+//		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(-180.0));
 		//frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
 
 
