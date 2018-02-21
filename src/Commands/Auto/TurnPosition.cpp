@@ -34,7 +34,7 @@ void TurnPosition::Execute()
 	m_cur_angle = Drivetrain::GetInstance()->getGyroYaw();
 	m_angle_err = m_init_angle - m_cur_angle;
 	double rotationsNeeded = m_angle_err/360; // 45/360 26pi
-	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI);
+	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
 	double ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
 
 
@@ -48,7 +48,7 @@ void TurnPosition::Execute()
 	double m_output = ticksNeeded;
 
 	Drivetrain::GetInstance()->SetDrivePosition(-m_output, m_output);
-//	std::cout << Drivetrain::GetInstance()->getGyroYaw() << std::endl;
+	std::cout << "PIGEON: " << Drivetrain::GetInstance()->getGyroYaw() << std::endl;
 	std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
 	if(abs(m_angle_err) < 10.0) m_isFinished = true;
