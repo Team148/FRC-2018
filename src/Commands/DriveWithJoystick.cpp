@@ -16,7 +16,7 @@ DriveWithJoystick::DriveWithJoystick() {
 // Called just before this Command runs the first time
 void DriveWithJoystick::Initialize()
 {
-
+	Drivetrain::GetInstance()->configClosedLoopVelocity();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -46,6 +46,12 @@ void DriveWithJoystick::Execute() {
 		}
 
 	}
+	if(OI::GetInstance()->drvStick->GetRawButton(3)){
+
+		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(90), unit_master.GetTicksPer100ms(90));
+	}
+	else{}
+		//Drivetrain::GetInstance()->configOpenLoop();
 
 }
 // Make this return true when this Command no longer needs to run execute()

@@ -204,7 +204,7 @@ public:
 
 //		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
 //		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
-//		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((120*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((120*OI::GetInstance()->drvStick->GetRawAxis(1))));
+//		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
 
 	}
 

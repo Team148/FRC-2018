@@ -1,5 +1,5 @@
-#ifndef FromRightFirstCube_ToSecondCube_H
-#define FromRightFirstCube_ToSecondCube_H
+#ifndef FromRightSecondCube_ToRightScale_H
+#define FromRightSecondCube_ToRightScale_H
 
 #include <Subsystems/Drivetrain.h>
 #include "Commands/Command.h"
@@ -7,9 +7,9 @@
 #include "Util/UnitMaster.h"
 
 
-class FromRightFirstCube_ToSecondCube : public frc::Command {
+class FromRightSecondCube_ToRightScale : public frc::Command {
 public:
-	FromRightFirstCube_ToSecondCube();
+	FromRightSecondCube_ToRightScale();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -22,8 +22,7 @@ private:
 	double m_pathDT = 0.010;
 	bool m_isFinished = false;
 
-#include <./Paths/FromRightFirstCube_ToSecondCubePath.h>
-
+#include <./Paths/FromRightSecondCube_ToRightScalePath.h>
 
 };
 
