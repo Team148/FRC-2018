@@ -6,6 +6,7 @@
 #include "../RobotMap.h"
 #include <iostream>
 #include "SmartDashboard/SmartDashboard.h"
+#include <cmath>
 
 Drivetrain *Drivetrain::m_instance = 0;
 UnitMaster unit_master;
@@ -117,7 +118,7 @@ Drivetrain* Drivetrain::GetInstance() {
 
 
 void Drivetrain::InitDefaultCommand() {
-	SetDefaultCommand(new DriveWithJoystick());
+	//SetDefaultCommand(new DriveWithJoystick());
 }
 
 void Drivetrain::Arcade(double xstick, double ystick) {
@@ -139,7 +140,7 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 	double FA = 1; // what is FA
 
 
-	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
+//	std::cout << "DriveVelocityFromFunc: " << left_velocity << std::endl;
 
 	m_leftMotor1->Set(ControlMode::Velocity, left_velocity);
 	m_rightMotor1->Set(ControlMode::Velocity, right_velocity);
@@ -150,11 +151,13 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
 	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
-	std::cout << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
+//	std::cout << "DriveVelocityFromFunc: " << right_velocity  << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
 
 void Drivetrain::InitPathDrive()
 {
+	initDriveHeading = getGyroYaw();
+
 	initLeftDrivePos = getLeftDrivePosition();
 	initRightDrivePos = getRightDrivePosition();
 }
@@ -162,20 +165,44 @@ void Drivetrain::InitPathDrive()
 //Need to Add Simple Heading P Controller
 void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading){
 
-	double left_error = l_pos - getLeftDrivePosition() + initLeftDrivePos;
-	double right_error = r_pos - getRightDrivePosition() + initRightDrivePos;
+	double m_heading = heading * 57.2958;
+	unit_master.SetTicks(getLeftDrivePosition() + initLeftDrivePos);
+	double cur_pos_l = unit_master.GetInches();
+	unit_master.SetTicks(getRightDrivePosition() + initRightDrivePos);
+	double cur_pos_r = unit_master.GetInches();
+
+	double robot_heading = fmod(getGyroYaw()-initDriveHeading,360);
+	if(robot_heading <0)
+		robot_heading += 360;
+
+	double heading_contrib = m_heading - robot_heading;
+	if(heading_contrib<-180)
+		heading_contrib += 360;
+	if(heading_contrib>180)
+		heading_contrib -= 360;
+
+	//std::cout << "Delta Heading: " << heading_contrib << std::endl;
+
+	heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
+
+	double left_error = l_pos - cur_pos_l;
+	double right_error = r_pos - cur_pos_r;
 
 
 	double left_output = 	DRIVETRAIN_PATH_FV * l_velo +
 							DRIVETRAIN_PATH_FA * l_accel +
-							DRIVETRAIN_PATH_KP * left_error;
+							DRIVETRAIN_PATH_KP * left_error
+							- heading_contrib;
 	double right_output =	DRIVETRAIN_PATH_FV * r_velo +
 							DRIVETRAIN_PATH_FA * r_accel +
-							DRIVETRAIN_PATH_KP * right_error;
+							DRIVETRAIN_PATH_KP * right_error
+							+ heading_contrib;
 //	std::cout << "left_output" << left_output << std::endl;
 
+//	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
+
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
-//	SetDriveVelocity(unit_master.GetTicksPer100ms(-right_output), unit_master.GetTicksPer100ms(-left_output));
+
 }
 
 void Drivetrain::SetDrivePosition(double left_position, double right_position)
@@ -372,6 +399,9 @@ void Drivetrain::configPathLoop()
 	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
 	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
 	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+
+	m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
 
 }
 

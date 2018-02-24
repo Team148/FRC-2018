@@ -23,6 +23,11 @@ private:
 	PigeonIMU* pigeon;
 	double* yawPitchRoll = new double [3];
 
+	double initDriveHeading;
+	int initLeftDrivePos;
+	int initRightDrivePos;
+
+
 	DifferentialDrive *m_drive;
 
 	Drivetrain();
@@ -66,8 +71,7 @@ public:
 	double getGyroYaw();
 	double getGyroPitch();
 	double getGyroRoll();
-	int initLeftDrivePos;
-	int initRightDrivePos;
+
 
 
 	double updatePigeon();

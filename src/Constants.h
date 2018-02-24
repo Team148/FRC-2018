@@ -11,7 +11,7 @@
 constexpr double DRIVETRAIN_F_VEL = 0.175;// 0.0575
 constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
-constexpr double DRIVETRAIN_D_VEL = 4.0; // 4.0
+constexpr double DRIVETRAIN_D_VEL = 3.5; // 4.0
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
 constexpr double DRIVETRAIN_P_POS = 0.18;//0.025 // 1.5 .06
@@ -22,9 +22,10 @@ constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
 constexpr double DRIVETRAIN_PATH_FA = 0.05;
-constexpr double DRIVETRAIN_PATH_KP = 0.00;
+constexpr double DRIVETRAIN_PATH_KP = 0.01;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING = 2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.0;
 
 //Intake
@@ -57,7 +58,7 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 6.0; // avg between 6 and 6.25
+constexpr double WHEEL_DIAMETER_INCHES = 5.878; // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
@@ -94,7 +95,7 @@ constexpr double ELEVATOR_HANG = 22000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
 
 
-constexpr double ELEVATOR_ERROR_TOLERANCE = 5000;
+constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 6000; // Ticks/second
 
