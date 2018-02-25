@@ -2,7 +2,7 @@
 #define Drive_H
 #include "Util/UnitMaster.h"
 #include <queue>
-#include "math.h"
+#include <math.h>
 #include "Commands/Command.h"
 #include "CommandBase.h"
 #include "Subsystems/Drivetrain.h"
@@ -19,18 +19,22 @@ public:
 	void Interrupted();
 
 private:
+	float m_distanceTicks;
+	float m_rightStartPos;
+	float m_leftStartPos;
+
 	float m_travelDistance;
 	float m_cruiseVelocity;
 	float m_finalVelocity;
 	bool m_isFinished=0;
-	float m_initangle = 0;
+	float m_initangle;
 	bool m_isReverse = false;
 
 	//drivetrain constraints
 	float m_maxAccelRate = 100; 		//Inches per sec^2
 	float m_maxDecelRate= 90;		//Inches per sec^2
 	float m_maxdrivevelocity = 150; //Inches per se
-	float m_dt = 0.02;				//time step set to 20ms(50Hz).
+	float m_dt = AUTO_PERIODIC_DT;				//time step set to 20ms(50Hz).
 
 	struct Trajectory_points {
 		double t;			//time

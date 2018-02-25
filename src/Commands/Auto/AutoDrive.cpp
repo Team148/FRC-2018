@@ -1,6 +1,8 @@
 #include <Commands/Auto/AutoDrive.h>
 #include <Util/UnitMaster.h>
+#include <iostream>
 
+UnitMaster unit_master_conv;
 
 AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
 	// Use Requires() here to declare subsystem dependencies
@@ -25,15 +27,16 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 
 // Called just before this Command runs the first time
 void AutoDrive::Initialize() {
+	m_initangle = Drivetrain::GetInstance()->getGyroYaw();
+	m_leftStartPos = Drivetrain::GetInstance()->getLeftDrivePosition();
+	m_rightStartPos = Drivetrain::GetInstance()->getRightDrivePosition();
+	m_distanceTicks = (m_travelDistance*TICKS_PER_ROTATIONS)/WHEEL_CIRC_INCHES;
+
 	//reset isFinished
 	m_isFinished=0;
 
 	float decel_dist,accel_dist,hold_time,hold_segments=0;
 	bool isTriangular=0;
-
-	//read gyro and store to m_initangle
-
-	//reset encoder distance
 
 	//check that the Drivetrain is in closed loop
 	if(!Drivetrain::GetInstance()->isClosedLoopVelocity())
@@ -135,6 +138,8 @@ void AutoDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDrive::Execute() {
+
+
 	//read current values from queue
 	float cur_t = m_trajectory.front().t;
 	float cur_v_l = m_trajectory.front().v_left;
@@ -146,8 +151,11 @@ void AutoDrive::Execute() {
 	m_trajectory.pop();
 
 	//read actual velocity (returns native units)
-	int act_lvel = Drivetrain::GetInstance()->getLeftDriveVelocity();
-	int act_rvel = Drivetrain::GetInstance()->getRightDriveVelocity();
+	double act_lvel = Drivetrain::GetInstance()->getLeftDriveVelocity();
+	double act_rvel = Drivetrain::GetInstance()->getRightDriveVelocity();
+
+//	std::cout << "AutoDrive: GetLeftVelocity " << act_lvel << std::endl;
+//	std::cout << "AutoDrive: GetRightVelocity " << act_rvel << std::endl;
 
 
 	//find actual distance
@@ -157,20 +165,30 @@ void AutoDrive::Execute() {
 	//find left/right velocity error (needs conversion to native units)
 	float vel_lerr = cur_v_l-act_lvel;
 	float vel_rerr = cur_v_r-act_rvel;
-	float vel_lcomp = DRIVE_VELOCITY_P*vel_lerr;
-	float vel_rcomp = DRIVE_VELOCITY_P*vel_rerr;
+//	float vel_lcomp = DRIVE_VELOCITY_P*vel_lerr;
+//	float vel_rcomp = DRIVE_VELOCITY_P*vel_rerr;
 
 	//get gyro angle and compensate
 	double cur_angle = Drivetrain::GetInstance()->getGyroYaw();
+	std::cout << "Gyro Yaw: " << cur_angle << std::endl;
 	float cur_angle_err = cur_angle - m_initangle;
+	std::cout << "Gyro Error: " << cur_angle_err << std::endl;
 	float gyro_comp = (DRIVE_GYRO_COMP_P*cur_angle_err);
 
 
-	//SetLeft and SetRight to current queue with gyro compensation (in native unit
-	Drivetrain::GetInstance()->SetDriveVelocity(cur_v_r+gyro_comp,cur_v_l-gyro_comp);
+	//SetLeft and SetRight to current queue with gyro compensation (in native unit)
+//	std::cout << "TrajLeftVel: " << cur_v_l << std::endl;
+//	std::cout << "TrajRightVel: " << cur_v_r << std::endl;
+	Drivetrain::GetInstance()->SetDriveVelocity(unit_master_conv.GetTicksPer100ms(cur_v_l-gyro_comp),unit_master_conv.GetTicksPer100ms(cur_v_r+gyro_comp));
+//	std::cout << "AutoDrive: SetLeftVelocity " << unit_master_conv.GetTicksPer100ms(cur_v_l-gyro_comp) << std::endl;
+//	std::cout << "AutoDrive: SetRightVelocity " << unit_master_conv.GetTicksPer100ms(cur_v_r-gyro_comp) << std::endl;
 
+    float distErrorL = abs(Drivetrain::GetInstance()->getLeftDrivePosition()  - m_leftStartPos) - m_distanceTicks;
+    float distErrorR = abs(Drivetrain::GetInstance()->getRightDrivePosition()  - m_rightStartPos) - m_distanceTicks;
+    float distErrorAvg = (distErrorL + distErrorR)/2;
+//    std::cout << "Gyro Yaw: " << gyro_comp << " Distance Error Avg: "  << distErrorAvg << std::endl;
 
-	if(m_trajectory.empty())
+	if(m_trajectory.empty() )
 		m_isFinished = true;
 }
 
