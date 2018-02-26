@@ -7,6 +7,7 @@
 #include "../../AutoPaths/FromRightScale_ToRightFirstCube.h"
 #include "../../AutoPaths/FromRightFirstCube_ToLeftScale.h"
 #include "../../AutoPaths/FromLeftSwitch_ToLeftScale.h"
+#include "../../AutoPaths/FromRightFirstCube_ToLeftSwitch.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
 #include "../AutoSetElevator.h"
@@ -95,17 +96,23 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 */
 // R POS LR
 
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
 		AddSequential(new FromRightPos_ToRightScale());
-		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+		AddSequential(new WaitCommand(0.7));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddSequential(new TurnPosition(180.0));
+		AddSequential(new TurnPosition(-195));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-		AddSequential(new FromRightScale_ToFirstCube());
-		AddSequential(new TurnPosition(-80.0));
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-		AddSequential(new FromRightSwitch_ToLeftSwitch());
-		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+		//AddSequential(new FromRightScale_ToFirstCube());
+		AddSequential(new AutoDrive(80, 150,0));
+		AddSequential(new AutoDrive(-20, 150,0));
+		AddSequential(new TurnPosition(-97.0));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.5));
+		AddSequential(new FromRightFirstCube_ToLeftSwitch());
+		AddSequential(new WaitCommand(0.5));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
 
 // R POS LL
 
