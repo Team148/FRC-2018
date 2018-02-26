@@ -109,6 +109,7 @@ public:
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
+		Drivetrain::GetInstance()->InitPathDriveHeading();
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));

@@ -154,21 +154,42 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 //	std::cout << "DriveVelocityFromFunc: " << right_velocity  << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
 
-void Drivetrain::InitPathDrive()
+void Drivetrain::InitPathDriveHeading()
 {
 	initDriveHeading = getGyroYaw();
+}
 
+void Drivetrain::InitPathDrive()
+{
 	initLeftDrivePos = getLeftDrivePosition();
 	initRightDrivePos = getRightDrivePosition();
 }
 
 //Need to Add Simple Heading P Controller
-void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading){
-
+void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse){
+	double m_l_pos = l_pos;
+	double m_l_velo = l_velo;
+	double m_l_accel = l_accel;
+	double m_r_pos = r_pos;
+	double m_r_velo = r_velo;
+	double m_r_accel = r_accel;
 	double m_heading = heading * 57.2958;
-	unit_master.SetTicks(getLeftDrivePosition() + initLeftDrivePos);
+
+	if(isReverse)
+	{
+		m_l_pos = -r_pos;
+		m_l_velo = -r_velo;
+		m_l_accel = -r_accel;
+		m_r_pos = -l_pos;
+		m_r_velo = -l_velo;
+		m_r_accel = -l_accel;
+		m_heading = fmod(m_heading + 180.0,360.0);
+	}
+
+
+	unit_master.SetTicks(getLeftDrivePosition() - initLeftDrivePos);
 	double cur_pos_l = unit_master.GetInches();
-	unit_master.SetTicks(getRightDrivePosition() + initRightDrivePos);
+	unit_master.SetTicks(getRightDrivePosition() - initRightDrivePos);
 	double cur_pos_r = unit_master.GetInches();
 
 	double robot_heading = fmod(getGyroYaw()-initDriveHeading,360);
@@ -182,25 +203,42 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 		heading_contrib -= 360;
 
 	//std::cout << "Delta Heading: " << heading_contrib << std::endl;
+	if(!isReverse)
+		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
+	else
+		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING_REVERSE;
 
-	heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
-
-	double left_error = l_pos - cur_pos_l;
-	double right_error = r_pos - cur_pos_r;
+	double left_error = m_l_pos - cur_pos_l;
+	double right_error = m_r_pos - cur_pos_r;
 
 
-	double left_output = 	DRIVETRAIN_PATH_FV * l_velo +
-							DRIVETRAIN_PATH_FA * l_accel +
+	double left_output = 	DRIVETRAIN_PATH_FV * m_l_velo +
+							DRIVETRAIN_PATH_FA * m_l_accel +
 							DRIVETRAIN_PATH_KP * left_error
 							- heading_contrib;
-	double right_output =	DRIVETRAIN_PATH_FV * r_velo +
-							DRIVETRAIN_PATH_FA * r_accel +
+	double right_output =	DRIVETRAIN_PATH_FV * m_r_velo +
+							DRIVETRAIN_PATH_FA * m_r_accel +
 							DRIVETRAIN_PATH_KP * right_error
 							+ heading_contrib;
+
+	if(isReverse)
+	{
+		double left_output = 	DRIVETRAIN_PATH_FV * m_l_velo +
+								DRIVETRAIN_PATH_FA * m_l_accel +
+								DRIVETRAIN_PATH_KP_REVERSE * left_error
+								- heading_contrib;
+		double right_output =	DRIVETRAIN_PATH_FV * m_r_velo +
+								DRIVETRAIN_PATH_FA * m_r_accel +
+								DRIVETRAIN_PATH_KP_REVERSE * right_error
+								+ heading_contrib;
+
+	}
+
 //	std::cout << "left_output" << left_output << std::endl;
 
 //	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
-
+	std::cout << "Tra Left Pos: " << m_l_pos <<"Act Left Pos: " << cur_pos_l;
+	std::cout << "Position Error: " << (left_error + right_error)/2.0 << std::endl;
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 
 }
@@ -209,6 +247,12 @@ void Drivetrain::SetDrivePosition(double left_position, double right_position)
 {
 	m_leftMotor1->Set(ControlMode::Position, left_position);
 	m_rightMotor1->Set(ControlMode::Position, right_position);
+}
+
+void Drivetrain::SetEncoderPosition(int l, int r)
+{
+	m_leftMotor1->SetSelectedSensorPosition(l, 0, 0);
+	m_rightMotor1->SetSelectedSensorPosition(r, 0, 0);
 }
 
 double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index)
@@ -349,10 +393,10 @@ void Drivetrain::configClosedLoopPosition() {
 	m_closedLoopPosition = true;
 }
 
-void Drivetrain::configClosedLoopPositionKF(double kF)
+void Drivetrain::configClosedLoopPositionKF(double kF_L, double kF_R)
 {
-	m_leftMotor1->Config_kF(0, kF, 0);
-	m_rightMotor1->Config_kF(0, kF, 0);
+	m_leftMotor1->Config_kF(0, kF_L, 0);
+	m_rightMotor1->Config_kF(0, kF_R, 0);
 }
 
 void Drivetrain::configOpenLoop()
@@ -385,8 +429,7 @@ bool Drivetrain::isClosedLoopVelocity() {
 }
 void Drivetrain::configPathLoop()
 {
-	if(!m_closedLoopVelocity)
-		configClosedLoopVelocity();
+	configClosedLoopVelocity();
 
 	InitPathDrive();
 
@@ -404,6 +447,7 @@ void Drivetrain::configPathLoop()
 	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
 
 }
+
 
 int Drivetrain::getLeftDrivePosition() {
 	return m_leftMotor1->GetSelectedSensorPosition(0);

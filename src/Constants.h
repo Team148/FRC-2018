@@ -13,20 +13,22 @@ constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 3.5; // 4.0
 
-constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
+constexpr double DRIVETRAIN_F_POS = 0;// 0.0575
 constexpr double DRIVETRAIN_P_POS = 0.18;//0.025 // 1.5 .06
-constexpr double DRIVETRAIN_I_POS = 0.00; // 0.001
+constexpr double DRIVETRAIN_I_POS = 0.000; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
 
 constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
-constexpr double DRIVETRAIN_PATH_FA = 0.05;
-constexpr double DRIVETRAIN_PATH_KP = 0.01;
+constexpr double DRIVETRAIN_PATH_FA = 0.01;
+constexpr double DRIVETRAIN_PATH_KP = 6.0;
+constexpr double DRIVETRAIN_PATH_KP_REVERSE = 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
-constexpr double DRIVETRAIN_PATH_KP_HEADING = 2.0;
-constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING = 10.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;
+constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.083;
 
 //Intake
 constexpr float CUBE_IN_CURRENT_CURRENT = 18;
@@ -49,7 +51,7 @@ constexpr float ARCADE_TURN_TOLERANCE = 0;
 //Auto/TurnTMP
 constexpr float TURN_DIST_P = 0.05;
 
-constexpr float DRIVETRAIN_BASE_DIAMETER = 24;
+constexpr float DRIVETRAIN_BASE_DIAMETER = 24.9;
 
 constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.65;
 constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.00;

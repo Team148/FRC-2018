@@ -1,9 +1,9 @@
-#include "FromRightFirstCube_ToLeftScale.h"
+#include "FromLeftSwitch_ToLeftScale.h"
 #include "OI.h"
 #include <iostream>
 
 
-FromRightFirstCube_ToLeftScale::FromRightFirstCube_ToLeftScale() {
+FromLeftSwitch_ToLeftScale::FromLeftSwitch_ToLeftScale() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
@@ -12,7 +12,7 @@ FromRightFirstCube_ToLeftScale::FromRightFirstCube_ToLeftScale() {
 }
 
 // Called just before this Command runs the first time
-void FromRightFirstCube_ToLeftScale::Initialize() {
+void FromLeftSwitch_ToLeftScale::Initialize() {
 	Drivetrain::GetInstance()->configPathLoop();
 	m_initTime = frc::Timer::GetFPGATimestamp();
 	m_isFinished = false;
@@ -20,13 +20,13 @@ void FromRightFirstCube_ToLeftScale::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void FromRightFirstCube_ToLeftScale::Execute() {
+void FromLeftSwitch_ToLeftScale::Execute() {
 
 	double timeEnlapsed = frc::Timer::GetFPGATimestamp() - m_initTime;
 
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
-	std::cout << time_index << std::endl;
+//	std::cout << time_index << std::endl;
 
 	if(time_index > num_index){
 		m_isFinished = true;
@@ -54,20 +54,20 @@ void FromRightFirstCube_ToLeftScale::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool FromRightFirstCube_ToLeftScale::IsFinished() {
+bool FromLeftSwitch_ToLeftScale::IsFinished() {
 	return m_isFinished;
 }
 
 // Called once after isFinished returns true
-void FromRightFirstCube_ToLeftScale::End() {
+void FromLeftSwitch_ToLeftScale::End() {
 	Drivetrain::GetInstance()->configOpenLoop();
 	Drivetrain::GetInstance()->Arcade(0,0);
-	std::cout << "FromRightFirstCube_ToLeftScalePath Done" << std::endl;
+	std::cout << "FromLeftSwitch_ToLeftScalePath Done" << std::endl;
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void FromRightFirstCube_ToLeftScale::Interrupted() {
+void FromLeftSwitch_ToLeftScale::Interrupted() {
 
 }

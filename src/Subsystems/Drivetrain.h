@@ -46,13 +46,15 @@ public:
 	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetDrivePosition(double left_position, double right_position);
+	void SetEncoderPosition(int l, int r);
 	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index);
 	void SetBrakeMode(bool on);
-	void configClosedLoopPositionKF(double kF);
+	void configClosedLoopPositionKF(double kF_L, double kF_R);
 	void configClosedLoopVelocity();
 	void configClosedLoopPosition();
+	void InitPathDriveHeading();
 	void InitPathDrive();
-	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading);
+	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReversed = false);
 	void configPathLoop();
 	void configOpenLoop();
 	bool isClosedLoopVelocity();

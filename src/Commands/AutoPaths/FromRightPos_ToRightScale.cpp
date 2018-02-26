@@ -42,7 +42,7 @@ void FromRightPos_ToRightScale::Execute() {
 
 	double heading = left_wheel[time_index][4];
 
-	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading);
+	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading,false);
 
 
 //	if(OI::GetInstance()->drvStick->GetRawButton(1)){
