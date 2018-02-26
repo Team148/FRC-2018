@@ -71,14 +71,33 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
 	AddSequential(new FromRightSecondCube_ToRightScale());
 	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 	// scored in scale
 */
 // R POS RL
 
 	// score in right switch, grab cube then score in scale.
+
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
+	AddSequential(new FromRightPos_ToRightSwitch()); // need to add
+//	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+	AddSequential(new AutoDrive(-15, 150,0));
+//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+	AddSequential(new AutoDrive(20, 150,0));
+	AddSequential(new AutoDrive(-20, 150,0));
+	AddSequential(new TurnPosition(-60.0));
+//	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.5));
+	AddSequential(new FromRightFirstCube_ToLeftScale());
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
+	AddSequential(new AutoDrive(-15, 50,0));
+//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 /*
-//		AddParallel(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
@@ -96,6 +115,7 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 */
 // R POS LR
 
+/*
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
@@ -113,7 +133,8 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 		AddSequential(new FromRightFirstCube_ToLeftSwitch());
 		AddSequential(new WaitCommand(0.5));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
-
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+*/
 // R POS LL
 
 	// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
@@ -134,6 +155,7 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 		AddSequential(new WaitCommand(0.25));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 */
 
