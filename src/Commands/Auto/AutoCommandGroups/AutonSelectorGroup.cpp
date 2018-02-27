@@ -15,6 +15,7 @@
 
 
 
+
 AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Data, tCubeAmount cube_amount)
 {
 
@@ -77,8 +78,11 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 */
 // R POS RL
 
+	AddSequential(new AutoDrive(20, 150,0));
+	AddSequential(new WaitCommand(10.0));
+	AddSequential(new AutoDrive(100, 150,0,1.5707));
 	// score in right switch, grab cube then score in scale.
-
+/*
 	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 	AddSequential(new FromRightPos_ToRightSwitch()); // need to add
@@ -95,6 +99,7 @@ AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Da
 	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
 	AddSequential(new AutoDrive(-15, 50,0));
 //	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	*/
 /*
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
