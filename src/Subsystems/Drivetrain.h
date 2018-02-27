@@ -74,6 +74,8 @@ public:
 	double getGyroPitch();
 	double getGyroRoll();
 
+	double getRobotPathHeading();
+
 
 
 	double updatePigeon();

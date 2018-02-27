@@ -159,6 +159,16 @@ void Drivetrain::InitPathDriveHeading()
 	initDriveHeading = getGyroYaw();
 }
 
+double Drivetrain::getRobotPathHeading()
+{
+	double m_robot_heading = fmod(getGyroYaw()-initDriveHeading,360.0);
+
+	if(m_robot_heading <0)
+		m_robot_heading += 360.0;
+
+	return m_robot_heading;
+}
+
 void Drivetrain::InitPathDrive()
 {
 	initLeftDrivePos = getLeftDrivePosition();
@@ -192,9 +202,10 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	unit_master.SetTicks(getRightDrivePosition() - initRightDrivePos);
 	double cur_pos_r = unit_master.GetInches();
 
-	double robot_heading = fmod(getGyroYaw()-initDriveHeading,360);
-	if(robot_heading <0)
-		robot_heading += 360;
+//	double robot_heading = fmod(getGyroYaw()-initDriveHeading,360);
+//	if(robot_heading <0)
+//		robot_heading += 360;
+	double robot_heading = getRobotPathHeading();
 
 	double heading_contrib = m_heading - robot_heading;
 	if(heading_contrib<-180)

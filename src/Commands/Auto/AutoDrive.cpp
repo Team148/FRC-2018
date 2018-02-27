@@ -22,16 +22,17 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 	if(m_cruiseVelocity > m_maxdrivevelocity) {
 		m_cruiseVelocity = m_maxdrivevelocity;
 	}
-	double robotYaw = Drivetrain::GetInstance()->getGyroYaw();
-	robotYaw = fmod(robotYaw, 360.0);
-
-	if(robotYaw <0)
-		robotYaw += 360;
+	//logic is wrong - james 2018 02 27 doesnt subtract initheading
+//	double robotYaw = Drivetrain::GetInstance()->getGyroYaw();
+//	robotYaw = fmod(robotYaw, 360.0);
+//
+//	if(robotYaw <0)
+//		robotYaw += 360;
 
 	double m_inches = inches;
 	double m_cruise_velocity = cruise_velocity;
 	double m_final_velocity = final_velocity;
-	m_heading = robotYaw;
+	m_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	std::cout << "is constructing default" << m_inches << m_cruise_velocity << m_final_velocity <<  std::endl;
 
