@@ -16,7 +16,7 @@
 
 
 
-AutonSelectorGroup::AutonSelectorGroup(int start_pos = tStartingPosition::RIGHT_POS, std::string FMS_Data, int cube_amount)
+AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int cube_amount)
 {
 
 	std::string fms_data_truc = FMS_Data.substr (0,2);
