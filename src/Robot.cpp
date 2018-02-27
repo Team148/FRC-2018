@@ -62,6 +62,9 @@ public:
 	OI *oi = 0;
 	UnitMaster unit_master;
 
+	std::string gameData = "";
+
+
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
@@ -91,6 +94,8 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
 	}
 
 	/**
@@ -131,27 +136,14 @@ public:
 		}
 		elevator->SetElevatorPosition(ELEVATOR_ZERO);
 
-		std::string gameData = "";
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
-		if(gameData.length() >= 3)
+		if(gameData.length() > 0)
 		{
-
-
-
-
-
-
-//			strcpy(fms_data, gameData);
-
-
-
 			cubeAmount = oi->GetInstance()->GetSelectorA();
 			autoPosition = tStartingPosition::RIGHT_POS;
 
 			if(cubeAmount > 3) cubeAmount = 3;
-
-
 
 
 			if(oi->GetInstance()->GetSw1())
@@ -162,7 +154,7 @@ public:
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
-	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << std::endl;
+	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
 	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
