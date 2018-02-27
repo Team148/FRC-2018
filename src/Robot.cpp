@@ -109,10 +109,10 @@ public:
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
+		Drivetrain::GetInstance()->InitPathDriveHeading();
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-		char* meh = 0;
 //        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
@@ -121,21 +121,27 @@ public:
 
 
 //		frc::Scheduler::GetInstance()->AddCommand(new GoStraightPath);
-
+		int autoPosition = 0;
+		int cubeAmount = 0;
+		char fms_data[2] = {};
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
 		elevator->SetElevatorPosition(ELEVATOR_ZERO);
 
-		std::string gameData;
+		std::string gameData = 0;
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-		if(gameData.length() > 0)
+
+		if(gameData.length() > 2)
 		{
 
 
 
-			static int autoPosition = 0;
-			static int cubeAmount = 0;
+
+
+			fms_data[0] = gameData[0];
+			fms_data[1] = gameData[1];
+
 
 
 			cubeAmount = oi->GetInstance()->GetSelectorA();
@@ -155,8 +161,8 @@ public:
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
 
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
-
+	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, fms_data, cubeAmount));
+	        std::cout << "FMS_DATA: " << gameData << "What I See: " << fms_data << std::endl;
 		}
 	}
 

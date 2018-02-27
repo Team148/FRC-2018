@@ -6,14 +6,17 @@
 #include "../../AutoPaths/FromRightSecondCube_ToRightScale.h"
 #include "../../AutoPaths/FromRightScale_ToRightFirstCube.h"
 #include "../../AutoPaths/FromRightFirstCube_ToLeftScale.h"
+#include "../../AutoPaths/FromLeftSwitch_ToLeftScale.h"
+#include "../../AutoPaths/FromRightFirstCube_ToLeftSwitch.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
+#include <iostream>
 
 
 
-AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int cube_amount)
+AutonSelectorGroup::AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_amount)
 {
 
 	// Add Commands here:
@@ -32,11 +35,19 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int 
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	if(FMS_Data == autoConstData.R_R)
+	{
+        std::cout << "What I See: " << FMS_Data << std::endl;
+
+	}
+
 
 // R POS RR
 
 //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 /*
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.5));
 	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.8));
 	AddSequential(new FromRightPos_ToRightScale());
 
@@ -67,6 +78,7 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int 
 	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
 	AddSequential(new FromRightSecondCube_ToRightScale());
 	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 	// scored in scale
 */
@@ -74,63 +86,83 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int 
 
 	// score in right switch, grab cube then score in scale.
 
-	//AddParallel(new AutoIntake(OUTTAKE_PERCENT, 2.0));
-//		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
-//		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-//		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
-//		AddSequential(new AutoDrive(-15, 150,0));
-//		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-//		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-//		AddSequential(new AutoDrive(20, 150,0));
-//		AddSequential(new AutoDrive(-15, 150,0));
-//		AddSequential(new TurnPosition(-50.0));
-	//	AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
+	AddSequential(new FromRightPos_ToRightSwitch()); // need to add
+//	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+	AddSequential(new AutoDrive(-15, 150,0));
+//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+	AddSequential(new AutoDrive(20, 150,0));
+	AddSequential(new AutoDrive(-20, 150,0));
+	AddSequential(new TurnPosition(-60.0));
+//	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.5));
+	AddSequential(new FromRightFirstCube_ToLeftScale());
+	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
+	AddSequential(new AutoDrive(-15, 50,0));
+//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+/*
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
+		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
+		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+		AddSequential(new AutoDrive(-15, 150,0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+		AddSequential(new AutoDrive(20, 150,0));
+		AddSequential(new AutoDrive(-30, 150,0));
+		AddSequential(new TurnPosition(-60.0));
+		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.5));
 		AddSequential(new FromRightFirstCube_ToLeftScale());
-	//	AddSequential(new AutoDrive(50, 150,0));
-		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
-
+		AddSequential(new AutoDrive(-15, 50,0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+*/
 // R POS LR
 
-	//	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
-	//	AddSequential(new FromRightPos_ToRightScale());
-	//	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
-
-	//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	//	AddSequential(new TurnPosition(180.0));
-	//	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-
-	//	AddSequential(new FromRightScale_ToFirstCube());
-	//ADD Back up a bit
-	//	AddSequential(new TurnPosition(-80.0));
-	//	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-	//	AddSequential(new FromRightSwitch_ToLeftSwitch());
-	// maybe turn
-	//	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
-
+/*
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
+		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
+		AddSequential(new FromRightPos_ToRightScale());
+		AddSequential(new WaitCommand(0.7));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+		AddSequential(new TurnPosition(-195));
+		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+		//AddSequential(new FromRightScale_ToFirstCube());
+		AddSequential(new AutoDrive(80, 150,0));
+		AddSequential(new AutoDrive(-20, 150,0));
+		AddSequential(new TurnPosition(-97.0));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.5));
+		AddSequential(new FromRightFirstCube_ToLeftSwitch());
+		AddSequential(new WaitCommand(0.5));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+*/
 // R POS LL
 
 	// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
 /*
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 4.1));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
+		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 3.6));
 		AddSequential(new FromRightPos_ToLeftSwitch()); // need to add
-
+		AddSequential(new WaitCommand(0.5));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.5));
-		//ADD backup a bit
-		AddSequential(new AutoDrive(-15, 150,0));
+		AddSequential(new AutoDrive(-20, 150,0));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-		AddSequential(new AutoDrive(15, 150,0));
-
-		//ADD drive forward to grab cube
-//		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-//		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 1.0));
-//		AddParallel(new AutoSetElevator(ELEVATOR_ZERO , 0.0));
-//		AddSequential(new TurnPosition(100.0));
-//		AddSequential(new FromLeftSwitch_ToLeftScale()); // need to add
-//		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-//		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
-//		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+		AddSequential(new AutoDrive(25, 150,0));
+		AddSequential(new AutoDrive(-7.5, 150,0));
+		AddSequential(new TurnPosition(-95.0));
+		AddSequential(new FromLeftSwitch_ToLeftScale());
+		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+		AddSequential(new WaitCommand(0.25));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 */
 

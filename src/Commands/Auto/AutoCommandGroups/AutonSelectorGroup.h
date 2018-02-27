@@ -4,12 +4,15 @@
 #include <Commands/CommandGroup.h>
 
 #include "../../../Constants.h"
-#include <string>
 
 
 class AutonSelectorGroup : public frc::CommandGroup {
 public:
-	AutonSelectorGroup(int start_pos, std::string FMS_Data, int cube_amount);
+	AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_amount);
+
+private:
+	autoStringData autoConstData;
+
 };
 
 #endif  // AutonSelectorGroup_H

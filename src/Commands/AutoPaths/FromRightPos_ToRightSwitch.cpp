@@ -62,6 +62,7 @@ bool FromRightPos_ToRightSwitch::IsFinished() {
 void FromRightPos_ToRightSwitch::End() {
 	Drivetrain::GetInstance()->configOpenLoop();
 	Drivetrain::GetInstance()->Arcade(0,0);
+	std::cout << "FromRightPos_ToRightSwitchPath Done" << std::endl;
 
 }
 
