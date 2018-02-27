@@ -134,7 +134,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.L_R) == 0) // R POS LR
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	    /*
+
 	    		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 	    		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 	    		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 3.0));
@@ -153,7 +153,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    		AddSequential(new WaitCommand(0.5));
 	    		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
 	    		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    */
+
 	}
 	if(fms_data_truc.compare(autoConstData.L_L) == 0) // R POS LL
 	{
