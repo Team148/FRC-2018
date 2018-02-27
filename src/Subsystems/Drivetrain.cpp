@@ -238,7 +238,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 
 //	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
 //	std::cout << "Tra Left Pos: " << m_l_pos <<"Act Left Pos: " << cur_pos_l;
-//	std::cout << "Position Error: " << (left_error + right_error)/2.0 << std::endl;
+	std::cout << "Position Error: " << (left_error + right_error)/2.0 << std::endl;
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 
 }

@@ -144,10 +144,10 @@ enum tStartingPosition
 
 typedef struct
 {
-	char R_R[2] = {'R', 'R'};
-	char R_L[2] = {'R', 'L'};
-	char L_R[2] = {'L', 'R'};
-	char L_L[2] = {'L', 'L'};
+	std::string R_R = "RR";
+	std::string R_L = "RL";
+	std::string L_R = "LR";
+	std::string L_L = "LL";
 } autoStringData;
 
 //autoStringData autoConstData;

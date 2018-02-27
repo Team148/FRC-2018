@@ -45,6 +45,7 @@
 
 
 #include "Commands/SetDrivetrainVelocity.h"
+#include <string>
 
 class Robot : public frc::TimedRobot {
 private:
@@ -123,24 +124,25 @@ public:
 //		frc::Scheduler::GetInstance()->AddCommand(new GoStraightPath);
 		int autoPosition = 0;
 		int cubeAmount = 0;
-		char fms_data[2] = {};
+		char fms_data[3] = {};
+
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
 		elevator->SetElevatorPosition(ELEVATOR_ZERO);
 
-		std::string gameData = 0;
+		std::string gameData = "";
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
-		if(gameData.length() > 2)
+		if(gameData.length() >= 3)
 		{
 
 
 
 
 
-			fms_data[0] = gameData[0];
-			fms_data[1] = gameData[1];
+
+//			strcpy(fms_data, gameData);
 
 
 
@@ -160,9 +162,8 @@ public:
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
-
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, fms_data, cubeAmount));
-	        std::cout << "FMS_DATA: " << gameData << "What I See: " << fms_data << std::endl;
+	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << std::endl;
+	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
 

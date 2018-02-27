@@ -16,9 +16,11 @@
 
 
 
-AutonSelectorGroup::AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_amount)
+AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int cube_amount)
 {
 
+
+//	fms_data_truc[1] = FMS_Data[1];
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -35,10 +37,13 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_a
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	if(FMS_Data == autoConstData.R_R)
-	{
-        std::cout << "What I See: " << FMS_Data << std::endl;
 
+	std::string fms_data_truc = FMS_Data.substr (0,2);
+
+
+	if(fms_data_truc.compare(autoConstData.R_R) == 0)
+	{
+	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	}
 
 
@@ -83,9 +88,12 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_a
 	// scored in scale
 */
 // R POS RL
-
+//
+//	AddSequential(new AutoDrive(20, 150,0));
+//	AddSequential(new WaitCommand(10.0));
+//	AddSequential(new AutoDrive(100, 150,0,1.5707));
 	// score in right switch, grab cube then score in scale.
-
+/*
 	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
 	AddSequential(new FromRightPos_ToRightSwitch()); // need to add
@@ -102,6 +110,7 @@ AutonSelectorGroup::AutonSelectorGroup(int start_pos, char* FMS_Data, int cube_a
 	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
 	AddSequential(new AutoDrive(-15, 50,0));
 //	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	*/
 /*
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
