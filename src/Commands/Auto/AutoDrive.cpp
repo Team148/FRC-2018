@@ -5,14 +5,35 @@
 UnitMaster unit_master_conv;
 
 AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Drivetrain::GetInstance());
+	m_travelDistance = inches;
+	m_cruiseVelocity = cruise_velocity;
+	m_finalVelocity = final_velocity;
 
+	//check is we're going backwards
+	if(inches<0) {
+		m_isReverse=true;
+		m_travelDistance = -m_travelDistance;
+	}
+
+	//check if the requested velocity is too high
+	if(m_cruiseVelocity > m_maxdrivevelocity) {
+		m_cruiseVelocity = m_maxdrivevelocity;
+	}
 	double robotYaw = Drivetrain::GetInstance()->getGyroYaw();
 	robotYaw = fmod(robotYaw, 360.0);
 
 	if(robotYaw <0)
 		robotYaw += 360;
 
-	AutoDrive(inches, cruise_velocity, final_velocity, robotYaw);
+	double m_inches = inches;
+	double m_cruise_velocity = cruise_velocity;
+	double m_final_velocity = final_velocity;
+	m_heading = robotYaw;
+
+	std::cout << "is constructing default" << m_inches << m_cruise_velocity << m_final_velocity <<  std::endl;
 
 }
 
@@ -20,7 +41,7 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
-
+	std::cout << "is constructing overload" << inches << cruise_velocity << final_velocity <<  std::endl;
 	m_travelDistance = inches;
 	m_cruiseVelocity = cruise_velocity;
 	m_finalVelocity = final_velocity;
@@ -42,6 +63,8 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 
 // Called just before this Command runs the first time
 void AutoDrive::Initialize() {
+
+	std::cout << "is initializing" << std::endl;
 
 	m_leftStartPos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_rightStartPos = Drivetrain::GetInstance()->getRightDrivePosition();
