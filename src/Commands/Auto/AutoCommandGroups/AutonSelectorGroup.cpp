@@ -46,7 +46,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
-	    /*
+
 	    	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 0.25));
 	    	AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.5));
 	    	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.8));
@@ -60,8 +60,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    	AddSequential(new TurnPosition(-195.0));
 	    	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
 	    //	AddSequential(new FromRightScale_ToRightFirstCube());
-	    	AddSequential(new AutoDrive(100, 150));
-	    	AddSequential(new AutoDrive(-5, 150));
+	    	AddSequential(new AutoDrive(100, 150, 0));
+	    	AddSequential(new AutoDrive(-5, 150, 0));
 	    	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
 	    //	AddSequential(new AutoDrive(24, 150));
 	    	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
@@ -82,7 +82,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 	    	// scored in scale
-	    */
+
 	}
 
 	if(fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RL

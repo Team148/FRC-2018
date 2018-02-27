@@ -118,7 +118,7 @@ Drivetrain* Drivetrain::GetInstance() {
 
 
 void Drivetrain::InitDefaultCommand() {
-	//SetDefaultCommand(new DriveWithJoystick());
+	SetDefaultCommand(new DriveWithJoystick());
 }
 
 void Drivetrain::Arcade(double xstick, double ystick) {
