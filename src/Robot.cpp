@@ -113,7 +113,7 @@ public:
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
 		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
 		char* meh = 0;
-        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
+//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
 		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
 
 //		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(-180.0));
@@ -126,10 +126,43 @@ public:
 			elevator->ConfigClosedLoop();
 		}
 		elevator->SetElevatorPosition(ELEVATOR_ZERO);
+
+		std::string gameData;
+		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+		if(gameData.length() > 0)
+		{
+
+
+
+			static int autoPosition = 0;
+			static int cubeAmount = 0;
+
+
+			cubeAmount = oi->GetInstance()->GetSelectorA();
+			autoPosition = tStartingPosition::RIGHT_POS;
+
+			if(cubeAmount > 3) cubeAmount = 3;
+
+
+
+
+			if(oi->GetInstance()->GetSw1())
+			{
+				autoPosition = tStartingPosition::LEFT_POS;
+			}
+			else
+			{
+				autoPosition = tStartingPosition::RIGHT_POS;
+			}
+
+	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+
+		}
 	}
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
 
 
 	}

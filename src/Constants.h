@@ -135,8 +135,8 @@ enum tCubeAmount
 };
 enum tStartingPosition
 {
-	LEFT_POS = 0,
-	RIGHT_POS
+	RIGHT_POS = 1,
+	LEFT_POS = 2
 };
 
 constexpr double TELE_PERIODIC_DT = 0.020;

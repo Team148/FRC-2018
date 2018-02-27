@@ -13,7 +13,7 @@
 
 
 
-AutonSelectorGroup::AutonSelectorGroup(tStartingPosition start_pos, char* FMS_Data, tCubeAmount cube_amount)
+AutonSelectorGroup::AutonSelectorGroup(int start_pos, std::string FMS_Data, int cube_amount)
 {
 
 	// Add Commands here:
