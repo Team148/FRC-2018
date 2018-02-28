@@ -22,12 +22,12 @@ constexpr double DRIVETRAIN_D_POS = 0.0;
 constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
-constexpr double DRIVETRAIN_PATH_FA = 0.01;
-constexpr double DRIVETRAIN_PATH_KP = 6.0;
+constexpr double DRIVETRAIN_PATH_FA = 0.012;
+constexpr double DRIVETRAIN_PATH_KP = 1.0;
 constexpr double DRIVETRAIN_PATH_KP_REVERSE = 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
-constexpr double DRIVETRAIN_PATH_KP_HEADING = 6.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING = 3.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.083;
 
