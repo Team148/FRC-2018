@@ -24,7 +24,7 @@ void TurnPosition::Initialize()
 	Drivetrain::GetInstance()->configClosedLoopPosition();
 	Drivetrain::GetInstance()->SetBrakeMode(true);
 
-	SetTimeout(2.0);
+	SetTimeout(1.2);
 
 }
 

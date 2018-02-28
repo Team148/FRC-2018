@@ -19,7 +19,7 @@ constexpr double DRIVETRAIN_P_POS = 0.18;//0.025 // 1.5 .06
 constexpr double DRIVETRAIN_I_POS = 0.000; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.0;
 
-constexpr float DRIVE_ANGLE_TOLERANCE = 2.0;
+constexpr float DRIVE_ANGLE_TOLERANCE = 3.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
 constexpr double DRIVETRAIN_PATH_FA = 0.012;
@@ -109,6 +109,7 @@ constexpr float INTAKE_FAST_PERCENT = 0.8;
 constexpr float INTAKE_SLOW_PERCENT = 0.4;
 constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
 constexpr float OUTTAKE_PERCENT = -0.20;
+constexpr float OUTTAKE_PERCENT_AUTO = -0.25;
 constexpr float OUTTAKE_FULL_PERCENT = -0.60;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_FAST_PERCENT = -1.0;
