@@ -162,10 +162,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
 
-		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.25));
-		AddSequential(new WaitCommand(0.0));
-		AddSequential(new AutoIntake(INTAKE_FAST_PERCENT, 0.15));
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 3.6));
+	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.25));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 3.25));
 		AddSequential(new FromRightPos_ToLeftSwitch()); // need to add
 		AddSequential(new WaitCommand(0.5));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
