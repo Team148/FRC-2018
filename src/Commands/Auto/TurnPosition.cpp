@@ -24,7 +24,7 @@ void TurnPosition::Initialize()
 	Drivetrain::GetInstance()->configClosedLoopPosition();
 	Drivetrain::GetInstance()->SetBrakeMode(true);
 
-	SetTimeout(1.2);
+	SetTimeout(1.1);
 
 }
 
@@ -49,7 +49,8 @@ void TurnPosition::Execute()
 
 
 	Drivetrain::GetInstance()->SetDrivePosition(m_l_cur_pos, m_r_cur_pos);
-	std::cout << "PIGEON ERROR: " << m_angle_err << std::endl;
+
+//	std::cout << "PIGEON ERROR: " << m_angle_err << std::endl;
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
 	if(abs(m_angle_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
@@ -58,6 +59,7 @@ void TurnPosition::Execute()
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnPosition::IsFinished() {
+	std::cout << "TurnPosition: DONE" << std::endl;
 	return m_isFinished || IsTimedOut();
 }
 

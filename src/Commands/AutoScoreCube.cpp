@@ -25,7 +25,7 @@ AutoScoreCube::AutoScoreCube() {
 
 //	AddParallel(new RunIntake(OUTTAKE_AUTOSCORE_PERCENT));
 
-	std::cout << "autoscorecube" << std::endl;
+//	std::cout << "autoscorecube" << std::endl;
 
 	AddParallel(new ConfigDriveVelocityClosedLoop(true));
 	AddParallel(new RunIntake(OUTTAKE_AUTOSCORE_PERCENT));
