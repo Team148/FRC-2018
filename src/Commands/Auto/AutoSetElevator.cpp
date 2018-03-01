@@ -13,7 +13,7 @@ AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 
 // Called just before this Command runs the first time
 void AutoSetElevator::Initialize() {
-	SetTimeout(3.0 + m_timeToWait);
+	SetTimeout(1.5 + m_timeToWait);
 	m_IsFinished = false;
 	m_startTime = frc::Timer::GetFPGATimestamp();
 
