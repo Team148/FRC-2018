@@ -1,5 +1,6 @@
 #include "RunIntake.h"
 #include "OI.h"
+#include <iostream>
 
 RunIntake::RunIntake(double percent) {
 	// Use Requires() here to declare subsystem dependencies

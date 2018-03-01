@@ -4,7 +4,15 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+#include <Commands/Auto/AutoDrive.h>
+#include <Commands/Auto/AutoTurnPID.h>
+#include <Commands/Auto/AutoIntake.h>
+#include <Commands/Auto/TurnPosition.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelectorGroup.h>
+#include <Commands/Auto/AutoDriveTurnPID.h>
+#include <Commands/Auto/AutoIntake.h>
+#include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
+#include <Commands/Auto/AutoSetElevator.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -13,7 +21,8 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
-#include <Commands/Pathfind.h>
+//#include <Commands/Pathfind.h>
+#include <Commands/AutoPaths/GoStraightPath.h>
 #include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
@@ -36,6 +45,7 @@
 
 
 #include "Commands/SetDrivetrainVelocity.h"
+#include <string>
 
 class Robot : public frc::TimedRobot {
 private:
@@ -52,11 +62,16 @@ public:
 	OI *oi = 0;
 	UnitMaster unit_master;
 
+	std::string gameData = "";
+
+
 	void RobotInit() override {
 		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		//m_chooser.AddObject("My Auto", &m_myAuto);
 		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-//		command = new PathFind();
+
+
+
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
@@ -79,6 +94,8 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
 	}
 
 	/**
@@ -96,23 +113,63 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-
 		frc::Scheduler::GetInstance()->RemoveAll();
+		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
+		Drivetrain::GetInstance()->InitPathDriveHeading();
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
+		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
+		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
+//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
+		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
+
+//		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(-180.0));
+		//frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
+
+
+//		frc::Scheduler::GetInstance()->AddCommand(new GoStraightPath);
+		int autoPosition = 0;
+		int cubeAmount = 0;
+		char fms_data[3] = {};
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
 		elevator->SetElevatorPosition(ELEVATOR_ZERO);
+
+		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+		if(gameData.length() > 0)
+		{
+			cubeAmount = oi->GetInstance()->GetSelectorA();
+			autoPosition = tStartingPosition::RIGHT_POS;
+
+			if(cubeAmount > 3) cubeAmount = 3;
+
+
+			if(oi->GetInstance()->GetSw1())
+			{
+				autoPosition = tStartingPosition::LEFT_POS;
+			}
+			else
+			{
+				autoPosition = tStartingPosition::RIGHT_POS;
+			}
+	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
+	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+		}
 	}
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+
+
 
 	}
 
 	void TeleopInit() override
 	{
 		frc::Scheduler::GetInstance()->RemoveAll();
+		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
 		drivetrain->configOpenLoop();
 //		drivetrain->configClosedLoop();

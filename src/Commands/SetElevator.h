@@ -17,6 +17,8 @@ private:
 	bool m_on = false;
 	bool m_isFinished = false;
 	double m_position;
+	double m_inches;
+
 };
 
 #endif  // SetElevator_H

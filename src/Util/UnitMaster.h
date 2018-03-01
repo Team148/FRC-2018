@@ -38,7 +38,7 @@ public:
 	double GetRotations();
 	double GetRotationsPerSec();
 
-	double GetTicks();
+	double GetTicks(double func_value, tUnits unit);
 	double GetTicksPerSec();
 //	double GetTicksPer100ms();
 
