@@ -45,11 +45,11 @@ void DriveWithJoystick::Execute() {
 		}
 
 	}
-	if(OI::GetInstance()->drvStick->GetRawButton(3)){
-
-		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(90), unit_master.GetTicksPer100ms(90));
-	}
-	else{}
+//	if(OI::GetInstance()->drvStick->GetRawButton(3)){
+//
+//		Drivetrain::GetInstance()->SetDriveVelocity(unit_master.GetTicksPer100ms(90), unit_master.GetTicksPer100ms(90));
+//	}
+//	else{}
 		//Drivetrain::GetInstance()->configOpenLoop();
 
 }

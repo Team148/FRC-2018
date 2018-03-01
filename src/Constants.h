@@ -91,16 +91,17 @@ constexpr double ELEVATOR_D = 0.50;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 15000.0;
-constexpr double ELEVATOR_SCALE_LOW = 23000.0;
-constexpr double ELEVATOR_SCALE_HIGH = 33000.0;
+constexpr double ELEVATOR_SCALE_LOW = 26000.0;
+constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
-constexpr double ELEVATOR_HANG = 22000.0;
+constexpr double ELEVATOR_HANG = 30000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 1000.0;
 
 
 constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 6000; // Ticks/second
+constexpr int ELEVATOR_SOFT_LIMIT = 36500;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
