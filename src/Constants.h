@@ -22,7 +22,7 @@ constexpr double DRIVETRAIN_D_POS = 0.0;
 constexpr float DRIVE_ANGLE_TOLERANCE = 3.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
-constexpr double DRIVETRAIN_PATH_FA = 0.012;
+constexpr double DRIVETRAIN_PATH_FA = 0.014;
 constexpr double DRIVETRAIN_PATH_KP = 1.0;
 constexpr double DRIVETRAIN_PATH_KP_REVERSE = 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
@@ -107,7 +107,7 @@ constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
 constexpr float INTAKE_FAST_PERCENT = 0.8;
-constexpr float INTAKE_SLOW_PERCENT = 0.4;
+constexpr float INTAKE_SLOW_PERCENT = 0.15;
 constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
 constexpr float OUTTAKE_PERCENT = -0.20;
 constexpr float OUTTAKE_PERCENT_AUTO = -0.25;

@@ -127,6 +127,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new TurnPosition(-70.0));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.6));
 		AddSequential(new FromRightFirstCube_ToLeftScale());
+		AddSequential(new TurnPosition(-10.0));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
 		AddSequential(new AutoDrive(-25, 50, 0, Drivetrain::GetInstance()->getRobotPathHeading()));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
@@ -175,7 +176,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new TurnPosition(-95.0));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.6));
 		AddSequential(new FromLeftSwitch_ToLeftScale());
-
+		AddSequential(new TurnPosition(-10.0));
 		AddSequential(new WaitCommand(0.25));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT, 2.0));
 		AddSequential(new AutoDrive(-25, 150, 0, 0));
