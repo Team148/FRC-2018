@@ -20,7 +20,7 @@ private:
 	//m_downLimit
 
 	bool m_isClosedLoop = 0;
-	double m_position = 0;
+	double m_position = 1;
 
 public:
 	static Elevator* GetInstance();

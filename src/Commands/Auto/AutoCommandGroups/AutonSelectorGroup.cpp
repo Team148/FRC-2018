@@ -119,11 +119,11 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
 
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
-		AddSequential(new AutoDrive(-15, 150,0 , 148));
+		AddSequential(new AutoDrive(-15, 150,0 , 157));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-		AddSequential(new AutoDrive(15, 100,0, 148));
-		AddSequential(new AutoDrive(-20, 150, 0, 148));
+		AddSequential(new AutoDrive(15, 100,0, 157));
+		AddSequential(new AutoDrive(-20, 150, 0, 157));
 		AddSequential(new TurnPosition(-70.0));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.6));
 		AddSequential(new FromRightFirstCube_ToLeftScale());
