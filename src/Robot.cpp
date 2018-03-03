@@ -134,8 +134,8 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-		elevator->SetElevatorPosition(ELEVATOR_ZERO);
-
+	//	elevator->SetElevatorPosition(ELEVATOR_ZERO);
+		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 		if(gameData.length() > 0)

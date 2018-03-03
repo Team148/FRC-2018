@@ -88,6 +88,7 @@ constexpr double ELEVATOR_F = 140.00;
 constexpr double ELEVATOR_P = 0.05;
 constexpr double ELEVATOR_I = 0.00;
 constexpr double ELEVATOR_D = 0.50;
+constexpr double ELEVATOR_ZERO_F = -75.0;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 15000.0;
