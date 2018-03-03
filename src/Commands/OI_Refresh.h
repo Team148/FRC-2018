@@ -1,7 +1,6 @@
 #ifndef OI_Refresh_H
 #define OI_Refresh_H
 
-#include <Subsystems/Elevator.h>
 #include "Commands/Command.h"
 #include <cmath>
 #include <TimedRobot.h>

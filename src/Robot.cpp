@@ -177,7 +177,8 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-		elevator->SetElevatorPosition(ELEVATOR_ZERO);
+	//	elevator->SetElevatorPosition(ELEVATOR_ZERO);
+		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
 		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}

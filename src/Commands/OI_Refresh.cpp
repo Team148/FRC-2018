@@ -1,6 +1,7 @@
 #include "OI_Refresh.h"
 #include "OI.h"
 #include <iostream>
+#include "Subsystems/Elevator.h"
 
 OI_Refresh::OI_Refresh() {
 	// Use Requires() here to declare subsystem dependencies
@@ -9,6 +10,7 @@ OI_Refresh::OI_Refresh() {
 
 // Called just before this Command runs the first time
 void OI_Refresh::Initialize() {
+	//Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
 
 }
 

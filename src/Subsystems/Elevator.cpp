@@ -123,6 +123,7 @@ void Elevator::SetElevatorPosition(double position) {
 		ConfigClosedLoop();
 
 	m_position = position;
+	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
 	double scaled_elevator_F = ELEVATOR_F / m_position;
 
 	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
@@ -138,7 +139,9 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 	if(!m_isClosedLoop)
 		ConfigClosedLoop();
 
-	m_position += dPosition;
+	double local_position = m_position;
+	local_position += dPosition;
 
-	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
+	SetElevatorPosition(local_position);
+	//m_ElevatorMotor1->Set(ControlMode::Position, local_position);
 }
