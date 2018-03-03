@@ -166,7 +166,7 @@ double Drivetrain::getRobotPathHeading()
 	if(m_robot_heading <0)
 		m_robot_heading += 360.0;
 
-	std::cout << "CurrentHeading: " << m_robot_heading << std::endl;
+//	std::cout << "CurrentHeading: " << m_robot_heading << std::endl;
 	return m_robot_heading;
 }
 

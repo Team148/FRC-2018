@@ -31,6 +31,11 @@ void AutoSetElevator::Execute() {
 
 		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
 		{
+			if(m_position == ELEVATOR_ZERO)
+			{
+				Elevator::GetInstance()->ConfigNeutralClosedLoop();
+				std::cout << "set elevator neutral" << std::endl;
+			}
 			m_IsFinished = true;
 		}
 	}
