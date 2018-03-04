@@ -115,7 +115,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 */
 	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
-	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 2.1));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 2.7));
 		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
 
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
