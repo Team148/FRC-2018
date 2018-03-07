@@ -15,7 +15,6 @@ constexpr int INTAKE_MOTOR_2		= 14;
 
 constexpr int ELEVATOR_MOTOR_1		= 10;
 constexpr int ELEVATOR_MOTOR_2		= 11;
-//constexpr int ELEVATOR_MOTOR_3	  = 11;
 
 constexpr int CLIMBER_MOTOR_1		= 7;
 constexpr int CLIMBER_MOTOR_2		= 8;
