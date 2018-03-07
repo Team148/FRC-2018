@@ -10,7 +10,6 @@ OI_Refresh::OI_Refresh() {
 
 // Called just before this Command runs the first time
 void OI_Refresh::Initialize() {
-	//Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
 
 }
 

@@ -10,13 +10,11 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	//elevator motors
 	m_ElevatorMotor1 = new WPI_TalonSRX(ELEVATOR_MOTOR_1);
 	m_ElevatorMotor2 = new WPI_TalonSRX(ELEVATOR_MOTOR_2);
-	//m_ElevatorMotor3 = new WPI_TalonSRX(ELEVATOR_MOTOR_3);
 
 	m_ElevatorMotor2->Set(ControlMode::Follower, ELEVATOR_MOTOR_1);
 
 	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Brake);
 	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
-	//m_ElevatorMotor3->SetNeutralMode(NeutralMode::Brake);
 
 	m_ElevatorMotor1->ConfigOpenloopRamp(1, 0);
 	m_ElevatorMotor2->ConfigOpenloopRamp(0, 0);
@@ -24,7 +22,6 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	//elevator motor configuration
 	m_ElevatorMotor1->SetSafetyEnabled(false);
 	m_ElevatorMotor2->SetSafetyEnabled(false);
-	//m_ElevatorMotor3->SetSafetyEnabled(false);
 
 	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_ElevatorMotor1->SetSelectedSensorPosition(0,0,0);
@@ -92,17 +89,14 @@ bool Elevator::IsClosedLoop() {
 
 //implement this correctly before using, otherwise damage will occur
 bool Elevator::IsElevatorUp() {
-//	if(m_UpLimit)
-//		return true;
-//	else
-//		return false;
+	//implement proper logic if you want to use this function
 	return true;
 }
 
 
 //implement this correctly before using, otherwise damage will occur
 bool Elevator::IsElevatorDown() {
-//	return !m_DownLimit->Get();
+	//implement proper logic if you want to use this function
 	return true;
 }
 
@@ -114,10 +108,6 @@ int Elevator::GetElevatorVelocity() {
 	return m_ElevatorMotor1->GetSelectedSensorVelocity(0);
 }
 
-//void Elevator::SetElevatorJoystickPosition(double triggerValue) {
-//
-//}
-
 void Elevator::SetElevatorPosition(double position) {
 	if(!m_isClosedLoop)
 		ConfigClosedLoop();
@@ -128,7 +118,6 @@ void Elevator::SetElevatorPosition(double position) {
 
 	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
 	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
-//	m_ElevatorMotor1->Set(ControlMode::Position, position);
 }
 
 void Elevator::SetElevatorEncoderZero() {
@@ -143,5 +132,4 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 	local_position += dPosition;
 
 	SetElevatorPosition(local_position);
-	//m_ElevatorMotor1->Set(ControlMode::Position, local_position);
 }
