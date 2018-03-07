@@ -4,7 +4,6 @@
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
-#include "pathfinder.h"
 #include "Constants.h"
 
 class Drivetrain : public Subsystem {
@@ -47,7 +46,6 @@ public:
 	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetDrivePosition(double left_position, double right_position);
 	void SetEncoderPosition(int l, int r);
-	double *GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index);
 	void SetBrakeMode(bool on);
 	void configClosedLoopPositionKF(double kF_L, double kF_R);
 	void configClosedLoopVelocity();

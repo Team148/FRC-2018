@@ -267,26 +267,7 @@ void Drivetrain::SetEncoderPosition(int l, int r)
 	m_rightMotor1->SetSelectedSensorPosition(r, 0, 0);
 }
 
-double *Drivetrain::GetCorrectedVelocitySetPoint(double left_velocity, double right_velocity, Segment *leftTrajectory, Segment *rightTrajectory, int index)
-{
-	double FA = 1; // what is FA
 
-	double x_error = (leftTrajectory[index].x - getRobotPosition_x());
-	double y_error = (leftTrajectory[index].y - getRobotPosition_y());
-	double pos_error = pow((pow(x_error, 2.0) + pow(y_error, 2.0)), 0.5);
-	double vel_error = (leftTrajectory[index].velocity );
-	static double error_sum = 0;
-
-	error_sum += pos_error;
-
-
-	double corrected_velocity[1] = { 0 };
-
-	double left_corrected_velocity = (DRIVETRAIN_F_VEL*left_velocity) + FA*leftTrajectory[index].acceleration + (DRIVETRAIN_P_VEL*pos_error) + (DRIVETRAIN_I_VEL*error_sum) + (DRIVETRAIN_D_VEL*getLeftDriveVelocity());
-
-
-	return corrected_velocity;
-}
 
 void Drivetrain::SetBrakeMode(bool on) {
 	if(on) {
