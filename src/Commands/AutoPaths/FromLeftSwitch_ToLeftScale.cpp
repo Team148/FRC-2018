@@ -13,7 +13,7 @@ FromLeftSwitch_ToLeftScale::FromLeftSwitch_ToLeftScale() {
 
 // Called just before this Command runs the first time
 void FromLeftSwitch_ToLeftScale::Initialize() {
-	Drivetrain::GetInstance()->configPathLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;
@@ -60,7 +60,7 @@ bool FromLeftSwitch_ToLeftScale::IsFinished() {
 
 // Called once after isFinished returns true
 void FromLeftSwitch_ToLeftScale::End() {
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 	Drivetrain::GetInstance()->Arcade(0,0);
 	std::cout << "FromLeftSwitch_ToLeftScalePath Done" << std::endl;
 
