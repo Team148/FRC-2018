@@ -174,8 +174,12 @@ public:
 		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
 		static double IntakeSpeed = 0.0;
+		static double ClimberSpeed = 0.0;
+		static double WranglerSpeed = 0.0;
 
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
+		ClimberSpeed = 0.0;
+		WranglerSpeed = 0.0;
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
@@ -186,10 +190,11 @@ public:
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			WranglerSpeed = WRANGLER_FAST_PERCENT;
+
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
-			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
-		else
-			climber->SetClimberMotor(0.0);
+			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
 		//POV buttons
 		if (oi->opStick->GetPOV() == 0)
@@ -203,6 +208,8 @@ public:
 		}
 
 		intake->SetIntakeMotor(IntakeSpeed);
+		climber->SetClimberMotor(ClimberSpeed);
+		wrangler->SetWranglerMotor(WranglerSpeed);
 	}
 
 	void TestPeriodic() override {
