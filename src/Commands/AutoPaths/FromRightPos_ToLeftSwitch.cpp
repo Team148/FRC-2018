@@ -13,7 +13,7 @@ FromRightPos_ToLeftSwitch::FromRightPos_ToLeftSwitch() {
 
 // Called just before this Command runs the first time
 void FromRightPos_ToLeftSwitch::Initialize() {
-	Drivetrain::GetInstance()->configPathLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;
@@ -60,7 +60,7 @@ bool FromRightPos_ToLeftSwitch::IsFinished() {
 
 // Called once after isFinished returns true
 void FromRightPos_ToLeftSwitch::End() {
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 	Drivetrain::GetInstance()->Arcade(0,0);
 	std::cout << "Path Done in " <<  frc::Timer::GetFPGATimestamp()- m_initTime << " seconds." << std::endl;
 

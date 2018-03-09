@@ -267,141 +267,283 @@ void Drivetrain::SetBrakeMode(bool on) {
 	}
 }
 
-void Drivetrain::configClosedLoopVelocity() {
-	//left drive encoder initialize
-	m_leftMotor1->Set(ControlMode::Velocity,0.0);
-	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_leftMotor1->SetSensorPhase(false);
-
-	//right drive encoder initialize
-	m_rightMotor1->Set(ControlMode::Velocity,0.0);
-	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_rightMotor1->SetSensorPhase(false);
-
-	m_leftMotor1->ConfigNominalOutputForward(0,0);
-	m_rightMotor1->ConfigNominalOutputForward(0,0);
-
-	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
-	m_leftMotor1->EnableVoltageCompensation(true);
-
-	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
-	m_rightMotor1->EnableVoltageCompensation(true);
-
-	m_rightMotor1->ConfigClosedloopRamp(0, 0);
-	m_rightMotor1->ConfigClosedloopRamp(0, 0);
-
-	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
-	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
-
-	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
-	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
-
-	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
-	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
-
-	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
-	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
-	SetBrakeMode(1);
-
-
-	m_closedLoopVelocity = true;
-}
-void Drivetrain::configClosedLoopPosition() {
-	//left drive encoder initialize
-	m_leftMotor1->Set(ControlMode::Position,0.0);
-	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_leftMotor1->SetSensorPhase(false);
-//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
-
-	m_leftMotor1->SetSelectedSensorPosition(0,0,0);
-	m_rightMotor1->SetSelectedSensorPosition(0,0,0);
-	//right drive encoder initialize
-	m_rightMotor1->Set(ControlMode::Position,0.0);
-	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
-	m_rightMotor1->SetSensorPhase(false);
-
-	m_leftMotor1->ConfigNominalOutputForward(0,0);
-	m_rightMotor1->ConfigNominalOutputForward(0,0);
-
-	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
-	m_leftMotor1->EnableVoltageCompensation(true);
-
-	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
-	m_rightMotor1->EnableVoltageCompensation(true);
-
-	m_rightMotor1->ConfigClosedloopRamp(.25, 0);
-	m_rightMotor1->ConfigClosedloopRamp(.25, 0);
-
-	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
-	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
-
-	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
-	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
-
-	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
-	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
-
-	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
-	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
-	SetBrakeMode(1);
-
-	m_closedLoopPosition = true;
-}
-
-void Drivetrain::configClosedLoopPositionKF(double kF_L, double kF_R)
+//void Drivetrain::configClosedLoopVelocity() {
+//	//left drive encoder initialize
+//	m_leftMotor1->Set(ControlMode::Velocity,0.0);
+//	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+//	m_leftMotor1->SetSensorPhase(false);
+//
+//	//right drive encoder initialize
+//	m_rightMotor1->Set(ControlMode::Velocity,0.0);
+//	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+//	m_rightMotor1->SetSensorPhase(false);
+//
+//	m_leftMotor1->ConfigNominalOutputForward(0,0);
+//	m_rightMotor1->ConfigNominalOutputForward(0,0);
+//
+//	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+//	m_leftMotor1->EnableVoltageCompensation(true);
+//
+//	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+//	m_rightMotor1->EnableVoltageCompensation(true);
+//
+//	m_rightMotor1->ConfigClosedloopRamp(0, 0);
+//	m_rightMotor1->ConfigClosedloopRamp(0, 0);
+//
+//	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+//	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+//
+//	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+//	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+//
+//	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+//	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+//
+//	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+//	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+//	SetBrakeMode(1);
+//
+//
+//	m_closedLoopVelocity = true;
+//}
+//void Drivetrain::configClosedLoopPosition() {
+//	//left drive encoder initialize
+//	m_leftMotor1->Set(ControlMode::Position,0.0);
+//	m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+//	m_leftMotor1->SetSensorPhase(false);
+////	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
+//
+//	m_leftMotor1->SetSelectedSensorPosition(0,0,0);
+//	m_rightMotor1->SetSelectedSensorPosition(0,0,0);
+//	//right drive encoder initialize
+//	m_rightMotor1->Set(ControlMode::Position,0.0);
+//	m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+//	m_rightMotor1->SetSensorPhase(false);
+//
+//	m_leftMotor1->ConfigNominalOutputForward(0,0);
+//	m_rightMotor1->ConfigNominalOutputForward(0,0);
+//
+//	m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+//	m_leftMotor1->EnableVoltageCompensation(true);
+//
+//	m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+//	m_rightMotor1->EnableVoltageCompensation(true);
+//
+//	m_rightMotor1->ConfigClosedloopRamp(0, 0);
+//	m_rightMotor1->ConfigClosedloopRamp(0, 0);
+//
+//	m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+//	m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+//
+//	m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+//	m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+//
+//	m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+//	m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+//
+//	m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+//	m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+//	SetBrakeMode(1);
+//
+//	m_closedLoopPosition = true;
+//}
+//
+//
+//void Drivetrain::configOpenLoop()
+//{
+//	m_leftMotor1->Set(ControlMode::PercentOutput, 0.0);
+//	m_rightMotor1->Set(ControlMode::PercentOutput, 0.0);
+//
+//	m_leftMotor1->EnableVoltageCompensation(false);
+//	m_rightMotor1->EnableVoltageCompensation(false);
+//	m_leftMotor1->ConfigNominalOutputForward(0,0);
+//	m_rightMotor1->ConfigNominalOutputForward(0,0);
+//
+//	m_leftMotor1->ConfigNominalOutputReverse(0,0);
+//	m_rightMotor1->ConfigNominalOutputReverse(0,0);
+//
+//	m_leftMotor1->ConfigPeakOutputForward(1, 0);
+//	m_leftMotor1->ConfigPeakOutputReverse(-1, 0);
+//
+//	m_rightMotor1->ConfigPeakOutputForward(1, 0);
+//	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
+//
+//	SetBrakeMode(false);
+//}
+void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 {
-	m_leftMotor1->Config_kF(0, kF_L, 0);
-	m_rightMotor1->Config_kF(0, kF_R, 0);
-}
+	if(drive_config == tDriveConfigs::OPEN_LOOP)
+	{
+		m_leftMotor1->Set(ControlMode::PercentOutput, 0.0);
+		m_rightMotor1->Set(ControlMode::PercentOutput, 0.0);
 
-void Drivetrain::configOpenLoop()
+		m_leftMotor1->EnableVoltageCompensation(false);
+		m_rightMotor1->EnableVoltageCompensation(false);
+		m_leftMotor1->ConfigNominalOutputForward(0,0);
+		m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+		m_leftMotor1->ConfigNominalOutputReverse(0,0);
+		m_rightMotor1->ConfigNominalOutputReverse(0,0);
+
+		m_leftMotor1->ConfigPeakOutputForward(1, 0);
+		m_leftMotor1->ConfigPeakOutputReverse(-1, 0);
+
+		m_rightMotor1->ConfigPeakOutputForward(1, 0);
+		m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
+
+		SetBrakeMode(false);
+
+		m_current_drive_config = tDriveConfigs::OPEN_LOOP;
+		std::cout << "CONFIG: OPEN LOOP" << std::endl;
+
+	}
+	if(drive_config == tDriveConfigs::VELOCITY_CONFIG || drive_config == tDriveConfigs::PATH_CONFIG)
+	{
+		//left drive encoder initialize
+		m_leftMotor1->Set(ControlMode::Velocity,0.0);
+		m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+		m_leftMotor1->SetSensorPhase(false);
+
+		//right drive encoder initialize
+		m_rightMotor1->Set(ControlMode::Velocity,0.0);
+		m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+		m_rightMotor1->SetSensorPhase(false);
+
+		m_leftMotor1->ConfigNominalOutputForward(0,0);
+		m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+		m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+		m_leftMotor1->EnableVoltageCompensation(true);
+
+		m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+		m_rightMotor1->EnableVoltageCompensation(true);
+
+		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+
+		m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+		m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+
+		m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+		m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+
+		m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+		m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+
+		m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+		m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+
+		if(drive_config == tDriveConfigs::PATH_CONFIG)
+		{
+			InitPathDrive();
+
+			m_leftMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+			m_leftMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+			m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+			m_rightMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+
+			m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
+			m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+			m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
+			m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+
+			m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+			m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+			std::cout << "CONFIG: PATH (w vel)" << std::endl;
+
+		}
+
+		SetBrakeMode(true);
+
+		m_current_drive_config = tDriveConfigs::VELOCITY_CONFIG;
+		std::cout << "CONFIG: VELOCITY" << std::endl;
+
+	}
+	if(drive_config == tDriveConfigs::POSITION_CONFIG)
+	{
+		//left drive encoder initialize
+		m_leftMotor1->Set(ControlMode::Position,0.0);
+		m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+		m_leftMotor1->SetSensorPhase(false);
+	//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
+
+		m_leftMotor1->SetSelectedSensorPosition(0,0,0);
+		m_rightMotor1->SetSelectedSensorPosition(0,0,0);
+		//right drive encoder initialize
+		m_rightMotor1->Set(ControlMode::Position,0.0);
+		m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+		m_rightMotor1->SetSensorPhase(false);
+
+		m_leftMotor1->ConfigNominalOutputForward(0,0);
+		m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+		m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+		m_leftMotor1->EnableVoltageCompensation(true);
+
+		m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+		m_rightMotor1->EnableVoltageCompensation(true);
+
+		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+
+		m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+		m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+
+		m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+		m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+
+		m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+		m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+
+		m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+		m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+
+		m_current_drive_config = tDriveConfigs::POSITION_CONFIG;
+
+		SetBrakeMode(true);
+		std::cout << "CONFIG: POSITION" << std::endl;
+	}
+
+}
+bool Drivetrain::isDrivetrainConfiged(tDriveConfigs drive_config)
 {
-	m_leftMotor1->Set(ControlMode::PercentOutput, 0.0);
-	m_rightMotor1->Set(ControlMode::PercentOutput, 0.0);
-
-	m_leftMotor1->EnableVoltageCompensation(false);
-	m_rightMotor1->EnableVoltageCompensation(false);
-	m_leftMotor1->ConfigNominalOutputForward(0,0);
-	m_rightMotor1->ConfigNominalOutputForward(0,0);
-
-	m_leftMotor1->ConfigNominalOutputReverse(0,0);
-	m_rightMotor1->ConfigNominalOutputReverse(0,0);
-
-	m_leftMotor1->ConfigPeakOutputForward(1, 0);
-	m_leftMotor1->ConfigPeakOutputReverse(-1, 0);
-
-	m_rightMotor1->ConfigPeakOutputForward(1, 0);
-	m_rightMotor1->ConfigPeakOutputReverse(-1, 0);
-
-	SetBrakeMode(false);
+	if(m_current_drive_config == drive_config)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
-bool Drivetrain::isClosedLoopPosition() {
-	return m_closedLoopPosition;
-}
-bool Drivetrain::isClosedLoopVelocity() {
-	return m_closedLoopVelocity;
-}
-void Drivetrain::configPathLoop()
-{
-	configClosedLoopVelocity();
-
-	InitPathDrive();
-
-	m_leftMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
-	m_leftMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
-	m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
-	m_rightMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
-
-	m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
-	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
-	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
-	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
-
-	m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
-	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
-
-}
+//
+//bool Drivetrain::isClosedLoopPosition() {
+//	return m_closedLoopPosition;
+//}
+//bool Drivetrain::isClosedLoopVelocity() {
+//	return m_closedLoopVelocity;
+//}
+//void Drivetrain::configPathLoop()
+//{
+//	configClosedLoopVelocity();
+//
+//	InitPathDrive();
+//
+//	m_leftMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+//	m_leftMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+//	m_rightMotor1->ConfigNominalOutputReverse(-DRIVETRAIN_PATH_NOMINALOUT, 0);
+//	m_rightMotor1->ConfigNominalOutputForward(DRIVETRAIN_PATH_NOMINALOUT, 0);
+//
+//	m_leftMotor1->ConfigVelocityMeasurementWindow(32, 0);
+//	m_leftMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+//	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
+//	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
+//
+//	m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+//	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+//
+//}
 
 
 int Drivetrain::getLeftDrivePosition() {

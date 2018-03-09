@@ -21,7 +21,7 @@ void ArcadeDriveTurn::Initialize() {
 	m_final_angle = m_init_angle + m_input_angle;
 	//std::cout <<"info: final_angle: " << m_final_angle << std::endl;
 
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 	Drivetrain::GetInstance()->SetBrakeMode(1);
 }
 

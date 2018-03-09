@@ -156,7 +156,8 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
-		drivetrain->configOpenLoop();
+		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();

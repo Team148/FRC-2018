@@ -120,6 +120,13 @@ constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 constexpr int LEFT_VALUE = -1;
 constexpr int RIGHT_VALUE = 1;
 
+enum tDriveConfigs
+{
+	OPEN_LOOP = 0,
+	VELOCITY_CONFIG,
+	POSITION_CONFIG,
+	PATH_CONFIG
+};
 enum tUnits
 {
 	TICKS = 0,
