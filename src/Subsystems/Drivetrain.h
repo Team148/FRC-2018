@@ -89,7 +89,7 @@ public:
 
 
 	void unitConversionTest();
-
+	double* GetAllCurrents();
 };
 
 #endif  // Drivetrain_H

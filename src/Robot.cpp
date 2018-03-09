@@ -13,6 +13,7 @@
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Auto/AutoSetElevator.h>
+#include "Commands/CheckFunction.h"
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -73,7 +74,7 @@ public:
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
-
+		SmartDashboard::PutData("Check Robot", new CheckFunction());
 	}
 
 	/**

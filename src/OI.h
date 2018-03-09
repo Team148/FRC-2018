@@ -1,5 +1,9 @@
+#ifndef OI_H
+#define OI_H
+
 #include "WPILib.h"
 #include "Constants.h"
+
 
 class OI {
 public:
@@ -69,3 +73,5 @@ private:
 	JoystickButton* m_dsiSw5;
 
 };
+
+#endif
