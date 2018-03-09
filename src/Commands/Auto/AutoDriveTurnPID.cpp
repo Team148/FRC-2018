@@ -17,7 +17,7 @@ AutoDriveTurnPID::AutoDriveTurnPID(double degrees) {
 
 // Called just before this Command runs the first time
 void AutoDriveTurnPID::Initialize() {
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 
 	m_intailAngle = Drivetrain::GetInstance()->getGyroYaw();
 	Drivetrain::GetInstance()->SetBrakeMode(true);
