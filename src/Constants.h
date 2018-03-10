@@ -29,7 +29,7 @@ constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING = 3.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;
-constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.083;
+constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
 //Intake
 constexpr float CUBE_IN_CURRENT_CURRENT = 18;

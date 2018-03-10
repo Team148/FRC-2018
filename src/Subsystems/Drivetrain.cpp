@@ -176,7 +176,6 @@ void Drivetrain::InitPathDrive()
 	initRightDrivePos = getRightDrivePosition();
 }
 
-//Need to Add Simple Heading P Controller
 void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse){
 	double m_l_pos = l_pos;
 	double m_l_velo = l_velo;
@@ -245,8 +244,10 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 								+ heading_contrib;
 
 	}
+	frc::SmartDashboard::PutNumber("Left Actual", unit_master.GetTicksPer100ms(m_l_velo));
+	frc::SmartDashboard::PutNumber("Left Trajectory", getRightDriveVelocity());
 
-//	std::cout << "left_output" << left_output << std::endl;
+	std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
 
 //	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
 //	std::cout << "Tra Left Pos: " << m_l_pos <<"Act Left Pos: " << cur_pos_l;
