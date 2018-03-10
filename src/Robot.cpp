@@ -32,6 +32,7 @@
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Climber.h"
 #include <Subsystems/Wrangler.h>
+#include "Subsystems/LimelightCamera.h"
 
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
@@ -53,7 +54,7 @@ private:
 	Command* command;
 
 public:
-
+	LimelightCamera *camera = 0;
 	Drivetrain *drivetrain = 0;
 	Intake *intake = 0;
 	Elevator *elevator = 0;
@@ -66,13 +67,15 @@ public:
 
 
 	void RobotInit() override {
-
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+		camera = LimelightCamera::GetInstance();
+
+		camera->SetCameraLEDOff();
 
 	}
 
