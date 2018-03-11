@@ -1,4 +1,4 @@
-#include " FromMiddlePos_ToRightScalePath.h"
+#include "FromMiddlePos_ToRightScalePath.h"
 #include <iostream>
 
 FromMiddlePos_ToRightScalePath *FromMiddlePos_ToRightScalePath::m_instance = 0;

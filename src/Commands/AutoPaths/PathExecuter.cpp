@@ -30,6 +30,7 @@ void PathExecuter::Execute() {
 
 	if(!(time_index < m_trajectory->GetIndexLength())){
 		m_isFinished = true;
+		std::cout << m_trajectory->GetIndexLength() << std::endl;
 		std::cout << "done" << std::endl;
 		return;
 	}

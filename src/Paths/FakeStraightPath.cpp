@@ -21,7 +21,7 @@ int FakeStraightPath::GetIndexLength()
 	return num_index;
 }
 
-double FakeStraightPath::GetStartHeading();
+double FakeStraightPath::GetInitialHeading()
 {
 	return left_wheel[0][4];
 }

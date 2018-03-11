@@ -1,4 +1,4 @@
-#include " FromMiddlePos_ToRightSwitchPath.h"
+#include "FromMiddlePos_ToRightSwitchPath.h"
 #include <iostream>
 
 FromMiddlePos_ToRightSwitchPath *FromMiddlePos_ToRightSwitchPath::m_instance = 0;

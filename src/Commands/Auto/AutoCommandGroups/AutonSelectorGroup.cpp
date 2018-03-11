@@ -9,8 +9,8 @@
 #include "../../AutoPaths/FromLeftSwitch_ToLeftScale.h"
 #include "../../AutoPaths/FromRightFirstCube_ToLeftSwitch.h"
 #include "../../AutoPaths/FromMiddlePos_ToLeftSwitch.h"
-#include "../../AutoPaths/FromMiddlePos_ToRightSwitch.h"
-#include "../../AutoPaths/FromMiddlePos_ToRightScale.h"
+//#include "../../AutoPaths/FromMiddlePos_ToRightSwitch.h"
+//#include "../../AutoPaths/FromMiddlePos_ToRightScale.h"
 #include "../../AutoPaths/PathExecuter.h"
 #include <./Paths/FakeStraightPath.h>
 #include "../TurnPosition.h"
@@ -50,6 +50,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	   // AddSequential(new FromMiddlePos_ToRightScale());
+	    std::cout << "Running the new stuff" << std::endl;
 	    AddSequential(new PathExecuter(FakeStraightPath::GetInstance(), false));
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
@@ -96,7 +97,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RL
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	    AddSequential(new FromMiddlePos_ToRightSwitch());
+	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.2));
+	    AddSequential(new PathExecuter(FakeStraightPath::GetInstance(), false));
+	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
+	//    AddSequential(new FromMiddlePos_ToRightSwitch());
 	    //
 	    //	AddSequential(new AutoDrive(20, 150,0));
 	    //	AddSequential(new WaitCommand(10.0));

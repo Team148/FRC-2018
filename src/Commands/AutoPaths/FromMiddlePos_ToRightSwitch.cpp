@@ -27,25 +27,25 @@ void FromMiddlePos_ToRightSwitch::Execute() {
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
 	std::cout << time_index << std::endl;
+//	int num_index = 1;
+//	if(time_index > num_index){
+//		m_isFinished = true;
+//		std::cout << "done" << std::endl;
+//		return;
+//
+//	}
+//	time_index-=1;
+//	double l_pos = left_wheel[time_index][0];
+//	double l_vel = left_wheel[time_index][1];
+//	double l_acc = left_wheel[time_index][2];
+//
+//	double r_pos = right_wheel[time_index][0];
+//	double r_vel = right_wheel[time_index][1];
+//	double r_acc = right_wheel[time_index][2];
+//
+//	double heading = left_wheel[time_index][4];
 
-	if(time_index > num_index){
-		m_isFinished = true;
-		std::cout << "done" << std::endl;
-		return;
-
-	}
-	time_index-=1;
-	double l_pos = left_wheel[time_index][0];
-	double l_vel = left_wheel[time_index][1];
-	double l_acc = left_wheel[time_index][2];
-
-	double r_pos = right_wheel[time_index][0];
-	double r_vel = right_wheel[time_index][1];
-	double r_acc = right_wheel[time_index][2];
-
-	double heading = left_wheel[time_index][4];
-
-	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading);
+	//Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading);
 
 
 //	if(OI::GetInstance()->drvStick->GetRawButton(1)){

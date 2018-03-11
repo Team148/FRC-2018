@@ -12,6 +12,10 @@
 	{
 
 	}
+	double TrajectoryPath::GetInitialHeading()
+	{
+
+	}
 	double TrajectoryPath::GetEndHeading()
 	{
 

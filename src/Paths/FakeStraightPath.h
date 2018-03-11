@@ -3,13 +3,13 @@
 
 #include "TrajectoryPath.h"
 
-class FakeStraightPath : TrajectoryPath {
+class FakeStraightPath : public TrajectoryPath {
 public:
 
 	static TrajectoryPath* GetInstance();
-	static FakeStraightPath *m_instance;
+
 	int GetIndexLength();
-	double GetStartHeading();
+	double GetInitialHeading();
 	double GetEndHeading();
 	double GetTimeLength();
 	double* GetLeftTrajectoryArray(int index);
@@ -25,6 +25,7 @@ public:
 
 private:
 	FakeStraightPath();
+	static FakeStraightPath *m_instance;
 
 	int num_index = 244;
 	double left_wheel[244][8] ={
