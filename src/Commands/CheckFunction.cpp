@@ -25,6 +25,7 @@ void CheckFunction::Execute() {
 		double *cur = Drivetrain::GetInstance()->GetAllCurrents();
 		for(int i = 0; i<=5;i++) {
 			drivecurrent[i][drivecurrentcounter] = abs(*(cur + i));
+			std::cout <<"check: motor "<< i << " current: " << drivecurrent[i][drivecurrentcounter] << std::endl;
 		}
 
 		//need to collect at least 10 samples before we start checking

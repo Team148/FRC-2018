@@ -12,6 +12,7 @@
 #include "Subsystems/Drivetrain.h"
 #include "OI.h"
 #include "Constants.h"
+#include <iostream>
 
 class CheckFunction : public frc::Command {
 public:
@@ -35,9 +36,9 @@ private:
 	bool r2currentpass=false;
 	bool r3currentpass=false;
 
-	bool l1failflag=true;
-	bool l2failflag=true;
-	bool l3failflag=true;
+	bool l1failflag=false;
+	bool l2failflag=false;
+	bool l3failflag=false;
 
 };
 
