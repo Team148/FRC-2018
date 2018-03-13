@@ -111,7 +111,7 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
-		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
+		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(90.0, true, 0.0));
 
 
 		int autoPosition = 0;
