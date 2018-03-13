@@ -111,6 +111,8 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
+		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(180.0));
+
 
 		int autoPosition = 0;
 		int cubeAmount = 0;
@@ -140,7 +142,7 @@ public:
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
 	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+//	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
 

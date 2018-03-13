@@ -23,7 +23,7 @@ void TurnPosition::Initialize()
 
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::POSITION_CONFIG);
 
-	SetTimeout(1.1);
+//	SetTimeout(1.1);
 
 }
 
@@ -43,16 +43,22 @@ void TurnPosition::Execute()
 //	m_l_pos_err = m_l_init_pos - m_l_cur_pos;
 //	m_r_pos_err = m_r_init_pos - m_r_cur_pos; // NEED TO FEEDBACK POSITION CORRECT TIMEOUT
 
-		m_l_cur_pos -= ticksNeeded/2.0;
-		m_r_cur_pos += ticksNeeded/2.0;
+		m_l_cur_pos -= ticksNeeded;
+		m_r_cur_pos += ticksNeeded;
 
 
 	Drivetrain::GetInstance()->SetDrivePosition(m_l_cur_pos, m_r_cur_pos);
 
 //	std::cout << "PIGEON ERROR: " << m_angle_err << std::endl;
+	frc::SmartDashboard::PutNumber("AngleError", m_angle_err);
+
+	frc::SmartDashboard::PutNumber("m_l_cur_pos", m_l_cur_pos);
+	frc::SmartDashboard::PutNumber("m_r_cur_pos", m_r_cur_pos);
+
+
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
-	if(abs(m_angle_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
+//	if(abs(m_angle_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
 }
 
