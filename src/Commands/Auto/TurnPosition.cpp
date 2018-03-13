@@ -26,7 +26,7 @@ TurnPosition::TurnPosition(double heading, bool isClockwise, double timeOut)
 void TurnPosition::Initialize()
 {
 //	m_end_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
-	m_cur_heading = Drivetrain::GetInstance()->getGyroYaw();
+	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	m_l_init_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
@@ -36,7 +36,7 @@ void TurnPosition::Initialize()
 
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::POSITION_CONFIG);
 
-//	SetTimeout(m_time_out);
+	SetTimeout(m_time_out);
 
 }
 
@@ -79,7 +79,7 @@ void TurnPosition::Execute()
 
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
-//	if(abs(m_angle_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
+//	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
 }
 

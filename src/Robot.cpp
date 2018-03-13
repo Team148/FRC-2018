@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 #include <Commands/Auto/AutoDrive.h>
+#include <Commands/Auto/LockHeading.h>
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/TurnPosition.h>
@@ -111,7 +112,9 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
-		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(90.0, true, 0.0));
+		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(200.0, true, 5.0));
+//		frc::Scheduler::GetInstance()->AddCommand(new LockHeading(10.0));
+
 
 
 		int autoPosition = 0;
