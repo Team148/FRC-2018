@@ -9,7 +9,7 @@ public:
 	static TrajectoryPath* GetInstance();
 	static FromRightPos_ToRightSwitchPath *m_instance;
 	int GetIndexLength();
-	double GetInitialHeading();
+	double GetStartHeading();
 	double GetEndHeading();
 	double GetTimeLength();
 	double GetDT();

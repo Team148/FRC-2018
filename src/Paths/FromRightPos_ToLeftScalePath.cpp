@@ -18,7 +18,7 @@ int FromRightPos_ToLeftScalePath::GetIndexLength()
 {
 	return num_index;
 }
-double FromRightPos_ToLeftScalePath::GetInitialHeading()
+double FromRightPos_ToLeftScalePath::GetStartHeading()
 {
 	return left_wheel[0][4];
 }

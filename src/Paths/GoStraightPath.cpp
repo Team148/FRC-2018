@@ -18,7 +18,7 @@ int GoStraightPath::GetIndexLength()
 {
 	return num_index;
 }
-double GoStraightPath::GetInitialHeading()
+double GoStraightPath::GetStartHeading()
 {
 	return left_wheel[0][4];
 }

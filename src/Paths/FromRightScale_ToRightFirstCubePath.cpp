@@ -18,7 +18,7 @@ int FromRightScale_ToRightFirstCubePath::GetIndexLength()
 {
 	return num_index;
 }
-double FromRightScale_ToRightFirstCubePath::GetInitialHeading()
+double FromRightScale_ToRightFirstCubePath::GetStartHeading()
 {
 	return left_wheel[0][4];
 }

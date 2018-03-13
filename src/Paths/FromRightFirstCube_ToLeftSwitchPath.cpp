@@ -18,7 +18,7 @@ int FromRightFirstCube_ToLeftSwitchPath::GetIndexLength()
 {
 	return num_index;
 }
-double FromRightFirstCube_ToLeftSwitchPath::GetInitialHeading()
+double FromRightFirstCube_ToLeftSwitchPath::GetStartHeading()
 {
 	return left_wheel[0][4];
 }

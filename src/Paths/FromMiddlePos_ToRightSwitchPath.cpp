@@ -18,7 +18,7 @@ int FromMiddlePos_ToRightSwitchPath::GetIndexLength()
 {
 	return num_index;
 }
-double FromMiddlePos_ToRightSwitchPath::GetInitialHeading()
+double FromMiddlePos_ToRightSwitchPath::GetStartHeading()
 {
 	return left_wheel[0][4];
 }
