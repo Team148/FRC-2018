@@ -10,6 +10,7 @@
 
 #include <Commands/Command.h>
 #include "Subsystems/Drivetrain.h"
+#include "Subsystems/Elevator.h"
 #include "OI.h"
 #include "Constants.h"
 #include <iostream>
@@ -24,11 +25,23 @@ public:
 	void Interrupted() override;
 
 private:
-	//drivetrain motor current lower limit
+	double pdp_curr[16][10]={};
+	int currentcounter=0;
 	double drivelowerlimit = 0.1;
 	double drivecurrent[6][10] = {};
-	int drivecurrentcounter = 0;
-	bool readytocheck=false;
+	int drivecounter = 0;
+	bool drivereadytocheck=false;
+
+	double elevlowerlimit = 0.1;
+	double elevcurrent[2][10] = {};
+	int elevcounter = 0;
+	bool elevreadytocheck=false;
+
+	double intakelowerlimit = 0.1;
+	double intakecurrent[2][10] = {};
+	int intakecounter = 0;
+	bool intakereadytocheck=false;
+
 	bool l1currentpass=false;
 	bool l2currentpass=false;
 	bool l3currentpass=false;
@@ -39,7 +52,30 @@ private:
 	bool l1failflag=false;
 	bool l2failflag=false;
 	bool l3failflag=false;
+	bool r1failflag=false;
+	bool r2failflag=false;
+	bool r3failflag=false;
 
+	bool elev1failflag=false;
+	bool elev2failflag=false;
+
+	bool elev1currentpass=false;
+	bool elev2currentpass=false;
+
+	bool intake1currentpass=false;
+	bool intake2currentpass=false;
+
+	bool intake1failflag=false;
+	bool intake2failflag=false;
+
+	bool limelightfailflag=false;
+	bool limelightcurrentpass=false;
+	bool limelightcheckready=false;
+
+	bool driveleftencoder=false;
+	bool driverightencoder=false;
+
+	bool elevatorencoder=false;
 };
 
 #endif

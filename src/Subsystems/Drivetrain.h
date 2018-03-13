@@ -37,7 +37,7 @@ private:
 
 
 public:
-//	PowerDistributionPanel* m_pdp;
+	PowerDistributionPanel* pdp;
 	static Drivetrain* GetInstance();
 	void InitDefaultCommand();
 	void Arcade(double ystick, double xstick);

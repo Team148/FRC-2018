@@ -92,7 +92,7 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	m_drive->SetSafetyEnabled(false);
 
 	//PDP
-	//m_pdp = new PowerDistributionPanel();
+	pdp = new PowerDistributionPanel();
 
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
@@ -514,12 +514,12 @@ void Drivetrain::unitConversionTest()
 
 double* Drivetrain::GetAllCurrents() {
 	static double current[6];
-	current[0] = m_leftMotor1->GetOutputCurrent(); //l1
-	current[1] = m_leftMotor2->GetOutputCurrent(); //l2
-	current[2] = m_leftMotor3->GetOutputCurrent(); //l3
-	current[3] = m_rightMotor1->GetOutputCurrent(); //r1
-	current[4] = m_rightMotor2->GetOutputCurrent(); //r2
-	current[5] = m_rightMotor3->GetOutputCurrent(); //r3
+	current[0] = pdp->GetCurrent(0); //l1
+	current[1] = pdp->GetCurrent(1); //l2
+	current[2] = pdp->GetCurrent(2); //l3
+	current[3] = pdp->GetCurrent(15); //r1
+	current[4] = pdp->GetCurrent(14); //r2
+	current[5] = pdp->GetCurrent(13); //r3
 	return current;
 }
 
