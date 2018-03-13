@@ -30,7 +30,7 @@ void PathExecuter::Execute() {
 
 	if(!(time_index < m_trajectory->GetIndexLength())){
 		m_isFinished = true;
-		std::cout << m_trajectory->GetIndexLength() << std::endl;
+	//	std::cout << m_trajectory->GetIndexLength() << std::endl;
 		std::cout << "done" << std::endl;
 		return;
 	}
@@ -48,6 +48,8 @@ void PathExecuter::Execute() {
 	double r_acc = m_trajectory->GetRightAcceleration(time_index);
 
 	double heading = m_trajectory->GetHeading(time_index);
+
+	frc::SmartDashboard::PutNumber("TimeIndex", time_index);
 
 	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
 

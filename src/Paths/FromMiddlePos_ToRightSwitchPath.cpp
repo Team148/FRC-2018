@@ -18,7 +18,7 @@ int FromMiddlePos_ToRightSwitchPath::GetIndexLength()
 {
 	return num_index;
 }
-double FromMiddlePos_ToRightSwitchPath::GetStartHeading()
+double FromMiddlePos_ToRightSwitchPath::GetInitialHeading()
 {
 	return left_wheel[0][4];
 }
@@ -28,7 +28,11 @@ double FromMiddlePos_ToRightSwitchPath::GetEndHeading()
 }
 double FromMiddlePos_ToRightSwitchPath::GetTimeLength()
 {
-	return left_wheel[0][6] * num_index;
+	return left_wheel[0][6] * (num_index-1);
+}
+double FromMiddlePos_ToRightSwitchPath::GetDT()
+{
+	return left_wheel[0][5];
 }
 double FromMiddlePos_ToRightSwitchPath::GetLeftPosition(int index)
 {

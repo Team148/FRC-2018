@@ -22,7 +22,7 @@
 #include "math.h"
 #include <iostream>
 //#include <Commands/Pathfind.h>
-#include <Commands/AutoPaths/GoStraightPath.h>
+//#include <Commands/AutoPaths/GoStraightPath.h>
 #include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"

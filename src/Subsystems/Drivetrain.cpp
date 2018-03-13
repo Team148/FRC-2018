@@ -147,10 +147,10 @@ void Drivetrain::SetDriveVelocity(double left_velocity, double right_velocity)
 
 
 
-	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
-	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
-	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
-	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
+//	frc::SmartDashboard::PutNumber("PathVelocityLeft", left_velocity);
+//	frc::SmartDashboard::PutNumber("PathVelocityRight", right_velocity);
+//	frc::SmartDashboard::PutNumber("LeftEncoderVelocity", getLeftDriveVelocity());
+//	frc::SmartDashboard::PutNumber("VelocityError", right_velocity-getRightDriveVelocity());
 //	std::cout << "DriveVelocityFromFunc: " << right_velocity  << "VelocityError " << right_velocity-getRightDriveVelocity() << std::endl;
 }
 
@@ -213,6 +213,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	if(heading_contrib>180)
 		heading_contrib -= 360;
 
+	frc::SmartDashboard::PutNumber("HeadingContrib", heading_contrib);
 	//std::cout << "Delta Heading: " << heading_contrib << std::endl;
 	if(!isReverse)
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
@@ -244,10 +245,16 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 								+ heading_contrib;
 
 	}
-	frc::SmartDashboard::PutNumber("Left Actual", unit_master.GetTicksPer100ms(m_l_velo));
-	frc::SmartDashboard::PutNumber("Left Trajectory", getRightDriveVelocity());
 
-	std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
+	frc::SmartDashboard::PutNumber("LeftTrajectory", unit_master.GetTicksPer100ms(m_l_velo));
+	frc::SmartDashboard::PutNumber("LeftActual", getLeftDriveVelocity());
+	frc::SmartDashboard::PutNumber("RightTrajectory", unit_master.GetTicksPer100ms(m_r_velo));
+	frc::SmartDashboard::PutNumber("RightActual", getRightDriveVelocity());
+	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
+	frc::SmartDashboard::PutNumber("RightPosError", right_error);
+
+
+	//std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
 
 //	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
 //	std::cout << "Tra Left Pos: " << m_l_pos <<"Act Left Pos: " << cur_pos_l;
@@ -456,8 +463,12 @@ void Drivetrain::configPathLoop()
 	m_rightMotor1->ConfigVelocityMeasurementWindow(32, 0);
 	m_rightMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_10Ms , 0 );
 
+	m_leftMotor1->SetControlFramePeriod(ControlFrame::Control_3_General, 5);
+	m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_1_General, 5,0);
 	m_leftMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
 	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_2_Feedback0,5,0);
+	m_rightMotor1->SetControlFramePeriod(ControlFrame::Control_3_General, 5);
+	m_rightMotor1->SetStatusFramePeriod(StatusFrameEnhanced::Status_1_General, 5,0);
 
 }
 

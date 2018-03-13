@@ -1,18 +1,22 @@
 #include "AutonSelectorGroup.h"
-#include "../../AutoPaths/FromRightPos_ToRightScale.h"
-#include "../../AutoPaths/FromRightPos_ToRightSwitch.h"
-#include "../../AutoPaths/FromRightPos_ToLeftSwitch.h"
-#include "../../AutoPaths/FromRightScale_ToFirstCube.h"
-#include "../../AutoPaths/FromRightSecondCube_ToRightScale.h"
-#include "../../AutoPaths/FromRightScale_ToRightFirstCube.h"
-#include "../../AutoPaths/FromRightFirstCube_ToLeftScale.h"
-#include "../../AutoPaths/FromLeftSwitch_ToLeftScale.h"
-#include "../../AutoPaths/FromRightFirstCube_ToLeftSwitch.h"
-#include "../../AutoPaths/FromMiddlePos_ToLeftSwitch.h"
+//#include "../../AutoPaths/FromRightPos_ToRightScale.h"
+//#include "../../AutoPaths/FromRightPos_ToRightSwitch.h"
+//#include "../../AutoPaths/FromRightPos_ToLeftSwitch.h"
+//#include "../../AutoPaths/FromRightScale_ToFirstCube.h"
+//#include "../../AutoPaths/FromRightSecondCube_ToRightScale.h"
+//#include "../../AutoPaths/FromRightScale_ToRightFirstCube.h"
+//#include "../../AutoPaths/FromRightFirstCube_ToLeftScale.h"
+//#include "../../AutoPaths/FromLeftSwitch_ToLeftScale.h"
+//#include "../../AutoPaths/FromRightFirstCube_ToLeftSwitch.h"
+//#include "../../AutoPaths/FromMiddlePos_ToLeftSwitch.h"
 //#include "../../AutoPaths/FromMiddlePos_ToRightSwitch.h"
 //#include "../../AutoPaths/FromMiddlePos_ToRightScale.h"
 #include "../../AutoPaths/PathExecuter.h"
-#include <./Paths/FakeStraightPath.h>
+#include "./Paths/FakeStraightPath.h"
+#include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
+#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
+#include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
+#include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
 #include "../AutoSetElevator.h"
@@ -51,7 +55,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	   // AddSequential(new FromMiddlePos_ToRightScale());
 	    std::cout << "Running the new stuff" << std::endl;
-	    AddSequential(new PathExecuter(FakeStraightPath::GetInstance(), false));
+	    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 /*
@@ -98,8 +102,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.2));
-	    AddSequential(new PathExecuter(FakeStraightPath::GetInstance(), false));
+	    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
 	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
+	    AddSequential(new AutoDrive(-15, 150, FromMiddlePos_ToRightSwitchPath::GetInstance()->GetEndHeading()));
+	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	//    AddSequential(new FromMiddlePos_ToRightSwitch());
 	    //
 	    //	AddSequential(new AutoDrive(20, 150,0));
@@ -148,7 +154,6 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.L_R) == 0) // R POS LR
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	    AddSequential(new FromMiddlePos_ToLeftSwitch());
 /*
 	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.1));
@@ -173,9 +178,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.L_L) == 0) // R POS LL
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
-
+	   AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(),false));
+	//   AddSequential(new PathExecuter(GoStraightPath::GetInstance(), true));
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
-	    AddSequential(new FromMiddlePos_ToLeftSwitch());
+
 /*
 	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 3.25));

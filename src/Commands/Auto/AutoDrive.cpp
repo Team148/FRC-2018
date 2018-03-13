@@ -70,7 +70,7 @@ void AutoDrive::Initialize() {
 	m_leftStartPos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_rightStartPos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-	m_distanceTicks = (m_travelDistance*TICKS_PER_ROTATIONS)/WHEEL_CIRC_INCHES;
+//	m_distanceTicks = (m_travelDistance*TICKS_PER_ROTATIONS)/WHEEL_CIRC_INCHES;
 
 	//reset isFinished
 	m_isFinished=0;

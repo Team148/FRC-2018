@@ -1,13 +1,14 @@
-#ifndef TrajectoryPath_H
-#define TrajectoryPath_H
+//#ifndef TrajectoryPath_H
+//#define TrajectoryPath_H
 
+#pragma once
 
 class TrajectoryPath {
 
 public:
 	TrajectoryPath();
 	static TrajectoryPath* GetInstance();
-
+//protected:
 	virtual int GetIndexLength();
 	virtual double GetTimeLength();
 	virtual double GetInitialHeading();
@@ -23,4 +24,4 @@ public:
 	virtual double GetHeading(int index);
 };
 
-#endif  // Drivetrain_H
+//#endif  // Drivetrain_H
