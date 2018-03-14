@@ -35,6 +35,8 @@ void TurnPosition::Initialize()
 	if(!m_is_clockwise)
 		m_heading = 360 - m_heading;
 
+//	if(m_is_clockwise) m_heading = -1*(360 - m_heading);
+
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::POSITION_CONFIG);
 
 	SetTimeout(m_time_out);
@@ -46,6 +48,13 @@ void TurnPosition::Execute()
 {
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 	m_heading_err = m_heading - m_cur_heading;
+
+
+	m_heading_err = (m_heading - m_cur_heading);
+	if(m_heading_err<-180)
+		m_heading_err += 360;
+	if(m_heading_err>180)
+		m_heading_err -= 360;
 	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
 	double ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
@@ -69,6 +78,9 @@ void TurnPosition::Execute()
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
 //	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
+
+//	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true; figure out
+
 
 }
 
