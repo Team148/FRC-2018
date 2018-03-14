@@ -40,7 +40,7 @@ void DriveWithJoystick::Execute() {
 		else
 		{
 			Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_THROTTLE_FILTER));
-			std::cout << "Currently filtered" << std::endl;
+//			std::cout << "Currently filtered" << std::endl;
 
 		}
 

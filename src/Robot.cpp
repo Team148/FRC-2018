@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 #include <Commands/Auto/AutoDrive.h>
+#include <Commands/Auto/LockHeading.h>
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/TurnPosition.h>
@@ -66,11 +67,6 @@ public:
 
 
 	void RobotInit() override {
-		//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-		//m_chooser.AddObject("My Auto", &m_myAuto);
-		//frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
-
 
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
@@ -116,17 +112,11 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
-		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake(INTAKE_PERCENT,5));
-		//frc::Scheduler::GetInstance()->AddCommand(new TurnPID(45));
-		//frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_SCALE_HIGH));
-//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(tStartingPosition::RIGHT_POS, meh, tCubeAmount::THREE_CUBE));
-		//frc::Scheduler::GetInstance()->AddCommand(new AutoIntake());
-
-//		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(-180.0));
-		//frc::Scheduler::GetInstance()->AddCommand(new Right_S_Scale_S_Switch_S_Scale());
+		frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(200.0, true, 5.0));
+//		frc::Scheduler::GetInstance()->AddCommand(new LockHeading(10.0));
 
 
-//		frc::Scheduler::GetInstance()->AddCommand(new GoStraightPath);
+
 		int autoPosition = 0;
 		int cubeAmount = 0;
 		char fms_data[3] = {};
@@ -134,7 +124,7 @@ public:
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-	//	elevator->SetElevatorPosition(ELEVATOR_ZERO);
+
 		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
@@ -155,7 +145,7 @@ public:
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
 	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+//	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
 
@@ -171,13 +161,13 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
-		drivetrain->configOpenLoop();
-//		drivetrain->configClosedLoop();
+		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
-	//	elevator->SetElevatorPosition(ELEVATOR_ZERO);
+
 		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
 		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
@@ -190,8 +180,12 @@ public:
 		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
 		static double IntakeSpeed = 0.0;
+		static double ClimberSpeed = 0.0;
+		static double WranglerSpeed = 0.0;
 
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
+		ClimberSpeed = 0.0;
+		WranglerSpeed = 0.0;
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
@@ -202,10 +196,11 @@ public:
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			WranglerSpeed = WRANGLER_FAST_PERCENT;
+
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
-			climber->SetClimberMotor(CLIMBER_OUTPUT_PERCENT);
-		else
-			climber->SetClimberMotor(0.0);
+			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
 		//POV buttons
 		if (oi->opStick->GetPOV() == 0)
@@ -213,43 +208,23 @@ public:
 		if (oi->opStick->GetPOV() == 180)
 			elevator->SetElevatorPosition(ELEVATOR_HANG);
 
-//		if
 		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
 		{
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
 		}
 
 		intake->SetIntakeMotor(IntakeSpeed);
-
-		//std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
-
-
-//		std::cout << "left encoder value: " << drivetrain->updateLeftEncoder() << std::endl;
-//		std::cout << "\n right encoder value " << drivetrain->updateRightEncoder() << std::endl;
-
-//		drivetrain->unitConversionTest();
-
-//		drivetrain->getLeftDriveVelocity();
-
-//		std::cout << "Yaw:\t\t" << drivetrain->updateGyroYaw() << std::endl;
-//		std::cout << "Pitch:\t\t" << drivetrain->updateGyroPitch() << std::endl;
-//		std::cout << "Roll:\t\t" << drivetrain->updateGyroRoll() << std::endl;
-
-//		std::cout << "Get raw gyro yaw: " << drivetrain->updatePigeon() << std::endl;
-//		std::cout << "Get accum gyro yaw: " << drivetrain->updatePigey() << std::endl;
-//		drivetrain->SetDriveVelocity(unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))), unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
-
+		climber->SetClimberMotor(ClimberSpeed);
+		wrangler->SetWranglerMotor(WranglerSpeed);
 	}
 
 	void TestPeriodic() override {
-//		drivetrain->SetDriveVelocity(0.0, unit_master.GetTicksPer100ms((150*OI::GetInstance()->drvStick->GetRawAxis(1))));
-//		frc::SmartDashboard::PutNumber("DriveVelocity",drivetrain->getLeftDriveVelocity());
+
 	}
 
 private:
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
-
 
 };
 

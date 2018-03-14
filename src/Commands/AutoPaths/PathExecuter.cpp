@@ -13,7 +13,7 @@ PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed) {
 
 // Called just before this Command runs the first time
 void PathExecuter::Initialize() {
-	Drivetrain::GetInstance()->configPathLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;

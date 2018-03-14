@@ -14,12 +14,14 @@ void ConfigDriveVelocityClosedLoop::Initialize()
 {
 	if(m_closedloop)
 	{
-		Drivetrain::GetInstance()->configClosedLoopVelocity();
+		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::VELOCITY_CONFIG);
+
 
 	}
 	else
 	{
 		Drivetrain::GetInstance()->SetBrakeMode(false);
-		Drivetrain::GetInstance()->configOpenLoop();
+		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+
 	}
 }

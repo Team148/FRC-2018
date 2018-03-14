@@ -14,10 +14,10 @@ constexpr double DRIVETRAIN_P_VEL = 0.4;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 2.0; // 4.0
 
-constexpr double DRIVETRAIN_F_POS = 0;// 0.0575
-constexpr double DRIVETRAIN_P_POS = 0.18;//0.025 // 1.5 .06
+constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
+constexpr double DRIVETRAIN_P_POS = 0.27; // .18
 constexpr double DRIVETRAIN_I_POS = 0.000; // 0.001
-constexpr double DRIVETRAIN_D_POS = 0.0;
+constexpr double DRIVETRAIN_D_POS = 0.9;
 
 constexpr float DRIVE_ANGLE_TOLERANCE = 3.0;
 
@@ -120,6 +120,13 @@ constexpr float ELEVATOR_OUTPUT_PERCENT = 1.0;
 constexpr int LEFT_VALUE = -1;
 constexpr int RIGHT_VALUE = 1;
 
+enum tDriveConfigs
+{
+	OPEN_LOOP = 0,
+	VELOCITY_CONFIG,
+	POSITION_CONFIG,
+	PATH_CONFIG
+};
 enum tUnits
 {
 	TICKS = 0,
