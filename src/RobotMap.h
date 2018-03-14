@@ -13,15 +13,4 @@ constexpr int DRIVE_RIGHTMOTOR_3 	= 6;
 constexpr int INTAKE_MOTOR_1		= 12;
 constexpr int INTAKE_MOTOR_2		= 14;
 
-constexpr int ELEVATOR_MOTOR_1		= 10;
-constexpr int ELEVATOR_MOTOR_2		= 11;
-
-constexpr int CLIMBER_MOTOR_1		= 7;
-constexpr int CLIMBER_MOTOR_2		= 8;
-constexpr int CLIMBER_MOTOR_3		= 9;
-
-constexpr int WRANGLER_MOTOR_1		= 13;
-
-constexpr int PIGEON_GYRO 			= 0;
-
 #endif  // ROBOTMAP_H

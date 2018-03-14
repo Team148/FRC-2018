@@ -3,7 +3,6 @@
 
 #include <Subsystems/Drivetrain.h>
 #include "Commands/Command.h"
-#include "Util/UnitMaster.h"
 
 
 class DriveWithJoystick : public frc::Command {
@@ -16,7 +15,7 @@ public:
 	void Interrupted();
 
 private:
-	UnitMaster unit_master;
+
 };
 
 #endif  // DriveWithJoystick_H
