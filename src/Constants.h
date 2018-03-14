@@ -28,7 +28,7 @@ constexpr double DRIVETRAIN_PATH_KP_REVERSE =30.0;// 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING =10.0;// 3.0;
-constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 0.0;//2.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 10.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
 //Intake

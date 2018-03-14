@@ -15,6 +15,8 @@
 #include "./Paths/FakeStraightPath.h"
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
+#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
+#include "./Paths/FromRightPos_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
@@ -55,7 +57,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	   // AddSequential(new FromMiddlePos_ToRightScale());
 	    std::cout << "Running the new stuff" << std::endl;
-	    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
+	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 /*
@@ -178,7 +181,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.L_L) == 0) // R POS LL
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	   AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(),false));
+	    AddSequential(new WaitCommand(20.0));
+	   AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPathReversed::GetInstance(),true));
 	//   AddSequential(new PathExecuter(GoStraightPath::GetInstance(), true));
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
 
