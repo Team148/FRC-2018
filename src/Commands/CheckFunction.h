@@ -25,6 +25,7 @@ public:
 	void Interrupted() override;
 
 private:
+	std::shared_ptr<NetworkTable> table;
 	double pdp_curr[16][10]={};
 	int currentcounter=0;
 	double drivelowerlimit = 0.1;
@@ -75,6 +76,7 @@ private:
 	bool driveleftencoder=false;
 	bool driverightencoder=false;
 
+	bool wranglercurrentpass=false;
 	bool elevatorencoder=false;
 };
 

@@ -20,7 +20,7 @@ constexpr int CLIMBER_MOTOR_1		= 7;
 constexpr int CLIMBER_MOTOR_2		= 8;	//12
 constexpr int CLIMBER_MOTOR_3		= 9;	//3
 
-constexpr int WRANGLER_MOTOR_1		= 13;
+constexpr int WRANGLER_MOTOR_1		= 13;	//6
 
 constexpr int PIGEON_GYRO 			= 0;
 
