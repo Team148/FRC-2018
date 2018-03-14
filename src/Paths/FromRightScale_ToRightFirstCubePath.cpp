@@ -28,7 +28,7 @@ double FromRightScale_ToRightFirstCubePath::GetEndHeading()
 }
 double FromRightScale_ToRightFirstCubePath::GetTimeLength()
 {
-	return left_wheel[0][6] * (num_index-1);
+	return GetDT() * (num_index-1);
 }
 double FromRightScale_ToRightFirstCubePath::GetDT()
 {

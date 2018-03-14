@@ -26,13 +26,14 @@ TurnPosition::TurnPosition(double heading, bool isClockwise, double timeOut)
 void TurnPosition::Initialize()
 {
 //	m_end_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
-	m_cur_heading = Drivetrain::GetInstance()->GetInitPathDriveHeading();
+	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	m_l_init_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_init_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
-	if(!m_is_clockwise) m_heading = 360 - m_heading;
+	if(!m_is_clockwise)
+		m_heading = 360 - m_heading;
 
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::POSITION_CONFIG);
 
@@ -43,7 +44,7 @@ void TurnPosition::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void TurnPosition::Execute()
 {
-	m_cur_heading = Drivetrain::GetInstance()->GetInitPathDriveHeading();
+	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 	m_heading_err = m_heading - m_cur_heading;
 	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
@@ -67,7 +68,7 @@ void TurnPosition::Execute()
 
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
 
-	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
+//	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
 }
 

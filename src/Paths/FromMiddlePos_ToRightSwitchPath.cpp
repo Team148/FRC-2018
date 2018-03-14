@@ -28,7 +28,7 @@ double FromMiddlePos_ToRightSwitchPath::GetEndHeading()
 }
 double FromMiddlePos_ToRightSwitchPath::GetTimeLength()
 {
-	return left_wheel[0][6] * (num_index-1);
+	return GetDT() * (num_index-1);
 }
 double FromMiddlePos_ToRightSwitchPath::GetDT()
 {

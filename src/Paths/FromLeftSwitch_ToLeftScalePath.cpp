@@ -28,7 +28,7 @@ double FromLeftSwitch_ToLeftScalePath::GetEndHeading()
 }
 double FromLeftSwitch_ToLeftScalePath::GetTimeLength()
 {
-	return left_wheel[0][6] * (num_index-1);
+	return GetDT() * (num_index-1);
 }
 double FromLeftSwitch_ToLeftScalePath::GetDT()
 {

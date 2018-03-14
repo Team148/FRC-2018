@@ -28,7 +28,7 @@ double FromRightFirstCube_ToLeftSwitchPath::GetEndHeading()
 }
 double FromRightFirstCube_ToLeftSwitchPath::GetTimeLength()
 {
-	return left_wheel[0][6] * (num_index-1);
+	return GetDT() * (num_index-1);
 }
 double FromRightFirstCube_ToLeftSwitchPath::GetDT()
 {

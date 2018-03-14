@@ -17,7 +17,11 @@
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
 #include "./Paths/FromRightPos_ToRightScalePath.h"
+#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
+#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
+#include "./Paths/FromRightSecondCube_ToRightScalePath.h"
+
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
@@ -56,9 +60,30 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 	   // AddSequential(new FromMiddlePos_ToRightScale());
-	    std::cout << "Running the new stuff" << std::endl;
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
+	    std::cout << FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength() << std::endl;
+
+
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.1));
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
+	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
+	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new TurnPosition(135,true,0.5));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
+	    AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.5));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightSecondCube_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
+	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
+	    AddSequential(new PathExecuter(FromRightSecondCube_ToRightScalePath::GetInstance(), true));
+	    AddSequential(new TurnPosition(70,true,0.5));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+	    AddSequential(new WaitCommand(0.2));
+	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+	    AddSequential(new AutoDrive(-15, 150, 0, 70));
+	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new TurnPosition(135,true,0.5));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
+	    AddSequential(new PathExecuter(FromRightScale_ToRightSecondCubePath::GetInstance(), false));
+
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 /*

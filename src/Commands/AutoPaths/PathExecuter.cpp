@@ -26,7 +26,7 @@ void PathExecuter::Execute() {
 
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
-	std::cout << time_index << std::endl;
+//	std::cout << time_index << std::endl;
 
 	if(!(time_index < m_trajectory->GetIndexLength())){
 		m_isFinished = true;
@@ -62,8 +62,8 @@ bool PathExecuter::IsFinished() {
 
 // Called once after isFinished returns true
 void PathExecuter::End() {
-//	Drivetrain::GetInstance()->configOpenLoop();
-//	Drivetrain::GetInstance()->Arcade(0,0);
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+	Drivetrain::GetInstance()->Arcade(0,0);
 	std::cout << "PathExecuterPath Done" << std::endl;
 
 }

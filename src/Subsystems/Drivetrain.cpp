@@ -217,24 +217,24 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double right_error = m_r_pos - cur_pos_r;
 
 
-	double left_output = 	DRIVETRAIN_PATH_FV * m_l_velo +
-							DRIVETRAIN_PATH_FA * m_l_accel +
-							DRIVETRAIN_PATH_KP * left_error
+	double left_output = 	(DRIVETRAIN_PATH_FV * m_l_velo) +
+							(DRIVETRAIN_PATH_FA * m_l_accel) +
+							(DRIVETRAIN_PATH_KP * left_error)
 							- heading_contrib;
-	double right_output =	DRIVETRAIN_PATH_FV * m_r_velo +
-							DRIVETRAIN_PATH_FA * m_r_accel +
-							DRIVETRAIN_PATH_KP * right_error
+	double right_output =	(DRIVETRAIN_PATH_FV * m_r_velo) +
+							(DRIVETRAIN_PATH_FA * m_r_accel) +
+							(DRIVETRAIN_PATH_KP * right_error)
 							+ heading_contrib;
 
 	if(isReverse)
 	{
-		double left_output = 	DRIVETRAIN_PATH_FV * m_l_velo +
-								DRIVETRAIN_PATH_FA * m_l_accel +
-								DRIVETRAIN_PATH_KP_REVERSE * left_error
+		double left_output = 	(DRIVETRAIN_PATH_FV * m_l_velo) +
+								(DRIVETRAIN_PATH_FA * m_l_accel) +
+								(DRIVETRAIN_PATH_KP_REVERSE * left_error)
 								- heading_contrib;
-		double right_output =	DRIVETRAIN_PATH_FV * m_r_velo +
-								DRIVETRAIN_PATH_FA * m_r_accel +
-								DRIVETRAIN_PATH_KP_REVERSE * right_error
+		double right_output =	(DRIVETRAIN_PATH_FV * m_r_velo) +
+								(DRIVETRAIN_PATH_FA * m_r_accel) +
+								(DRIVETRAIN_PATH_KP_REVERSE * right_error)
 								+ heading_contrib;
 
 	}

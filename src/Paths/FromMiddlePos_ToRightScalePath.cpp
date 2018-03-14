@@ -28,7 +28,7 @@ double FromMiddlePos_ToRightScalePath::GetEndHeading()
 }
 double FromMiddlePos_ToRightScalePath::GetTimeLength()
 {
-	return left_wheel[0][6] * (num_index-1);
+	return GetDT() * (num_index-1);
 }
 double FromMiddlePos_ToRightScalePath::GetDT()
 {
