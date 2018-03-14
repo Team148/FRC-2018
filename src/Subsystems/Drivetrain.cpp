@@ -13,13 +13,13 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 	//left drive motors
 	m_leftMotor1 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_1);
-	m_leftMotor2 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_2);
-	m_leftMotor3 = new WPI_VictorSPX(DRIVE_LEFTMOTOR_3);
+	m_leftMotor2 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_2);
+	m_leftMotor3 = new WPI_TalonSRX(DRIVE_LEFTMOTOR_3);
 
 	//right drive motors
 	m_rightMotor1 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_1);
-	m_rightMotor2 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_2);
-	m_rightMotor3 = new WPI_VictorSPX(DRIVE_RIGHTMOTOR_3);
+	m_rightMotor2 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_2);
+	m_rightMotor3 = new WPI_TalonSRX(DRIVE_RIGHTMOTOR_3);
 
 	m_leftMotor2->Follow(*m_leftMotor1);
 	m_leftMotor3->Follow(*m_leftMotor1);

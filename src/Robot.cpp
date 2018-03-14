@@ -13,10 +13,12 @@
 
 #include "Subsystems/Drivetrain.h"
 #include "Subsystems/Intake.h"
+#include "Subsystems/Wrist.h"
 
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
 #include "Commands/RunIntake.h"
+#include "Commands/RunWrist.h"
 
 #include <string>
 
@@ -29,6 +31,7 @@ public:
 
 	Drivetrain *drivetrain = 0;
 	Intake *intake = 0;
+	Wrist *wrist = 0;
 	OI *oi = 0;
 
 
@@ -37,6 +40,7 @@ public:
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
+		wrist = Wrist::GetInstance();
 
 	}
 
@@ -86,6 +90,16 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+		static double WristSpeed = 0.0;
+
+		WristSpeed = 0.0;
+
+		if (oi->drvStick->GetRawAxis(2) >= 0.2)
+			WristSpeed = WRIST_PERCENT;
+		else if (oi->drvStick->GetRawAxis(3) >= 0.2)
+			WristSpeed = -WRIST_PERCENT;
+
+		wrist->SetWristMotor(WristSpeed);
 	}
 
 	void TestPeriodic() override {

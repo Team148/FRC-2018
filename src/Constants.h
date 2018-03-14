@@ -26,6 +26,7 @@ constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
 constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
+constexpr float WRIST_PERCENT = 0.33;
 constexpr float INTAKE_FAST_PERCENT = 0.8;
 constexpr float INTAKE_SLOW_PERCENT = 0.15;
 constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;

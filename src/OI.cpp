@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <Commands/RunIntake.h>
+#include <Commands/RunWrist.h>
 
 OI *OI::m_instance = 0;
 
@@ -34,4 +35,17 @@ OI::OI() {
 	m_opButton9 = new JoystickButton(opStick, 9);
 	m_opButton10 = new JoystickButton(opStick, 10);
 
-};
+	m_drvButton5->WhenPressed(new RunIntake(INTAKE_FAST_PERCENT));
+	m_drvButton5->WhenReleased(new RunIntake(0.0));
+
+	m_drvButton6->WhenPressed(new RunIntake(OUTTAKE_FULL_PERCENT));
+	m_drvButton6->WhenReleased(new RunIntake(0.0));
+}
+
+OI* OI::GetInstance() {
+	if (m_instance ==  0) {
+		std::cout << "info: GetInstance Creating Drivetrain Class" << std::endl;
+		m_instance = new OI();
+	}
+	return m_instance;
+}

@@ -8,7 +8,7 @@ Intake::Intake() : Subsystem("Intake"){
 
 	//intake motors
 	m_IntakeMotor1 = new WPI_TalonSRX(INTAKE_MOTOR_1);
-	m_IntakeMotor2 = new WPI_VictorSPX(INTAKE_MOTOR_2);
+	m_IntakeMotor2 = new WPI_TalonSRX(INTAKE_MOTOR_2);
 
 	//intake motor configuration
 	m_IntakeMotor1->SetSafetyEnabled(false);
@@ -16,6 +16,9 @@ Intake::Intake() : Subsystem("Intake"){
 
 	m_IntakeMotor1->SetInverted(true);
 	m_IntakeMotor2->SetInverted(false);
+
+	m_IntakeMotor1->SetNeutralMode(NeutralMode::Brake);
+	m_IntakeMotor2->SetNeutralMode(NeutralMode::Brake);
 }
 
 Intake* Intake::GetInstance() {
