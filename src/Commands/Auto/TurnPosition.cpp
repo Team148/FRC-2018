@@ -3,22 +3,14 @@
 #include "Constants.h"
 #include <iostream>
 
-TurnPosition::TurnPosition(double heading)
+
+
+TurnPosition::TurnPosition(double heading, double timeOut)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
 	m_heading = heading;
-
-}
-
-TurnPosition::TurnPosition(double heading, bool isClockwise, double timeOut)
-{
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
-	Requires(Drivetrain::GetInstance());
-	m_heading = heading;
-	m_is_clockwise = isClockwise;
 	m_time_out = timeOut;
 }
 
@@ -32,8 +24,7 @@ void TurnPosition::Initialize()
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_init_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
-	if(!m_is_clockwise)
-		m_heading = 360 - m_heading;
+
 
 //	if(m_is_clockwise) m_heading = -1*(360 - m_heading);
 

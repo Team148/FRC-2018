@@ -36,7 +36,7 @@ private:
 	float m_maxAccelRate = 100; 		//Inches per sec^2
 	float m_maxDecelRate= 90;		//Inches per sec^2
 	float m_maxdrivevelocity = 150; //Inches per se
-	float m_dt = AUTO_PERIODIC_DT;				//time step set to 20ms(50Hz).
+	float m_dt = AUTO_PERIODIC_DT;
 
 	struct Trajectory_points {
 		double t;			//time

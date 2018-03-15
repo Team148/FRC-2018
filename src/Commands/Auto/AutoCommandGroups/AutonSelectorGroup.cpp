@@ -67,20 +67,20 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPosition(135,true,0.5));
+	    AddSequential(new TurnPosition(135, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
 	    AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.5));
 	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightSecondCube_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
 	    AddSequential(new PathExecuter(FromRightSecondCube_ToRightScalePath::GetInstance(), true));
-	    AddSequential(new TurnPosition(70,true,0.5));
+	    AddSequential(new TurnPosition(70, 0.5));
 //	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 	    AddSequential(new WaitCommand(0.2));
 	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 	    AddSequential(new AutoDrive(-15, 150, 0, 70));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPosition(135,true,0.5));
+	    AddSequential(new TurnPosition(135, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
 	    AddSequential(new PathExecuter(FromRightScale_ToRightSecondCubePath::GetInstance(), false));
 

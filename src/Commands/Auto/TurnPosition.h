@@ -6,8 +6,7 @@
 
 class TurnPosition : public Command {
 public:
-	TurnPosition(double heading);
-	TurnPosition(double heading, bool isClockwise, double timeOut);
+	TurnPosition(double heading,  double timeOut);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,7 +15,6 @@ public:
 
 private:
 	UnitMaster unit_master;
-	bool m_is_clockwise = false;
 	double m_time_out = 0.0;
 	double m_heading = 0.0;
 	double m_robot_heading = 0.0;
