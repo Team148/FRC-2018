@@ -234,9 +234,27 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	}
 }
-
-
-
+if(start_pos == tStartingPosition::MIDDLE_POS)
+{
+	if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.R_L) == 0 ) // R POS LL
+	{
+	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromMiddlePos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.0));
+		AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
+		AddSequential(new AutoDrive(-25, 150, 0, 0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	}
+	if(fms_data_truc.compare(autoConstData.L_L) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0 ) // R POS LL
+	{
+	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromMiddlePos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-1.0));
+		AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchPath::GetInstance(), false));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
+		AddSequential(new AutoDrive(-25, 150, 0, 0));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	}
+}
 
 
 

@@ -149,7 +149,8 @@ enum tCubeAmount
 enum tStartingPosition
 {
 	RIGHT_POS = 1,
-	LEFT_POS = 2
+	LEFT_POS = 2,
+	MIDDLE_POS = 3
 };
 
 typedef struct
