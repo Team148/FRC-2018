@@ -32,7 +32,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 
-	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+	    AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
 	    	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.1));
 //	    	AddSequential(new FromRightPos_ToRightScale()); chnage to path execute
 //	    	AddSequential(new WaitCommand(0.3));
@@ -97,7 +97,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 //	    //	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 
-	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+	    AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
 	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 2.7));
 //		AddSequential(new FromRightPos_ToRightSwitch()); // need to add
 
@@ -120,7 +120,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	{
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
-	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+	    AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.1));
 //		AddSequential(new FromRightPos_ToRightScale());
 //		AddSequential(new WaitCommand(0.7));
@@ -146,7 +146,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
 
-	    AddParallel(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.35));
+	    AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 3.25));
 //		AddSequential(new FromRightPos_ToLeftSwitch()); // need to add
 		AddSequential(new WaitCommand(1.0));

@@ -32,7 +32,7 @@ constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 5.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
 //Intake
-constexpr float CUBE_IN_CURRENT_CURRENT = 18;
+constexpr float CUBE_IN_CURRENT_CURRENT = 31;
 constexpr float TIME_TO_RUN_INTAKE = 0.3;
 
 constexpr float DRIVE_VELOCITY_P = 0;
@@ -113,6 +113,7 @@ constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
 constexpr float OUTTAKE_PERCENT = -0.20;
 constexpr float OUTTAKE_PERCENT_AUTO = -0.25;
 constexpr float OUTTAKE_FULL_PERCENT = -0.60;
+constexpr float OUTTAKE_MAX_PERCENT = -1.00;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_FAST_PERCENT = -1.0;
 constexpr float WRANGLER_SLOW_PERCENT = -0.5;
