@@ -32,7 +32,7 @@ constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 5.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
 //Intake
-constexpr float CUBE_IN_CURRENT_CURRENT = 31;
+constexpr float CUBE_IN_CURRENT_CURRENT = 500;
 constexpr float TIME_TO_RUN_INTAKE = 0.3;
 
 constexpr float DRIVE_VELOCITY_P = 0;
