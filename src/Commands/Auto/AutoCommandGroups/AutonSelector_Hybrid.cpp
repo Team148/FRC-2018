@@ -9,6 +9,8 @@
 #include "./Paths/FromRightScale_ToRightSecondCubePath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
 #include "./Paths/FromRightSecondCube_ToRightScalePath.h"
+#include "../../AutoPaths/PathExecuter.h"
+
 
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
@@ -34,16 +36,15 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
 	    	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 2.1));
-//	    	AddSequential(new FromRightPos_ToRightScale()); chnage to path execute
+	    	AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(),false));
 //	    	AddSequential(new WaitCommand(0.3));
 	    	AddSequential(new AutoIntake(OUTTAKE_PERCENT, 1.0));
 	    //	 scored first cube in scale, now grabbing next cube
 	    	AddParallel(new AutoDrive(-17, 150, 0, 0));
 	    	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-
 	    	AddSequential(new TurnPosition(-200.0, 2.0));
 	    	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
-	    //	AddSequential(new FromRightScale_ToRightFirstCube());
+	    	AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 	    	AddSequential(new AutoDrive(48, 80, 0, 165));
 	    	AddSequential(new AutoDrive(-5, 150, 0, 165));
 	    	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
