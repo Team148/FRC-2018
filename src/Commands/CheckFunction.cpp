@@ -14,7 +14,7 @@ CheckFunction::CheckFunction() {
 
 // Called just before this Command runs the first time
 void CheckFunction::Initialize() {
-	drivereadytocheck=false;
+
 	l1currentpass=false;
 	l2currentpass=false;
 	l3currentpass=false;
@@ -47,7 +47,7 @@ void CheckFunction::Execute() {
 
 	//check all currents
 	for(int x=0;x<=15;x++) {
-		pdp_curr[x][currentcounter]=Drivetrain::GetInstance()->pdp->GetCurrent(x);
+		pdp_curr[x][currentcounter]=fabs(Drivetrain::GetInstance()->pdp->GetCurrent(x));
 		std::cout << x <<": "<< pdp_curr[x][currentcounter] << " ";
 	}
 	std::cout << std::endl;
@@ -156,21 +156,21 @@ void CheckFunction::Execute() {
 
 	if(!climber1currentpass) {
 		for(int i = 0; i<9;i++) {
-			if(pdp_curr[4][i] > 0.1)
+			if(pdp_curr[4][i] > climberlowerlimit)
 				climber1currentpass=true;
 		}
 	}
 
 	if(!climber2currentpass) {
 		for(int i = 0; i<9;i++) {
-			if(pdp_curr[12][i] > 0.1)
+			if(pdp_curr[12][i] > climberlowerlimit)
 				climber2currentpass=true;
 		}
 	}
 
 	if(!climber3currentpass) {
 		for(int i = 0; i<9;i++) {
-			if(pdp_curr[3][i] > 0.1)
+			if(pdp_curr[3][i] > climberlowerlimit)
 				climber3currentpass=true;
 		}
 	}
@@ -179,7 +179,7 @@ void CheckFunction::Execute() {
 	SmartDashboard::PutNumber("Wrangler Current", pdp_curr[6][currentcounter]);
 	if(!wranglercurrentpass) {
 		for(int i = 0; i<9;i++) {
-			if(pdp_curr[6][i] > 0.1)
+			if(pdp_curr[6][i] > wranglerlowerlimit)
 				wranglercurrentpass=true;
 		}
 	}
@@ -202,20 +202,20 @@ void CheckFunction::Execute() {
 
 	//check drive encoders
 	if(pdp_curr[0][currentcounter] > 0.0){
-		if(Drivetrain::GetInstance()->getLeftDriveVelocity()>0)
+		if(Drivetrain::GetInstance()->getLeftDriveVelocity()!=0)
 			driveleftencoderpass=true;
 	}
 	SmartDashboard::PutBoolean("Drive Left Encoder", driveleftencoderpass);
 
 	if(pdp_curr[15][currentcounter] > 0.0){
-		if(Drivetrain::GetInstance()->getRightDriveVelocity()>0)
+		if(Drivetrain::GetInstance()->getRightDriveVelocity()!=0)
 			driverightencoderpass=true;
 	}
 	SmartDashboard::PutBoolean("Drive Right Encoder", driverightencoderpass);
 
 	//check elevator encoders
 	if(pdp_curr[11][currentcounter] > 0.0){
-		if(Elevator::GetInstance()->GetElevatorVelocity()>0)
+		if(Elevator::GetInstance()->GetElevatorVelocity()!=0)
 			elevatorencoderpass=true;
 	}
 	SmartDashboard::PutBoolean("Elevator Encoder", elevatorencoderpass);
@@ -234,7 +234,7 @@ bool CheckFunction::IsFinished() {
 
 // Called once after isFinished returns true
 void CheckFunction::End() {
-
+	std::cout <<"Ending Check" << std::endl;
 }
 
 // Called when another command which requires one or more of the same

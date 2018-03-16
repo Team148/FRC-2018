@@ -29,15 +29,12 @@ private:
 	double pdp_curr[16][10]={};
 	int currentcounter=0;
 	double drivelowerlimit = 0.1;
-
-	bool drivereadytocheck=false;
-
 	double elevlowerlimit = 0.1;
-	bool elevreadytocheck=false;
+	double climberlowerlimit = 0.1;
+	double wranglerlowerlimit = 0.1;
 
 	double intakelowerlimit = 0.1;
 	double intakecurrent[2][10] = {};
-	bool intakereadytocheck=false;
 
 	bool l1currentpass=false;
 	bool l2currentpass=false;
