@@ -39,7 +39,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new WaitCommand(0.5));
 	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPosition(135, 0.5));
+	    AddSequential(new TurnPosition(170, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
 	    AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.5));
