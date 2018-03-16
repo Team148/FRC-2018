@@ -4,12 +4,15 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
+
 #include <Commands/Auto/AutoDrive.h>
 #include <Commands/Auto/LockHeading.h>
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/TurnPosition.h>
-#include <Commands/Auto/AutoCommandGroups/AutonSelectorGroup.h>
 #include <Commands/Auto/AutoDriveTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
@@ -119,7 +122,7 @@ public:
 
 		int autoPosition = 0;
 		int cubeAmount = 0;
-		char fms_data[3] = {};
+//		char fms_data[3] = {};
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
@@ -130,13 +133,13 @@ public:
 
 		if(gameData.length() > 0)
 		{
-			cubeAmount = oi->GetInstance()->GetSelectorA();
+//			cubeAmount = oi->GetInstance()->GetSelectorA();
 			autoPosition = tStartingPosition::RIGHT_POS;
 
 			if(cubeAmount > 3) cubeAmount = 3;
 
 
-			if(oi->GetInstance()->GetSw1())
+			if(oi->GetInstance()->GetSw5())
 			{
 				autoPosition = tStartingPosition::LEFT_POS;
 			}
@@ -144,8 +147,24 @@ public:
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
+//	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
+	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+
+
+//			if(oi->GetInstance()->GetSw1())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
+//			}
+//			if(oi->GetInstance()->GetSw2())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
+//			}
+//			if(oi->GetInstance()->GetSw3())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+//			}
 	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+//	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
 
