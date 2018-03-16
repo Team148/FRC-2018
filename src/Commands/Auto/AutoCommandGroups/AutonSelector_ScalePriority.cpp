@@ -25,11 +25,9 @@ AutonSelector_ScalePriority::AutonSelector_ScalePriority(int start_pos, std::str
 	std::string fms_data_truc = FMS_Data.substr (0,2);
     std::cout << "What I See: " << fms_data_truc << std::endl;
 
-
-
 if(start_pos == tStartingPosition::RIGHT_POS)
 {
-	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
+	if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0) // R POS RR
 	{
 	   // AddSequential(new FromMiddlePos_ToRightScale());
 	    std::cout << FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength() << std::endl;
@@ -60,31 +58,25 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	}
 
-	if(fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RL
+	if(fms_data_truc.compare(autoConstData.R_L) == 0 || fms_data_truc.compare(autoConstData.L_L) == 0) // R POS RL
 	{
-	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.2));
-	    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
-	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
-	    AddSequential(new AutoDrive(-15, 150, FromMiddlePos_ToRightSwitchPath::GetInstance()->GetEndHeading()));
+		//AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
+	    	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+		AddSequential(new WaitCommand(0.5));
+	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new TurnPosition(180, 1.2));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0)); // ADD THE PATH TIME IN
+	    //AddSequential(new PathExecuter(FromLeftScale_ToLeftFirstCubePath::GetInstance(), false)); // add pls
+	    AddSequential(new TurnPosition(0, 1.2));
+	    //AddSequential(new PathExecuter(FromLeftFirstCube_ToLeftScalePath::GetInstance(), false)); // add pls
+	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+		AddSequential(new WaitCommand(0.5));
+	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
+	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0)); // ADDED, NOT NORMAL
 
 	}
-	if(fms_data_truc.compare(autoConstData.L_R) == 0) // R POS LR
-	{
-	    std::cout << "What I See: " << fms_data_truc << std::endl;
-/*
 
-*/
-	}
-	if(fms_data_truc.compare(autoConstData.L_L) == 0) // R POS LL
-	{
-	    std::cout << "What I See: " << fms_data_truc << std::endl;
-	    AddSequential(new WaitCommand(20.0));
-	   AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPathReversed::GetInstance(),true));
-
-
-	}
 }
 
 
