@@ -4,7 +4,6 @@
 
 #include <Commands/RunIntake.h>
 #include <Commands/RunClimber.h>
-#include <Commands/RunDrivetrain.h>
 #include <Commands/GrabPartner.h>
 #include <Commands/SetElevator.h>
 
@@ -66,18 +65,6 @@ OI::OI() {
 		m_dsiSw3 = new JoystickButton(dsiBrickA, 9);
 		m_dsiSw4 = new JoystickButton(dsiBrickA, 10);
 		m_dsiSw5 = new JoystickButton(dsiBrickA, 11);
-
-
-
-
-
-
-//	//DriveJoystick Controls
-	m_drvButton1->WhenPressed(new GrabPartner(WRANGLER_SLOW_PERCENT));
-	m_drvButton1->WhenReleased(new GrabPartner(0.0));
-
-	m_drvButton2->WhenPressed(new GrabPartner(WRANGLER_FAST_PERCENT));
-	m_drvButton2->WhenReleased(new GrabPartner(0.0));
 
 	//Elevator
 	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));

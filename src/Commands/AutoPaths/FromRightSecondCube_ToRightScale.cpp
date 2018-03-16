@@ -13,7 +13,7 @@ FromRightSecondCube_ToRightScale::FromRightSecondCube_ToRightScale() {
 
 // Called just before this Command runs the first time
 void FromRightSecondCube_ToRightScale::Initialize() {
-	Drivetrain::GetInstance()->configPathLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;
@@ -60,7 +60,7 @@ bool FromRightSecondCube_ToRightScale::IsFinished() {
 
 // Called once after isFinished returns true
 void FromRightSecondCube_ToRightScale::End() {
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 	Drivetrain::GetInstance()->Arcade(0,0);
 
 }

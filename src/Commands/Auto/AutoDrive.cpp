@@ -79,11 +79,7 @@ void AutoDrive::Initialize() {
 	bool isTriangular=0;
 
 	//check that the Drivetrain is in closed loop
-	Drivetrain::GetInstance()->configClosedLoopVelocity();
-	Drivetrain::GetInstance()->configPathLoop();
-
-	//set Brake Mode
-	Drivetrain::GetInstance()->SetBrakeMode(true);
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 
 	//ensure the queue is empty
 	while(!m_trajectory.empty())
@@ -248,13 +244,14 @@ bool AutoDrive::IsFinished() {
 // Called once after isFinished returns true
 void AutoDrive::End() {
 	Drivetrain::GetInstance()->SetDriveVelocity(m_finalVelocity,m_finalVelocity);
-	std::cout << "is done" << std::endl;
 	//empty the queue if interrupted
 	while(!m_trajectory.empty())
 		m_trajectory.pop();
 
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+
 	Drivetrain::GetInstance()->Arcade(0,0);
+	std::cout << "FINISHED: AutoDrive" << std::endl;
 }
 
 // Called when another command which requires one or more of the same

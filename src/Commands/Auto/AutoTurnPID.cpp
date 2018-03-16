@@ -15,7 +15,7 @@ void AutoTurnPID::Initialize() {
 	m_isFinished = 0;
 
 	//Set Drivetrain to OpenLoop
-	Drivetrain::GetInstance()->configOpenLoop();
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 
 	m_initalAngle = Drivetrain::GetInstance()->getGyroYaw();
 	m_setpoint += m_initalAngle;

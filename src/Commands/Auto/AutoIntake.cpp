@@ -59,13 +59,13 @@ bool AutoIntake::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoIntake::End() {
-	m_IsFinished = false;
+	std::cout << "FINISHED: TurnPosition" << std::endl;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoIntake::Interrupted() {
-	m_IsFinished = false;
+	End();
 }
 
 

@@ -21,8 +21,7 @@ void TurnPosition::Initialize()
 	m_r_init_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-	Drivetrain::GetInstance()->configClosedLoopPosition();
-	Drivetrain::GetInstance()->SetBrakeMode(true);
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::POSITION_CONFIG);
 
 	SetTimeout(1.1);
 
@@ -59,17 +58,17 @@ void TurnPosition::Execute()
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnPosition::IsFinished() {
-	std::cout << "TurnPosition: DONE" << std::endl;
 	return m_isFinished || IsTimedOut();
+
 }
 
 // Called once after isFinished returns true
 void TurnPosition::End() {
-
+	std::cout << "FINISHED: TurnPosition" << std::endl;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void TurnPosition::Interrupted() {
-
+	End();
 }
