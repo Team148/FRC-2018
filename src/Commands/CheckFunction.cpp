@@ -22,6 +22,8 @@ void CheckFunction::Initialize() {
 	r2currentpass=false;
 	r3currentpass=false;
 
+	driveleftencoderpass=false;
+	driverightencoderpass=false;
 
 	elev1currentpass=false;
 	elev2currentpass=false;
@@ -32,15 +34,17 @@ void CheckFunction::Initialize() {
 	intake2currentpass=false;
 	wranglercurrentpass=false;
 
-	//table = NetworkTable::GetTable("LiveWindow/Ungrouped");
+	climber1currentpass=false;
+	climber2currentpass=false;
+	climber3currentpass=false;
+
 	std::cout <<"starting Check" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CheckFunction::Execute() {
 
-	//pdp_curr[16][currentcounter] = table->GetNumberArray("PowerDistributionPanel", llvm::ArrayRef<double>());
-	//double pdp = table->GetNumberArray("PowerDistributionPanel", llvm::ArrayRef<double>());
+
 	//check all currents
 	for(int x=0;x<=15;x++) {
 		pdp_curr[x][currentcounter]=Drivetrain::GetInstance()->pdp->GetCurrent(x);
@@ -145,9 +149,40 @@ void CheckFunction::Execute() {
 		}
 	}
 
-	//checkLimelight Current
+	//climber current
+	SmartDashboard::PutNumber("Climber 1 Current", pdp_curr[4][currentcounter]);
+	SmartDashboard::PutNumber("Climber 2 Current", pdp_curr[12][currentcounter]);
+	SmartDashboard::PutNumber("Climber 3 Current", pdp_curr[3][currentcounter]);
 
+	if(!climber1currentpass) {
+		for(int i = 0; i<9;i++) {
+			if(pdp_curr[4][i] > 0.1)
+				climber1currentpass=true;
+		}
+	}
 
+	if(!climber2currentpass) {
+		for(int i = 0; i<9;i++) {
+			if(pdp_curr[12][i] > 0.1)
+				climber2currentpass=true;
+		}
+	}
+
+	if(!climber3currentpass) {
+		for(int i = 0; i<9;i++) {
+			if(pdp_curr[3][i] > 0.1)
+				climber3currentpass=true;
+		}
+	}
+
+	//check wrangler current
+	SmartDashboard::PutNumber("Wrangler Current", pdp_curr[6][currentcounter]);
+	if(!wranglercurrentpass) {
+		for(int i = 0; i<9;i++) {
+			if(pdp_curr[6][i] > 0.1)
+				wranglercurrentpass=true;
+		}
+	}
 
 	SmartDashboard::PutBoolean("Drive Left 1", l1currentpass);
 	SmartDashboard::PutBoolean("Drive Left 2", l2currentpass);
@@ -160,37 +195,30 @@ void CheckFunction::Execute() {
 	SmartDashboard::PutBoolean("Intake 1", intake1currentpass);
 	SmartDashboard::PutBoolean("Intake 2", intake2currentpass);
 	SmartDashboard::PutBoolean("Wrangler", wranglercurrentpass);
-
+	SmartDashboard::PutBoolean("Climber 1", climber1currentpass);
+	SmartDashboard::PutBoolean("Climber 2", climber2currentpass);
+	SmartDashboard::PutBoolean("Climber 3", climber3currentpass);
 
 
 	//check drive encoders
 	if(pdp_curr[0][currentcounter] > 0.0){
 		if(Drivetrain::GetInstance()->getLeftDriveVelocity()>0)
-			driveleftencoder=true;
+			driveleftencoderpass=true;
 	}
-	SmartDashboard::PutBoolean("Drive Left Encoder", driveleftencoder);
+	SmartDashboard::PutBoolean("Drive Left Encoder", driveleftencoderpass);
 
 	if(pdp_curr[15][currentcounter] > 0.0){
 		if(Drivetrain::GetInstance()->getRightDriveVelocity()>0)
-			driverightencoder=true;
+			driverightencoderpass=true;
 	}
-	SmartDashboard::PutBoolean("Drive Right Encoder", driverightencoder);
+	SmartDashboard::PutBoolean("Drive Right Encoder", driverightencoderpass);
 
 	//check elevator encoders
 	if(pdp_curr[11][currentcounter] > 0.0){
 		if(Elevator::GetInstance()->GetElevatorVelocity()>0)
-			elevatorencoder=true;
+			elevatorencoderpass=true;
 	}
-	SmartDashboard::PutBoolean("Elevator Encoder", elevatorencoder);
-
-	//checkwrangler
-	SmartDashboard::PutNumber("Wrangler Current", pdp_curr[6][currentcounter]);
-	if(!wranglercurrentpass) {
-			for(int i = 0; i<9;i++) {
-				if(pdp_curr[6][i] < 0.1)
-					wranglercurrentpass=true;
-			}
-		}
+	SmartDashboard::PutBoolean("Elevator Encoder", elevatorencoderpass);
 
 
 	currentcounter++;
@@ -212,5 +240,5 @@ void CheckFunction::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void CheckFunction::Interrupted() {
-
+	End();
 }

@@ -25,22 +25,18 @@ public:
 	void Interrupted() override;
 
 private:
-	std::shared_ptr<NetworkTable> table;
+	//std::shared_ptr<NetworkTable> table;
 	double pdp_curr[16][10]={};
 	int currentcounter=0;
 	double drivelowerlimit = 0.1;
-	double drivecurrent[6][10] = {};
-	int drivecounter = 0;
+
 	bool drivereadytocheck=false;
 
 	double elevlowerlimit = 0.1;
-	double elevcurrent[2][10] = {};
-	int elevcounter = 0;
 	bool elevreadytocheck=false;
 
 	double intakelowerlimit = 0.1;
 	double intakecurrent[2][10] = {};
-	int intakecounter = 0;
 	bool intakereadytocheck=false;
 
 	bool l1currentpass=false;
@@ -62,6 +58,7 @@ private:
 
 	bool elev1currentpass=false;
 	bool elev2currentpass=false;
+	bool elevatorencoderpass=false;
 
 	bool intake1currentpass=false;
 	bool intake2currentpass=false;
@@ -69,15 +66,15 @@ private:
 	bool intake1failflag=false;
 	bool intake2failflag=false;
 
-	bool limelightfailflag=false;
-	bool limelightcurrentpass=false;
-	bool limelightcheckready=false;
-
-	bool driveleftencoder=false;
-	bool driverightencoder=false;
+	bool driveleftencoderpass=false;
+	bool driverightencoderpass=false;
 
 	bool wranglercurrentpass=false;
-	bool elevatorencoder=false;
+
+	bool climber1currentpass=false;
+	bool climber2currentpass=false;
+	bool climber3currentpass=false;
+
 };
 
 #endif
