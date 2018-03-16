@@ -213,6 +213,8 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	else
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING_REVERSE;
 
+//	heading_contrib = 0; //uncomment for no gyro mode
+
 	double left_error = m_l_pos - cur_pos_l;
 	double right_error = m_r_pos - cur_pos_r;
 
