@@ -1,14 +1,15 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
 #include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FakeStraightPath.h"
-#include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
-#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
-#include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
-#include "./Paths/FromRightFirstCube_ToRightScalePath.h"
+#include "../Paths/FakeStraightPath.h"
+#include "../Paths/FromMiddlePos_ToLeftSwitchPath.h"
+#include "../Paths/FromRightPos_ToLeftSwitchPath.h"
+#include "../Paths/FromRightPos_ToLeftSwitchPathReversed.h"
+#include "../Paths/FromRightPos_ToRightScalePath.h"
+#include "../Paths/FromRightScale_ToRightFirstCubePath.h"
+#include "../Paths/FromRightScale_ToRightSecondCubePath.h"
+#include "../Paths/FromMiddlePos_ToRightSwitchPath.h"
+#include "../Paths/FromRightFirstCube_ToRightScalePath.h"
+#include "../../../OI.h"
 
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
@@ -60,23 +61,33 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	if(fms_data_truc.compare(autoConstData.R_L) == 0 || fms_data_truc.compare(autoConstData.L_L) == 0) // R POS RL
 	{
-		//AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-	    	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
-		AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPosition(180, 1.2));
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0)); // ADD THE PATH TIME IN
-	    //AddSequential(new PathExecuter(FromLeftScale_ToLeftFirstCubePath::GetInstance(), false)); // add pls
-	    AddSequential(new TurnPosition(0, 1.2));
-	    //AddSequential(new PathExecuter(FromLeftFirstCube_ToLeftScalePath::GetInstance(), false)); // add pls
-	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
-		AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0)); // ADDED, NOT NORMAL
+	    if(OI::GetInstance()->GetSw4()) // 118 special mode activated
+	    {
+			AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
+//		    AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+			AddSequential(new WaitCommand(0.5));
+			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 
+	    }
+	    else //normal left scale case
+	    {
+			//AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
+				AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+			AddSequential(new WaitCommand(0.5));
+			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+			AddSequential(new TurnPosition(180, 1.2));
+			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0)); // ADD THE PATH TIME IN
+			//AddSequential(new PathExecuter(FromLeftScale_ToLeftFirstCubePath::GetInstance(), false)); // add pls
+			AddSequential(new TurnPosition(0, 1.2));
+			//AddSequential(new PathExecuter(FromLeftFirstCube_ToLeftScalePath::GetInstance(), false)); // add pls
+			AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+			AddSequential(new WaitCommand(0.5));
+			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0)); // ADDED, NOT NORMAL
+	    }
 	}
-
 }
 
 
