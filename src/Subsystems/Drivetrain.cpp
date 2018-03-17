@@ -654,14 +654,4 @@ void Drivetrain::unitConversionTest()
 
 }
 
-double* Drivetrain::GetAllCurrents() {
-	static double current[6];
-	current[0] = pdp->GetCurrent(0); //l1
-	current[1] = pdp->GetCurrent(1); //l2
-	current[2] = pdp->GetCurrent(2); //l3
-	current[3] = pdp->GetCurrent(15); //r1
-	current[4] = pdp->GetCurrent(14); //r2
-	current[5] = pdp->GetCurrent(13); //r3
-	return current;
-}
 
