@@ -38,8 +38,6 @@ void TurnPosition::Initialize()
 void TurnPosition::Execute()
 {
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
-	m_heading_err = m_heading - m_cur_heading;
-
 
 	m_heading_err = (m_heading - m_cur_heading);
 	if(m_heading_err<-180)

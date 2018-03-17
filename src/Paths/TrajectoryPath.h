@@ -11,7 +11,7 @@ public:
 //protected:
 	virtual int GetIndexLength();
 	virtual double GetTimeLength();
-	virtual double GetInitialHeading();
+	virtual double GetStartHeading();
 	virtual double GetEndHeading();
 	virtual double* GetLeftTrajectoryArray(int index);
 	virtual double* GetRightTrajectoryArray(int index);

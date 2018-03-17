@@ -26,40 +26,48 @@ void AutoIntake::Initialize() {
 
 	m_isIntakeOn = true;
 	m_IsFinished = false;
+
+	SetTimeout(m_runTime);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoIntake::Execute() {
 
-	//Intake
-	if(m_percent > 0)
-	{
-		InTake();
-	}
+	Intake::GetInstance()->SetIntakeMotor(m_percent);
 
-	//OutTake
-	else if(m_percent < 0)
-	{
-		OutTake();
-	}
+//	//Intake
+//	if(m_percent > 0)
+//	{
+////		InTake();
+//
+//	}
+//
+//	//OutTake
+//	else if(m_percent < 0)
+//	{
+////		OutTake();
+//
+//	}
 
-	//Doesn't Run if m_percent == 0
-	else
-	{
-		Intake::GetInstance()->SetIntakeMotor(0);
-		m_IsFinished = true;
-	}
+//	//Doesn't Run if m_percent == 0
+//	else
+//	{
+//		Intake::GetInstance()->SetIntakeMotor(0);
+//		m_IsFinished = true;
+//	}
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoIntake::IsFinished() {
-	return m_IsFinished;
+	return m_IsFinished || IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void AutoIntake::End() {
 	std::cout << "FINISHED: TurnPosition" << std::endl;
+	Intake::GetInstance()->SetIntakeMotor(0.0);
+
 }
 
 // Called when another command which requires one or more of the same

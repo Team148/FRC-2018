@@ -4,7 +4,7 @@
 	TrajectoryPath* TrajectoryPath::GetInstance() {}
 
 	int TrajectoryPath::GetIndexLength() {}
-	double TrajectoryPath::GetInitialHeading() {}
+	double TrajectoryPath::GetStartHeading() {}
 	double TrajectoryPath::GetEndHeading() {}
 	double TrajectoryPath::GetTimeLength() {}
 	double TrajectoryPath::GetLeftPosition(int index) {}

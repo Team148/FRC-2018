@@ -55,6 +55,7 @@ class Robot : public frc::TimedRobot {
 private:
 	float m_armAngle = 0.0;
 	Command* command;
+	int m_timeindex = 0;
 
 public:
 
@@ -147,8 +148,9 @@ public:
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
+
 			frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
-	  //      frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
+	//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
 	//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 
@@ -171,6 +173,8 @@ public:
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		frc::SmartDashboard::PutNumber("Time", m_timeindex);
+		m_timeindex++;
 
 
 
