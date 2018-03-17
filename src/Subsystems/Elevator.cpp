@@ -108,16 +108,20 @@ int Elevator::GetElevatorVelocity() {
 	return m_ElevatorMotor1->GetSelectedSensorVelocity(0);
 }
 
-void Elevator::SetElevatorPosition(double position) {
+void Elevator::SetElevatorPosition(double a_position, double arb_ff)
+{
 	if(!m_isClosedLoop)
 		ConfigClosedLoop();
 
-	m_position = position;
-	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
-	double scaled_elevator_F = ELEVATOR_F / m_position;
 
-	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
-	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
+
+
+	m_position = a_position;
+	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
+//	double scaled_elevator_F = ELEVATOR_F / m_position;
+
+//	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
+	m_ElevatorMotor1->Set(ControlMode::Position, m_position, DemandType::DemandType_ArbitraryFeedForward, arb_ff);
 }
 
 void Elevator::SetElevatorEncoderZero() {
@@ -131,5 +135,5 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 	double local_position = m_position;
 	local_position += dPosition;
 
-	SetElevatorPosition(local_position);
+	SetElevatorPosition(local_position, ELEVATOR_F);
 }

@@ -14,23 +14,46 @@ SetElevator::SetElevator(bool on, double position) {
 // Called once when the command executes
 void SetElevator::Initialize() {
 
-	if (m_on) {
-		Elevator::GetInstance()->SetElevatorPosition(m_position);
-		if(m_position != ELEVATOR_ZERO){
-			m_isFinished = true;
-		}
-	}
-//	else {
-//		Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
+
+
+//	if(m_position != ELEVATOR_ZERO)
+//	{
+//		m_isFinished = true;
 //	}
-	m_isFinished = false;
+////	else {
+////		Elevator::GetInstance()->SetElevatorPosition(ELEVATOR_ZERO);
+////	}
+//	m_isFinished = false;
 }
 
 void SetElevator::Execute() {
+	double slope = (ELEVATOR_F - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) - ELEVATOR_ZERO_F;
 
-	if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION && (m_position == ELEVATOR_ZERO)){
-		Elevator::GetInstance()->ConfigNeutralClosedLoop();
-		std::cout << "set elevator neutral" << std::endl;
+
+
+	if(m_position == ELEVATOR_ZERO)
+	{
+		if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+		{
+			Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+		}
+		else
+		{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+
+			if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+			{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+				m_isFinished = true;
+
+			}
+		}
+
+	}
+	else
+	{
+		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
 		m_isFinished = true;
 	}
 

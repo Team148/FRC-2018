@@ -38,7 +38,7 @@ public:
 	int GetElevatorVelocity();
 
 //	void SetElevatorJoystickPosition(double triggerValue);
-	void SetElevatorPosition(double position);
+	void SetElevatorPosition(double position, double arb_ff);
 	void SetElevatorEncoderZero();
 	void IncrementElevatorPosition(double dPosition);
 };
