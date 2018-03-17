@@ -129,7 +129,7 @@ public:
 			elevator->ConfigClosedLoop();
 		}
 
-		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
+		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_ZERO));
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 		if(gameData.length() > 0)
@@ -192,7 +192,7 @@ public:
 			elevator->ConfigClosedLoop();
 		}
 
-		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
+//		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_ZERO));
 		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}
@@ -227,10 +227,8 @@ public:
 			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
 		//POV buttons
-		if (oi->opStick->GetPOV() == 0)
-			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
-		if (oi->opStick->GetPOV() == 180)
-			elevator->SetElevatorPosition(ELEVATOR_HANG);
+		if (oi->opStick->GetPOV() == 0)  frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_DOUBLE_STACK));
+		if (oi->opStick->GetPOV() == 180) frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_HANG));
 
 		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
 		{

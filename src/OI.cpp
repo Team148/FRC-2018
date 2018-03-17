@@ -75,13 +75,13 @@ OI::OI() {
 //		m_dsiSw5 = new JoystickButton(dsiBrickA, 11);
 
 	//Elevator
-	m_opButton1->WhenPressed(new SetElevator(true, ELEVATOR_ZERO));
+	m_opButton1->WhenPressed(new SetElevator(ELEVATOR_ZERO));
 
-	m_opButton2->WhenPressed(new SetElevator(true, ELEVATOR_SWITCH));
+	m_opButton2->WhenPressed(new SetElevator(ELEVATOR_SWITCH));
 
-	m_opButton3->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_LOW));
+	m_opButton3->WhenPressed(new SetElevator(ELEVATOR_SCALE_LOW));
 
-	m_opButton4->WhenPressed(new SetElevator(true, ELEVATOR_SCALE_HIGH));
+	m_opButton4->WhenPressed(new SetElevator(ELEVATOR_SCALE_HIGH));
 }
 
 OI* OI::GetInstance() {

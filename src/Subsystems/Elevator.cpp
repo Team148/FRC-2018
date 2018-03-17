@@ -114,8 +114,6 @@ void Elevator::SetElevatorPosition(double a_position, double arb_ff)
 		ConfigClosedLoop();
 
 
-
-
 	m_position = a_position;
 	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
 //	double scaled_elevator_F = ELEVATOR_F / m_position;

@@ -2,14 +2,15 @@
 #include "OI.h"
 #include <iostream>
 
-SetElevator::SetElevator(bool on, double position) {
+SetElevator::SetElevator(double position) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
-	m_on = on;
+	m_timeToWait = 0;
 	m_position = position;
 	m_isFinished = false;
 }
+
 
 // Called once when the command executes
 void SetElevator::Initialize() {
@@ -32,30 +33,30 @@ void SetElevator::Execute() {
 
 
 
-	if(m_position == ELEVATOR_ZERO)
-	{
-		if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+		if(m_position == ELEVATOR_ZERO)
 		{
-			Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+			{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+			}
+			else
+			{
+					Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+
+				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+				{
+					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+					m_isFinished = true;
+
+				}
+			}
+
 		}
 		else
 		{
-				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
-
-			if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
-			{
-				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
-				m_isFinished = true;
-
-			}
+			Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+			m_isFinished = true;
 		}
-
-	}
-	else
-	{
-		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-		m_isFinished = true;
-	}
 
 }
 
