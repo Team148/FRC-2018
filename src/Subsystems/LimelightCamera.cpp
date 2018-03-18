@@ -83,3 +83,9 @@ double LimelightCamera::GetOffsetAngle() {
 	return xOffSet.GetDouble(99);
 }
 
+bool LimelightCamera::IsTargeting() {
+	if(validObject.GetDouble(-1) > 0)
+		return true;
+	else
+		return false;
+}

@@ -23,6 +23,7 @@ public:
 	void SetCameraPipeline(double pipe);
 	double GetOffsetAngle();
 	bool CheckConnection();
+	bool IsTargeting();
 
 
 private:
