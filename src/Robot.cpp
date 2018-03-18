@@ -155,19 +155,22 @@ public:
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
 
-			if(oi->GetInstance()->GetSw1())
+			if(oi->GetInstance()->GetSw1()) // THIS OVERRIDES ALL
 			{
 				current_auto_selection = currentAutoSelection::SWITCH_ONLY;
 			}
-			if(oi->GetInstance()->GetSw2())
-			{
-				current_auto_selection = currentAutoSelection::HYBRID_MODE;
-			}
 			else
 			{
-				current_auto_selection = currentAutoSelection::SCALE_MODE;
-			}
+				if(oi->GetInstance()->GetSw2())
+				{
+					current_auto_selection = currentAutoSelection::SCALE_MODE;
+				}
+				else
+				{
+					current_auto_selection = currentAutoSelection::HYBRID_MODE;
 
+				}
+			}
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
