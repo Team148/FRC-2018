@@ -29,6 +29,7 @@ void LimelightCamera::InitDefaultCommand() {
 
 void LimelightCamera::GetCameraData()
 {
+	CheckConnection();
 
 	validObject = table->GetEntry("tv");
 	xOffSet = table->GetEntry("tx");
@@ -47,16 +48,15 @@ void LimelightCamera::GetCameraData()
 	frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
 	frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
 
-
 }
 
 bool LimelightCamera::CheckConnection() {
-
-}
-
-float LimelightCamera::GetDistanceFromObject()
-{
-
+	if(validObject.GetDouble(-1) == -1) {
+		table = NetworkTable::GetTable("limelight");
+		return false;
+	}
+	else
+		return true;
 }
 
 void LimelightCamera::SetCameraLEDOn()

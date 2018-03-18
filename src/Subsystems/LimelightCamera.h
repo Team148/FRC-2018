@@ -21,7 +21,6 @@ public:
 	void SetCameraLEDOff();
 	void SetCameraLEDBlink();
 	void SetCameraPipeline(double pipe);
-	float GetDistanceFromObject();
 	double GetOffsetAngle();
 	bool CheckConnection();
 
