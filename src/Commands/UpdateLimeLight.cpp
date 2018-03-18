@@ -5,49 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Commands/LImeLightLEDs.h"
+#include "UpdateLimeLight.h"
 
-LImeLightLEDs::LImeLightLEDs(int Mode = 0) {
+UpdateLimeLight::UpdateLimeLight() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(LimelightCamera::GetInstance());
-	m_limeLightMode = Mode;
 }
 
 // Called just before this Command runs the first time
-void LImeLightLEDs::Initialize() {
-	switch(m_limeLightMode)
-	{
-		case 0:
-			LimelightCamera::GetInstance()->SetCameraLEDOff();
-		case 1:
-			LimelightCamera::GetInstance()->SetCameraLEDOn();
-		case 2:
-			LimelightCamera::GetInstance()->SetCameraLEDBlink();
-		default:
-			LimelightCamera::GetInstance()->SetCameraLEDOff();
+void UpdateLimeLight::Initialize() {
 
-
-	}
 }
 
 // Called repeatedly when this Command is scheduled to run
-void LImeLightLEDs::Execute() {
-	m_isFinished = true;
+void UpdateLimeLight::Execute() {
+	LimelightCamera::GetInstance()->GetCameraData();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool LImeLightLEDs::IsFinished() {
-	return m_isFinished;
+bool UpdateLimeLight::IsFinished() {
+	return true;
 }
 
 // Called once after isFinished returns true
-void LImeLightLEDs::End() {
+void UpdateLimeLight::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void LImeLightLEDs::Interrupted() {
+void UpdateLimeLight::Interrupted() {
 
 }

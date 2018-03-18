@@ -1,15 +1,13 @@
 #include "LimelightCamera.h"
-//#include "../RobotMap.h"
-#include <Joystick.h>
-#include <SmartDashboard/SmartDashboard.h>
 
-//#include "../Commands/GrabPostLimelightData.h"
 
 LimelightCamera *LimelightCamera::m_instance = 0;
 
-LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
-	 CameraData *cd;
 
+LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
+	std::cout <<"Creating Limelight" << std::endl;
+	inst->GetDefault();
+	table = NetworkTable::GetTable("limelight");
 
 }
 
@@ -24,36 +22,44 @@ void LimelightCamera::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	//SetDefaultCommand(new GrabPostLimelightData());
-
-
-
+	SetDefaultCommand(new UpdateLimeLight());
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-CameraData* LimelightCamera::GetCameraData()
+void LimelightCamera::GetCameraData()
 {
 
-	//targetOffsetAngle_Horizontal = table->GetNumber("tx",0);
-	//targetOffsetAngle_Vertical = table->GetNumber("ty",0);
-	//targetArea = table->GetNumber("ta",0);
-	//targetSkew = table->GetNumber("ts",0);
+	validObject = table->GetEntry("tv");
+	xOffSet = table->GetEntry("tx");
+	yOffSet = table->GetEntry("ty");
+	targetArea = table->GetEntry("ta");
+	latency = table->GetEntry("tl");
+	skew = table->GetEntry("ts");
+	ledMode = table->GetEntry("ledMode");
 
-	cd->xOffSet = table->GetNumber("tx",0);
-	cd->yOffSet = table->GetNumber("ty",0);
-	cd->targetArea = table->GetNumber("ta",0);
-	cd->validObject = table->GetNumber("ts",0);
-	cd->latency = table->GetNumber("tl",0);
+	if(ledMode.GetDouble(-1) == 0)
+		SetCameraLEDOff();
 
-	frc::SmartDashboard::PutNumber("HorizOffset", cd->xOffSet);
-	frc::SmartDashboard::PutNumber("VertOffset", cd->yOffSet);
-	frc::SmartDashboard::PutNumber("Area", cd->targetArea);
-	frc::SmartDashboard::PutNumber("Skew", cd->Skew);
+	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
+	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(99.));
+	frc::SmartDashboard::PutNumber("VertOffset", yOffSet.GetDouble(99.));
+	frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
+	frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
 
-	return cd;
+
 }
 
+bool LimelightCamera::CheckConnection() {
+	std::cout <<"CheckConn" << std::endl;
+	//table->GetTable("limelight");
+	//if(table->IsConnected()){
+	m_connected=true;
+	//}
+	//return table->IsConnected();
+	return true;
+}
 
 float LimelightCamera::GetDistanceFromObject()
 {
@@ -62,21 +68,25 @@ float LimelightCamera::GetDistanceFromObject()
 
 void LimelightCamera::SetCameraLEDOn()
 {
-        table->PutNumber("ledMode", 0); //0,1,2 -> on,off,blink
+	ledMode.SetDouble(0.0); //0,1,2 -> on,off,blink
 }
 
 void LimelightCamera::SetCameraLEDOff()
 {
-        table->PutNumber("ledMode", 1); //0,1,2 -> on,off,blink
+	ledMode.SetDouble(1.0); //0,1,2 -> on,off,blink
 }
 
 void LimelightCamera::SetCameraLEDBlink()
 {
-        table->PutNumber("ledMode", 2); //0,1,2 -> on,off,blink
+	ledMode.SetDouble(2.0); //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraPipeline(int pipe)
+void LimelightCamera::SetCameraPipeline(double pipe)
 {
-        table->PutNumber("ledMode", pipe); //0->9 are valid pipelines
+     pipeline.SetDouble(pipe); //0->9 are valid pipelines
+}
+
+double LimelightCamera::GetOffsetAngle() {
+	return xOffSet.GetDouble(99);
 }
 

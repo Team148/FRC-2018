@@ -75,7 +75,6 @@ public:
 		wrangler = Wrangler::GetInstance();
 		camera = LimelightCamera::GetInstance();
 
-		camera->SetCameraLEDOff();
 
 	}
 

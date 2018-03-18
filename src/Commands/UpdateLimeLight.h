@@ -8,18 +8,15 @@
 #pragma once
 
 #include <Commands/Command.h>
-#include <CommandBase.h>
+#include "Subsystems/LimeLightCamera.h"
 
-class LImeLightLEDs : public frc::Command {
+class UpdateLimeLight : public frc::Command {
 public:
-	LImeLightLEDs(int Mode);
+	UpdateLimeLight();
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
-private:
-	bool m_isFinished = false;
-	int m_limeLightMode = 0;
 };
 
