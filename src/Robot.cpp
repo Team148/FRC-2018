@@ -118,7 +118,13 @@ public:
 		Drivetrain::GetInstance()->InitPathDriveHeading();
 		//frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(200.0, true, 5.0));
 //		frc::Scheduler::GetInstance()->AddCommand(new LockHeading(10.0));
-
+		int current_auto_selection = 0;
+		enum currentAutoSelection
+		{
+			SWITCH_ONLY = 10,
+			HYBRID_MODE = 11,
+			SCALE_MODE = 12
+		};
 
 
 		int autoPosition = 0;
@@ -140,17 +146,45 @@ public:
 			if(cubeAmount > 3) cubeAmount = 3;
 
 
-			if(oi->GetInstance()->GetSw5())
+			if(oi->GetInstance()->GetSw4())
 			{
-				autoPosition = tStartingPosition::LEFT_POS;
+//				autoPosition = tStartingPosition::LEFT_POS;
 			}
 			else
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
 
+			if(oi->GetInstance()->GetSw1())
+			{
+				current_auto_selection = currentAutoSelection::SWITCH_ONLY;
+			}
+			if(oi->GetInstance()->GetSw2())
+			{
+				current_auto_selection = currentAutoSelection::HYBRID_MODE;
+			}
+			else
+			{
+				current_auto_selection = currentAutoSelection::SCALE_MODE;
+			}
+
+			switch(current_auto_selection)
+			{
+				case currentAutoSelection::SWITCH_ONLY:
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+
+				break;
+				case currentAutoSelection::HYBRID_MODE:
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+
+				break;
+				case currentAutoSelection::SCALE_MODE:
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				break;
+				default:
+				break;
+			}
 	//		frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
 	//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 
