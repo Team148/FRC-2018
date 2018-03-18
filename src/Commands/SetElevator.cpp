@@ -6,16 +6,16 @@ SetElevator::SetElevator(double position) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
-	m_timeToWait = 0;
 	m_position = position;
 	m_isFinished = false;
+	std::cout << "SetElevatorConstructor" <<std::endl;
 }
 
 
 // Called once when the command executes
 void SetElevator::Initialize() {
 
-
+	m_isFinished = false;
 
 //	if(m_position != ELEVATOR_ZERO)
 //	{
@@ -28,44 +28,73 @@ void SetElevator::Initialize() {
 }
 
 void SetElevator::Execute() {
+
 	double slope = (ELEVATOR_F - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
-	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) - ELEVATOR_ZERO_F;
+	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND); //std::cout << "y-intercept : " << y_intercept << " ";
+	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
 
+	if(m_position > ELEVATOR_ZERO)
+	{
+		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+		m_isFinished = true;
+		std::cout << "finish std case" <<std::endl;
+		return;
 
+	}
+	//	std::cout << "elevator position: " <<
 
-		if(m_position == ELEVATOR_ZERO)
-		{
+//			std::cout << "elevator set zero" << std::endl;
+//			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+//			{
+//				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+//			}
+//			else
+//			{
+//
+//				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+//				{
+//					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+//
+//					std::cout << "ff: elevator zero f" << std::endl;
+//					m_isFinished = true;
+//				}
+//				else
+//				{
+//					Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+//					std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+//
+//				}
+//
+//			}
 			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
 			{
 				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
 			}
 			else
 			{
-					Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
 
 				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
 				{
 					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
 					m_isFinished = true;
-
+					return;
 				}
+				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
 			}
 
-		}
-		else
-		{
-			Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-			m_isFinished = true;
-		}
+
 
 }
 
 bool SetElevator::IsFinished() {
+	std::cout << "finished SetElevator" << std::endl;
 	return m_isFinished;
 }
 void SetElevator::End() {
 
 }
 void SetElevator::Interrupted(){
-
+	End();
+	std::cout << "SetElevator Interrupted" << std::endl;
 }

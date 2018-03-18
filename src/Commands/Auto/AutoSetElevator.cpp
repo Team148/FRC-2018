@@ -26,7 +26,8 @@ void AutoSetElevator::Execute() {
 	double posErr = m_position - currentPosition;
 
 	double slope = (ELEVATOR_F - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
-	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) - ELEVATOR_ZERO_F;
+	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
 
 
 	if(elaspedTime >= m_timeToWait)

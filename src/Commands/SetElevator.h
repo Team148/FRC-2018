@@ -16,10 +16,8 @@ public:
 
 private:
 	bool m_isFinished = false;
-	double m_startTime;
-	double m_timeToWait;
+
 	double m_position;
-	double m_inches;
 
 };
 
