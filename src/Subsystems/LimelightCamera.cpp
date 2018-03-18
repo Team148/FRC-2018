@@ -21,7 +21,6 @@ LimelightCamera* LimelightCamera::GetInstance() {
 void LimelightCamera::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new GrabPostLimelightData());
 	SetDefaultCommand(new UpdateLimeLight());
 }
 
@@ -52,13 +51,7 @@ void LimelightCamera::GetCameraData()
 }
 
 bool LimelightCamera::CheckConnection() {
-	std::cout <<"CheckConn" << std::endl;
-	//table->GetTable("limelight");
-	//if(table->IsConnected()){
-	m_connected=true;
-	//}
-	//return table->IsConnected();
-	return true;
+
 }
 
 float LimelightCamera::GetDistanceFromObject()
