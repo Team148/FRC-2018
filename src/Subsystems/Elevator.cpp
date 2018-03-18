@@ -8,8 +8,8 @@ Elevator *Elevator::m_instance = 0;
 Elevator::Elevator() : Subsystem("Elevator") {
 
 	//elevator motors
-	m_ElevatorMotor1 = new WPI_TalonSRX(ELEVATOR_MOTOR_1);
-	m_ElevatorMotor2 = new WPI_TalonSRX(ELEVATOR_MOTOR_2);
+	m_ElevatorMotor1 = new TalonSRX(ELEVATOR_MOTOR_1);
+	m_ElevatorMotor2 = new TalonSRX(ELEVATOR_MOTOR_2);
 
 	m_ElevatorMotor2->Set(ControlMode::Follower, ELEVATOR_MOTOR_1);
 
