@@ -38,7 +38,6 @@ void SetElevator::Execute() {
 		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
 		m_isFinished = true;
 		std::cout << "finish std case" <<std::endl;
-		return;
 
 	}
 	//	std::cout << "elevator position: " <<
@@ -66,6 +65,8 @@ void SetElevator::Execute() {
 //				}
 //
 //			}
+		if(m_isFinished == false)
+		{
 			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
 			{
 				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
@@ -77,12 +78,12 @@ void SetElevator::Execute() {
 				{
 					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
 					m_isFinished = true;
-					return;
+
 				}
 				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
 				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
 			}
-
+		}
 
 
 }

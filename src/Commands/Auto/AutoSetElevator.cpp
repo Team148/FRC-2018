@@ -35,32 +35,33 @@ void AutoSetElevator::Execute() {
 
 		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
 		{
-
 			m_IsFinished = true;
 		}
 
-			if(m_position == ELEVATOR_ZERO)
+		if(m_IsFinished == false)
+		{
+			if(m_position > ELEVATOR_ZERO)
 			{
-				if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
-				{
-					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-				}
-				else
-				{
-						Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
-
-					if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
-					{
-						Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
-
-					}
-				}
-
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+				std::cout << "finish std case" <<std::endl;
 			}
-			else
+
+			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
 			{
 				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
 			}
+			else
+			{
+
+				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+				{
+					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+
+				}
+				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+			}
+		}
 	}
 }
 
