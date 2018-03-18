@@ -35,26 +35,32 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 //	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.1));
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
-	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
-	    AddSequential(new WaitCommand(0.5));
+	//    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+	//    AddSequential(new WaitCommand(0.5));
 	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPosition(170, 0.5));
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, FromRightScale_ToRightFirstCubePath::GetInstance()->GetTimeLength()+3.0));
-	    AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new TurnPosition(135, 0.5));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5));
+	 //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 	    								//    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.5));
+	    AddSequential(new AutoDrive(50, 150, 0, 135));
 //	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightFirstCube_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 	    								//    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
 	    AddSequential(new PathExecuter(FromRightFirstCube_ToRightScalePath::GetInstance(), true));
-	    AddSequential(new TurnPosition(70, 0.5));
-	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+	    AddSequential(new TurnPosition(70, 0.2));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
 	    AddSequential(new WaitCommand(0.2));
 	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
-	    AddSequential(new AutoDrive(-15, 150, 0, 70));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//	    AddSequential(new AutoDrive(-15, 150, 0, 70));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	    AddSequential(new TurnPosition(135, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
-	    AddSequential(new PathExecuter(FromRightScale_ToRightSecondCubePath::GetInstance(), false));
+	    AddSequential(new AutoDrive(100, 150, 0, 135));
+	    AddSequential(new AutoDrive(-110, 150, 0, 135));
+
+	    AddSequential(new TurnPosition(70, 0.5));
+	    AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
+	 //   AddSequential(new PathExecuter(FromRightScale_ToRightSecondCubePath::GetInstance(), false));
 
 
 	}
