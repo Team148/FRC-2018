@@ -111,6 +111,7 @@ constexpr float MOTOR_REVERSE_FULL_OUTPUT = 1.0;
 
 constexpr float INTAKE_FAST_PERCENT = 0.8;
 constexpr float INTAKE_SLOW_PERCENT = 0.15;
+constexpr float INTAKE_SLOW_AUTO_PERCENT = 0.3;
 constexpr float OUTTAKE_AUTOSCORE_PERCENT = -0.15;
 constexpr float OUTTAKE_PERCENT = -0.20;
 constexpr float OUTTAKE_PERCENT_AUTO = -0.25;

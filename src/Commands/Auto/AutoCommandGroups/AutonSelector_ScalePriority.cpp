@@ -14,6 +14,7 @@
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
+#include "../ReleaseIntake.h"
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
 #include <iostream>
@@ -34,6 +35,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength() << std::endl;
 
 //	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.1));
+		AddParallel(new ReleaseIntake());
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 	//    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
 	//    AddSequential(new WaitCommand(0.5));
@@ -70,18 +72,21 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
 	    {
-		//	AddParallel(new AutoIntake(OUTTAKE_MAX_PERCENT, 0.7));
-				AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
-				AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
-				AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
-				AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-				AddSequential(new AutoDrive(-15, 150, 0, RadianToDegrees(FromRightPos_ToLeftScale118Path::GetInstance()->GetEndHeading())));
+			AddParallel(new ReleaseIntake());
+			AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
+			AddSequential(new TurnPosition(270, 0.5));
+			AddSequential(new AutoSetElevator(ELEVATOR_DOUBLE_STACK, 0.0));
+			AddSequential(new WaitCommand(0.5));
+			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+			AddSequential(new AutoDrive(-15, 150, 0, RadianToDegrees(FromRightPos_ToLeftScale118Path::GetInstance()->GetEndHeading())));
 //
 	    }
 	    else //normal left scale case
 	    {
 			//AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-				AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
+			AddParallel(new ReleaseIntake());
+			AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
 			AddSequential(new WaitCommand(0.5));
 			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));

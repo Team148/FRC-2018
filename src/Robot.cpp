@@ -17,6 +17,7 @@
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Auto/AutoSetElevator.h>
+#include <Commands/Auto/ReleaseIntake.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -171,20 +172,26 @@ public:
 
 				}
 			}
+
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
+					std::cout << "Switch ONLY" << std::endl;
 					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
+					std::cout << "Hybrid" << std::endl;
 					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::SCALE_MODE:
+					std::cout << "Scale ONLY" << std::endl;
 					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 				break;
 				default:
+//					frc::Scheduler::GetInstance()->AddCommand(new ReleaseIntake());
+//					frc::Scheduler::GetInstance()->AddCommand(new AutoDrive(120, 150, 0, 340));
 				break;
 			}
 	//		frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
