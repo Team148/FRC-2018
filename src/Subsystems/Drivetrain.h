@@ -49,16 +49,13 @@ public:
 	void SetDrivePosition(double left_position, double right_position);
 	void SetEncoderPosition(int l, int r);
 	void SetBrakeMode(bool on);
-//	void configClosedLoopVelocity();
-//	void configClosedLoopPosition();
+
 	void configDrivetrain(tDriveConfigs drive_config);
+	double GetInitPathDriveHeading();
 	void InitPathDriveHeading();
 	void InitPathDrive();
 	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReversed = false);
-//	void configPathLoop();
-//	void configOpenLoop();
-//	bool isClosedLoopVelocity();
-//	bool isClosedLoopPosition();
+
 
 	bool isDrivetrainConfiged(tDriveConfigs drive_config);
 

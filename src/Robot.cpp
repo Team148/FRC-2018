@@ -4,15 +4,20 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
+
 #include <Commands/Auto/AutoDrive.h>
+#include <Commands/Auto/LockHeading.h>
 #include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/TurnPosition.h>
-#include <Commands/Auto/AutoCommandGroups/AutonSelectorGroup.h>
 #include <Commands/Auto/AutoDriveTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
 #include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Auto/AutoSetElevator.h>
+#include <Commands/Auto/ReleaseIntake.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -22,7 +27,7 @@
 #include "math.h"
 #include <iostream>
 //#include <Commands/Pathfind.h>
-#include <Commands/AutoPaths/GoStraightPath.h>
+//#include <Commands/AutoPaths/GoStraightPath.h>
 #include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
@@ -51,6 +56,7 @@ class Robot : public frc::TimedRobot {
 private:
 	float m_armAngle = 0.0;
 	Command* command;
+	int m_timeindex = 0;
 
 public:
 
@@ -111,41 +117,108 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
+		//frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(200.0, true, 5.0));
+//		frc::Scheduler::GetInstance()->AddCommand(new LockHeading(10.0));
+		int current_auto_selection = 0;
+		enum currentAutoSelection
+		{
+			SWITCH_ONLY = 10,
+			HYBRID_MODE = 11,
+			SCALE_MODE = 12
+		};
+
 
 		int autoPosition = 0;
 		int cubeAmount = 0;
-		char fms_data[3] = {};
+//		char fms_data[3] = {};
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
 		}
 
-		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
+		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_ZERO));
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 		if(gameData.length() > 0)
 		{
-			cubeAmount = oi->GetInstance()->GetSelectorA();
+//			cubeAmount = oi->GetInstance()->GetSelectorA();
 			autoPosition = tStartingPosition::RIGHT_POS;
 
 			if(cubeAmount > 3) cubeAmount = 3;
 
 
-			if(oi->GetInstance()->GetSw1())
+			if(oi->GetInstance()->GetSw4())
 			{
-				autoPosition = tStartingPosition::LEFT_POS;
+//				autoPosition = tStartingPosition::LEFT_POS;
 			}
 			else
 			{
 				autoPosition = tStartingPosition::RIGHT_POS;
 			}
+
+			if(oi->GetInstance()->GetSw1()) // THIS OVERRIDES ALL
+			{
+				current_auto_selection = currentAutoSelection::SWITCH_ONLY;
+			}
+			else
+			{
+				if(oi->GetInstance()->GetSw2())
+				{
+					current_auto_selection = currentAutoSelection::SCALE_MODE;
+				}
+				else
+				{
+					current_auto_selection = currentAutoSelection::HYBRID_MODE;
+
+				}
+			}
+
+			switch(current_auto_selection)
+			{
+				case currentAutoSelection::SWITCH_ONLY:
+					std::cout << "Switch ONLY" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+
+				break;
+				case currentAutoSelection::HYBRID_MODE:
+					std::cout << "Hybrid" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+
+				break;
+				case currentAutoSelection::SCALE_MODE:
+					std::cout << "Scale ONLY" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				break;
+				default:
+//					frc::Scheduler::GetInstance()->AddCommand(new ReleaseIntake());
+//					frc::Scheduler::GetInstance()->AddCommand(new AutoDrive(120, 150, 0, 340));
+				break;
+			}
+	//		frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
+	//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+
+
+//			if(oi->GetInstance()->GetSw1())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_ScalePriority(autoPosition, gameData, cubeAmount));
+//			}
+//			if(oi->GetInstance()->GetSw2())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
+//			}
+//			if(oi->GetInstance()->GetSw3())
+//			{
+//		        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+//			}
 	        std::cout << "FMS_DATA: " << gameData << " What I See: " << gameData << "AutoPosition: " << autoPosition << "CubeAmount: " << cubeAmount << std::endl;
-	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
+//	        frc::Scheduler::GetInstance()->AddCommand(new AutonSelectorGroup(autoPosition, gameData, cubeAmount));
 		}
 	}
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		frc::SmartDashboard::PutNumber("Time", m_timeindex);
+		m_timeindex++;
 
 
 
@@ -163,7 +236,7 @@ public:
 			elevator->ConfigClosedLoop();
 		}
 
-		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(true, ELEVATOR_ZERO));
+//		frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_ZERO));
 		frc::Scheduler::GetInstance()->AddCommand(new OI_Refresh());
 
 	}
@@ -198,10 +271,8 @@ public:
 			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
 		//POV buttons
-		if (oi->opStick->GetPOV() == 0)
-			elevator->SetElevatorPosition(ELEVATOR_DOUBLE_STACK);
-		if (oi->opStick->GetPOV() == 180)
-			elevator->SetElevatorPosition(ELEVATOR_HANG);
+		if (oi->opStick->GetPOV() == 0)  frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_DOUBLE_STACK));
+		if (oi->opStick->GetPOV() == 180) frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_HANG));
 
 		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
 		{
