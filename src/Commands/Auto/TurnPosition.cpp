@@ -18,6 +18,7 @@ TurnPosition::TurnPosition(double heading, double timeOut)
 void TurnPosition::Initialize()
 {
 //	m_end_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
+	m_isFinished = false;
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	m_l_init_pos = Drivetrain::GetInstance()->getLeftDrivePosition();

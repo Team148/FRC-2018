@@ -51,8 +51,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.3));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	    //Scored First Cube
-	    AddSequential(new TurnPosition(165, 0.5));
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, FromRightScale_ToRightFirstCubePath::GetInstance()->GetTimeLength()+3.0));
+	    AddSequential(new TurnPosition(160, 0.5));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 	    AddSequential(new AutoDrive(41, 150, 0, 160));
 	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 		AddSequential(new AutoDrive(-5, 150, 0, 160));
@@ -199,34 +199,30 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
-
-		AddParallel(new ReleaseIntake());
+	    AddParallel(new ReleaseIntake());
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-0.7));
 		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
 	//	AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 2.5));
-		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.7));
+		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.5));
 //		AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 		AddSequential(new AutoDrive(-15, 150,0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
-	/*	AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-0.8));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
-		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())+25, 0.7));
-		AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
-		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 1.0));
-		AddSequential(new AutoDrive(-15, 150,0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())+25));
-		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));*/
-		AddSequential(new AutoDrive(20, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())+25));
-		AddSequential(new AutoDrive(-10, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())+25));
+		AddSequential(new AutoDrive(20, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddSequential(new AutoDrive(-10, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
-		AddSequential(new PathExecuter(FromLeftSwitch_ToLeftScalePathReversed::GetInstance(), true));
+//		AddSequential(new PathExecuter(FromLeftSwitch_ToLeftScalePathReversed::GetInstance(), true));
+		AddSequential(new TurnPosition(225, 0.5));
+		AddSequential(new AutoDrive(-120, 150, 0, 225));
+		AddSequential(new TurnPosition(275, 0.5));
 		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
-	//	AddSequential(new TurnPosition(-25.0));
+		AddSequential(new AutoDrive(6, 150, 0, 275));
+
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+		AddSequential(new AutoDrive(-12, 150, 0, 275));
+
 	//	AddSequential(new AutoDrive(-25, 150, 0, 0));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
