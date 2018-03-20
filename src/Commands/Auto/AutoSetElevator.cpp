@@ -25,22 +25,44 @@ void AutoSetElevator::Execute() {
 	double currentPosition = Elevator::GetInstance()->GetElevatorPosition();
 	double posErr = m_position - currentPosition;
 
+	double slope = (ELEVATOR_F - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
+
+
 	if(elaspedTime >= m_timeToWait)
 	{
-		Elevator::GetInstance()->SetElevatorPosition(m_position);
 
 		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
 		{
-			if(m_position == ELEVATOR_ZERO)
-			{
-				Elevator::GetInstance()->ConfigNeutralClosedLoop();
-				std::cout << "set elevator neutral" << std::endl;
-			}
 			m_IsFinished = true;
 		}
+
+		if(m_IsFinished == false)
+		{
+			if(m_position > ELEVATOR_ZERO)
+			{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+				std::cout << "finish std case" <<std::endl;
+			}
+
+			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+			{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+			}
+			else
+			{
+
+				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+				{
+					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+
+				}
+				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+			}
+		}
 	}
-
-
 }
 
 // Make this return true when this Command no longer needs to run execute()

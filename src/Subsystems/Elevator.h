@@ -9,8 +9,8 @@
 
 class Elevator : public Subsystem {
 private:
-	WPI_TalonSRX* m_ElevatorMotor1;
-	WPI_TalonSRX* m_ElevatorMotor2;
+	TalonSRX* m_ElevatorMotor1;
+	TalonSRX* m_ElevatorMotor2;
 	//WPI_TalonSRX* m_ElevatorMotor3;
 
 	Elevator();
@@ -38,7 +38,7 @@ public:
 	int GetElevatorVelocity();
 
 //	void SetElevatorJoystickPosition(double triggerValue);
-	void SetElevatorPosition(double position);
+	void SetElevatorPosition(double position, double arb_ff);
 	void SetElevatorEncoderZero();
 	void IncrementElevatorPosition(double dPosition);
 };
