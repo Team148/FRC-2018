@@ -49,9 +49,7 @@
 #include "Commands/OI_Refresh.h"
 
 //#include "networktables/NetworkTable.h"
-//#include "networktables/NetworkTableEntry.h"
 //#include "networktables/NetworkTableInstance.h"
-
 
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
@@ -61,7 +59,8 @@ private:
 	float m_armAngle = 0.0;
 	Command* command;
 	int m_timeindex = 0;
-//	std::shared_ptr<nt::NetworkTable> table;
+
+//	NetworkTableInstance *table;
 
 public:
 
@@ -85,7 +84,7 @@ public:
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
 
-//		table = NetworkTable::GetTable("limelight");
+//		table = NetworkTableInstance::GetTable("limelight");
 //		table->PutNumber("ledMode", 1.0);
 
 	}
