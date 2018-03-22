@@ -88,6 +88,9 @@ public:
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
 
+		table = NetworkTable::GetTable("limelight");
+		table->PutNumber("ledMode", 1.0);
+
 	}
 
 	/**
@@ -265,7 +268,13 @@ public:
 
 		if (oi->drvStick->GetRawButton(3))
 		{
-			table = Network::GetTable("limelight");
+			table = NetworkTable::GetTable("limelight");
+			table->PutNumber("ledMode", 0.0);
+		}
+		else
+		{
+			table = NetworkTable::GetTable("limelight");
+						table->PutNumber("ledMode", 1.0);
 		}
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
