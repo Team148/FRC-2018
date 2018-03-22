@@ -63,6 +63,9 @@ private:
 	Command* command;
 	int m_timeindex = 0;
 
+	std::shared_ptr<nt::NetworkTable> table;
+
+
 public:
 
 	Drivetrain *drivetrain = 0;
@@ -259,6 +262,11 @@ public:
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
 		ClimberSpeed = 0.0;
 		WranglerSpeed = 0.0;
+
+		if (oi->drvStick->GetRawButton(3))
+		{
+			table = Network::GetTable("limelight");
+		}
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
