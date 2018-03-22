@@ -48,6 +48,10 @@
 #include "Commands/GrabPartner.h"
 #include "Commands/OI_Refresh.h"
 
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
+
 
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
@@ -70,6 +74,7 @@ public:
 
 	std::string gameData = "";
 
+	nt::NetworkTableEntry ledMode;
 
 	void RobotInit() override {
 
@@ -79,6 +84,11 @@ public:
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+
+		auto inst = nt::NetworkTableInstance::GetDefault();
+		auto table = inst.GetTable("limelight");
+		ledMode.SetDouble(1.0);
+
 
 	}
 
@@ -263,6 +273,15 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
+
+		if(oi->drvStick->GetRawButton(3))
+		{
+			ledMode.SetDouble(0.0);
+		}
+		else
+		{
+			ledMode.SetDouble(1.0);
+		}
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
