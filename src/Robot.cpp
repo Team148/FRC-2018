@@ -26,6 +26,11 @@
 #include <TimedRobot.h>
 #include "math.h"
 #include <iostream>
+
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
+
 //#include <Commands/Pathfind.h>
 //#include <Commands/AutoPaths/GoStraightPath.h>
 #include "Constants.h"
