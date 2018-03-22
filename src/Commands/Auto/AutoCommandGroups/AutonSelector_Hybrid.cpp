@@ -64,8 +64,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddSequential(new TurnPosition(130, 0.5));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
-		AddSequential(new AutoDrive(35, 150, 0,  130));
-		AddSequential(new TurnPosition(130, 0.5));
+		AddSequential(new AutoDrive(40, 150, 0,  130));
+	//	AddSequential(new TurnPosition(130, 0.5));
 		//Grabbed Third Cube
 		AddSequential(new AutoDrive(-5, 150, 0,  130));
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));

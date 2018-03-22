@@ -48,6 +48,10 @@
 #include "Commands/GrabPartner.h"
 #include "Commands/OI_Refresh.h"
 
+//#include "networktables/NetworkTable.h"
+//#include "networktables/NetworkTableEntry.h"
+//#include "networktables/NetworkTableInstance.h"
+
 
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
@@ -57,6 +61,7 @@ private:
 	float m_armAngle = 0.0;
 	Command* command;
 	int m_timeindex = 0;
+//	std::shared_ptr<nt::NetworkTable> table;
 
 public:
 
@@ -79,6 +84,9 @@ public:
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+
+//		table = NetworkTable::GetTable("limelight");
+//		table->PutNumber("ledMode", 1.0);
 
 	}
 
@@ -255,6 +263,17 @@ public:
 		ClimberSpeed = 0.0;
 		WranglerSpeed = 0.0;
 
+//		if (oi->drvStick-GetRawButton(3))
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		            table->PutNumber("ledMode", 0.0);
+//		        }
+//		        else
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		                        table->PutNumber("ledMode", 1.0);
+//		        }
+
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
@@ -264,7 +283,7 @@ public:
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
-		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
