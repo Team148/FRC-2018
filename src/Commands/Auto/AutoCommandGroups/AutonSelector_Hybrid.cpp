@@ -53,14 +53,14 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    //Scored First Cube
 	    AddSequential(new TurnPosition(160, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-	    AddSequential(new AutoDrive(41, 150, 0, 160));
+	    AddSequential(new AutoDrive(44, 150, 0, 160));
 	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 		AddSequential(new AutoDrive(-5, 150, 0, 160));
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-	//	AddSequential(new AutoDrive(10, 150, 0,  160));
+		AddSequential(new AutoDrive(10, 150, 0,  160));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 		//Scored Second Cube
-		AddSequential(new AutoDrive(-20, 150, 0,  160));
+		AddSequential(new AutoDrive(-30, 150, 0,  160));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddSequential(new TurnPosition(130, 0.5));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
