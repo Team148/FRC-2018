@@ -85,9 +85,7 @@ public:
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
 
-		auto inst = nt::NetworkTableInstance::GetDefault();
-		auto table = inst.GetTable("limelight");
-		ledMode.SetDouble(1.0);
+
 
 
 	}
@@ -106,6 +104,13 @@ public:
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+		auto inst = nt::NetworkTableInstance::GetDefault();
+		auto table = inst.GetTable("limelight");
+	//	ledMode.SetDouble(1.0);
+
+	//	inst.GetDefault().GetTable("limelight").Get
+		table.get()->GetEntry("ledMode").SetDouble(1.0);
 
 	}
 
@@ -257,6 +262,13 @@ public:
 
 		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
+		auto inst = nt::NetworkTableInstance::GetDefault();
+		auto table = inst.GetTable("limelight");
+	//	ledMode.SetDouble(1.0);
+
+	//	inst.GetDefault().GetTable("limelight").Get
+		table.get()->GetEntry("ledMode").SetDouble(1.0);
+
 		static double IntakeSpeed = 0.0;
 		static double ClimberSpeed = 0.0;
 		static double WranglerSpeed = 0.0;
@@ -276,14 +288,16 @@ public:
 
 		if(oi->drvStick->GetRawButton(3))
 		{
-			ledMode.SetDouble(0.0);
+			table.get()->GetEntry("ledMode").SetDouble(0.0);
+		//	ledMode.SetDouble(0.0);
 		}
 		else
 		{
-			ledMode.SetDouble(1.0);
+			table.get()->GetEntry("ledMode").SetDouble(1.0);
+		//	ledMode.SetDouble(1.0);
 		}
 
-		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
