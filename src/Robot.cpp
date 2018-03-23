@@ -300,6 +300,9 @@ public:
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			ClimberSpeed = -CLIMBER_OUTPUT_PERCENT;
+
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
 			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
