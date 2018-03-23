@@ -92,24 +92,25 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    else //normal left scale case
 	    {
 			AddParallel(new ReleaseIntake());
-			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-1.2)); // ADDED, NOT NORMALs
+			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
 			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
 			AddSequential(new AutoIntake(-0.4, 0.3));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-			AddSequential(new TurnPosition(205, 1.0));
+			AddSequential(new TurnPosition(202, 1.0));
 			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 		 //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 											//    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.5));
-			AddSequential(new AutoDrive(52, 150, 0, 205));
+			AddSequential(new AutoDrive(52, 150, 0, 202));
+			AddSequential(new AutoDrive(-5, 150, 0, 202));
 		//    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightFirstCube_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 
-			AddSequential(new TurnPosition(350, 1.0));
+			AddSequential(new TurnPosition(0, 1.0));
 			AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.2));
-			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
-			AddSequential(new AutoDrive(30, 150, 0, 350));
-			AddSequential(new AutoDrive(5, 150, 0, 350));
-			AddSequential(new AutoIntake(-0.4, 0.5));
-			AddSequential(new AutoDrive(-15, 150, 0, 350));
+			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.2)); // ADDED, NOT NORMAL
+			AddSequential(new AutoDrive(40, 150, 0, 0));
+		//	AddSequential(new AutoDrive(5, 150, 0, 350));
+			AddSequential(new AutoIntake(-0.25, 0.5));
+			AddSequential(new AutoDrive(-15, 150, 0, 0));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 			/*										//    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));

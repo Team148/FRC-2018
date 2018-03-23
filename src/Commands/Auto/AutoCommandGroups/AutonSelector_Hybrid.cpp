@@ -141,7 +141,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
 		AddSequential(new AutoDrive(20, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
-		AddSequential(new AutoDrive(-10, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddSequential(new AutoDrive(-13, 150, 0, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
 		AddSequential(new TurnPosition(270,0.5));
