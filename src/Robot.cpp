@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_Elim.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
 
@@ -191,13 +192,14 @@ public:
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
-					std::cout << "Switch ONLY" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					std::cout << "Hybrid" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
-					std::cout << "Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					std::cout << "Elim Mode formerly Hybrid" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::SCALE_MODE:

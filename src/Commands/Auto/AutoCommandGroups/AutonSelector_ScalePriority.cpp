@@ -41,7 +41,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 	//    AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0)); // ADDED, NOT NORMAL
 	//    AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.3));
+	    AddSequential(new AutoIntake(-0.4, 0.3));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	    AddSequential(new TurnPosition(160, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
@@ -94,7 +94,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 			AddParallel(new ReleaseIntake());
 			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
 			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-			AddSequential(new AutoIntake(-0.4, 0.3));
+			AddSequential(new AutoIntake(-0.5, 0.3));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 			AddSequential(new TurnPosition(202, 1.0));
 			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
