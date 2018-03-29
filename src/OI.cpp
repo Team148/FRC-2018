@@ -6,6 +6,7 @@
 #include <Commands/RunClimber.h>
 #include <Commands/GrabPartner.h>
 #include <Commands/SetElevator.h>
+#include "Commands/SetLimelightLED.h"
 
 OI *OI::m_instance = 0;
 
@@ -82,6 +83,9 @@ OI::OI() {
 	m_opButton3->WhenPressed(new SetElevator(ELEVATOR_SCALE_LOW));
 
 	m_opButton4->WhenPressed(new SetElevator(ELEVATOR_SCALE_HIGH));
+
+	m_drvButton3->WhenPressed(new SetLimelightLED(1));
+	m_drvButton3->WhenReleased(new SetLimelightLED(0));
 }
 
 OI* OI::GetInstance() {
