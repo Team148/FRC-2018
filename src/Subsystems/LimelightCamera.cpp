@@ -9,6 +9,8 @@ LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
 	inst->GetDefault();
 	table = NetworkTable::GetTable("limelight");
 
+	m_ledMode = 1.0;		//set LEDs to default to off
+	m_pipeline = 0.0;
 }
 
 LimelightCamera* LimelightCamera::GetInstance() {
@@ -31,6 +33,7 @@ void LimelightCamera::GetCameraData()
 {
 	CheckConnection();
 
+	//read values from NetworkTables
 	validObject = table->GetEntry("tv");
 	xOffSet = table->GetEntry("tx");
 	yOffSet = table->GetEntry("ty");
@@ -39,14 +42,16 @@ void LimelightCamera::GetCameraData()
 	skew = table->GetEntry("ts");
 	ledMode = table->GetEntry("ledMode");
 
-	if(ledMode.GetDouble(-1) == 0)
-		SetCameraLEDOff();
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
 	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(99.));
 	frc::SmartDashboard::PutNumber("VertOffset", yOffSet.GetDouble(99.));
 	frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
 	frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
+
+	//Write NetworkTables with desired values
+	ledMode.SetDouble(m_ledMode);
+
 
 }
 
@@ -61,22 +66,22 @@ bool LimelightCamera::CheckConnection() {
 
 void LimelightCamera::SetCameraLEDOn()
 {
-	ledMode.SetDouble(0.0); //0,1,2 -> on,off,blink
+	m_ledMode = 0.0; //0,1,2 -> on,off,blink
 }
 
 void LimelightCamera::SetCameraLEDOff()
 {
-	ledMode.SetDouble(1.0); //0,1,2 -> on,off,blink
+	m_ledMode = 1.0; //0,1,2 -> on,off,blink
 }
 
 void LimelightCamera::SetCameraLEDBlink()
 {
-	ledMode.SetDouble(2.0); //0,1,2 -> on,off,blink
+	m_ledMode = 2.0;; //0,1,2 -> on,off,blink
 }
 
 void LimelightCamera::SetCameraPipeline(double pipe)
 {
-     pipeline.SetDouble(pipe); //0->9 are valid pipelines
+     m_pipeline = pipe; //0->9 are valid pipelines
 }
 
 double LimelightCamera::GetOffsetAngle() {

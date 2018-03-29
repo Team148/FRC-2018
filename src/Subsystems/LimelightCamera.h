@@ -46,6 +46,10 @@ private:
 	nt::NetworkTableEntry ledMode;
 	nt::NetworkTableEntry pipeline;
 
+	double m_ledMode;
+	double m_pipeline;
+
+
 };
 
 #endif  // LimelightCamera_H
