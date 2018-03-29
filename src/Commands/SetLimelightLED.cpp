@@ -5,29 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <Commands/LimeLightLEDs.h>
+#include "SetLimelightLED.h"
 
-LimeLightLEDs::LimeLightLEDs(int mode) {
+SetLimelightLED::SetLimelightLED(bool on) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	m_limeLightMode = mode;
+	m_on=on;
 }
 
-// Called just before this Command runs the first time
-void LimeLightLEDs::Initialize() {
-	switch(m_limeLightMode)
-	{
-		case 0:
-			LimelightCamera::GetInstance()->SetCameraLEDOff();
-		case 1:
-			LimelightCamera::GetInstance()->SetCameraLEDOn();
-		case 2:
-			LimelightCamera::GetInstance()->SetCameraLEDBlink();
-		default:
-			LimelightCamera::GetInstance()->SetCameraLEDOff();
-
-
-	}
+// Called once when the command executes
+void SetLimelightLED::Initialize() {
+	if(m_on)
+		LimelightCamera::GetInstance()->SetCameraLEDOn();
+	else
+		LimelightCamera::GetInstance()->SetCameraLEDOff();
 }
-
-

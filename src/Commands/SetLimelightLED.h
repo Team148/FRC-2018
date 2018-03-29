@@ -8,14 +8,14 @@
 #pragma once
 
 #include "Commands/InstantCommand.h"
-#include "Subsystems/LimeLightCamera.h"
+#include "Subsystems/LimelightCamera.h"
 
-class LimeLightLEDs : public frc::InstantCommand {
+class SetLimelightLED : public frc::InstantCommand {
 public:
-	LimeLightLEDs(int mode=0);
+	SetLimelightLED(bool on);
 	void Initialize() override;
 
 private:
-	int m_limeLightMode = 0;
+	bool m_on;
 };
 
