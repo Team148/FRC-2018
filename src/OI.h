@@ -7,6 +7,7 @@ public:
 	frc::Joystick* opStick;
 	Joystick* dsiBrickA;
 	Joystick* dsiBrickB;
+	Joystick* mspJoystick;
 
 	int GetSelectorA();
 	int GetSelectorB();
@@ -45,27 +46,32 @@ private:
 	JoystickButton* m_opButton9;
 	JoystickButton* m_opButton10;
 
-	JoystickButton* m_brickAselect1;
-	JoystickButton* m_brickAselect2;
-	JoystickButton* m_brickAselect3;
-	JoystickButton* m_brickAselect4;
-	JoystickButton* m_brickAselect5;
-	JoystickButton* m_brickAselect6;
-	JoystickButton* m_brickAselect7;
-	JoystickButton* m_brickAselect8;
-
-	JoystickButton* m_brickBselect1;
-	JoystickButton* m_brickBselect2;
-	JoystickButton* m_brickBselect3;
-	JoystickButton* m_brickBselect4;
-	JoystickButton* m_brickBselect5;
-	JoystickButton* m_brickBselect6;
-	JoystickButton* m_brickBselect7;
-	JoystickButton* m_brickBselect8;
-	JoystickButton* m_dsiSw1;
-	JoystickButton* m_dsiSw2;
-	JoystickButton* m_dsiSw3;
-	JoystickButton* m_dsiSw4;
-	JoystickButton* m_dsiSw5;
+//	JoystickButton* m_brickAselect1;
+//	JoystickButton* m_brickAselect2;
+//	JoystickButton* m_brickAselect3;
+//	JoystickButton* m_brickAselect4;
+//	JoystickButton* m_brickAselect5;
+//	JoystickButton* m_brickAselect6;
+//	JoystickButton* m_brickAselect7;
+//	JoystickButton* m_brickAselect8;
+//
+//	JoystickButton* m_brickBselect1;
+//	JoystickButton* m_brickBselect2;
+//	JoystickButton* m_brickBselect3;
+//	JoystickButton* m_brickBselect4;
+//	JoystickButton* m_brickBselect5;
+//	JoystickButton* m_brickBselect6;
+//	JoystickButton* m_brickBselect7;
+//	JoystickButton* m_brickBselect8;
+//	JoystickButton* m_dsiSw1;
+//	JoystickButton* m_dsiSw2;
+//	JoystickButton* m_dsiSw3;
+//	JoystickButton* m_dsiSw4;
+//	JoystickButton* m_dsiSw5;
+	JoystickButton* msp_s1;
+	JoystickButton* msp_s2;
+	JoystickButton* msp_s3;
+	JoystickButton* msp_s4;
+	JoystickButton* msp_s5;
 
 };

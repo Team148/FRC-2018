@@ -8,8 +8,8 @@ Elevator *Elevator::m_instance = 0;
 Elevator::Elevator() : Subsystem("Elevator") {
 
 	//elevator motors
-	m_ElevatorMotor1 = new WPI_TalonSRX(ELEVATOR_MOTOR_1);
-	m_ElevatorMotor2 = new WPI_TalonSRX(ELEVATOR_MOTOR_2);
+	m_ElevatorMotor1 = new TalonSRX(ELEVATOR_MOTOR_1);
+	m_ElevatorMotor2 = new TalonSRX(ELEVATOR_MOTOR_2);
 
 	m_ElevatorMotor2->Set(ControlMode::Follower, ELEVATOR_MOTOR_1);
 
@@ -20,8 +20,8 @@ Elevator::Elevator() : Subsystem("Elevator") {
 	m_ElevatorMotor2->ConfigOpenloopRamp(0, 0);
 
 	//elevator motor configuration
-	m_ElevatorMotor1->SetSafetyEnabled(false);
-	m_ElevatorMotor2->SetSafetyEnabled(false);
+//	m_ElevatorMotor1->SetSafetyEnabled(false);
+//	m_ElevatorMotor2->SetSafetyEnabled(false);
 
 	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_ElevatorMotor1->SetSelectedSensorPosition(0,0,0);
@@ -66,18 +66,19 @@ void Elevator::ConfigClosedLoop() {
 
 	m_ElevatorMotor1->ConfigClosedloopRamp(0.25, 0);
 
-	m_ElevatorMotor1->Config_kF(0, ELEVATOR_F, 0);
+	m_ElevatorMotor1->Config_kF(0, 0, 0);
 	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P, 0);
 	m_ElevatorMotor1->Config_kI(0, ELEVATOR_I, 0);
 	m_ElevatorMotor1->Config_kD(0, ELEVATOR_D, 0);
 
 	m_ElevatorMotor1->SetSelectedSensorPosition(0, 0, 0);
+	std::cout << "elevator sensor zero'd" << std::endl;
 
 	m_isClosedLoop = 1;
 }
 
 void Elevator::ConfigNeutralClosedLoop() {
-	m_ElevatorMotor1->Config_kF(0, ELEVATOR_ZERO_F, 0);
+//	m_ElevatorMotor1->Config_kF(0, ELEVATOR_ZERO_F, 0);
 	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P, 0);
 	m_ElevatorMotor1->Config_kI(0, ELEVATOR_I, 0);
 	m_ElevatorMotor1->Config_kD(0, ELEVATOR_D, 0);
@@ -108,16 +109,18 @@ int Elevator::GetElevatorVelocity() {
 	return m_ElevatorMotor1->GetSelectedSensorVelocity(0);
 }
 
-void Elevator::SetElevatorPosition(double position) {
+void Elevator::SetElevatorPosition(double a_position, double arb_ff)
+{
 	if(!m_isClosedLoop)
 		ConfigClosedLoop();
 
-	m_position = position;
-	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
-	double scaled_elevator_F = ELEVATOR_F / m_position;
 
-	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
-	m_ElevatorMotor1->Set(ControlMode::Position, m_position);
+	m_position = a_position;
+	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
+//	double scaled_elevator_F = ELEVATOR_F / m_position;
+
+//	m_ElevatorMotor1->Config_kF(0, scaled_elevator_F, 0);
+	m_ElevatorMotor1->Set(ControlMode::Position, m_position, DemandType::DemandType_ArbitraryFeedForward, arb_ff);
 }
 
 void Elevator::SetElevatorEncoderZero() {
@@ -131,5 +134,5 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 	double local_position = m_position;
 	local_position += dPosition;
 
-	SetElevatorPosition(local_position);
+	SetElevatorPosition(local_position, ELEVATOR_F);
 }

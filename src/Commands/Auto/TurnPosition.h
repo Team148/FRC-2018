@@ -6,7 +6,7 @@
 
 class TurnPosition : public Command {
 public:
-	TurnPosition(double angle);
+	TurnPosition(double heading,  double timeOut);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -15,10 +15,15 @@ public:
 
 private:
 	UnitMaster unit_master;
-	double m_given_angle = 0.0;
-	double m_end_angle = 0.0;
-	double m_cur_angle = 0.0;
-	double m_angle_err = 0.0;
+	double m_time_out = 0.0;
+	double m_heading = 0.0;
+	double m_robot_heading = 0.0;
+	double m_cur_heading = 0.0;
+	double m_heading_err = 0.0;
+//	double m_given_angle = 0.0;
+//	double m_end_angle = 0.0;
+//	double m_cur_angle = 0.0;
+//	double m_angle_err = 0.0;
 	int m_l_cur_pos = 0.0;
 	int m_l_init_pos = 0.0;
 	int m_r_cur_pos = 0.0;
