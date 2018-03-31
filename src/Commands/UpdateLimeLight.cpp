@@ -21,11 +21,12 @@ void UpdateLimeLight::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void UpdateLimeLight::Execute() {
 	LimelightCamera::GetInstance()->GetCameraData();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool UpdateLimeLight::IsFinished() {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true

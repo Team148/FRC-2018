@@ -83,10 +83,6 @@ public:
 		wrangler = Wrangler::GetInstance();
 		camera = LimelightCamera::GetInstance();
 
-
-
-
-
 	}
 
 	/**
@@ -102,6 +98,7 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		camera->GetCameraData();
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
 	}
