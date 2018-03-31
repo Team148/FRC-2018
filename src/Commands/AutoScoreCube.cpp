@@ -29,7 +29,7 @@ AutoScoreCube::AutoScoreCube() {
 
 	AddParallel(new ConfigDriveVelocityClosedLoop(true));
 	AddParallel(new RunIntake(OUTTAKE_AUTOSCORE_PERCENT));
-	AddSequential(new SetDrivetrainVelocity(-10));
+	AddSequential(new SetDrivetrainVelocity(-15));
 
 
 }
