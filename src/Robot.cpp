@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_Elim.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
 
@@ -48,6 +49,9 @@
 #include "Commands/GrabPartner.h"
 #include "Commands/OI_Refresh.h"
 
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
 
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
@@ -57,6 +61,8 @@ private:
 	float m_armAngle = 0.0;
 	Command* command;
 	int m_timeindex = 0;
+
+//	NetworkTableInstance *table;
 
 public:
 
@@ -70,6 +76,7 @@ public:
 
 	std::string gameData = "";
 
+	nt::NetworkTableEntry ledMode;
 
 	void RobotInit() override {
 
@@ -96,6 +103,13 @@ public:
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+		auto inst = nt::NetworkTableInstance::GetDefault();
+		auto table = inst.GetTable("limelight");
+	//	ledMode.SetDouble(1.0);
+
+	//	inst.GetDefault().GetTable("limelight").Get
+		table.get()->GetEntry("ledMode").SetDouble(1.0);
 
 	}
 
@@ -176,13 +190,14 @@ public:
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
-					std::cout << "Switch ONLY" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					std::cout << "Hybrid" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
-					std::cout << "Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					std::cout << "Elim Mode formerly Hybrid" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::SCALE_MODE:
@@ -247,6 +262,13 @@ public:
 
 		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
+		auto inst = nt::NetworkTableInstance::GetDefault();
+		auto table = inst.GetTable("limelight");
+	//	ledMode.SetDouble(1.0);
+
+	//	inst.GetDefault().GetTable("limelight").Get
+		table.get()->GetEntry("ledMode").SetDouble(1.0);
+
 		static double IntakeSpeed = 0.0;
 		static double ClimberSpeed = 0.0;
 		static double WranglerSpeed = 0.0;
@@ -254,6 +276,17 @@ public:
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
 		ClimberSpeed = 0.0;
 		WranglerSpeed = 0.0;
+
+//		if (oi->drvStick-GetRawButton(3))
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		            table->PutNumber("ledMode", 0.0);
+//		        }
+//		        else
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		                        table->PutNumber("ledMode", 1.0);
+//		        }
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
@@ -264,8 +297,22 @@ public:
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
-		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+		if(oi->drvStick->GetRawButton(3))
+		{
+			table.get()->GetEntry("ledMode").SetDouble(0.0);
+		//	ledMode.SetDouble(0.0);
+		}
+		else
+		{
+			table.get()->GetEntry("ledMode").SetDouble(1.0);
+		//	ledMode.SetDouble(1.0);
+		}
+
+		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
+
+		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
+			ClimberSpeed = -CLIMBER_OUTPUT_PERCENT;
 
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
 			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
