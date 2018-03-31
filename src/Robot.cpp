@@ -50,7 +50,6 @@
 #include "Commands/GrabPartner.h"
 #include "Commands/OI_Refresh.h"
 
-
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
 
@@ -59,6 +58,8 @@ private:
 	float m_armAngle = 0.0;
 	Command* command;
 	int m_timeindex = 0;
+
+//	NetworkTableInstance *table;
 
 public:
 	LimelightCamera *camera = 0;
@@ -261,6 +262,17 @@ public:
 		IntakeSpeed = 0.0; // MAKES SURE THERE IS NOT A STICKY SET
 		ClimberSpeed = 0.0;
 		WranglerSpeed = 0.0;
+
+//		if (oi->drvStick-GetRawButton(3))
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		            table->PutNumber("ledMode", 0.0);
+//		        }
+//		        else
+//		        {
+//		            table = NetworkTable::GetTable("limelight");
+//		                        table->PutNumber("ledMode", 1.0);
+//		        }
 
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
