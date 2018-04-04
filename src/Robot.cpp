@@ -41,6 +41,7 @@
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Climber.h"
 #include <Subsystems/Wrangler.h>
+#include "Subsystems/LimelightCamera.h"
 
 #include "Commands/DriveWithJoystick.h"
 #include "Commands/TankDriveJoystick.h"
@@ -51,10 +52,6 @@
 #include "Commands/RunClimber.h"
 #include "Commands/GrabPartner.h"
 #include "Commands/OI_Refresh.h"
-
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableEntry.h"
-#include "networktables/NetworkTableInstance.h"
 
 #include "Commands/SetDrivetrainVelocity.h"
 #include <string>
@@ -68,7 +65,7 @@ private:
 //	NetworkTableInstance *table;
 
 public:
-
+	LimelightCamera *camera = 0;
 	Drivetrain *drivetrain = 0;
 	Intake *intake = 0;
 	Elevator *elevator = 0;
@@ -80,16 +77,16 @@ public:
 
 	std::string gameData = "";
 
-	nt::NetworkTableEntry ledMode;
+
 
 	void RobotInit() override {
-
 		oi = OI::GetInstance();
 		drivetrain = Drivetrain::GetInstance();
 		intake = Intake::GetInstance();
 		elevator = Elevator::GetInstance();
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
+		camera = LimelightCamera::GetInstance();
 
 
 
@@ -109,14 +106,13 @@ public:
 
 	void DisabledPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		camera->GetCameraData();
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
-		auto inst = nt::NetworkTableInstance::GetDefault();
-		auto table = inst.GetTable("limelight");
+
 	//	ledMode.SetDouble(1.0);
 
 	//	inst.GetDefault().GetTable("limelight").Get
-		table.get()->GetEntry("ledMode").SetDouble(1.0);
 //		std::cout << "LINETRACKER_M: " << lineTracker_m->GetVoltage() << "| LINETRACKER_L: " << lineTracker_l->GetVoltage() << "| LINETRACKER_R: " << lineTracker_r->GetVoltage() << std::endl;
 
 
@@ -133,6 +129,7 @@ public:
 
 		if(Drivetrain::GetInstance()->GetLineSenseR_R())
 			std::cout << "R_R Triggered"<<std::endl;;
+
 	}
 
 	/**
@@ -285,12 +282,7 @@ public:
 
 		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
 
-		auto inst = nt::NetworkTableInstance::GetDefault();
-		auto table = inst.GetTable("limelight");
-	//	ledMode.SetDouble(1.0);
 
-	//	inst.GetDefault().GetTable("limelight").Get
-		table.get()->GetEntry("ledMode").SetDouble(1.0);
 
 		static double IntakeSpeed = 0.0;
 		static double ClimberSpeed = 0.0;
@@ -320,16 +312,7 @@ public:
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
 
-		if(oi->drvStick->GetRawButton(3))
-		{
-			table.get()->GetEntry("ledMode").SetDouble(0.0);
-		//	ledMode.SetDouble(0.0);
-		}
-		else
-		{
-			table.get()->GetEntry("ledMode").SetDouble(1.0);
-		//	ledMode.SetDouble(1.0);
-		}
+
 
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
