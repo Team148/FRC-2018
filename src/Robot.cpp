@@ -317,7 +317,7 @@ public:
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
-		if (oi->drvStick->GetRawButton(4))
+		if (oi->drvStick->GetRawButton(6))
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
