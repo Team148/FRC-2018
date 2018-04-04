@@ -58,7 +58,7 @@ public:
 	bool GetLineSenseF_L();
 	bool GetLineSenseF_R();
 
-	void configDrivetrain(tDriveConfigs drive_config);
+	void configDrivetrain(tDriveConfigs drive_config, double cruiseVelocity = 100, double acceleration = 100);
 	double GetInitPathDriveHeading();
 	void InitPathDriveHeading();
 	void InitPathDrive();

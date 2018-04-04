@@ -309,7 +309,7 @@ void Drivetrain::SetBrakeMode(bool on) {
 }
 
 
-void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
+void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVelocity, double acceleration)
 {
 	if(drive_config == tDriveConfigs::OPEN_LOOP)
 	{
@@ -469,6 +469,13 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
+				m_rightMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
+				m_rightMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+
+				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
+				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+
+
 				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
 				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
 
@@ -481,7 +488,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
 				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
 
-				m_current_drive_config = tDriveConfigs::POSITION_CONFIG;
+				m_current_drive_config = tDriveConfigs::MOTION_MAGIC_CONFIG;
 
 				SetBrakeMode(true);
 				std::cout << "CONFIG: POSITION" << std::endl;
