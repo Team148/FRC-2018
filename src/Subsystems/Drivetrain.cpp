@@ -428,6 +428,50 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 		SetBrakeMode(true);
 		std::cout << "CONFIG: POSITION" << std::endl;
 	}
+	if(drive_config == tDriveConfigs::MOTION_MAGIC_CONFIG)
+	{
+		//left drive encoder initialize
+				m_leftMotor1->Set(ControlMode::MotionMagic,0.0);
+				m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+				m_leftMotor1->SetSensorPhase(false);
+			//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
+
+				m_leftMotor1->SetSelectedSensorPosition(0,0,0);
+				m_rightMotor1->SetSelectedSensorPosition(0,0,0);
+				//right drive encoder initialize
+				m_rightMotor1->Set(ControlMode::MotionMagic,0.0);
+				m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+				m_rightMotor1->SetSensorPhase(false);
+
+				m_leftMotor1->ConfigNominalOutputForward(0,0);
+				m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+				m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+				m_leftMotor1->EnableVoltageCompensation(true);
+
+				m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+				m_rightMotor1->EnableVoltageCompensation(true);
+
+				m_rightMotor1->ConfigClosedloopRamp(0, 0);
+				m_rightMotor1->ConfigClosedloopRamp(0, 0);
+
+				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
+
+				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
+
+				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
+
+				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+
+				m_current_drive_config = tDriveConfigs::POSITION_CONFIG;
+
+				SetBrakeMode(true);
+				std::cout << "CONFIG: POSITION" << std::endl;
+	}
 
 }
 bool Drivetrain::isDrivetrainConfiged(tDriveConfigs drive_config)
