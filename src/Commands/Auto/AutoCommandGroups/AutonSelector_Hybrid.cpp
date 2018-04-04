@@ -45,7 +45,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.5)); // ADDED, NOT NORMAL
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 //	    AddSequential(new WaitCommand(0.5));
 	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.3));

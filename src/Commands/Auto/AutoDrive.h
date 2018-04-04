@@ -1,5 +1,5 @@
-  #ifndef Drive_H
-#define Drive_H
+  #ifndef AutoDrive_H
+#define AutoDrive_H
 #include "Util/UnitMaster.h"
 #include <queue>
 #include <math.h>
@@ -51,4 +51,4 @@ private:
 	queue <Trajectory_points> m_trajectory;
 };
 
-#endif  // Drive_H
+#endif  // AutoDrive_H

@@ -36,7 +36,10 @@ private:
 	bool m_closedLoopPosition = 0;
 	int m_current_drive_config = 0;
 
-
+	frc::AnalogInput* lineTracker_fr;
+	frc::AnalogInput* lineTracker_fl;
+	frc::AnalogInput* lineTracker_rr;
+	frc::AnalogInput* lineTracker_rl;
 
 public:
 //	PowerDistributionPanel* m_pdp;
@@ -50,16 +53,19 @@ public:
 	void SetEncoderPosition(int l, int r);
 	void SetBrakeMode(bool on);
 
+	bool GetLineSenseR_L();
+	bool GetLineSenseR_R();
+	bool GetLineSenseF_L();
+	bool GetLineSenseF_R();
+
 	void configDrivetrain(tDriveConfigs drive_config);
 	double GetInitPathDriveHeading();
 	void InitPathDriveHeading();
 	void InitPathDrive();
-	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReversed = false);
-
+	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading,
+							bool isReverse = false, bool headingCorrectionOn = true, bool positionCorrectionOn = true);
 
 	bool isDrivetrainConfiged(tDriveConfigs drive_config);
-
-
 
 	int getLeftDrivePosition();
 	int getRightDrivePosition();
@@ -75,8 +81,6 @@ public:
 
 	double getRobotPathHeading();
 
-
-
 	double updatePigeon();
 
 	void getPigeonStatus();
@@ -86,8 +90,6 @@ public:
 	double getRobotPosition_y();
 
 	double getLeftThrottle();
-
-
 
 	void unitConversionTest();
 

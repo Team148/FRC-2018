@@ -28,10 +28,13 @@
 #include "math.h"
 #include <iostream>
 //#include <Commands/Pathfind.h>
-//#include <Commands/AutoPaths/GoStraightPath.h>
+
 #include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
+
+
+
 
 #include "Subsystems/Drivetrain.h"
 #include "Subsystems/Intake.h"
@@ -63,6 +66,7 @@ private:
 	Command* command;
 	int m_timeindex = 0;
 
+
 public:
 
 	Drivetrain *drivetrain = 0;
@@ -72,6 +76,7 @@ public:
 	Wrangler *wrangler = 0;
 	OI *oi = 0;
 	UnitMaster unit_master;
+
 
 	std::string gameData = "";
 
@@ -112,7 +117,22 @@ public:
 
 	//	inst.GetDefault().GetTable("limelight").Get
 		table.get()->GetEntry("ledMode").SetDouble(1.0);
+//		std::cout << "LINETRACKER_M: " << lineTracker_m->GetVoltage() << "| LINETRACKER_L: " << lineTracker_l->GetVoltage() << "| LINETRACKER_R: " << lineTracker_r->GetVoltage() << std::endl;
 
+
+		if(Drivetrain::GetInstance()->GetLineSenseF_L())
+			std::cout << "F_L Triggered" <<std::endl;
+
+		if(Drivetrain::GetInstance()->GetLineSenseF_R())
+			std::cout << "F_R Triggered"<<std::endl;;
+
+
+		if(Drivetrain::GetInstance()->GetLineSenseR_L())
+			std::cout << "R_L Triggered"<<std::endl;;
+
+
+		if(Drivetrain::GetInstance()->GetLineSenseR_R())
+			std::cout << "R_R Triggered"<<std::endl;;
 	}
 
 	/**
@@ -200,6 +220,7 @@ public:
 				case currentAutoSelection::HYBRID_MODE:
 					std::cout << "Elim Mode formerly Hybrid" << std::endl;
 					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+
 
 				break;
 				case currentAutoSelection::SCALE_MODE:
@@ -302,6 +323,9 @@ public:
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
+		if (oi->drvStick->GetRawButton(4))
+			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
+
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
 			ClimberSpeed = -CLIMBER_OUTPUT_PERCENT;
 
@@ -316,6 +340,12 @@ public:
 		{
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
 		}
+
+//		if( lineTracker_l->GetVoltage() <4.4 ||lineTracker_r->GetVoltage() <4.4  )
+//			IntakeSpeed = 0.5;
+
+
+
 
 		intake->SetIntakeMotor(IntakeSpeed);
 		climber->SetClimberMotor(ClimberSpeed);

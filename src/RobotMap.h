@@ -24,4 +24,10 @@ constexpr int WRANGLER_MOTOR_1		= 13;
 
 constexpr int PIGEON_GYRO 			= 0;
 
+constexpr int LINETRACKER_FRONT_L	= 0;
+constexpr int LINETRACKER_REAR_L	= 1;
+constexpr int LINETRACKER_FRONT_R	= 2;
+constexpr int LINETRACKER_REAR_R	= 3;
+
+
 #endif  // ROBOTMAP_H

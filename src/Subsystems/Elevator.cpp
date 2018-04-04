@@ -57,7 +57,7 @@ void Elevator::ConfigClosedLoop() {
 	m_ElevatorMotor1->ConfigNominalOutputForward(0.0,0);
 	m_ElevatorMotor1->ConfigNominalOutputReverse(0.0,0);
 
-	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.25,0);
+	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.32,0);
 	m_ElevatorMotor1->ConfigForwardSoftLimitThreshold(ELEVATOR_SOFT_LIMIT,0);
 
 	m_ElevatorMotor1->Set(ControlMode::Position,0.0);

@@ -97,6 +97,11 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
 	pigeon->SetStatusFramePeriod(PigeonIMU_StatusFrame::PigeonIMU_CondStatus_1_General, 5, 0);
+
+	lineTracker_fr = new AnalogInput(LINETRACKER_FRONT_R);
+	lineTracker_fl = new AnalogInput(LINETRACKER_FRONT_L);
+	lineTracker_rr = new AnalogInput(LINETRACKER_REAR_R);
+	lineTracker_rl = new AnalogInput(LINETRACKER_REAR_L);
 }
 
 Drivetrain* Drivetrain::GetInstance() {
@@ -171,7 +176,7 @@ void Drivetrain::InitPathDrive()
 	initRightDrivePos = getRightDrivePosition();
 }
 
-void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse){
+void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse, bool headingCorrectionOn, bool positionCorrectionOn){
 	double m_l_pos = l_pos;
 	double m_l_velo = l_velo;
 	double m_l_accel = l_accel;
@@ -219,6 +224,15 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double right_error = m_r_pos - cur_pos_r;
 
 	left_error = right_error = (left_error + right_error)*0.5;
+
+	if(!positionCorrectionOn)
+	{
+		left_error = right_error = 0;
+	}
+	if(!headingCorrectionOn)
+	{
+		heading_contrib = 0;
+	}
 
 
 	double left_output = 	(DRIVETRAIN_PATH_FV * m_l_velo) +
@@ -580,4 +594,24 @@ void Drivetrain::unitConversionTest()
 
 }
 
+bool Drivetrain::GetLineSenseR_L()
+{
+	return (lineTracker_rl->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_rl->GetVoltage() > 1.0);
+}
 
+
+bool Drivetrain::GetLineSenseR_R()
+{
+	return (lineTracker_rr->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_rr->GetVoltage() > 1.0);
+}
+
+bool Drivetrain::GetLineSenseF_L()
+{
+	return (lineTracker_fl->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_fl->GetVoltage() > 1.0);
+}
+
+
+bool Drivetrain::GetLineSenseF_R()
+{
+	return (lineTracker_fr->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_fr->GetVoltage() > 1.0);
+}

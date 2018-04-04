@@ -10,6 +10,15 @@ Intake::Intake() : Subsystem("Intake"){
 	m_IntakeMotor1 = new WPI_TalonSRX(INTAKE_MOTOR_1);
 	m_IntakeMotor2 = new WPI_VictorSPX(INTAKE_MOTOR_2);
 
+	m_IntakeMotor1->ConfigVoltageCompSaturation(12.0, 0);
+	m_IntakeMotor1->EnableVoltageCompensation(true);
+
+	m_IntakeMotor2->ConfigVoltageCompSaturation(12.0, 0);
+	m_IntakeMotor2->EnableVoltageCompensation(true);
+
+	m_IntakeMotor1->SetNeutralMode(NeutralMode::Brake);
+	m_IntakeMotor2->SetNeutralMode(NeutralMode::Brake);
+
 	//intake motor configuration
 	m_IntakeMotor1->SetSafetyEnabled(false);
 	m_IntakeMotor2->SetSafetyEnabled(false);

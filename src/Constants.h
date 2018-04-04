@@ -31,6 +31,9 @@ constexpr double DRIVETRAIN_PATH_KP_HEADING = 4.0;// 3.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
+constexpr double DRIVETRAIN_LINE_RL_THRESHOLD = 4.5;
+constexpr double DRIVETRAIN_LINE_RR_THRESHOLD = 4.5;
+
 //Intake
 constexpr float CUBE_IN_CURRENT_CURRENT = 500;
 constexpr float TIME_TO_RUN_INTAKE = 0.3;
@@ -61,7 +64,7 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 5.878; // avg between 6 and 6.25
+constexpr double WHEEL_DIAMETER_INCHES = 5.7;//5.878 // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
@@ -85,6 +88,7 @@ constexpr float DRIVE_GYRO_P = 15.0;
 
 //Elevator constants
 constexpr double ELEVATOR_F = 0.1367;
+constexpr double ELEVATOR_F_DOWN = ELEVATOR_F + 0.03;
 constexpr double ELEVATOR_P = 0.05;
 constexpr double ELEVATOR_I = 0.00;
 constexpr double ELEVATOR_D = 0.50;
@@ -97,13 +101,13 @@ constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 30000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
-constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1500.0;
+constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
 
 
 constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
-constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 6000; // Ticks/second
+constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 8000; // Ticks/second
 constexpr int ELEVATOR_SOFT_LIMIT = 36500;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
@@ -117,6 +121,7 @@ constexpr float OUTTAKE_PERCENT = -0.20;
 constexpr float OUTTAKE_PERCENT_AUTO = -0.25;
 constexpr float OUTTAKE_FULL_PERCENT = -0.60;
 constexpr float OUTTAKE_MAX_PERCENT = -1.00;
+//constexpr float OUTTAKE_SUPER_SLOW_PERCENT = -0.12;
 constexpr float CLIMBER_OUTPUT_PERCENT = 1.0;
 constexpr float WRANGLER_FAST_PERCENT = -1.0;
 constexpr float WRANGLER_SLOW_PERCENT = -0.5;
