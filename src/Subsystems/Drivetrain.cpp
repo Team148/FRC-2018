@@ -185,6 +185,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double m_r_accel = r_accel;
 	double m_heading = heading * 57.2958;
 
+
 	if(isReverse)
 	{
 		m_l_pos = -r_pos;
@@ -211,12 +212,14 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 		heading_contrib -= 360;
 
 	frc::SmartDashboard::PutNumber("HeadingContrib", heading_contrib);
-	//std::cout << "Delta Heading: " << heading_contrib << std::endl;
+//	std::cout << "Delta Heading: " << heading_contrib << std::endl;
 
 	if(!isReverse)
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
 	else
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING_REVERSE;
+
+
 
 //	heading_contrib = 0; //uncomment for no gyro mode
 
@@ -234,6 +237,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 		heading_contrib = 0;
 	}
 
+//	std::cout << heading_contrib << std::endl;
 
 	double left_output = 	(DRIVETRAIN_PATH_FV * m_l_velo) +
 							(DRIVETRAIN_PATH_FA * m_l_accel) +
@@ -265,7 +269,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	frc::SmartDashboard::PutNumber("RightPosError", right_error);
 
 
-	//std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
+//	std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
 
 //	std::cout << "VelocityError " << unit_master.GetTicksPer100ms(right_output)-getRightDriveVelocity() << std::endl;
 //	std::cout << "Tra Left Pos: " << m_l_pos <<"Act Left Pos: " << cur_pos_l;

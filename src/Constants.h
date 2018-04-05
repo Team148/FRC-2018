@@ -27,7 +27,7 @@ constexpr double DRIVETRAIN_PATH_KP = 30.0;//1.0;
 constexpr double DRIVETRAIN_PATH_KP_REVERSE =30.0;// 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
-constexpr double DRIVETRAIN_PATH_KP_HEADING = 4.0;// 3.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING = 4.0;//4.0// 3.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
@@ -64,7 +64,7 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 5.7;//5.878 // avg between 6 and 6.25
+constexpr double WHEEL_DIAMETER_INCHES = 5.878; // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4

@@ -3,6 +3,7 @@
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftScalePath.h"
+#include "./Paths/FromRightPos_ToLeftScalePathSpecial.h"
 #include "./Paths/FromRightPos_ToLeftScale118Path.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
 #include "./Paths/FromRightPos_ToRightScalePath.h"
@@ -84,11 +85,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 
 
-		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
-		AddSequential(new DriveLineVelocity(60, 60, FromRightPos_ToLeftScalePath_Part1::GetInstance()->GetEndHeading(), 300));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
+//		AddSequential(new DriveLineVelocity(60, 60, FromRightPos_ToLeftScalePath_Part1::GetInstance()->GetEndHeading(), 300));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
 
-		/*real auto below
 	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
 	    {
 			AddParallel(new ReleaseIntake());
@@ -104,7 +104,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    else //normal left scale case
 	    {
 			AddParallel(new ReleaseIntake());
-			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
+		//	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
 			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
 			AddSequential(new AutoIntake(-0.4, 0.3));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
@@ -124,7 +124,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 
 	    }
-	    */
+
 
 	}
 }

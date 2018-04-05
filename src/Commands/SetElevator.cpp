@@ -81,7 +81,7 @@ void SetElevator::Execute() {
 
 				}
 				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
-				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+			//	std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
 			}
 		}
 
