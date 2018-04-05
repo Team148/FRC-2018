@@ -37,10 +37,8 @@ void LimelightCamera::GetCameraData()
 	validObject = table->GetEntry("tv");
 	xOffSet = table->GetEntry("tx");
 	yOffSet = table->GetEntry("ty");
-	//targetArea = table->GetEntry("ta");
-	//latency = table->GetEntry("tl");
-	//skew = table->GetEntry("ts");
 	ledMode = table->GetEntry("ledMode");
+	pipeline = table->GetEntry("pipeline");
 
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
@@ -51,6 +49,7 @@ void LimelightCamera::GetCameraData()
 
 	//Write NetworkTables with desired values
 	ledMode.SetDouble(m_ledMode);
+	pipeline.SetDouble(m_pipeline);
 
 }
 
@@ -79,9 +78,9 @@ void LimelightCamera::SetCameraLEDBlink()
 	m_ledMode = 2.0;; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraPipeline(double pipe)
+void LimelightCamera::SetPipeline(double pipe)
 {
-     m_pipeline = pipe; //0->9 are valid pipelines
+     m_pipeline = pipe; //0->9 are valid pipelines 0 sorts for largest, 1 for right, 2 for left
 }
 
 double LimelightCamera::GetOffsetAngle() {

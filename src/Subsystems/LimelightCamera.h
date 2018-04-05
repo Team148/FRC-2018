@@ -20,7 +20,7 @@ public:
 	void SetCameraLEDOn();
 	void SetCameraLEDOff();
 	void SetCameraLEDBlink();
-	void SetCameraPipeline(double pipe);
+	void SetPipeline(double pipe);
 	double GetOffsetAngle();
 	bool CheckConnection();
 	bool IsTargeting();
