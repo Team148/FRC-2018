@@ -280,6 +280,12 @@ void Drivetrain::SetDrivePosition(double left_position, double right_position)
 	m_leftMotor1->Set(ControlMode::Position, left_position);
 	m_rightMotor1->Set(ControlMode::Position, right_position);
 }
+void Drivetrain::SetDrivePositionMagic(double left_position, double right_position)
+{
+	m_leftMotor1->Set(ControlMode::MotionMagic, left_position);
+	m_rightMotor1->Set(ControlMode::MotionMagic, right_position);
+}
+
 
 void Drivetrain::SetEncoderPosition(int l, int r)
 {
@@ -448,10 +454,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_leftMotor1->Set(ControlMode::MotionMagic,0.0);
 				m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 				m_leftMotor1->SetSensorPhase(false);
-			//	m_leftMotor1->ConfigAllowableClosedloopError(0,0,0);
 
-				m_leftMotor1->SetSelectedSensorPosition(0,0,0);
-				m_rightMotor1->SetSelectedSensorPosition(0,0,0);
 				//right drive encoder initialize
 				m_rightMotor1->Set(ControlMode::MotionMagic,0.0);
 				m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
@@ -469,28 +472,28 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
+				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+
+				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+
+				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+
+				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+
 				m_rightMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_rightMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
 
 				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
 
-
-				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
-				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_POS, 0);
-
-				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
-				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_POS, 0);
-
-				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
-				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_POS, 0);
-
-				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
-				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_POS, 0);
+				SetBrakeMode(true);
 
 				m_current_drive_config = tDriveConfigs::MOTION_MAGIC_CONFIG;
 
-				SetBrakeMode(true);
 				std::cout << "CONFIG: POSITION" << std::endl;
 	}
 

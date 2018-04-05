@@ -33,13 +33,9 @@ void TurnPositionMagic::Initialize()
 
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::MOTION_MAGIC_CONFIG, m_cruiseVelocity, m_acceleration);
 
-	SetTimeout(m_time_out);
+	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
+	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-}
-
-// Called repeatedly when this Command is scheduled to run
-void TurnPositionMagic::Execute()
-{
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	m_heading_err = (m_heading - m_cur_heading);
@@ -49,22 +45,58 @@ void TurnPositionMagic::Execute()
 		m_heading_err -= 360;
 	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
-	double ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
+	ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
 
+	m_l_pos_out = m_l_init_pos - ticksNeeded;
+	m_r_pos_out =  m_r_init_pos + ticksNeeded;
+
+	SetTimeout(m_time_out);
+
+
+
+
+}
+
+// Called repeatedly when this Command is scheduled to run
+void TurnPositionMagic::Execute()
+{
+
+	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
+
+	m_heading_err = (m_heading - m_cur_heading);
+	if(m_heading_err<-180)
+		m_heading_err += 360;
+	if(m_heading_err>180)
+		m_heading_err -= 360;
+	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
+	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
+	ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
 
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
+	double m_pos_err_l = (init_ticksNeeded - ticksNeeded + m_l_cur_pos - m_l_init_pos);
+	double m_pos_err_r = (init_ticksNeeded + ticksNeeded + m_r_cur_pos - m_r_init_pos);
 
-	m_l_cur_pos -= ticksNeeded;
-	m_r_cur_pos += ticksNeeded;
+//	double m_pos_traveled_l = (m_l_cur_pos - m_l_init_pos);
+//	double m_pos_traveled_r = (m_r_cur_pos - m_r_init_pos);
 
-	Drivetrain::GetInstance()->SetDrivePosition(m_l_cur_pos, m_r_cur_pos);
+	//m_r_pos_out += (m_r_pos_out - m_pos_err_r);
+
+//	m_l_pos_out -= m_pos_err_l;
+//	m_r_pos_out += m_pos_err_r;
+
+	Drivetrain::GetInstance()->SetDrivePositionMagic(m_l_pos_out, m_r_pos_out);
 
 	frc::SmartDashboard::PutNumber("AngleError", m_heading_err);
 
-	frc::SmartDashboard::PutNumber("m_l_cur_pos", m_l_cur_pos);
-	frc::SmartDashboard::PutNumber("m_r_cur_pos", m_r_cur_pos);
+	frc::SmartDashboard::PutNumber("m_l_pos_out", m_l_pos_out);
+	frc::SmartDashboard::PutNumber("m_r_pos_out", m_r_pos_out);
+
+	frc::SmartDashboard::PutNumber("m_pos_err_l", m_pos_err_l);
+	frc::SmartDashboard::PutNumber("m_pos_err_r", m_pos_err_r);
+
+	frc::SmartDashboard::PutNumber("InchesNeeded", inchesNeeded);
 
 
 	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;

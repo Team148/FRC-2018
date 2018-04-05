@@ -50,7 +50,9 @@ public:
 	void SetLeftRight(double left, double right);
 	void SetDriveVelocity(double left_velocity, double right_velocity);
 	void SetDrivePosition(double left_position, double right_position);
+	void SetDrivePositionMagic(double left_position, double right_position);
 	void SetEncoderPosition(int l, int r);
+
 	void SetBrakeMode(bool on);
 
 	bool GetLineSenseR_L();
