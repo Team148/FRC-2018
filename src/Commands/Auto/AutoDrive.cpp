@@ -1,6 +1,8 @@
 #include <Commands/Auto/AutoDrive.h>
 #include <Util/UnitMaster.h>
 #include <iostream>
+#include "Subsystems/LimelightCamera.h"
+
 
 UnitMaster unit_master_conv;
 
@@ -192,7 +194,9 @@ void AutoDrive::Execute() {
 
 	//	std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
 
-		Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
+
+			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
+
 /*
 	//read current values from queue
 	float cur_t = m_trajectory.front().t;

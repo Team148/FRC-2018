@@ -205,6 +205,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double robot_heading = getRobotPathHeading();
 
 	double heading_contrib = m_heading - robot_heading;
+
 	if(heading_contrib<-180)
 		heading_contrib += 360;
 	if(heading_contrib>180)
