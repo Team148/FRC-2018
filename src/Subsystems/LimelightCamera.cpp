@@ -1,5 +1,5 @@
 #include "LimelightCamera.h"
-
+#include "Drivetrain.h"
 
 LimelightCamera *LimelightCamera::m_instance = 0;
 
@@ -105,6 +105,15 @@ double LimelightCamera::GetOffsetAngle() {
 	std::cout << xOffSet.GetDouble(0) << std::endl;
 	return xOffSet.GetDouble(0);
 
+}
+double LimelightCamera::GetTargetHeading()
+{
+	double m_target_heading = Drivetrain::GetInstance()->getRobotPathHeading();
+	if(IsTargeting())
+	{
+		m_target_heading = Drivetrain::GetInstance()->getRobotPathHeading() + (-xOffSet.GetDouble(0));
+	}
+	return m_target_heading;
 }
 
 bool LimelightCamera::IsTargeting() {

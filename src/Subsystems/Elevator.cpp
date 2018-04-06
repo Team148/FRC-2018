@@ -133,6 +133,7 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 
 	double local_position = m_position;
 	local_position += dPosition;
+	if(GetElevatorPosition() > ELEVATOR_MAX_HEIGHT && dPosition > 0) local_position = GetElevatorPosition();
 
 	SetElevatorPosition(local_position, ELEVATOR_F);
 }

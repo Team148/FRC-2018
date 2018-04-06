@@ -53,6 +53,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new AutoDrive(100, 150, 0,  0));
 		AddSequential(new EnableVisionTracking(false));
 
+//		AddSequential(new TurnPositionMagic(180, 15, 120, 100));
+
 
 /*
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.

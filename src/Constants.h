@@ -102,6 +102,8 @@ constexpr double ELEVATOR_SCALE_LOW = 25000.0; //26000.0;
 constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 30000.0;
+constexpr double ELEVATOR_MAX_HEIGHT = 34150.0;
+
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 

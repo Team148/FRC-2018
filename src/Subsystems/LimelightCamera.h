@@ -23,6 +23,7 @@ public:
 	void SetCameraPipeline(double pipe);
 	void SetEnableVision(bool on);
 	double GetOffsetAngle();
+	double GetTargetHeading();
 	bool CheckConnection();
 	bool IsTargeting();
 	bool IsEnabled();
