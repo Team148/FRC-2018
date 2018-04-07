@@ -10,6 +10,7 @@
 #include "./Paths/FromRightScale_ToRightFirstCubePath.h"
 #include "./Paths/FromRightScale_ToRightSecondCubePath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
+#include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 
 #include "Paths/FromRightPos_ToLeftScalePath_Part1.h"
@@ -84,13 +85,14 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_L) == 0 || fms_data_truc.compare(autoConstData.L_L) == 0) // R POS RL
 	{
 
+		AddSequential(new PathExecuter(FromMiddlePos_ToLeftScaleDumpPath::GetInstance(), false));
+		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
 
-
-		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
-
-		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
-		AddSequential(new DriveLineVelocity(75, 75, FromRightPos_ToLeftScalePath_Part2::GetInstance()->GetEndHeading(), 300));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part3::GetInstance(), false));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
+//
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
+//		AddSequential(new DriveLineVelocity(75, 75, FromRightPos_ToLeftScalePath_Part2::GetInstance()->GetEndHeading(), 300));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part3::GetInstance(), false));
 
 //	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
 //	    {

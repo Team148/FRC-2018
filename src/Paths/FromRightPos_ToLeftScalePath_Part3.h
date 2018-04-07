@@ -25,7 +25,7 @@ public:
 
 private:
 	FromRightPos_ToLeftScalePath_Part3();
-	int num_index = 159;
+	int num_index = 168;
 	double left_wheel[168][8] ={ 
 	{0.753, 75.697, 69.665, 6966.527, 1.570, 0.010, 192.550, 160.758},
 	{1.524, 77.093, 139.611, 6994.543, 1.570, 0.010, 192.551, 161.529},

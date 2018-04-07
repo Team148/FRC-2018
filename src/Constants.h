@@ -19,12 +19,10 @@ constexpr double DRIVETRAIN_P_POS = 0.27; // .18
 constexpr double DRIVETRAIN_I_POS = 0.000; // 0.001
 constexpr double DRIVETRAIN_D_POS = 0.9;
 
-
-
 constexpr float DRIVE_ANGLE_TOLERANCE = 3.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
-constexpr double DRIVETRAIN_PATH_FA = 0.05;// 0.012;
+constexpr double DRIVETRAIN_PATH_FA = 0.10;// 0.012;
 constexpr double DRIVETRAIN_PATH_KP = 30.0;//1.0;
 constexpr double DRIVETRAIN_PATH_KP_REVERSE =30.0;// 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
@@ -35,6 +33,8 @@ constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
 
 constexpr double DRIVETRAIN_LINE_RL_THRESHOLD = 4.5;
 constexpr double DRIVETRAIN_LINE_RR_THRESHOLD = 4.5;
+
+constexpr double DRIVETRAIN_MAX_VEL = 180.0; // inches/second
 
 //Intake
 constexpr float CUBE_IN_CURRENT_CURRENT = 500;

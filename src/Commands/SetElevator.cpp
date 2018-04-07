@@ -16,47 +16,47 @@ SetElevator::SetElevator(double position) {
 void SetElevator::Initialize() {
 
 	m_isFinished = false;
-	Elevator::GetInstance()->ConfigClosedLoopMagic(4200,6000);
+	//Elevator::GetInstance()->ConfigClosedLoopMagic(4200,6000);
 
 }
 
 void SetElevator::Execute() {
 
-	Elevator::GetInstance()->SetElevatorPositionMagic(m_position, ELEVATOR_F);
-	m_isFinished = true;
+//	Elevator::GetInstance()->SetElevatorPositionMagic(m_position, ELEVATOR_F);
+//	m_isFinished = true;
 
-//	double slope = (ELEVATOR_F_DOWN - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
-//	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND); //std::cout << "y-intercept : " << y_intercept << " ";
-//	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
-//
-//
-//
-//	if(m_position > ELEVATOR_ZERO)
-//	{
-//		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-//		m_isFinished = true;
-//		std::cout << "finish std case" <<std::endl;
-//
-//	}
-//		if(m_isFinished == false)
-//		{
-//			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
-//			{
-//				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F_DOWN);
-//			}
-//			else
-//			{
-//
-//				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
-//				{
-//					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
-//					m_isFinished = true;
-//
-//				}
-//				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
-//			//	std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
-//			}
-//		}
+	double slope = (ELEVATOR_F_DOWN - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND); //std::cout << "y-intercept : " << y_intercept << " ";
+	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
+
+
+
+	if(m_position > ELEVATOR_ZERO)
+	{
+		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+		m_isFinished = true;
+		std::cout << "finish std case" <<std::endl;
+
+	}
+		if(m_isFinished == false)
+		{
+			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
+			{
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F_DOWN);
+			}
+			else
+			{
+
+				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
+				{
+					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+					m_isFinished = true;
+
+				}
+				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
+			//	std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+			}
+		}
 
 
 }

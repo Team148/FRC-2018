@@ -211,15 +211,13 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	if(heading_contrib>180)
 		heading_contrib -= 360;
 
-	frc::SmartDashboard::PutNumber("HeadingContrib", heading_contrib);
+	frc::SmartDashboard::PutNumber("HeadingError", heading_contrib);
 //	std::cout << "Delta Heading: " << heading_contrib << std::endl;
 
 	if(!isReverse)
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
 	else
 		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING_REVERSE;
-
-
 
 //	heading_contrib = 0; //uncomment for no gyro mode
 
@@ -229,13 +227,10 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	left_error = right_error = (left_error + right_error)*0.5;
 
 	if(!positionCorrectionOn)
-	{
 		left_error = right_error = 0;
-	}
+
 	if(!headingCorrectionOn)
-	{
 		heading_contrib = 0;
-	}
 
 //	std::cout << heading_contrib << std::endl;
 
@@ -247,6 +242,23 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 							(DRIVETRAIN_PATH_FA * m_r_accel) +
 							(DRIVETRAIN_PATH_KP * right_error)
 							+ heading_contrib;
+
+	//check if output is saturated
+	double left_sat_factor = fabs(left_output / DRIVETRAIN_MAX_VEL);
+	double right_sat_factor = fabs(right_output / DRIVETRAIN_MAX_VEL);
+
+
+
+//	if(left_sat_factor > 1.0) std::cout << "WARNING : LEFT SIDE SATURATED BY " << left_sat_factor << "x" << std::endl;
+//	if(right_sat_factor > 1.0) std::cout << "WARNING : RIGHT SIDE SATURATED BY " << right_sat_factor << "x" << std::endl;
+
+	double max_sat_factor = std::max(left_sat_factor, right_sat_factor);
+
+	if(max_sat_factor > 1.0){
+		left_output /= max_sat_factor;
+		right_output /= max_sat_factor;
+	}
+	// end saturation check
 
 	if(isReverse)
 	{
@@ -260,13 +272,16 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 								+ heading_contrib;
 
 	}
-
 	frc::SmartDashboard::PutNumber("LeftTrajectory", unit_master.GetTicksPer100ms(m_l_velo));
 	frc::SmartDashboard::PutNumber("LeftActual", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("RightTrajectory", unit_master.GetTicksPer100ms(m_r_velo));
 	frc::SmartDashboard::PutNumber("RightActual", getRightDriveVelocity());
+	frc::SmartDashboard::PutNumber("LeftVelError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-m_l_velo);
+	frc::SmartDashboard::PutNumber("RightVelError", unit_master.GetInchesPerSec(getRightDriveVelocity())-m_r_velo));
 	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
 	frc::SmartDashboard::PutNumber("RightPosError", right_error);
+	frc::SmartDashboard::PutNumber("LeftSat", left_sat_factor);
+	frc::SmartDashboard::PutNumber("RightSat",right_sat_factor);
 
 
 //	std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
@@ -571,9 +586,6 @@ double Drivetrain::getRightDriveVelocityError()
 	return m_rightMotor1->GetClosedLoopError(0);
 
 }
-
-
-
 
 double Drivetrain::getGyroYaw() {
 
