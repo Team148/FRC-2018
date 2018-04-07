@@ -238,7 +238,7 @@ public:
 		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
 		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
-
+		m_timeindex = 0;
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
@@ -253,9 +253,10 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
-
-
+		frc::SmartDashboard::PutNumber("Time", m_timeindex);
+		m_timeindex++;
+		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());
+		frc::SmartDashboard::PutNumber("ElevatorVelocity", Elevator::GetInstance()->GetElevatorVelocity());
 
 		static double IntakeSpeed = 0.0;
 		static double ClimberSpeed = 0.0;

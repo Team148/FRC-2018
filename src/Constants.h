@@ -96,6 +96,13 @@ constexpr double ELEVATOR_I = 0.00;
 constexpr double ELEVATOR_D = 0.50;
 constexpr double ELEVATOR_ZERO_F = -0.0732;
 
+constexpr double ELEVATOR_F_VEL =  0.26;
+constexpr double ELEVATOR_P_VEL = 0.7;
+constexpr double ELEVATOR_I_VEL = 0.00;
+constexpr double ELEVATOR_D_VEL = 4.0;
+constexpr double ELEVATOR_AUX_F_VEL = 0.1367;
+
+
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 14000.0; //15000.0;
 constexpr double ELEVATOR_SCALE_LOW = 25000.0; //26000.0;

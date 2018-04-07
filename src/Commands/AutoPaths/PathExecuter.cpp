@@ -27,18 +27,18 @@ void PathExecuter::Execute() {
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
 	if(Drivetrain::GetInstance()->GetLineSenseF_L())
-		std::cout << "F_L Triggered" <<std::endl;
+		std::cout << "F_L Triggered at " << time_index << std::endl;
 
 	if(Drivetrain::GetInstance()->GetLineSenseF_R())
-		std::cout << "F_R Triggered"<<std::endl;;
-
-
-	if(Drivetrain::GetInstance()->GetLineSenseR_L())
-		std::cout << "R_L Triggered"<<std::endl;;
-
-
-	if(Drivetrain::GetInstance()->GetLineSenseR_R())
-		std::cout << "R_R Triggered"<<std::endl;;
+		std::cout << "F_R Triggered at " << time_index << std::endl;
+//
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_L())
+//		std::cout << "R_L Triggered"<<std::endl;;
+//
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_R())
+//		std::cout << "R_R Triggered"<<std::endl;;
 
 
 //	std::cout << time_index << std::endl;

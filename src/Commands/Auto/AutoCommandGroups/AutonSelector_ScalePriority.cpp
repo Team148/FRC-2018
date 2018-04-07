@@ -13,7 +13,8 @@
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 
 #include "Paths/FromRightPos_ToLeftScalePath_Part1.h"
-#include "./Paths/FromRightPos_ToLeftScalePath_Part2.h"
+#include "Paths/FromRightPos_ToLeftScalePath_Part2.h"
+#include "Paths/FromRightPos_ToLeftScalePath_Part3.h"
 
 #include "../../../OI.h"
 
@@ -85,45 +86,47 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 
 
-//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
-//		AddSequential(new DriveLineVelocity(60, 60, FromRightPos_ToLeftScalePath_Part1::GetInstance()->GetEndHeading(), 300));
-//		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
+		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
 
-	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
-	    {
-			AddParallel(new ReleaseIntake());
-			AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
-			AddSequential(new TurnPosition(270, 0.5));
-			AddSequential(new AutoSetElevator(ELEVATOR_DOUBLE_STACK, 0.0));
-			AddSequential(new WaitCommand(0.5));
-			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
-			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-			AddSequential(new AutoDrive(-15, 150, 0, RadianToDegrees(FromRightPos_ToLeftScale118Path::GetInstance()->GetEndHeading())));
+		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part2::GetInstance(), false));
+		AddSequential(new DriveLineVelocity(75, 75, FromRightPos_ToLeftScalePath_Part2::GetInstance()->GetEndHeading(), 300));
+		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part3::GetInstance(), false));
+
+//	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
+//	    {
+//			AddParallel(new ReleaseIntake());
+//			AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
+//			AddSequential(new TurnPosition(270, 0.5));
+//			AddSequential(new AutoSetElevator(ELEVATOR_DOUBLE_STACK, 0.0));
+//			AddSequential(new WaitCommand(0.5));
+//			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//			AddSequential(new AutoDrive(-15, 150, 0, RadianToDegrees(FromRightPos_ToLeftScale118Path::GetInstance()->GetEndHeading())));
+////
+//	    }
+//	    else //normal left scale case
+//	    {
+//			AddParallel(new ReleaseIntake());
+//			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
+//			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
+//			AddSequential(new AutoIntake(-0.4, 0.3));
+//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//			AddSequential(new TurnPosition(202, 1.0));
+//			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 //
-	    }
-	    else //normal left scale case
-	    {
-			AddParallel(new ReleaseIntake());
-		//	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToLeftScalePath::GetInstance()->GetTimeLength()-0.8)); // ADDED, NOT NORMALs
-			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-			AddSequential(new AutoIntake(-0.4, 0.3));
-			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-			AddSequential(new TurnPosition(202, 1.0));
-			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-
-			AddSequential(new AutoDrive(52, 150, 0, 202));
-			AddSequential(new AutoDrive(-5, 150, 0, 202));
-
-			AddSequential(new TurnPosition(0, 1.0));
-			AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.2));
-			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.2)); // ADDED, NOT NORMAL
-			AddSequential(new AutoDrive(40, 150, 0, 0));
-			AddSequential(new AutoIntake(-0.15, 0.7));
-			AddSequential(new AutoDrive(-15, 150, 0, 0));
-			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-
-
-	    }
+//			AddSequential(new AutoDrive(52, 150, 0, 202));
+//			AddSequential(new AutoDrive(-5, 150, 0, 202));
+//
+//			AddSequential(new TurnPosition(0, 1.0));
+//			AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.2));
+//			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.2)); // ADDED, NOT NORMAL
+//			AddSequential(new AutoDrive(40, 150, 0, 0));
+//			AddSequential(new AutoIntake(-0.15, 0.7));
+//			AddSequential(new AutoDrive(-15, 150, 0, 0));
+//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//
+//
+//	    }
 
 
 	}
