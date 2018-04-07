@@ -111,7 +111,7 @@ constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
 constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
-constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 10000; // Ticks/second
+constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 12000; // Ticks/second
 constexpr int ELEVATOR_SOFT_LIMIT = 36500;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;
