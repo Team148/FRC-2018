@@ -20,6 +20,7 @@ public:
 	void Interrupted();
 
 private:
+	UnitMaster unit_master_conv;
 	float m_distanceTicks = 0.0;
 	float m_rightStartPos = 0.0;
 	float m_leftStartPos = 0.0;

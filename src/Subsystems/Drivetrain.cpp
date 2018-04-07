@@ -206,6 +206,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double robot_heading = getRobotPathHeading();
 
 	double heading_contrib = m_heading - robot_heading;
+
 	if(heading_contrib<-180)
 		heading_contrib += 360;
 	if(heading_contrib>180)
@@ -382,7 +383,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 		m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 		m_rightMotor1->EnableVoltageCompensation(true);
 
-		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+		m_leftMotor1->ConfigClosedloopRamp(0, 0);
 		m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
 		m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
@@ -474,6 +475,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 				m_leftMotor1->SetSensorPhase(false);
 
+
 				//right drive encoder initialize
 				m_rightMotor1->Set(ControlMode::MotionMagic,0.0);
 				m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
@@ -508,6 +510,11 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 
 				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+				/* Remote 1 will be a pigeon */
+//				m_leftMotor1->ConfigRemoteFeedbackFilter(	pigeon->GetDeviceNumber(),
+//														RemoteSensorSource::RemoteSensorSource_GadgeteerPigeon_Yaw,
+//														Constants.REMOTE_1,
+//														Constants.kTimeoutMs);
 
 				SetBrakeMode(true);
 

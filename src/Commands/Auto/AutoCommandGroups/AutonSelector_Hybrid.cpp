@@ -22,11 +22,15 @@
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"
+#include "../AutoDriveMagic.h"
+
 
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
+#include "../../EnableVisionTracking.h"
+
 #include <iostream>
 #include "math.h"
 
@@ -45,7 +49,16 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
 
-	    AddSequential(new TurnPositionMagic(180, 20.0, 100, 80));
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
+//
+//		AddSequential(new EnableVisionTracking(true));
+//		AddSequential(new AutoDrive(100, 150, 0,  0));
+//		AddSequential(new EnableVisionTracking(false));
+
+//		AddSequential(new TurnPositionMagic(180, 15, 120, 100));
+		AddSequential(new AutoDriveMagic(120, 150, 80, 0));
+
+
 
 /*
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.

@@ -12,6 +12,7 @@
 constexpr double DRIVETRAIN_F_VEL = 0.19;//0.175// 0.0575
 constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
+constexpr double DRIVETRAIN_I_VEL = 0.0; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 4.0; // 4.0
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
@@ -106,9 +107,12 @@ constexpr double ELEVATOR_AUX_F_VEL = 0.1367;
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 14000.0; //15000.0;
 constexpr double ELEVATOR_SCALE_LOW = 25000.0; //26000.0;
+constexpr double ELEVATOR_SCALE_LOW = 27500.0; //26000.0;
 constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 30000.0;
+constexpr double ELEVATOR_MAX_HEIGHT = 34150.0;
+
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
 constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
@@ -117,6 +121,7 @@ constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 8000; // Ticks/second
+constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 12000; // Ticks/second
 constexpr int ELEVATOR_SOFT_LIMIT = 36500;
 
 constexpr float MOTOR_FORWARD_FULL_OUTPUT = 1.0;

@@ -21,9 +21,13 @@ public:
 	void SetCameraLEDOff();
 	void SetCameraLEDBlink();
 	void SetCameraPipeline(double pipe);
+	void SetEnableVision(bool on);
 	double GetOffsetAngle();
+	double GetTargetHeading();
 	bool CheckConnection();
 	bool IsTargeting();
+	bool IsEnabled();
+
 
 
 private:
@@ -33,6 +37,7 @@ private:
 	LimelightCamera();
 
 	bool m_connected=false;
+	bool m_visionEnabled = false;
 	std::shared_ptr<nt::NetworkTableInstance> inst;
 	std::shared_ptr<nt::NetworkTable> table;
 

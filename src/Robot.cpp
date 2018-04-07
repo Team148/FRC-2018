@@ -285,13 +285,14 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
+		if(IntakeSpeed)
 
 
 
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
 
-		if (oi->drvStick->GetRawButton(4))
+		if (oi->drvStick->GetRawButton(6))
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))

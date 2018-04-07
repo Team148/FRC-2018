@@ -45,10 +45,10 @@ void TurnPositionMagic::Initialize()
 		m_heading_err -= 360;
 	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
-	ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
+	init_ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
 
-	m_l_pos_out = m_l_init_pos - ticksNeeded;
-	m_r_pos_out =  m_r_init_pos + ticksNeeded;
+	m_l_pos_out = m_l_init_pos - init_ticksNeeded;
+	m_r_pos_out =  m_r_init_pos + init_ticksNeeded;
 
 	SetTimeout(m_time_out);
 
