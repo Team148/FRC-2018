@@ -77,6 +77,7 @@ void SetElevator::Execute() {
 				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
 				{
 					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+//					Elevator::GetInstance()->SetElevatorPosition(m_position, 0.0);
 					m_isFinished = true;
 
 				}

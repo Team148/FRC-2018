@@ -364,7 +364,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 		m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 		m_rightMotor1->EnableVoltageCompensation(true);
 
-		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+		m_leftMotor1->ConfigClosedloopRamp(0, 0);
 		m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
 		m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
@@ -456,6 +456,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 				m_leftMotor1->SetSensorPhase(false);
 
+
 				//right drive encoder initialize
 				m_rightMotor1->Set(ControlMode::MotionMagic,0.0);
 				m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
@@ -470,7 +471,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 				m_rightMotor1->EnableVoltageCompensation(true);
 
-				m_rightMotor1->ConfigClosedloopRamp(0, 0);
+				m_leftMotor1->ConfigClosedloopRamp(0, 0);
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
 				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);

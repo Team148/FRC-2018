@@ -4,7 +4,6 @@
 #include "Subsystems/LimelightCamera.h"
 
 
-UnitMaster unit_master_conv;
 
 AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
 	// Use Requires() here to declare subsystem dependencies

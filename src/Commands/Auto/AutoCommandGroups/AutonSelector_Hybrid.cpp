@@ -22,6 +22,8 @@
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"
+#include "../AutoDriveMagic.h"
+
 
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"
@@ -47,13 +49,15 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
 
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-
-		AddSequential(new EnableVisionTracking(true));
-		AddSequential(new AutoDrive(100, 150, 0,  0));
-		AddSequential(new EnableVisionTracking(false));
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
+//
+//		AddSequential(new EnableVisionTracking(true));
+//		AddSequential(new AutoDrive(100, 150, 0,  0));
+//		AddSequential(new EnableVisionTracking(false));
 
 //		AddSequential(new TurnPositionMagic(180, 15, 120, 100));
+		AddSequential(new AutoDriveMagic(50, 120, 100, 0));
+
 
 
 /*
