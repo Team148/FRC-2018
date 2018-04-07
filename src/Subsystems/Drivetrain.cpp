@@ -491,6 +491,11 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 
 				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+				/* Remote 1 will be a pigeon */
+//				m_leftMotor1->ConfigRemoteFeedbackFilter(	pigeon->GetDeviceNumber(),
+//														RemoteSensorSource::RemoteSensorSource_GadgeteerPigeon_Yaw,
+//														Constants.REMOTE_1,
+//														Constants.kTimeoutMs);
 
 				SetBrakeMode(true);
 

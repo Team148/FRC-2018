@@ -11,7 +11,7 @@
 //Drivetrain constants.
 constexpr double DRIVETRAIN_F_VEL = 0.19;//0.175// 0.0575
 constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7
-constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
+constexpr double DRIVETRAIN_I_VEL = 0.0; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 4.0; // 4.0
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
@@ -66,7 +66,7 @@ constexpr double DRIVETRAIN_TURN_FILTER = 0.75;
 constexpr double DRIVETRAIN_TURBO_TURN_FILTER = 1.00;
 
 
-constexpr double WHEEL_DIAMETER_INCHES = 5.7;//5.878 // avg between 6 and 6.25
+constexpr double WHEEL_DIAMETER_INCHES = 5.878;//5.878 // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
@@ -98,7 +98,7 @@ constexpr double ELEVATOR_ZERO_F = -0.0732;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 14000.0; //15000.0;
-constexpr double ELEVATOR_SCALE_LOW = 30000.0; //26000.0;
+constexpr double ELEVATOR_SCALE_LOW = 27500.0; //26000.0;
 constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
 constexpr double ELEVATOR_HANG = 30000.0;

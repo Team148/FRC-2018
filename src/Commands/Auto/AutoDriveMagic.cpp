@@ -29,6 +29,10 @@ void AutoDriveMagic::Initialize() {
 	Drivetrain::GetInstance()->SetEncoderPosition(0,0);
 
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::MOTION_MAGIC_CONFIG, m_cruise_velocity, m_acceleration);
+	double conv_m_inches = unit_master.GetTicks(m_inches, tUnits::INCHES);
+
+	Drivetrain::GetInstance()->SetDrivePositionMagic(conv_m_inches, conv_m_inches);
+
 
 }
 
@@ -37,11 +41,18 @@ void AutoDriveMagic::Execute() {
 	double cur_l_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	double cur_r_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
+	frc::SmartDashboard::PutNumber("cur_l_pos", cur_l_pos);
+	frc::SmartDashboard::PutNumber("cur_r_pos", cur_r_pos);
+
+
+
+
 	double conv_m_inches = unit_master.GetTicks(m_inches, tUnits::INCHES);
 
-	Drivetrain::GetInstance()->SetDrivePositionMagic(conv_m_inches, conv_m_inches);
+	frc::SmartDashboard::PutNumber("error_l", conv_m_inches-cur_l_pos);
 
-	if(cur_l_pos > (conv_m_inches)-500 && cur_r_pos > (conv_m_inches)-500)
+
+	if(cur_l_pos > (conv_m_inches)-50 && cur_r_pos > (conv_m_inches)-50)
 	{
 		m_isFinished = true;
 	}
@@ -51,6 +62,7 @@ void AutoDriveMagic::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDriveMagic::IsFinished() {
+	std::cout << "AutoDriveMagic Finished" << std::endl;
 	return m_isFinished;
 }
 
