@@ -22,6 +22,8 @@ public:
 	double GetRightVelocity(int index);
 	double GetRightAcceleration(int index);
 	double GetHeading(int index);
+	double GetX(int index);
+	double GetY(int index);
 
 private:
 	FromRightScale_ToRightSecondCubePath();

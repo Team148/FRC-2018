@@ -70,3 +70,11 @@ double* FromRightPos_ToLeftSwitchPathReversed::GetRightTrajectoryArray(int index
 {
 	return right_wheel[index];
 }
+double FromRightPos_ToLeftSwitchPathReversed::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromRightPos_ToLeftSwitchPathReversed::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

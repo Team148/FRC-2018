@@ -70,3 +70,11 @@ double* FromRightScale_ToRightFirstCubePath::GetRightTrajectoryArray(int index)
 {
 	return right_wheel[index];
 }
+double FromRightScale_ToRightFirstCubePath::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromRightScale_ToRightFirstCubePath::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

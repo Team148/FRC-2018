@@ -70,3 +70,11 @@ double* FromLeftSwitch_ToRightScalePath::GetRightTrajectoryArray(int index)
 {
 	return right_wheel[index];
 }
+double FromLeftSwitch_ToRightScalePath::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromLeftSwitch_ToRightScalePath::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

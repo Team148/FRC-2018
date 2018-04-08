@@ -29,6 +29,7 @@ public:
 	void JoystickControl(float ystick);
 	void ConfigOpenLoop();
 	void ConfigClosedLoop();
+	void ConfigClosedLoopMagic(double cruiseVelocity, double acceleration);
 	void ConfigNeutralClosedLoop();
 	bool IsClosedLoop();
 
@@ -39,6 +40,7 @@ public:
 
 //	void SetElevatorJoystickPosition(double triggerValue);
 	void SetElevatorPosition(double position, double arb_ff);
+	void SetElevatorPositionMagic(double position, double arb_ff);
 	void SetElevatorEncoderZero();
 	void IncrementElevatorPosition(double dPosition);
 };

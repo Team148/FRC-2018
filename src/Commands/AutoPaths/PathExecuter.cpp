@@ -26,6 +26,21 @@ void PathExecuter::Execute() {
 
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
+	if(Drivetrain::GetInstance()->GetLineSenseF_L())
+		std::cout << "F_L Triggered at " << time_index << std::endl;
+
+	if(Drivetrain::GetInstance()->GetLineSenseF_R())
+		std::cout << "F_R Triggered at " << time_index << std::endl;
+//
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_L())
+//		std::cout << "R_L Triggered"<<std::endl;;
+//
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_R())
+//		std::cout << "R_R Triggered"<<std::endl;;
+
+
 //	std::cout << time_index << std::endl;
 
 	if(!(time_index < m_trajectory->GetIndexLength())){
@@ -38,6 +53,7 @@ void PathExecuter::Execute() {
 
 //	double* left_wheel = m_trajectory->GetLeftTrajectoryArray(time_index);
 //	double* right_wheel = m_trajectory->GetRightTrajectoryArray(time_index);
+	Drivetrain::GetInstance()->accumRobotPosition();
 
 	double l_pos = m_trajectory->GetLeftPosition(time_index);
 	double l_vel = m_trajectory->GetLeftVelocity(time_index);
@@ -50,8 +66,13 @@ void PathExecuter::Execute() {
 	double heading = m_trajectory->GetHeading(time_index);
 
 	frc::SmartDashboard::PutNumber("TimeIndex", time_index);
+	frc::SmartDashboard::PutNumber("TrajectoryX", m_trajectory->GetX(time_index));
+	frc::SmartDashboard::PutNumber("TrajectoryY", m_trajectory->GetY(time_index));
+	frc::SmartDashboard::PutNumber("RobotX", Drivetrain::GetInstance()->getRobotPosition_x());
+	frc::SmartDashboard::PutNumber("RobotY", Drivetrain::GetInstance()->getRobotPosition_y());
 
-	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
+//	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
+	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_trajectory->GetDT(), m_IsReversed);
 
 }
 

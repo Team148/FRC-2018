@@ -33,9 +33,6 @@
 #include "RobotMap.h"
 #include "OI.h"
 
-
-
-
 #include "Subsystems/Drivetrain.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/Elevator.h"
@@ -88,18 +85,8 @@ public:
 		wrangler = Wrangler::GetInstance();
 		camera = LimelightCamera::GetInstance();
 
-
-
-
 	}
 
-	/**
-	 * This function is called once each time the robot enters Disabled
-	 * mode.
-	 * You can use it to reset any subsystem information you want to clear
-	 * when
-	 * the robot is disabled.
-	 */
 	void DisabledInit() override {
 		frc::Scheduler::GetInstance()->RemoveAll();
 	}
@@ -116,36 +103,22 @@ public:
 //		std::cout << "LINETRACKER_M: " << lineTracker_m->GetVoltage() << "| LINETRACKER_L: " << lineTracker_l->GetVoltage() << "| LINETRACKER_R: " << lineTracker_r->GetVoltage() << std::endl;
 
 
-		if(Drivetrain::GetInstance()->GetLineSenseF_L())
-			std::cout << "F_L Triggered" <<std::endl;
-
-		if(Drivetrain::GetInstance()->GetLineSenseF_R())
-			std::cout << "F_R Triggered"<<std::endl;;
-
-
-		if(Drivetrain::GetInstance()->GetLineSenseR_L())
-			std::cout << "R_L Triggered"<<std::endl;;
-
-
-		if(Drivetrain::GetInstance()->GetLineSenseR_R())
-			std::cout << "R_R Triggered"<<std::endl;;
+//		if(Drivetrain::GetInstance()->GetLineSenseF_L())
+//			std::cout << "F_L Triggered" <<std::endl;
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseF_R())
+//			std::cout << "F_R Triggered"<<std::endl;;
+//
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseR_L())
+//			std::cout << "R_L Triggered"<<std::endl;;
+//
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseR_R())
+//			std::cout << "R_R Triggered"<<std::endl;;
 
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to
-	 * select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * GetString code to get the auto name from the text box below the Gyro.
-	 *
-	 * You can add additional auto modes by adding additional commands to
-	 * the
-	 * chooser code above (like the commented example) or additional
-	 * comparisons
-	 * to the if-else structure below with additional strings & commands.
-	 */
 	void AutonomousInit() override {
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
@@ -209,14 +182,16 @@ public:
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
-					std::cout << "Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
-				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+				//	std::cout << "Hybrid" << std::endl;
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					std::cout << "Switch Only" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
-					std::cout << "Elim Mode formerly Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				//	std::cout << "Elim Mode formerly Hybrid" << std::endl;
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 
 				break;
@@ -265,7 +240,7 @@ public:
 		frc::TimedRobot::SetPeriod(TELE_PERIODIC_DT);
 
 		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
-
+		m_timeindex = 0;
 
 		if (!elevator->IsClosedLoop()){
 			elevator->ConfigClosedLoop();
@@ -280,9 +255,10 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
-		frc::SmartDashboard::PutNumber("Elevator Position", elevator->GetElevatorPosition());
-
-
+//		frc::SmartDashboard::PutNumber("Time", m_timeindex);
+//		m_timeindex++;
+////		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());
+////		frc::SmartDashboard::PutNumber("ElevatorVelocity", Elevator::GetInstance()->GetElevatorVelocity());
 
 		static double IntakeSpeed = 0.0;
 		static double ClimberSpeed = 0.0;
@@ -311,8 +287,6 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
-
-
 
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;
