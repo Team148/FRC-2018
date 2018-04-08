@@ -1,8 +1,9 @@
 #include <Commands/Auto/AutoDrive.h>
 #include <Util/UnitMaster.h>
 #include <iostream>
+#include "Subsystems/LimelightCamera.h"
 
-UnitMaster unit_master_conv;
+
 
 AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
 	// Use Requires() here to declare subsystem dependencies
@@ -191,8 +192,18 @@ void AutoDrive::Execute() {
 	    //path code
 
 	//	std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
+		if(LimelightCamera::GetInstance()->IsEnabled())
+		{
+			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, LimelightCamera::GetInstance()->GetTargetHeading()*(M_PI/180));
+		}
+		else
+		{
+			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
 
-		Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
+		}
+
+
+
 /*
 	//read current values from queue
 	float cur_t = m_trajectory.front().t;

@@ -29,7 +29,7 @@ void SetElevator::Initialize() {
 
 void SetElevator::Execute() {
 
-	double slope = (ELEVATOR_F - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
+	double slope = (ELEVATOR_F_DOWN - ELEVATOR_ZERO_F) / (ELEVATOR_ZERO_NEUTRAL_POSITION - ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND);
 	double y_intercept = ELEVATOR_ZERO_F - (slope*ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND); //std::cout << "y-intercept : " << y_intercept << " ";
 	double linear_F = slope*(Elevator::GetInstance()->GetElevatorPosition()) + y_intercept;
 
@@ -69,7 +69,7 @@ void SetElevator::Execute() {
 		{
 			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
 			{
-				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
+				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F_DOWN);
 			}
 			else
 			{
@@ -77,6 +77,7 @@ void SetElevator::Execute() {
 				if(Elevator::GetInstance()->GetElevatorPosition() < ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND)
 				{
 					Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_ZERO_F);
+//					Elevator::GetInstance()->SetElevatorPosition(m_position, 0.0);
 					m_isFinished = true;
 
 				}

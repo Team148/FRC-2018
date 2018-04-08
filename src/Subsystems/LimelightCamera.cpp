@@ -1,5 +1,5 @@
 #include "LimelightCamera.h"
-
+#include "Drivetrain.h"
 
 LimelightCamera *LimelightCamera::m_instance = 0;
 
@@ -44,7 +44,7 @@ void LimelightCamera::GetCameraData()
 
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
-	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(99.));
+	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(0));
 	//frc::SmartDashboard::PutNumber("VertOffset", yOffSet.GetDouble(99.));
 	//frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
 	//frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
@@ -76,18 +76,31 @@ void LimelightCamera::SetCameraLEDOff()
 	m_ledMode = 1.0; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraLEDBlink()
-{
+void LimelightCamera::SetCameraLEDBlink() {
 	m_ledMode = 2.0;; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetPipeline(double pipe)
-{
+void LimelightCamera::SetPipeline(double pipe) {
      m_pipeline = pipe; //0->9 are valid pipelines 0 sorts for largest, 1 for right, 2 for left
 }
 
+bool LimelightCamera::IsEnabled() {
+	return m_visionEnabled;
+}
+
+
 double LimelightCamera::GetOffsetAngle() {
-	return xOffSet.GetDouble(99);
+	std::cout << xOffSet.GetDouble(0) << std::endl;
+	return xOffSet.GetDouble(0);
+
+}
+double LimelightCamera::GetTargetHeading() {
+	double m_target_heading = Drivetrain::GetInstance()->getRobotPathHeading();
+	if(IsTargeting())
+	{
+		m_target_heading = Drivetrain::GetInstance()->getRobotPathHeading() + (-xOffSet.GetDouble(0));
+	}
+	return m_target_heading;
 }
 
 bool LimelightCamera::IsTargeting() {
@@ -97,7 +110,7 @@ bool LimelightCamera::IsTargeting() {
 		return false;
 }
 
-void LimelightCamera::SetVisionProc(bool on) {
+void LimelightCamera::SetEnableVision(bool on) {
 	if(on)
 		m_camMode = 0.0;
 	else

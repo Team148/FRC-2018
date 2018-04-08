@@ -21,10 +21,16 @@
 
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
+#include "../TurnPositionMagic.h"
+#include "../AutoDriveMagic.h"
+
+
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
+#include "../../EnableVisionTracking.h"
+
 #include <iostream>
 #include "math.h"
 
@@ -43,9 +49,21 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
 
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
+//
+//		AddSequential(new EnableVisionTracking(true));
+//		AddSequential(new AutoDrive(100, 150, 0,  0));
+//		AddSequential(new EnableVisionTracking(false));
+
+//		AddSequential(new TurnPositionMagic(180, 15, 120, 100));
+		AddSequential(new AutoDriveMagic(120, 150, 80, 0));
+
+
+
+/*
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.5)); // ADDED, NOT NORMAL
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 //	    AddSequential(new WaitCommand(0.5));
 	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.3));
@@ -75,7 +93,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 		AddSequential(new AutoDrive(-10, 150, 0,  165));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-
+*/
 
 
 	    	//scored in switch */

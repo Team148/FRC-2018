@@ -97,6 +97,11 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	//pigeon gyro initialization
 	pigeon = new PigeonIMU(PIGEON_GYRO);
 	pigeon->SetStatusFramePeriod(PigeonIMU_StatusFrame::PigeonIMU_CondStatus_1_General, 5, 0);
+
+	lineTracker_fr = new AnalogInput(LINETRACKER_FRONT_R);
+	lineTracker_fl = new AnalogInput(LINETRACKER_FRONT_L);
+	lineTracker_rr = new AnalogInput(LINETRACKER_REAR_R);
+	lineTracker_rl = new AnalogInput(LINETRACKER_REAR_L);
 }
 
 Drivetrain* Drivetrain::GetInstance() {
@@ -171,7 +176,7 @@ void Drivetrain::InitPathDrive()
 	initRightDrivePos = getRightDrivePosition();
 }
 
-void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse){
+void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse, bool headingCorrectionOn, bool positionCorrectionOn){
 	double m_l_pos = l_pos;
 	double m_l_velo = l_velo;
 	double m_l_accel = l_accel;
@@ -200,6 +205,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double robot_heading = getRobotPathHeading();
 
 	double heading_contrib = m_heading - robot_heading;
+
 	if(heading_contrib<-180)
 		heading_contrib += 360;
 	if(heading_contrib>180)
@@ -219,6 +225,15 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double right_error = m_r_pos - cur_pos_r;
 
 	left_error = right_error = (left_error + right_error)*0.5;
+
+	if(!positionCorrectionOn)
+	{
+		left_error = right_error = 0;
+	}
+	if(!headingCorrectionOn)
+	{
+		heading_contrib = 0;
+	}
 
 
 	double left_output = 	(DRIVETRAIN_PATH_FV * m_l_velo) +
@@ -266,6 +281,12 @@ void Drivetrain::SetDrivePosition(double left_position, double right_position)
 	m_leftMotor1->Set(ControlMode::Position, left_position);
 	m_rightMotor1->Set(ControlMode::Position, right_position);
 }
+void Drivetrain::SetDrivePositionMagic(double left_position, double right_position)
+{
+	m_leftMotor1->Set(ControlMode::MotionMagic, left_position);
+	m_rightMotor1->Set(ControlMode::MotionMagic, right_position);
+}
+
 
 void Drivetrain::SetEncoderPosition(int l, int r)
 {
@@ -295,7 +316,7 @@ void Drivetrain::SetBrakeMode(bool on) {
 }
 
 
-void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
+void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVelocity, double acceleration)
 {
 	if(drive_config == tDriveConfigs::OPEN_LOOP)
 	{
@@ -343,7 +364,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 		m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
 		m_rightMotor1->EnableVoltageCompensation(true);
 
-		m_rightMotor1->ConfigClosedloopRamp(0, 0);
+		m_leftMotor1->ConfigClosedloopRamp(0, 0);
 		m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
 		m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
@@ -427,6 +448,60 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config)
 
 		SetBrakeMode(true);
 		std::cout << "CONFIG: POSITION" << std::endl;
+	}
+	if(drive_config == tDriveConfigs::MOTION_MAGIC_CONFIG)
+	{
+		//left drive encoder initialize
+				m_leftMotor1->Set(ControlMode::MotionMagic,0.0);
+				m_leftMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+				m_leftMotor1->SetSensorPhase(false);
+
+
+				//right drive encoder initialize
+				m_rightMotor1->Set(ControlMode::MotionMagic,0.0);
+				m_rightMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+				m_rightMotor1->SetSensorPhase(false);
+
+				m_leftMotor1->ConfigNominalOutputForward(0,0);
+				m_rightMotor1->ConfigNominalOutputForward(0,0);
+
+				m_leftMotor1->ConfigVoltageCompSaturation(12.0, 0);
+				m_leftMotor1->EnableVoltageCompensation(true);
+
+				m_rightMotor1->ConfigVoltageCompSaturation(12.0, 0);
+				m_rightMotor1->EnableVoltageCompensation(true);
+
+				m_leftMotor1->ConfigClosedloopRamp(0, 0);
+				m_rightMotor1->ConfigClosedloopRamp(0, 0);
+
+				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+
+				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+
+				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+
+				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+
+				m_rightMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
+				m_rightMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+
+				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
+				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
+				/* Remote 1 will be a pigeon */
+//				m_leftMotor1->ConfigRemoteFeedbackFilter(	pigeon->GetDeviceNumber(),
+//														RemoteSensorSource::RemoteSensorSource_GadgeteerPigeon_Yaw,
+//														Constants.REMOTE_1,
+//														Constants.kTimeoutMs);
+
+				SetBrakeMode(true);
+
+				m_current_drive_config = tDriveConfigs::MOTION_MAGIC_CONFIG;
+
+				std::cout << "CONFIG: POSITION" << std::endl;
 	}
 
 }
@@ -580,4 +655,24 @@ void Drivetrain::unitConversionTest()
 
 }
 
+bool Drivetrain::GetLineSenseR_L()
+{
+	return (lineTracker_rl->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_rl->GetVoltage() > 1.0);
+}
 
+
+bool Drivetrain::GetLineSenseR_R()
+{
+	return (lineTracker_rr->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_rr->GetVoltage() > 1.0);
+}
+
+bool Drivetrain::GetLineSenseF_L()
+{
+	return (lineTracker_fl->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_fl->GetVoltage() > 1.0);
+}
+
+
+bool Drivetrain::GetLineSenseF_R()
+{
+	return (lineTracker_fr->GetVoltage() < DRIVETRAIN_LINE_RR_THRESHOLD && lineTracker_fr->GetVoltage() > 1.0);
+}

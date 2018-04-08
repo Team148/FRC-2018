@@ -1,5 +1,5 @@
-  #ifndef Drive_H
-#define Drive_H
+  #ifndef AutoDrive_H
+#define AutoDrive_H
 #include "Util/UnitMaster.h"
 #include <queue>
 #include <math.h>
@@ -20,6 +20,7 @@ public:
 	void Interrupted();
 
 private:
+	UnitMaster unit_master_conv;
 	float m_distanceTicks = 0.0;
 	float m_rightStartPos = 0.0;
 	float m_leftStartPos = 0.0;
@@ -51,4 +52,4 @@ private:
 	queue <Trajectory_points> m_trajectory;
 };
 
-#endif  // Drive_H
+#endif  // AutoDrive_H
