@@ -36,7 +36,6 @@ private:
 	LimelightCamera();
 
 	bool m_connected=false;
-	bool m_visionEnabled = false;
 	std::shared_ptr<nt::NetworkTableInstance> inst;
 	std::shared_ptr<nt::NetworkTable> table;
 

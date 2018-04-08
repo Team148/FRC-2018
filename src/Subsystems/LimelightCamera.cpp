@@ -10,8 +10,8 @@ LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
 	table = NetworkTable::GetTable("limelight");
 
 	m_ledMode = 1.0;		//set LEDs to default to off
-	m_pipeline = 0.0;
-	m_camMode = 0.0;
+	m_pipeline = 0.0;		//sort by largest
+	m_camMode = 0.0;		//vision processing ON
 
 }
 
@@ -31,8 +31,7 @@ void LimelightCamera::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void LimelightCamera::GetCameraData()
-{
+void LimelightCamera::GetCameraData() {
 
 	//read values from NetworkTables
 	validObject = table->GetEntry("tv");
@@ -66,13 +65,11 @@ bool LimelightCamera::CheckConnection() {
 		return true;
 }
 
-void LimelightCamera::SetCameraLEDOn()
-{
+void LimelightCamera::SetCameraLEDOn() {
 	m_ledMode = 0.0; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraLEDOff()
-{
+void LimelightCamera::SetCameraLEDOff() {
 	m_ledMode = 1.0; //0,1,2 -> on,off,blink
 }
 
@@ -85,7 +82,10 @@ void LimelightCamera::SetPipeline(double pipe) {
 }
 
 bool LimelightCamera::IsEnabled() {
-	return m_visionEnabled;
+	if(m_camMode == 0.0)
+		return true;
+	else
+		return false;
 }
 
 
