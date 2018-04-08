@@ -78,6 +78,9 @@ void TurnPositionMagic::Execute()
 	double m_pos_err_l = (init_ticksNeeded - ticksNeeded + m_l_cur_pos - m_l_init_pos);
 	double m_pos_err_r = (init_ticksNeeded + ticksNeeded + m_r_cur_pos - m_r_init_pos);
 
+	double m_pos_err_l = ticksNeeded - m_l_cur_pos;
+	double m_pos_err_r = ticksNeeded + m_r_cur_pos;
+
 //	double m_pos_traveled_l = (m_l_cur_pos - m_l_init_pos);
 //	double m_pos_traveled_r = (m_r_cur_pos - m_r_init_pos);
 
