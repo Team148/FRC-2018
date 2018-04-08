@@ -311,7 +311,6 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
-		if(IntakeSpeed)
 
 
 

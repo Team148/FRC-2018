@@ -175,6 +175,22 @@ void Drivetrain::InitPathDrive()
 	initLeftDrivePos = getLeftDrivePosition();
 	initRightDrivePos = getRightDrivePosition();
 }
+/*
+      public static RigidTransform2d fromVelocity(Delta delta) {
+        double sin_theta = Math.sin(delta.dtheta);
+        double cos_theta = Math.cos(delta.dtheta);
+        double s, c;
+        if (Math.abs(delta.dtheta) < kEps) {
+            s = 1.0 - 1.0 / 6.0 * delta.dtheta * delta.dtheta;
+            c = .5 * delta.dtheta;
+        } else {
+            s = sin_theta / delta.dtheta;
+            c = (1.0 - cos_theta) / delta.dtheta;
+        }
+        return new RigidTransform2d(new Translation2d(delta.dx * s - delta.dy * c, delta.dx * c + delta.dy * s),
+                new Rotation2d(cos_theta, sin_theta, false));
+    }
+ */
 
 void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse, bool headingCorrectionOn, bool positionCorrectionOn){
 	double m_l_pos = l_pos;
@@ -492,10 +508,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_leftMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_leftMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
 				/* Remote 1 will be a pigeon */
-//				m_leftMotor1->ConfigRemoteFeedbackFilter(	pigeon->GetDeviceNumber(),
-//														RemoteSensorSource::RemoteSensorSource_GadgeteerPigeon_Yaw,
-//														Constants.REMOTE_1,
-//														Constants.kTimeoutMs);
+				m_leftMotor1->ConfigRemoteFeedbackFilter(pigeon->GetDeviceNumber(), RemoteSensorSource::RemoteSensorSource_GadgeteerPigeon_Yaw,0, 0);
 
 				SetBrakeMode(true);
 

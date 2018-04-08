@@ -12,7 +12,7 @@ using namespace std;
 class AutoDrive : public CommandBase {
 public:
 	AutoDrive(double inches, double cruise_velocity, double final_velocity);
-	AutoDrive(double inches, double cruise_velocity, double final_velocity, double heading);
+	AutoDrive(double inches, double cruise_velocity, double final_velocity, double accelRate, double heading);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -32,10 +32,11 @@ private:
 	float m_initangle = 0.0;
 	bool m_isReverse = false;
 	double m_heading  = 0;
+	double m_accelRate = 0.0;
 
 	//drivetrain constraints
-	float m_maxAccelRate = 100; 		//Inches per sec^2
-	float m_maxDecelRate= 90;		//Inches per sec^2
+//	float m_maxAccelRate = 100; 		//Inches per sec^2
+//	float m_maxDecelRate= 90;		//Inches per sec^2
 	float m_maxdrivevelocity = 150; //Inches per se
 	float m_dt = AUTO_PERIODIC_DT;
 
