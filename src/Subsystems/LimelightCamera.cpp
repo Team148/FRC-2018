@@ -44,9 +44,7 @@ void LimelightCamera::GetCameraData() {
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
 	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(0));
-	//frc::SmartDashboard::PutNumber("VertOffset", yOffSet.GetDouble(99.));
-	//frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
-	//frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
+
 
 	//Write NetworkTables with desired values
 	ledMode.SetDouble(m_ledMode);
