@@ -274,7 +274,7 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 
 	}
 
-	frc::SmartDashboard::PutNumber("LeftTrajectory", unit_master.GetTicksPer100ms(m_l_velo));
+	frc::SmartDashboard::PutNumber("LeftTrajectory", m_l_velo);
 	frc::SmartDashboard::PutNumber("LeftActual", getLeftDriveVelocity());
 	frc::SmartDashboard::PutNumber("RightTrajectory", unit_master.GetTicksPer100ms(m_r_velo));
 	frc::SmartDashboard::PutNumber("RightActual", getRightDriveVelocity());

@@ -52,7 +52,9 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	//    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 
 	//	AddSequential(new EnableVisionTracking(true));
-		AddSequential(new AutoDrive(100, 150, 0, 100, 0));
+		AddSequential(new AutoDrive(130, 50, 0, 100, 0));
+		AddSequential(new AutoDrive(-130, 100, 0, 100, 0));
+
 	//	AddSequential(new EnableVisionTracking(false));
 
 //		AddSequential(new TurnPositionMagic(180, 15, 120, 100));

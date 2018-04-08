@@ -106,6 +106,9 @@ void AutoDrive::Initialize() {
 
 			hold_time = (m_travelDistance-accel_dist-decel_dist)/m_cruiseVelocity;
 
+    			hold_segments = ceil(hold_time/m_dt);
+
+
 		} else { //if we can't reach reach the max velocity, the profile is triangular
 		   isTriangular=true;
 		   accel_dist = 0.5*m_accelRate*pow(accel_time,2);
@@ -115,15 +118,20 @@ void AutoDrive::Initialize() {
 
 		//calculate the number of points needed
 	    float end_time = accel_time + decel_time + hold_time;
+
 	    int accel_segments = ceil(accel_time/m_dt);
 		int decel_segments = ceil(decel_time/m_dt);
 
 
 		//generate acceleration curve
+		float ac_d = 0;
 		for(int i = 0;i < accel_segments;i++) {
 			double t = m_dt*i;
+			float curr_t = t + accel_time + hold_time;
 			float v = (m_accelRate*t);
 			float d = (0.5*m_accelRate*t*t);
+//			ac_d = ac_d + 0.5*m_accelRate*pow(m_dt,2);								//very negative
+
 
 			if(m_isReverse) {
 				v=-v;
@@ -186,12 +194,17 @@ void AutoDrive::Execute() {
 		double l_acc = m_trajectory.front().a_left;
 		double r_acc = m_trajectory.front().a_right;
 
+		frc::SmartDashboard::PutNumber("l_velocity_gen", l_vel);
+		frc::SmartDashboard::PutNumber("l_position_gen", l_pos);
+		frc::SmartDashboard::PutNumber("l_accel_gen", l_acc);
+
+
 		//after setting, remove from queue
 		m_trajectory.pop();
 
 	    //path code
 
-	//	std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
+//		std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
 		if(LimelightCamera::GetInstance()->IsEnabled())
 		{
 			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, LimelightCamera::GetInstance()->GetTargetHeading()*(M_PI/180));
@@ -202,7 +215,7 @@ void AutoDrive::Execute() {
 
 		}
 
-		frc::SmartDashboard::PutNumber("Velocity", l_vel);
+//		Drivetrain::GetInstance()->SetDriveVelocity(unit_master_conv.GetTicksPer100ms(l_vel),unit_master_conv.GetTicksPer100ms(r_vel));
 
 /*
 	//read current values from queue
