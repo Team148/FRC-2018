@@ -21,9 +21,11 @@ public:
 	void SetCameraLEDOff();
 	void SetCameraLEDBlink();
 	void SetPipeline(double pipe);
+	void SetVisionProc(bool on);
 	double GetOffsetAngle();
 	bool CheckConnection();
 	bool IsTargeting();
+
 
 
 private:
@@ -36,7 +38,6 @@ private:
 	std::shared_ptr<nt::NetworkTableInstance> inst;
 	std::shared_ptr<nt::NetworkTable> table;
 
-
 	nt::NetworkTableEntry validObject;
 	nt::NetworkTableEntry xOffSet;
 	nt::NetworkTableEntry yOffSet;
@@ -45,10 +46,11 @@ private:
 	nt::NetworkTableEntry latency;
 	nt::NetworkTableEntry ledMode;
 	nt::NetworkTableEntry pipeline;
+	nt::NetworkTableEntry cammode;
 
 	double m_ledMode;
 	double m_pipeline;
-
+	double m_camMode;
 
 };
 

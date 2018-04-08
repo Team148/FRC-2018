@@ -11,6 +11,7 @@ LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
 
 	m_ledMode = 1.0;		//set LEDs to default to off
 	m_pipeline = 0.0;
+	m_camMode = 0.0;
 
 }
 
@@ -39,6 +40,7 @@ void LimelightCamera::GetCameraData()
 	yOffSet = table->GetEntry("ty");
 	ledMode = table->GetEntry("ledMode");
 	pipeline = table->GetEntry("pipeline");
+	cammode = table->GetEntry("camMode");
 
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
@@ -50,6 +52,7 @@ void LimelightCamera::GetCameraData()
 	//Write NetworkTables with desired values
 	ledMode.SetDouble(m_ledMode);
 	pipeline.SetDouble(m_pipeline);
+	cammode.SetDouble(m_camMode);
 
 }
 
@@ -92,4 +95,11 @@ bool LimelightCamera::IsTargeting() {
 		return true;
 	else
 		return false;
+}
+
+void LimelightCamera::SetVisionProc(bool on) {
+	if(on)
+		m_camMode = 0.0;
+	else
+		m_camMode = 1.0;
 }
