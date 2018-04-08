@@ -13,6 +13,7 @@ public:
 	virtual double GetTimeLength();
 	virtual double GetStartHeading();
 	virtual double GetEndHeading();
+	virtual double GetDT();
 	virtual double* GetLeftTrajectoryArray(int index);
 	virtual double* GetRightTrajectoryArray(int index);
 	virtual double GetLeftPosition(int index);
@@ -21,6 +22,8 @@ public:
 	virtual double GetRightPosition(int index);
 	virtual double GetRightVelocity(int index);
 	virtual double GetRightAcceleration(int index);
+	virtual double GetX(int index);
+	virtual double GetY(int index);
 	virtual double GetHeading(int index);
 };
 

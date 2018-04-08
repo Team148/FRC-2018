@@ -8,6 +8,8 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include <cmath>
 
+#define DegreesToRadians(angleDegrees) ((angleDegrees) * M_PI/180)
+
 Drivetrain *Drivetrain::m_instance = 0;
 UnitMaster unit_master;
 
@@ -176,6 +178,7 @@ void Drivetrain::InitPathDrive()
 	initRightDrivePos = getRightDrivePosition();
 }
 
+
 void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, bool isReverse, bool headingCorrectionOn, bool positionCorrectionOn){
 	double m_l_pos = l_pos;
 	double m_l_velo = l_velo;
@@ -225,7 +228,21 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	double left_error = m_l_pos - cur_pos_l;
 	double right_error = m_r_pos - cur_pos_r;
 
+	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
+	frc::SmartDashboard::PutNumber("RightPosError", right_error);
+
+	if(left_error > DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) left_error = DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+	if(left_error < -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) left_error = -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+	if(right_error > DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) right_error = DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+	if(right_error < -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) right_error = -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+
 	left_error = right_error = (left_error + right_error)*0.5;
+
+//	positionCorrectionOn = false;
 
 	if(!positionCorrectionOn)
 		left_error = right_error = 0;
@@ -278,11 +295,13 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 	frc::SmartDashboard::PutNumber("RightTrajectory", unit_master.GetTicksPer100ms(m_r_velo));
 	frc::SmartDashboard::PutNumber("RightActual", getRightDriveVelocity());
 	frc::SmartDashboard::PutNumber("LeftVelError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-m_l_velo);
-	frc::SmartDashboard::PutNumber("RightVelError", unit_master.GetInchesPerSec(getRightDriveVelocity())-m_r_velo));
+	frc::SmartDashboard::PutNumber("RightVelError", unit_master.GetInchesPerSec(getRightDriveVelocity())-m_r_velo);
 	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
 	frc::SmartDashboard::PutNumber("RightPosError", right_error);
 	frc::SmartDashboard::PutNumber("LeftSat", left_sat_factor);
 	frc::SmartDashboard::PutNumber("RightSat",right_sat_factor);
+	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-left_output);
+	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getRightDriveVelocity())-right_output);
 
 
 //	std::cout << "left_output: " << left_output << " right_output: " << right_output << std::endl;
@@ -293,6 +312,172 @@ void Drivetrain::SetPathDriveVelocity(double l_pos, double l_velo, double l_acce
 
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 
+}
+
+void Drivetrain::SetPathDriveKinematics(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, double dt, bool isReverse, bool headingCorrectionOn, bool positionCorrectionOn)
+{
+	double m_l_pos = l_pos;
+	double m_l_velo = l_velo;
+	double m_l_accel = l_accel;
+	double m_r_pos = r_pos;
+	double m_r_velo = r_velo;
+	double m_r_accel = r_accel;
+	double m_heading = heading * 57.2958;
+
+
+	if(isReverse)
+	{
+		m_l_pos = -r_pos;
+		m_l_velo = -r_velo;
+		m_l_accel = -r_accel;
+		m_r_pos = -l_pos;
+		m_r_velo = -l_velo;
+		m_r_accel = -l_accel;
+		m_heading = fmod(m_heading + 180.0,360.0);
+	}
+
+
+	unit_master.SetTicks(getLeftDrivePosition() - initLeftDrivePos);
+	double cur_pos_l = unit_master.GetInches();
+	unit_master.SetTicks(getRightDrivePosition() - initRightDrivePos);
+	double cur_pos_r = unit_master.GetInches();
+
+	double robot_heading = getRobotPathHeading();
+
+	double heading_contrib = m_heading - robot_heading;
+
+
+	if(heading_contrib<-180)
+		heading_contrib += 360;
+	if(heading_contrib>180)
+		heading_contrib -= 360;
+
+	double heading_error = heading_contrib;
+
+	frc::SmartDashboard::PutNumber("HeadingError", heading_contrib);
+//	std::cout << "Delta Heading: " << heading_contrib << std::endl;
+
+	if(!isReverse)
+		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING;
+	else
+		heading_contrib *= DRIVETRAIN_PATH_KP_HEADING_REVERSE;
+
+//	heading_contrib = 0; //uncomment for no gyro mode
+
+	double left_error = m_l_pos - cur_pos_l;
+	double right_error = m_r_pos - cur_pos_r;
+
+	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
+	frc::SmartDashboard::PutNumber("RightPosError", right_error);
+
+
+//	if(left_error > DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) left_error = DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+//
+//	if(left_error < -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) left_error = -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+//
+//	if(right_error > DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) right_error = DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+//
+//	if(right_error < -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) right_error = -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+//	double rotationsNeeded = heading_error/360; // 45/360 26pi
+//	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
+//
+//	frc::SmartDashboard::PutNumber("RotationsNeeded",rotationsNeeded);
+
+	double avg_pos_error = (left_error + right_error)*0.5;
+	double avg_pos_error_contrib = avg_pos_error * DRIVETRAIN_PATH_KP;
+
+	if(avg_pos_error > DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) avg_pos_error = DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+	if(avg_pos_error < -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT) avg_pos_error = -DRIVETRAIN_MAX_VEL * DRIVETRAIN_PATH_POS_LIMIT;
+
+
+	//double avg_vel = (m_l_velo + m_r_velo)*0.5;
+	frc::SmartDashboard::PutNumber("AvgPosError", avg_pos_error);
+
+//	double left_pos_change = avg_vel * dt + avg_pos_error - inchesNeeded;
+//	double right_pos_change = avg_vel * dt + avg_pos_error + inchesNeeded;
+//
+//	double left_velocity_kinematics = left_pos_change / dt;
+//	double right_velocity_kinematics = right_pos_change / dt;
+
+	double delta_v = (DRIVETRAIN_BASE_DIAMETER * heading_error/57.2958) / (2*DRIVETRAIN_SCRUB_FACTOR);
+//	double avg_pos_veloci
+	double left_velocity_kinematics = m_l_velo - delta_v;
+	double right_velocity_kinematics = m_r_velo + delta_v;
+
+	double c_l_velocity = (left_velocity_kinematics + right_velocity_kinematics)*0.5;
+
+	double left_pos_contrib = avg_pos_error_contrib * (left_velocity_kinematics/c_l_velocity);
+	double right_pos_contrib = avg_pos_error_contrib * (right_velocity_kinematics/c_l_velocity);
+
+
+	frc::SmartDashboard::PutNumber("LeftKinematicsVel", left_velocity_kinematics);
+	frc::SmartDashboard::PutNumber("RightKinematicsVel", right_velocity_kinematics);
+
+
+
+	positionCorrectionOn = false;
+//	headingCorrectionOn = false;
+
+	if(!positionCorrectionOn)
+		left_error = right_error = 0;
+
+	if(!headingCorrectionOn)
+		heading_contrib = 0;
+
+//	std::cout << heading_contrib << std::endl;
+
+	double left_output = 	(DRIVETRAIN_PATH_FV * left_velocity_kinematics) +
+							(DRIVETRAIN_PATH_FA * m_l_accel) +
+							left_pos_contrib +
+							- heading_contrib;
+	double right_output =	(DRIVETRAIN_PATH_FV * right_velocity_kinematics) +
+							(DRIVETRAIN_PATH_FA * m_r_accel) +
+							right_pos_contrib +
+							+ heading_contrib;
+
+	//check if output is saturated
+	double left_sat_factor = fabs(left_output / DRIVETRAIN_MAX_VEL);
+	double right_sat_factor = fabs(right_output / DRIVETRAIN_MAX_VEL);
+
+
+
+//	if(left_sat_factor > 1.0) std::cout << "WARNING : LEFT SIDE SATURATED BY " << left_sat_factor << "x" << std::endl;
+//	if(right_sat_factor > 1.0) std::cout << "WARNING : RIGHT SIDE SATURATED BY " << right_sat_factor << "x" << std::endl;
+
+	double max_sat_factor = std::max(left_sat_factor, right_sat_factor);
+
+	if(max_sat_factor > 1.0){
+		left_output /= max_sat_factor;
+		right_output /= max_sat_factor;
+	}
+	// end saturation check
+
+//	if(isReverse)
+//	{
+//		left_output = 	(DRIVETRAIN_PATH_FV * left_velocity_kinematics) +
+//								(DRIVETRAIN_PATH_FA * m_l_accel) +
+//								(DRIVETRAIN_PATH_KP_REVERSE * left_error)
+//								- heading_contrib;
+//		right_output =	(DRIVETRAIN_PATH_FV * right_velocity_kinematics) +
+//								(DRIVETRAIN_PATH_FA * m_r_accel) +
+//								(DRIVETRAIN_PATH_KP_REVERSE * right_error)
+//								+ heading_contrib;
+//	}
+	frc::SmartDashboard::PutNumber("LeftTrajectory", unit_master.GetTicksPer100ms(m_l_velo));
+	frc::SmartDashboard::PutNumber("LeftActual", getLeftDriveVelocity());
+	frc::SmartDashboard::PutNumber("RightTrajectory", unit_master.GetTicksPer100ms(m_r_velo));
+	frc::SmartDashboard::PutNumber("RightActual", getRightDriveVelocity());
+	frc::SmartDashboard::PutNumber("LeftVelError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-m_l_velo);
+	frc::SmartDashboard::PutNumber("RightVelError", unit_master.GetInchesPerSec(getRightDriveVelocity())-m_r_velo);
+	frc::SmartDashboard::PutNumber("LeftPosError", left_error);
+	frc::SmartDashboard::PutNumber("RightPosError", right_error);
+	frc::SmartDashboard::PutNumber("LeftSat", left_sat_factor);
+	frc::SmartDashboard::PutNumber("RightSat",right_sat_factor);
+	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-left_output);
+	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getRightDriveVelocity())-right_output);
+
+	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 }
 
 void Drivetrain::SetDrivePosition(double left_position, double right_position)
@@ -637,16 +822,17 @@ void Drivetrain::accumRobotPosition()
 
 	if(!init)
 	{
-
-		lastPosition = ((getRightDrivePosition() + getLeftDrivePosition())/2);
+		unit_master.SetTicks((getRightDrivePosition() + getLeftDrivePosition())/2);
+		lastPosition = unit_master.GetInches();
 		init = true;
 
 	}
 
-	currentPosition = ((getRightDrivePosition() + getLeftDrivePosition())/2);
+	unit_master.SetTicks((getRightDrivePosition() + getLeftDrivePosition())/2);
+	currentPosition = unit_master.GetInches();
 	d_position = currentPosition - lastPosition;
-	pos_x += d_position *cos(getGyroYaw());
-	pos_y += d_position *sin(getGyroYaw());
+	pos_x += d_position *cos(DegreesToRadians(getRobotPathHeading()));
+	pos_y += d_position *sin(DegreesToRadians(getRobotPathHeading()));
 
 	lastPosition = currentPosition;
 }

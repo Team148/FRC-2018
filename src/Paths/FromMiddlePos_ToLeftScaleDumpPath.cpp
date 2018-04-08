@@ -70,3 +70,11 @@ double* FromMiddlePos_ToLeftScaleDumpPath::GetRightTrajectoryArray(int index)
 {
 	return right_wheel[index];
 }
+double FromMiddlePos_ToLeftScaleDumpPath::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromMiddlePos_ToLeftScaleDumpPath::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

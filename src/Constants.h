@@ -10,10 +10,9 @@
 
 //Drivetrain constants.
 constexpr double DRIVETRAIN_F_VEL = 0.19;//0.175// 0.0575
-constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7
+constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
-constexpr double DRIVETRAIN_I_VEL = 0.0; // 0.001
-constexpr double DRIVETRAIN_D_VEL = 4.0; // 4.0
+constexpr double DRIVETRAIN_D_VEL = 4.0;//4.0; // 4.0
 
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
 constexpr double DRIVETRAIN_P_POS = 0.27; // .18
@@ -24,13 +23,14 @@ constexpr float DRIVE_ANGLE_TOLERANCE = 3.0;
 
 constexpr double DRIVETRAIN_PATH_FV = 1.0;
 constexpr double DRIVETRAIN_PATH_FA = 0.10;// 0.012;
-constexpr double DRIVETRAIN_PATH_KP = 30.0;//1.0;
+constexpr double DRIVETRAIN_PATH_KP = 40.0;//30.0 //1.0;
 constexpr double DRIVETRAIN_PATH_KP_REVERSE =30.0;// 3.0;
 constexpr double DRIVETRAIN_PATH_KI = 0.0;
 constexpr double DRIVETRAIN_PATH_KD = 0.0;
-constexpr double DRIVETRAIN_PATH_KP_HEADING = 4.0;//4.0// 3.0;
+constexpr double DRIVETRAIN_PATH_KP_HEADING = 5.0;//4.0// 3.0;
 constexpr double DRIVETRAIN_PATH_KP_HEADING_REVERSE = 2.0;//2.0;
 constexpr double DRIVETRAIN_PATH_NOMINALOUT = 0.000;
+constexpr double DRIVETRAIN_PATH_POS_LIMIT = 0.15; //percent
 
 constexpr double DRIVETRAIN_LINE_RL_THRESHOLD = 4.5;
 constexpr double DRIVETRAIN_LINE_RR_THRESHOLD = 4.5;
@@ -59,6 +59,7 @@ constexpr float ARCADE_TURN_TOLERANCE = 0;
 constexpr float TURN_DIST_P = 0.05;
 
 constexpr float DRIVETRAIN_BASE_DIAMETER = 24.9;
+constexpr double DRIVETRAIN_SCRUB_FACTOR = 0.9;
 
 constexpr double DRIVETRAIN_THROTTLE_FILTER = 0.65;
 constexpr double DRIVETRAIN_TURBO_THROTTLE_FILTER = 1.00;
@@ -71,9 +72,6 @@ constexpr double WHEEL_DIAMETER_INCHES = 5.878; // avg between 6 and 6.25
 constexpr double WHEEL_CIRC_INCHES = WHEEL_DIAMETER_INCHES*M_PI;
 
 constexpr int TICKS_PER_ROTATIONS = 5000; //1250 * 4
-
-
-
 
 constexpr double ENCODER_GEAR_UPDUCTION = 1/1;
 
@@ -106,7 +104,7 @@ constexpr double ELEVATOR_AUX_F_VEL = 0.1367;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 14000.0; //15000.0;
-constexpr double ELEVATOR_SCALE_LOW = 25000.0; //26000.0;
+constexpr double ELEVATOR_SWITCH_AUTO = 11000.0; //15000.0;
 constexpr double ELEVATOR_SCALE_LOW = 27500.0; //26000.0;
 constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
@@ -120,7 +118,6 @@ constexpr double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
 constexpr double ELEVATOR_ERROR_TOLERANCE = 2000;
 constexpr double ELEVATOR_MANUAL_DEADBAND = 0.2;
-constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 8000; // Ticks/second
 constexpr double ELEVATOR_MANUAL_DPOS_SCALAR = 12000; // Ticks/second
 constexpr int ELEVATOR_SOFT_LIMIT = 36500;
 

@@ -70,3 +70,11 @@ double* GoStraightPath::GetRightTrajectoryArray(int index)
 {
 	return right_wheel[index];
 }
+double GoStraightPath::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double GoStraightPath::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

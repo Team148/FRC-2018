@@ -21,11 +21,13 @@
 
 #include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
+#include "../TurnPositionMagic.h"
 #include "../DriveLineVelocity.h"
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
+#include "../AutoDriveMagic.h"
 #include <iostream>
 
 #define RadianToDegrees(angleRadians) ((angleRadians) * 180 / M_PI)
@@ -86,7 +88,21 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	{
 
 		AddSequential(new PathExecuter(FromMiddlePos_ToLeftScaleDumpPath::GetInstance(), false));
-		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
+		AddParallel(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+		AddSequential(new AutoDrive(-60, 150, 0, RadianToDegrees(FromMiddlePos_ToLeftScaleDumpPath::GetInstance()->GetEndHeading())));
+		AddSequential(new TurnPositionMagic(195, 1.0, 150, 90));
+		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
+		AddSequential(new AutoDrive(70, 150, 0, 195));
+
+		AddSequential(new AutoDrive(-10, 150, 0, 195));
+		AddSequential(new TurnPositionMagic(60, 1.0, 150, 90));
+	//	AddSequential(new TurnPositionMagic(90, 0.5, 150, 90));
+	//	AddSequential(new TurnPosition(90, 0.5));
+		AddSequential(new AutoDrive(70, 150, 0, 60));
+		AddParallel(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+		AddSequential(new AutoDrive(-65, 150, 0, 60));
+		AddSequential(new TurnPositionMagic(180, 1.0, 150, 90));
+		AddSequential(new AutoDrive(15, 150, 0, 200));
 
 //		AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath_Part1::GetInstance(), false));
 //

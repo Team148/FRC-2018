@@ -103,19 +103,19 @@ public:
 //		std::cout << "LINETRACKER_M: " << lineTracker_m->GetVoltage() << "| LINETRACKER_L: " << lineTracker_l->GetVoltage() << "| LINETRACKER_R: " << lineTracker_r->GetVoltage() << std::endl;
 
 
-		if(Drivetrain::GetInstance()->GetLineSenseF_L())
-			std::cout << "F_L Triggered" <<std::endl;
-
-		if(Drivetrain::GetInstance()->GetLineSenseF_R())
-			std::cout << "F_R Triggered"<<std::endl;;
-
-
-		if(Drivetrain::GetInstance()->GetLineSenseR_L())
-			std::cout << "R_L Triggered"<<std::endl;;
-
-
-		if(Drivetrain::GetInstance()->GetLineSenseR_R())
-			std::cout << "R_R Triggered"<<std::endl;;
+//		if(Drivetrain::GetInstance()->GetLineSenseF_L())
+//			std::cout << "F_L Triggered" <<std::endl;
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseF_R())
+//			std::cout << "F_R Triggered"<<std::endl;;
+//
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseR_L())
+//			std::cout << "R_L Triggered"<<std::endl;;
+//
+//
+//		if(Drivetrain::GetInstance()->GetLineSenseR_R())
+//			std::cout << "R_R Triggered"<<std::endl;;
 
 	}
 
@@ -182,14 +182,16 @@ public:
 			switch(current_auto_selection)
 			{
 				case currentAutoSelection::SWITCH_ONLY:
-					std::cout << "Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
-				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+				//	std::cout << "Hybrid" << std::endl;
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					std::cout << "Switch Only" << std::endl;
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
-					std::cout << "Elim Mode formerly Hybrid" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+				//	std::cout << "Elim Mode formerly Hybrid" << std::endl;
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 
 				break;
@@ -285,9 +287,6 @@ public:
 			IntakeSpeed = INTAKE_FAST_PERCENT;
 		else if (oi->opStick->GetRawAxis(2) >= 0.2)
 			IntakeSpeed = INTAKE_SLOW_PERCENT;
-		if(IntakeSpeed)
-
-
 
 		if (oi->drvStick->GetRawButton(1) && oi->drvStick->GetRawButton(2))
 			WranglerSpeed = WRANGLER_FAST_PERCENT;

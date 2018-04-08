@@ -64,6 +64,9 @@ public:
 	double GetInitPathDriveHeading();
 	void InitPathDriveHeading();
 	void InitPathDrive();
+	void SetPathDriveKinematics(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading, double dt,
+							bool isReverse = false, bool headingCorrectionOn = true, bool positionCorrectionOn = true);
+
 	void SetPathDriveVelocity(double l_pos, double l_velo, double l_accel, double r_pos, double r_velo, double r_accel, double heading,
 							bool isReverse = false, bool headingCorrectionOn = true, bool positionCorrectionOn = true);
 
