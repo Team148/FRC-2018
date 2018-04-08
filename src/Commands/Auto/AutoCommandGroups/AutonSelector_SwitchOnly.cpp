@@ -71,6 +71,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchPath::GetInstance(), false));
 			AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
 			AddSequential(new AutoDrive(-10, 150, 0, 0));
+			AddSequential(new AutoDrive(-10, 150, 0, 100, 0));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		}
 //	}
