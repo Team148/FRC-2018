@@ -49,16 +49,16 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 			AddSequential(new TurnPosition(85, 0.5));
 			AddParallel(new AutoIntake(0.25, 2.0));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-			AddSequential(new AutoDrive(10, 150, 0, 85));
-			AddSequential(new AutoDrive(-10, 150, 0, 85));
+			AddSequential(new AutoDrive(10, 150, 0, 100, 85));
+			AddSequential(new AutoDrive(-10, 150, 0, 100, 85));
 			AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 			AddSequential(new TurnPosition(0, 0.5));
 			AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
 			AddSequential(new TurnPosition(85, 0.5));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO+3000, 0.0));
 			AddParallel(new AutoIntake(0.25, 2.0));
-			AddSequential(new AutoDrive(10, 150, 0, 85));
-			AddSequential(new AutoDrive(-10, 150, 0, 85));
+			AddSequential(new AutoDrive(10, 150, 0, 100, 85));
+			AddSequential(new AutoDrive(-10, 150, 0, 100, 85));
 			AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 			AddSequential(new TurnPosition(0, 0.5));
 			AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
@@ -70,7 +70,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromMiddlePos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-1.0));
 			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchPath::GetInstance(), false));
 			AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
-			AddSequential(new AutoDrive(-10, 150, 0, 0));
+			AddSequential(new AutoDrive(-10, 150, 0, 100, 0));
 			AddSequential(new AutoDrive(-10, 150, 0, 100, 0));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		}
