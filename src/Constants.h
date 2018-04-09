@@ -14,6 +14,12 @@ constexpr double DRIVETRAIN_P_VEL = 0.7;// 0.7;// 0.7
 constexpr double DRIVETRAIN_I_VEL = 0.00; // 0.001
 constexpr double DRIVETRAIN_D_VEL = 4.0;//4.0; // 4.0
 
+//Drivetrain constants.
+constexpr double DRIVETRAIN_F_MAJ = 0.19;//0.175// 0.0575
+constexpr double DRIVETRAIN_P_MAJ = 0.75;// 0.7;// 0.7
+constexpr double DRIVETRAIN_I_MAJ = 0.00; // 0.001
+constexpr double DRIVETRAIN_D_MAJ = 4.0;//4.0; // 4.0
+
 constexpr double DRIVETRAIN_F_POS = 0.0;// 0.0575
 constexpr double DRIVETRAIN_P_POS = 0.27; // .18
 constexpr double DRIVETRAIN_I_POS = 0.000; // 0.001
