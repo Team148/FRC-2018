@@ -230,6 +230,7 @@ public:
 		frc::SmartDashboard::PutNumber("Time", m_timeindex);
 		m_timeindex++;
 
+		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());
 
 
 	}
@@ -257,7 +258,7 @@ public:
 
 //		frc::SmartDashboard::PutNumber("Time", m_timeindex);
 //		m_timeindex++;
-////		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());
+		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());
 ////		frc::SmartDashboard::PutNumber("ElevatorVelocity", Elevator::GetInstance()->GetElevatorVelocity());
 
 		static double IntakeSpeed = 0.0;
