@@ -7,6 +7,7 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Elim.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_BackSwitchOnly.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
 
 #include <Commands/Auto/AutoDrive.h>
@@ -185,7 +186,8 @@ public:
 				//	std::cout << "Hybrid" << std::endl;
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 					std::cout << "Switch Only" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_BackSwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:

@@ -20,7 +20,6 @@
 
 #include "../../../OI.h"
 
-#include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"
 #include "../DriveLineVelocity.h"
@@ -53,6 +52,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 	    AddSequential(new AutoDrive(48, 150, 0, 100, 155));
 	    AddSequential(new AutoDrive(-48, 150, 0, 100, 155));
+	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
 	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 	    AddSequential(new TurnPositionMagic(40, 0.5,150,90));
 	    AddSequential(new WaitCommand(0.5));
@@ -62,9 +62,9 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
 	    AddSequential(new AutoDrive(60, 150, 0, 100, 135));
 	    AddSequential(new AutoDrive(-50, 150, 0, 100, 135));
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.1));
+	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0, 500));
 	    AddSequential(new TurnPositionMagic(40, 0.5,150,80));
-	    AddSequential(new WaitCommand(0.7));
 	    AddSequential(new AutoIntake(-0.6, 0.5));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 

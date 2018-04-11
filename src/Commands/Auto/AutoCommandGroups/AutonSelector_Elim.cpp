@@ -1,6 +1,5 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Elim.h>
 #include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FakeStraightPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToRightSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
@@ -19,8 +18,6 @@
 #include "./Paths/FromRightPos_ToLeftScale118Path.h"
 #include "../../AutoPaths/PathExecuter.h"
 
-
-#include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"

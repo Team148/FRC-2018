@@ -8,6 +8,7 @@
 class AutoSetElevator : public CommandBase {
 public:
 
+	AutoSetElevator(int position, double timeToWait, double tolerance);
 	AutoSetElevator(int position, double timeToWait);
 	void Initialize();
 	void Execute();
@@ -20,6 +21,7 @@ private:
 	double m_timeToWait;
 	bool m_IsFinished = false;
 	double m_startTime = 0;
+	double m_tolerance = ELEVATOR_ERROR_TOLERANCE;
 
 };
 

@@ -1,5 +1,16 @@
 #include <Commands/Auto/AutoSetElevator.h>
 #include <iostream>
+AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0, double tolerance = ELEVATOR_ERROR_TOLERANCE) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Elevator::GetInstance());
+
+	m_IsFinished = false;
+
+	m_position = position;
+	m_timeToWait = timeToWait;
+	m_tolerance = tolerance;
+}
 AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -9,6 +20,7 @@ AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 
 	m_position = position;
 	m_timeToWait = timeToWait;
+	m_tolerance = ELEVATOR_ERROR_TOLERANCE;
 }
 
 // Called just before this Command runs the first time
@@ -16,6 +28,7 @@ void AutoSetElevator::Initialize() {
 	SetTimeout(1.5 + m_timeToWait);
 	m_IsFinished = false;
 	m_startTime = frc::Timer::GetFPGATimestamp();
+
 
 }
 
@@ -33,7 +46,7 @@ void AutoSetElevator::Execute() {
 	if(elaspedTime >= m_timeToWait)
 	{
 
-		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
+		if(abs(posErr) < m_tolerance)
 		{
 			m_IsFinished = true;
 		}

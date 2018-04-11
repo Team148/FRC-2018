@@ -3,12 +3,13 @@
 #include <iostream>
 
 
-PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed) {
+PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed, int index_short) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
 	m_trajectory = trajectory;
 	m_IsReversed = IsReversed;
+	m_index_short = index_short;
 }
 
 // Called just before this Command runs the first time
@@ -43,7 +44,7 @@ void PathExecuter::Execute() {
 
 //	std::cout << time_index << std::endl;
 
-	if(!(time_index < m_trajectory->GetIndexLength())){
+	if(!(time_index < (m_trajectory->GetIndexLength()-m_index_short))){
 		m_isFinished = true;
 	//	std::cout << m_trajectory->GetIndexLength() << std::endl;
 		std::cout << "done" << std::endl;

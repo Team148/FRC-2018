@@ -1,10 +1,6 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Biffers.h>
-#include "../../AutoPaths/PathExecuter.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
-#include "../../AutoPaths/PathExecuter.h"
 
-
-#include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"
 #include "../AutoDriveMagic.h"
@@ -15,6 +11,8 @@
 #include "../AutoSetElevator.h"
 #include "../AutoDrive.h"
 #include "../../EnableVisionTracking.h"
+#include "../../AutoPaths/PathExecuter.h"
+
 
 #include <iostream>
 #include "math.h"

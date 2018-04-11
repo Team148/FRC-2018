@@ -10,7 +10,7 @@
 
 class PathExecuter : public frc::Command {
 public:
-	PathExecuter(TrajectoryPath* trajectory, bool IsReversed);
+	PathExecuter(TrajectoryPath* trajectory, bool IsReversed, int index_short = 0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -24,6 +24,7 @@ private:
 	double m_pathDT = 0.010;
 	bool m_isFinished = false;
 	bool m_IsReversed = false;
+	int m_index_short = 0;
 
 
 };

@@ -1,6 +1,5 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
 #include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FakeStraightPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
 #include "./Paths/FromRightPos_ToRightSwitchPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
@@ -18,12 +17,9 @@
 #include "./Paths/FromRightPos_ToRightScalePath.h"
 #include "../../AutoPaths/PathExecuter.h"
 
-
-#include "./Paths/GoStraightPath.h"
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"
 #include "../AutoDriveMagic.h"
-
 
 #include "../AutoIntake.h"
 #include "../ReleaseIntake.h"
