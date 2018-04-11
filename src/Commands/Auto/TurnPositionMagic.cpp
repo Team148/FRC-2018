@@ -75,18 +75,31 @@ void TurnPositionMagic::Execute()
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-	double m_pos_err_l = (init_ticksNeeded - ticksNeeded + m_l_cur_pos - m_l_init_pos);
-	double m_pos_err_r = (init_ticksNeeded + ticksNeeded + m_r_cur_pos - m_r_init_pos);
+//	double m_pos_err_l = (init_ticksNeeded - ticksNeeded + m_l_cur_pos - m_l_init_pos);
+//	double m_pos_err_r = (init_ticksNeeded + ticksNeeded + m_r_cur_pos - m_r_init_pos);
+
+//	double m_pos_err_l = (init_ticksNeeded + (m_l_cur_pos - m_l_init_pos) - ticksNeeded);
+//	double m_pos_err_r = (init_ticksNeeded - (m_r_cur_pos - m_r_init_pos) - ticksNeeded);
+
+	double m_pos_traveled_l = ((m_l_init_pos - m_l_cur_pos) + m_l_init_pos);
+	double m_pos_traveled_r = ((m_r_init_pos + m_r_cur_pos) - m_r_init_pos);
+
+	double m_pos_err_l_e = ((init_ticksNeeded - (m_pos_traveled_l)));
+	double m_pos_err_r_e = ((init_ticksNeeded - (m_pos_traveled_r)));
+
+	double m_pos_err_l = ticksNeeded - m_pos_err_l_e - m_l_init_pos;
+	double m_pos_err_r = ticksNeeded - m_pos_err_r_e - m_r_init_pos;
+
 
 //	double m_pos_traveled_l = (m_l_cur_pos - m_l_init_pos);
 //	double m_pos_traveled_r = (m_r_cur_pos - m_r_init_pos);
 
 	//m_r_pos_out += (m_r_pos_out - m_pos_err_r);
 
-//	m_l_pos_out -= m_pos_err_l;
+//	m_l_pos_out += m_pos_err_l;
 //	m_r_pos_out += m_pos_err_r;
 
-	Drivetrain::GetInstance()->SetDrivePositionMagic(m_l_pos_out, m_r_pos_out);
+	Drivetrain::GetInstance()->SetDrivePositionMagic(m_l_pos_out - m_pos_err_l, m_r_pos_out + m_pos_err_r);
 
 	frc::SmartDashboard::PutNumber("AngleError", m_heading_err);
 

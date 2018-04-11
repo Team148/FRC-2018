@@ -258,6 +258,7 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 
+//		std::cout << unit_master.GetInchesPerSec(Drivetrain::GetInstance()->getLeftDriveVelocity()) << std::endl;
 //		frc::SmartDashboard::PutNumber("Time", m_timeindex);
 //		m_timeindex++;
 		frc::SmartDashboard::PutNumber("ElevatorPosition", Elevator::GetInstance()->GetElevatorPosition());

@@ -678,17 +678,17 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 				m_leftMotor1->ConfigClosedloopRamp(0, 0);
 				m_rightMotor1->ConfigClosedloopRamp(0, 0);
 
-				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
-				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_VEL, 0);
+				m_leftMotor1->Config_kF(0, DRIVETRAIN_F_MAJ, 0);
+				m_rightMotor1->Config_kF(0, DRIVETRAIN_F_MAJ, 0);
 
-				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
-				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_VEL, 0);
+				m_leftMotor1->Config_kP(0, DRIVETRAIN_P_MAJ, 0);
+				m_rightMotor1->Config_kP(0, DRIVETRAIN_P_MAJ, 0);
 
-				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
-				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_VEL, 0);
+				m_leftMotor1->Config_kI(0, DRIVETRAIN_I_MAJ, 0);
+				m_rightMotor1->Config_kI(0, DRIVETRAIN_I_MAJ, 0);
 
-				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
-				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_VEL, 0);
+				m_leftMotor1->Config_kD(0, DRIVETRAIN_D_MAJ, 0);
+				m_rightMotor1->Config_kD(0, DRIVETRAIN_D_MAJ, 0);
 
 				m_rightMotor1->ConfigMotionCruiseVelocity(unit_master.GetTicksPer100ms(cruiseVelocity), 0);
 				m_rightMotor1->ConfigMotionAcceleration(unit_master.GetTicksPer100ms(acceleration), 0);
