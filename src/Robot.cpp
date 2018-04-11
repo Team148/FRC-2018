@@ -32,6 +32,7 @@
 #include "Constants.h"
 #include "RobotMap.h"
 #include "OI.h"
+#include "Util/Feather.h"
 
 
 
@@ -73,7 +74,8 @@ public:
 	Wrangler *wrangler = 0;
 	OI *oi = 0;
 	UnitMaster unit_master;
-
+	Feather *f_digital;
+	Feather *f_analog;
 
 	std::string gameData = "";
 
@@ -87,7 +89,8 @@ public:
 		climber = Climber::GetInstance();
 		wrangler = Wrangler::GetInstance();
 		camera = LimelightCamera::GetInstance();
-
+		//f_digital = new Feather(Feather::IOmode::Digital, 1);
+		f_analog = new Feather(Feather::IOmode::Analog, 0);
 
 
 
@@ -109,6 +112,7 @@ public:
 		camera->GetCameraData();
 		gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
+		frc::SmartDashboard::PutNumber("Feather", f_analog->Get());
 
 	//	ledMode.SetDouble(1.0);
 
