@@ -9,15 +9,12 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_SwitchOnly.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_BackSwitchOnly.h>
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
+#include <Commands/Auto/AutoCommandGroups/AutonSelector_Biffers.h>
+
 
 #include <Commands/Auto/AutoDrive.h>
-#include <Commands/Auto/LockHeading.h>
-#include <Commands/Auto/AutoTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
-#include <Commands/Auto/TurnPosition.h>
-#include <Commands/Auto/AutoDriveTurnPID.h>
 #include <Commands/Auto/AutoIntake.h>
-#include <Commands/Auto/AutoCommandGroups/DriveAndScore.h>
 #include <Commands/Auto/AutoSetElevator.h>
 #include <Commands/Auto/ReleaseIntake.h>
 #include <Commands/Command.h>
@@ -124,8 +121,6 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
-		//frc::Scheduler::GetInstance()->AddCommand(new TurnPosition(200.0, true, 5.0));
-//		frc::Scheduler::GetInstance()->AddCommand(new LockHeading(10.0));
 		int current_auto_selection = 0;
 		enum currentAutoSelection
 		{
@@ -166,6 +161,8 @@ public:
 			if(oi->GetInstance()->GetSw1()) // THIS OVERRIDES ALL
 			{
 				current_auto_selection = currentAutoSelection::SWITCH_ONLY;
+//				autoPosition = tStartingPosition::MIDDLE_POS;
+
 			}
 			else
 			{
@@ -193,7 +190,10 @@ public:
 				case currentAutoSelection::HYBRID_MODE:
 				//	std::cout << "Elim Mode formerly Hybrid" << std::endl;
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+//					autoPosition = tStartingPosition::MIDDLE_POS;
+
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Biffers(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 
 				break;

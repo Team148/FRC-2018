@@ -53,7 +53,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	//	AddSequential(new EnableVisionTracking(false));
 
-		AddSequential(new TurnPositionMagic(180, 15, 90, 150));
+		AddSequential(new TurnPositionMagic(180, 15, 300, 300));
 //		AddSequential(new AutoDriveMagic(120, 150, 80, 0));
 
 
