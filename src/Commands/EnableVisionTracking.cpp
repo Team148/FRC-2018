@@ -9,14 +9,16 @@
 #include "Subsystems/LimelightCamera.h"
 
 
-EnableVisionTracking::EnableVisionTracking(bool on) {
+EnableVisionTracking::EnableVisionTracking(bool on, double pipe) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	m_on = on;
+	m_pipe = pipe;
 }
 
 // Called once when the command executes
 void EnableVisionTracking::Initialize() {
+	LimelightCamera::GetInstance()->SetPipeline(m_pipe);
 	if(m_on)
 	{
 		LimelightCamera::GetInstance()->SetEnableVision(true);

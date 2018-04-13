@@ -11,10 +11,11 @@
 
 class EnableVisionTracking : public frc::InstantCommand {
 public:
-	EnableVisionTracking(bool on);
+	EnableVisionTracking(bool on, double pipe);
 	void Initialize() override;
 
 private:
 	bool m_on;
+	double m_pipe;
 };
 

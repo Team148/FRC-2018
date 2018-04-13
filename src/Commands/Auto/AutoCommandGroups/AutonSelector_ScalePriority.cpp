@@ -97,28 +97,30 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    }
 	    else //normal left scale case
 	    {
+
 		//	AddParallel(new ReleaseIntake());
 //			AddParallel(new AutoIntake(0.10, 4.0));
 			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-	    	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_LOW, 0.0)); // ADDED, NOT NORMALs
+	    	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_LOW, 0.0));
 			AddSequential(new AutoIntake(-0.6, 0.3));
 //			AddSequential(new AutoDrive(-10, 100, 0, 70, 0));
-		    AddParallel(new TurnPositionMagic(202, 1.5,120,70));
+			AddParallel(new TurnPositionMagic(190, 1.5,120,70));
 		    AddSequential(new CheckHeading(240, 10, 1.0));
-			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+		    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
 			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-			AddSequential(new AutoDrive(62, 100, 0, 80, 202));
-			AddSequential(new AutoDrive(-5, 100, 0, 80, 202));
+			AddSequential(new AutoDrive(75, 100, 0, 80, 190));
+			AddSequential(new AutoDrive(-5, 100, 0, 80, 190));
 		    AddParallel(new TurnPositionMagic(0, 1.5 ,120,70));
 			AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.2));
-			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.2)); // ADDED, NOT NORMAL
-			AddSequential(new AutoDrive(40, 150, 0, 100, 0));
+			AddSequential(new TurnPositionMagic(0, 1.5 ,120,70));
+			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.2));
+			AddSequential(new AutoDrive(50, 150, 0, 100, 0));
 			AddSequential(new AutoIntake(-0.15, 0.7));
 			AddSequential(new AutoDrive(-15, 150, 0, 100, 0));
 
 		    AddParallel(new TurnPositionMagic(190, 1.5,120,70));
 		    AddSequential(new CheckHeading(240, 10, 1.0));
-			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+		    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 			AddSequential(new AutoDrive(40, 100, 0, 80, 190));
 			AddSequential(new AutoDrive(-5, 100, 0, 80, 190));

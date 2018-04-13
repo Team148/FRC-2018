@@ -10,7 +10,8 @@ LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
 	table = NetworkTable::GetTable("limelight");
 
 	m_ledMode = 1.0;		//set LEDs to default to off
-	m_pipeline = 0.0;
+	m_pipeline = 0.0;		//sort by largest
+	m_camMode = 1.0;		//vision processing ON
 
 }
 
@@ -30,27 +31,25 @@ void LimelightCamera::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void LimelightCamera::GetCameraData()
-{
+void LimelightCamera::GetCameraData() {
 
 	//read values from NetworkTables
 	validObject = table->GetEntry("tv");
 	xOffSet = table->GetEntry("tx");
 	yOffSet = table->GetEntry("ty");
-	//targetArea = table->GetEntry("ta");
-	//latency = table->GetEntry("tl");
-	//skew = table->GetEntry("ts");
 	ledMode = table->GetEntry("ledMode");
+	pipeline = table->GetEntry("pipeline");
+	cammode = table->GetEntry("camMode");
 
 
 	frc::SmartDashboard::PutNumber("validObject", validObject.GetDouble(-1));
 	frc::SmartDashboard::PutNumber("HorizOffset", xOffSet.GetDouble(0));
-	//frc::SmartDashboard::PutNumber("VertOffset", yOffSet.GetDouble(99.));
-	//frc::SmartDashboard::PutNumber("Area", targetArea.GetDouble(-1.));
-	//frc::SmartDashboard::PutNumber("Skew", skew.GetDouble(99.));
+
 
 	//Write NetworkTables with desired values
 	ledMode.SetDouble(m_ledMode);
+	pipeline.SetDouble(m_pipeline);
+	cammode.SetDouble(m_camMode);
 
 }
 
@@ -64,40 +63,27 @@ bool LimelightCamera::CheckConnection() {
 		return true;
 }
 
-void LimelightCamera::SetCameraLEDOn()
-{
+void LimelightCamera::SetCameraLEDOn() {
 	m_ledMode = 0.0; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraLEDOff()
-{
+void LimelightCamera::SetCameraLEDOff() {
 	m_ledMode = 1.0; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraLEDBlink()
-{
+void LimelightCamera::SetCameraLEDBlink() {
 	m_ledMode = 2.0;; //0,1,2 -> on,off,blink
 }
 
-void LimelightCamera::SetCameraPipeline(double pipe)
-{
-     m_pipeline = pipe; //0->9 are valid pipelines
+void LimelightCamera::SetPipeline(double pipe) {
+     m_pipeline = pipe; //0->9 are valid pipelines 0 sorts for largest, 1 for right, 2 for left
 }
 
-void LimelightCamera::SetEnableVision(bool on)
-{
-	if(on == true)
-	{
-		m_visionEnabled = true;
-	}
-	if(on == false)
-	{
-		m_visionEnabled = false;
-	}
-}
-bool LimelightCamera::IsEnabled()
-{
-	return m_visionEnabled;
+bool LimelightCamera::IsEnabled() {
+	if(m_camMode == 0.0)
+		return true;
+	else
+		return false;
 }
 
 
@@ -106,8 +92,7 @@ double LimelightCamera::GetOffsetAngle() {
 	return xOffSet.GetDouble(0);
 
 }
-double LimelightCamera::GetTargetHeading()
-{
+double LimelightCamera::GetTargetHeading() {
 	double m_target_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 	if(IsTargeting())
 	{
@@ -121,4 +106,11 @@ bool LimelightCamera::IsTargeting() {
 		return true;
 	else
 		return false;
+}
+
+void LimelightCamera::SetEnableVision(bool on) {
+	if(on)
+		m_camMode = 0.0;
+	else
+		m_camMode = 1.0;
 }
