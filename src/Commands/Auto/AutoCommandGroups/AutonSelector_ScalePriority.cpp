@@ -1,20 +1,6 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_ScalePriority.h>
-#include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftScalePath.h"
-#include "./Paths/FromRightPos_ToLeftScalePathSpecial.h"
-#include "./Paths/FromRightPos_ToLeftScale118Path.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "./Paths/FromLeftPos_ToLeftScalePath.h"
-#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
-#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
-#include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
-#include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
-#include "./Paths/FromRightFirstCube_ToRightScalePath.h"
-#include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
-#include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
+#include "CommonCommandHeaders.h"
+
 
 #include "Paths/FromRightPos_ToLeftScalePath_Part1.h"
 #include "Paths/FromRightPos_ToLeftScalePath_Part2.h"
@@ -22,17 +8,8 @@
 
 #include "../../../OI.h"
 
-#include "../TurnPosition.h"
-#include "../TurnPositionMagic.h"
-#include "../DriveLineVelocity.h"
-#include "../AutoIntake.h"
-#include "../ReleaseIntake.h"
-#include "../AutoSetElevator.h"
-#include "../AutoDrive.h"
-#include "../AutoDriveMagic.h"
-#include "../CheckHeading.h"
 
-#include <iostream>
+
 
 #define RadianToDegrees(angleRadians) ((angleRadians) * 180 / M_PI)
 
@@ -46,13 +23,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 {
 	if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0) // R POS RR
 	{
-	    std::cout << FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength() << std::endl;
-//	    AddParallel(new ReleaseIntake());
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
-	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
-	    AddSequential(new AutoIntake(-0.6, 0.3));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPositionMagic(155, 0.6,150,90)); // 4/10/18 check timing on turn, autodrive corrects because timeout on turn
+	    AddSequential(new FromRightPos_ToRightScaleGroup());
+
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 	    AddSequential(new AutoDrive(48, 150, 0, 100, 155));
 	    AddSequential(new AutoDrive(-48, 150, 0, 100, 155));
@@ -114,13 +86,9 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 		//	AddParallel(new ReleaseIntake());
 //			AddParallel(new AutoIntake(0.10, 4.0));
-			AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
-	    	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_LOW, 0.0));
-			AddSequential(new AutoIntake(-0.6, 0.3));
-//			AddSequential(new AutoDrive(-10, 100, 0, 70, 0));
-			AddParallel(new TurnPositionMagic(190, 1.5,120,70));
-		    AddSequential(new CheckHeading(240, 10, 1.0));
-		    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
+
+		    AddSequential(new FromRightPos_ToLeftScaleGroup());
+
 			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 			AddSequential(new AutoDrive(75, 100, 0, 80, 190));
 			AddSequential(new AutoDrive(-5, 100, 0, 80, 190));

@@ -1,21 +1,7 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Biffers.h>
-#include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
 
-#include "../TurnPosition.h"
-#include "../TurnPositionMagic.h"
-#include "../AutoDriveMagic.h"
+#include "CommonCommandHeaders.h"
 
-
-#include "../AutoIntake.h"
-#include "../ReleaseIntake.h"
-#include "../AutoSetElevator.h"
-#include "../AutoDrive.h"
-#include "../../EnableVisionTracking.h"
-#include "../../AutoPaths/PathExecuter.h"
-
-
-#include <iostream>
-#include "math.h"
 
 #define RadianToDegrees(angleRadians) ((angleRadians) * 180 / M_PI)
 

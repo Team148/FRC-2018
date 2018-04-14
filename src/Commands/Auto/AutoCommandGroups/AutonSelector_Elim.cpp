@@ -1,32 +1,7 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Elim.h>
-#include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToRightSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePathReversed.h"
-#include "./Paths/FromRightFirstCube_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
-#include "./Paths/FromRightFirstCube_ToLeftScalePath.h"
-#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
-#include "./Paths/FromRightSecondCube_ToRightScalePath.h"
-#include "./Paths/FromRightFirstCube_ToLeftSwitchPath.h"
-#include "./Paths/FromLeftSwitch_ToRightScalePath.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "./Paths/FromRightPos_ToLeftScale118Path.h"
-#include "../../AutoPaths/PathExecuter.h"
 
-#include "../TurnPosition.h"
-#include "../AutoIntake.h"
-#include "../ReleaseIntake.h"
-#include "../AutoSetElevator.h"
-#include "../AutoDrive.h"
-#include <iostream>
-#include "math.h"
 
-#define RadianToDegrees(angleRadians) ((angleRadians) * 180 / M_PI)
+#include "CommonCommandHeaders.h"
 
 
 
@@ -45,12 +20,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		std::cout << "Two Scale One Switch Attempt" << std::endl;
 		//two scale one switch
 		    //std::cout << FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength() << std::endl;
-		    AddParallel(new ReleaseIntake());
-		    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
-		    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
-		    AddSequential(new AutoIntake(-0.40, 0.3));
-		    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		    AddSequential(new TurnPosition(160, 0.7));
+			AddSequential(new FromRightPos_ToRightScaleGroup());
+
 		    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 		    AddSequential(new AutoDrive(43, 150, 0, 100, 160));
 		    AddSequential(new AutoDrive(-45, 150, 0, 100, 160));

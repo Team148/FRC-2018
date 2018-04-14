@@ -1,20 +1,7 @@
 #include "AutonSelector_SwitchOnly.h"
-#include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
-#include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
-#include "./Paths/FromRightSwitchFront_ToLeftScaleBackReversePath.h"
-
-#include "../TurnPosition.h"
-#include "../TurnPositionMagic.h"
-#include "../AutoIntake.h"
-#include "../ReleaseIntake.h"
-#include "../CheckHeading.h"
 
 
-#include "../AutoSetElevator.h"
-#include "../AutoDrive.h"
-#include <iostream>
-
+#include "CommonCommandHeaders.h"
 
 
 AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FMS_Data, int cube_amount)

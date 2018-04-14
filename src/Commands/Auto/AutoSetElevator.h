@@ -8,8 +8,8 @@
 class AutoSetElevator : public CommandBase {
 public:
 
-	AutoSetElevator(int position, double timeToWait, double tolerance);
 	AutoSetElevator(int position, double timeToWait);
+	AutoSetElevator(int position, double timeToWait, double tolerance);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

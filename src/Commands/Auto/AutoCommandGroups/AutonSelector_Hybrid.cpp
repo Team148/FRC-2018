@@ -1,36 +1,8 @@
 #include <Commands/Auto/AutoCommandGroups/AutonSelector_Hybrid.h>
-#include "../../AutoPaths/PathExecuter.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToRightSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePathReversed.h"
-#include "./Paths/FromRightFirstCube_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
-#include "./Paths/FromRightFirstCube_ToLeftScalePath.h"
-#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
-#include "./Paths/FromRightSecondCube_ToRightScalePath.h"
-#include "./Paths/FromRightFirstCube_ToLeftSwitchPath.h"
-#include "./Paths/FromLeftSwitch_ToRightScalePath.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPath.h"
-#include "./Paths/FromRightPos_ToRightScalePath.h"
-#include "../../AutoPaths/PathExecuter.h"
 
-#include "../TurnPosition.h"
-#include "../TurnPositionMagic.h"
-#include "../AutoDriveMagic.h"
 
-#include "../AutoIntake.h"
-#include "../ReleaseIntake.h"
-#include "../AutoSetElevator.h"
-#include "../AutoDrive.h"
-#include "../../EnableVisionTracking.h"
+#include "CommonCommandHeaders.h"
 
-#include <iostream>
-#include "math.h"
-
-#define RadianToDegrees(angleRadians) ((angleRadians) * 180 / M_PI)
 
 
 
@@ -45,29 +17,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
 
-	//    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-
-	//	AddSequential(new EnableVisionTracking(true));
-//		AddSequential(new AutoDrive(130, 50, 0, 100, 0));
-//		AddSequential(new AutoDrive(-130, 100, 0, 100, 0));
-
-	//	AddSequential(new EnableVisionTracking(false));
-
-//		AddSequential(new TurnPositionMagic(180, 15, 300, 300));
-//		AddSequential(new AutoDriveMagic(120, 150, 80, 0));
-
-
-
-
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
-//		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
-	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
-//	    AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(-0.40, 0.3));
-	    AddParallel(new TurnPositionMagic(150, 1.6, 150, 70));
-
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new FromRightPos_ToRightScaleGroup());
 	    //Scored First Cube
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
 	    AddSequential(new AutoDrive(44, 150, 0, 100, 160));
@@ -120,16 +71,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 	    	// score in right switch, grab cube then score in scale.
+	    AddSequential(new FromRightPos_ToRightSwitchGroup());
 
-		AddParallel(new ReleaseIntake());
-	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.0));
-	    AddSequential(new PathExecuter(FromRightPos_ToRightSwitchPath::GetInstance(), false));
-	    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
-	    AddSequential(new AutoIntake(-0.45, 0.5));
-		AddSequential(new AutoDrive(-15, 150, 0, 100, 179));
-		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-		AddSequential(new AutoDrive(20, 100, 0, 100, 179));
 		AddSequential(new AutoDrive(-10, 150, 0, 100, 179));
 		AddSequential(new TurnPosition(RadianToDegrees(FromRightFirstCube_ToLeftScalePath::GetInstance()->GetStartHeading()), 0.5));
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
@@ -147,13 +90,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
-		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-0.7));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
-	//	AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 2.5));
-		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.7));
-//		AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
-		AddSequential(new AutoIntake(-0.45, 0.5)); //outtake full percent
+	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
+
 		AddSequential(new AutoDrive(-15, 150,0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
@@ -216,13 +154,8 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
-	    AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-2.0));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
-	//	AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 2.5));
-		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.5));
-//		AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
-		AddSequential(new AutoIntake(-0.45, 0.5));
+	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
+
 		AddSequential(new AutoDrive(-15, 150,0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
