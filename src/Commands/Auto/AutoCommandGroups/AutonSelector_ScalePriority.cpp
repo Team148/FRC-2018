@@ -13,6 +13,8 @@
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
+#include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
+#include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
 
 #include "Paths/FromRightPos_ToLeftScalePath_Part1.h"
 #include "Paths/FromRightPos_ToLeftScalePath_Part2.h"
@@ -85,14 +87,26 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
 	    {
-			AddParallel(new ReleaseIntake());
-			AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
+		//	AddParallel(new ReleaseIntake());
+		//	AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
+			AddSequential(new PathExecuter(FromMiddlePos_ToLeftScaleSneakPath::GetInstance(), false)); //add me pls
 			AddSequential(new TurnPosition(270, 0.5));
-			AddSequential(new AutoSetElevator(ELEVATOR_DOUBLE_STACK, 0.0));
+			AddSequential(new AutoDrive(-12, 150, 0, 100, 270));
+			AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 			AddSequential(new WaitCommand(0.5));
 			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-			AddSequential(new AutoDrive(-15, 150, 0, 100, RadianToDegrees(FromRightPos_ToLeftScale118Path::GetInstance()->GetEndHeading())));
+			AddSequential(new AutoDrive(-15, 150, 0, 100, 270));
+
+//			//RightScaleSneak
+//	    	AddSequential(new PathExecuter(FromMiddlePos_ToRightScaleSneakPath::GetInstance(), false)); //add me pls
+//			AddSequential(new TurnPosition(90, 0.5));
+//			AddSequential(new AutoDrive(-12, 150, 0, 100, 90));
+//			AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+//			AddSequential(new WaitCommand(0.5));
+//			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//			AddSequential(new AutoDrive(-15, 150, 0, 100, 90));
 //
 	    }
 	    else //normal left scale case
