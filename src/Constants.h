@@ -110,7 +110,7 @@ constexpr double ELEVATOR_AUX_F_VEL = 0.1367;
 
 constexpr double ELEVATOR_ZERO = 1.0;	//1.0
 constexpr double ELEVATOR_SWITCH = 14000.0; //15000.0;
-constexpr double ELEVATOR_SWITCH_AUTO = 11000.0; //15000.0;
+constexpr double ELEVATOR_SWITCH_AUTO = 10000.0; //15000.0;
 constexpr double ELEVATOR_SCALE_LOW = 27500.0; //26000.0;
 constexpr double ELEVATOR_SCALE_HIGH = 34000.0;
 constexpr double ELEVATOR_DOUBLE_STACK = 34000.0;
