@@ -53,45 +53,46 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	//	AddSequential(new EnableVisionTracking(false));
 
-		AddSequential(new TurnPositionMagic(180, 15, 300, 300));
+//		AddSequential(new TurnPositionMagic(180, 15, 300, 300));
 //		AddSequential(new AutoDriveMagic(120, 150, 80, 0));
 
 
 
-/*
+
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
-		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, 1.5)); // ADDED, NOT NORMAL
+//		AddParallel(new ReleaseIntake());
+		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
 	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
 //	    AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.3));
+	    AddSequential(new AutoIntake(-0.40, 0.3));
+	    AddParallel(new TurnPositionMagic(150, 1.6, 150, 70));
+
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 	    //Scored First Cube
-	    AddSequential(new TurnPosition(160, 0.5));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-	    AddSequential(new AutoDrive(44, 150, 0, 160));
+	    AddSequential(new AutoDrive(44, 150, 0, 100, 160));
 	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
-		AddSequential(new AutoDrive(-5, 150, 0, 160));
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-		AddSequential(new AutoDrive(10, 150, 0,  160));
+		AddSequential(new AutoDrive(-5, 150, 0, 120, 160));
+		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+		AddSequential(new AutoDrive(10, 150, 0, 120,  160));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 		//Scored Second Cube
-		AddSequential(new AutoDrive(-30, 150, 0,  160));
+		AddSequential(new AutoDrive(-30, 150, 0, 100, 160));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddSequential(new TurnPosition(130, 0.5));
+		AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
-		AddSequential(new AutoDrive(40, 150, 0,  130));
-		AddSequential(new TurnPosition(130, 0.5));
+		AddSequential(new AutoDrive(40, 150, 0, 100, 130));
+		AddSequential(new TurnPositionMagic(130, 1.0, 150, 150));
 		//Grabbed Third Cube
-		AddSequential(new AutoDrive(-5, 150, 0,  130));
+		AddSequential(new AutoDrive(-5, 150, 0, 120, 130));
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-		AddSequential(new TurnPosition(165, 0.3));
+		AddSequential(new TurnPositionMagic(165, 0.5, 150, 150));
 
-		AddSequential(new AutoDrive(5, 150, 0,  165));
+		AddSequential(new AutoDrive(5, 150, 0, 120, 165));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
-		AddSequential(new AutoDrive(-10, 150, 0,  165));
+		AddSequential(new AutoDrive(-10, 150, 0, 120, 165));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-*/
+
 
 
 	    	//scored in switch */
@@ -121,7 +122,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    	// score in right switch, grab cube then score in scale.
 
 		AddParallel(new ReleaseIntake());
-	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromRightPos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.0));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.0));
 	    AddSequential(new PathExecuter(FromRightPos_ToRightSwitchPath::GetInstance(), false));
 	    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
 	    AddSequential(new AutoIntake(-0.45, 0.5));
@@ -147,7 +148,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-0.7));
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-0.7));
 		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
 	//	AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 2.5));
 		AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.7));
