@@ -156,6 +156,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
+
 		AddSequential(new AutoDrive(-15, 150,0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));

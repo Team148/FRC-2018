@@ -78,7 +78,7 @@ OI::OI() {
 	//Elevator
 	m_opButton1->WhenPressed(new SetElevator(ELEVATOR_ZERO));
 
-	m_opButton2->WhenPressed(new SetElevator(ELEVATOR_SWITCH));
+	m_opButton2->WhenPressed(new SetElevator(ELEVATOR_SWITCH_AUTO));
 
 	m_opButton3->WhenPressed(new SetElevator(ELEVATOR_SCALE_LOW));
 
