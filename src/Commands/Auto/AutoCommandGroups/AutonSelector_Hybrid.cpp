@@ -126,11 +126,11 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new PathExecuter(FromRightPos_ToRightSwitchPath::GetInstance(), false));
 	    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.5));
 	    AddSequential(new AutoIntake(-0.45, 0.5));
-		AddSequential(new AutoDrive(-15, 150, 0, 100, 179));
+		AddSequential(new AutoDrive(-15, 150, 0, 100, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-		AddSequential(new AutoDrive(20, 100, 0, 100, 179));
-		AddSequential(new AutoDrive(-10, 150, 0, 100, 179));
+		AddSequential(new AutoDrive(20, 100, 0, 100, 180));
+		AddSequential(new AutoDrive(-10, 150, 0, 100, 180));
 		AddSequential(new TurnPosition(RadianToDegrees(FromRightFirstCube_ToLeftScalePath::GetInstance()->GetStartHeading()), 0.5));
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
 		AddSequential(new PathExecuter(FromRightFirstCube_ToLeftScalePath::GetInstance(), false));
@@ -216,7 +216,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    std::cout << "What I See: " << fms_data_truc << std::endl;
 
 		// drives to left switch first from right pos, scores switch, then grabs cube to score in scale
-	    AddParallel(new ReleaseIntake());
+	  //  AddParallel(new ReleaseIntake());
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-2.0));
 		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
 	//	AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 2.5));
