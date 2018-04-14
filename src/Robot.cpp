@@ -192,8 +192,8 @@ public:
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 //					autoPosition = tStartingPosition::MIDDLE_POS;
 
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Biffers(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
-//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Biffers(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 
 
 				break;
