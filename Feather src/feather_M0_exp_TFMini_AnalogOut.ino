@@ -26,17 +26,19 @@ void loop() {
 
   uint16_t dist = tfm.getDistance();
   uint16_t strength = tfm.getRecentSignalStrength();
-  unsigned char out = dist;
+  unsigned char ad_out = dist;
+  unsigned char led_val = -dist + 255;
   
   Serial.print(dist);
   Serial.print(" cm      sigstr: ");
   Serial.print(strength);
-  Serial.print("    out: ");
-  Serial.println(out);
-
+  Serial.print("    ad_out: ");
+  Serial.print(ad_out);
+  Serial.print("    led_val: ");
+  Serial.println(led_val);
   
-  analogWrite(rio_out, out);
-  led.setPixelColor(0,out,0,0);
+  analogWrite(rio_out, ad_out);
+  led.setPixelColor(0,led_val,0,0);
   led.show();
 
   delay(10);              // wait for a second
