@@ -112,7 +112,7 @@ void TurnPositionMagic::Execute()
 	frc::SmartDashboard::PutNumber("InchesNeeded", inchesNeeded);
 
 
-	//std::cout << "positionOutput_TICKS: "<< m_output << "positionOutput_INCHES" << inchesNeeded << std::endl;
+	std::cout << "positionOutput_L: "<< m_l_pos_out - m_pos_err_l << "positionOutput_R" << m_r_pos_out + m_pos_err_r << std::endl;
 
 //	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
