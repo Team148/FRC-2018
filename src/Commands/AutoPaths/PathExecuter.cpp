@@ -3,19 +3,23 @@
 #include <iostream>
 
 
-PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed, int index_short) {
+
+PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed, int index_short, int disabledPositionTimeFrames) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
 	m_trajectory = trajectory;
 	m_IsReversed = IsReversed;
 	m_index_short = index_short;
+	m_disabledPositionTimeFrames = disabledPositionTimeFrames;
+	m_correction_enable = true;
 }
 
 // Called just before this Command runs the first time
 void PathExecuter::Initialize() {
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
+	m_correction_enable = true;
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;
 }
@@ -72,8 +76,18 @@ void PathExecuter::Execute() {
 	frc::SmartDashboard::PutNumber("RobotX", Drivetrain::GetInstance()->getRobotPosition_x());
 	frc::SmartDashboard::PutNumber("RobotY", Drivetrain::GetInstance()->getRobotPosition_y());
 
+	if(!(time_index < (m_trajectory->GetIndexLength()-m_disabledPositionTimeFrames)))
+	{
+		m_correction_enable = false;
+		std::cout << "position correction off" << std::endl;
+	}
+	else
+	{
+		m_correction_enable = true;
+	}
+
 //	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
-	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_trajectory->GetDT(), m_IsReversed);
+	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_trajectory->GetDT(), m_IsReversed, m_correction_enable);
 
 }
 

@@ -73,11 +73,13 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    	// score in right switch, grab cube then score in scale.
 	    AddSequential(new FromRightPos_ToRightSwitchGroup());
 
-		AddSequential(new AutoDrive(-10, 150, 0, 100, 179));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+	    	AddSequential(new AutoDrive(20, 100, 0, 120, 180));
+		AddSequential(new AutoDrive(-20, 150, 0, 120, 180));
 		AddSequential(new TurnPosition(RadianToDegrees(FromRightFirstCube_ToLeftScalePath::GetInstance()->GetStartHeading()), 0.5));
-		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
+		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 		AddSequential(new PathExecuter(FromRightFirstCube_ToLeftScalePath::GetInstance(), false));
-		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, 0.0));
 	//	AddSequential(new TurnPosition(-10.0));
 		AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 0.5));
 	//	AddSequential(new AutoDrive(-25, 50, 0, Drivetrain::GetInstance()->getRobotPathHeading()));
@@ -92,13 +94,13 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
-		AddSequential(new AutoDrive(-15, 150,0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddSequential(new AutoDrive(-15, 150,0, 100, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
-		AddSequential(new AutoDrive(20, 150, 0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
-		AddSequential(new AutoDrive(-13, 150, 0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
+		AddSequential(new AutoDrive(20, 150, 0, 100, 180));
+		AddSequential(new AutoDrive(-13, 150, 0, 100, 180));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
-		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
+		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 		AddSequential(new TurnPosition(270,0.5));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftSwitch_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 		AddSequential(new PathExecuter(FromLeftSwitch_ToRightScalePath::GetInstance(),false));

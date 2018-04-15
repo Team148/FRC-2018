@@ -17,7 +17,7 @@ FromRightPos_ToLeftSwitchGroup::FromRightPos_ToLeftSwitchGroup()
 	AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-2.0));
 	AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
 
-	AddSequential(new TurnPosition(RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading()), 0.4));
+	AddSequential(new TurnPosition(185, 0.4));
 
 	AddSequential(new AutoIntake(-0.45, 0.4));
 }

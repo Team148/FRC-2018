@@ -14,18 +14,20 @@ FromRightPos_ToRightSwitchGroup::FromRightPos_ToRightSwitchGroup()
 {
 
 	AddParallel(new ReleaseIntake());
-    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.0));
-    AddSequential(new PathExecuter(FromRightPos_ToRightSwitchPath::GetInstance(), false));
+    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.5));
+    AddSequential(new PathExecuter(FromRightPos_ToRightSwitchPath::GetInstance(), false, 0, 25));
+    AddSequential(new TurnPositionMagic(170, 0.5,150,150));
+
 
 //    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.2));
     //Spit
     AddSequential(new AutoIntake(-0.45, 0.5));
 
     //Backup and home elevator
-	AddSequential(new AutoDrive(-15, 150, 0, 100, RadianToDegrees(FromRightPos_ToRightSwitchPath::GetInstance()->GetEndHeading())));
+
+	AddSequential(new AutoDrive(-15, 150, 0, 100, 180));
 	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
 	//Grab cube and end
-	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-	AddSequential(new AutoDrive(20, 100, 0, 100, RadianToDegrees(FromRightPos_ToRightSwitchPath::GetInstance()->GetEndHeading())));
+
 }
