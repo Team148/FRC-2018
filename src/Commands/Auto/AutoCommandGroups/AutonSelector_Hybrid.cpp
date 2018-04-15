@@ -20,27 +20,34 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
 	    AddSequential(new FromRightPos_ToRightScaleGroup());
 	    //Scored First Cube
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-	    AddSequential(new AutoDrive(44, 150, 0, 100, 160));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
+	    AddSequential(new AutoDrive(44, 100, 0, 100, 160));
+
 	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
 		AddSequential(new AutoDrive(-5, 150, 0, 120, 160));
+		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 4.0));
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 		AddSequential(new AutoDrive(10, 150, 0, 120,  160));
-		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+		AddSequential(new AutoIntake(-0.45, 0.5));
 		//Scored Second Cube
-		AddSequential(new AutoDrive(-30, 150, 0, 100, 160));
+		AddSequential(new AutoDrive(-25, 100, 0, 100, 160));
+		AddParallel(new TurnPositionMagic(135, 0.5, 150, 150));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-		AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
+	//	AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
-		AddSequential(new AutoDrive(40, 150, 0, 100, 130));
-		AddSequential(new TurnPositionMagic(130, 1.0, 150, 150));
+		AddSequential(new AutoDrive(37, 100, 0, 100, 135));
+	//	AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+	//	AddSequential(new TurnPositionMagic(130, 1.0, 150, 150));
+		AddSequential(new WaitCommand(0.5));
 		//Grabbed Third Cube
-		AddSequential(new AutoDrive(-5, 150, 0, 120, 130));
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+
+		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
+	//	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 		AddSequential(new TurnPositionMagic(165, 0.5, 150, 150));
 
-		AddSequential(new AutoDrive(5, 150, 0, 120, 165));
-		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+		AddSequential(new AutoDrive(15, 150, 0, 120, 165));
+		AddParallel(new AutoIntake(-0.45, 0.5));
 		AddSequential(new AutoDrive(-10, 150, 0, 120, 165));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
@@ -94,17 +101,17 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
-		AddSequential(new AutoDrive(-15, 150,0, 100, 180));
+		AddSequential(new AutoDrive(-20, 150,0, 100, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-		AddSequential(new AutoDrive(20, 150, 0, 100, 180));
+		AddSequential(new AutoDrive(25, 150, 0, 100, 180));
 		AddSequential(new AutoDrive(-13, 150, 0, 100, 180));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 		AddSequential(new TurnPosition(270,0.5));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftSwitch_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 		AddSequential(new PathExecuter(FromLeftSwitch_ToRightScalePath::GetInstance(),false));
-		AddSequential(new TurnPosition(40, 0.7));
+		AddSequential(new TurnPositionMagic(40, 1.5,120,70));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
@@ -159,11 +166,11 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
 
-		AddSequential(new AutoDrive(-15, 150,0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddSequential(new AutoDrive(-15, 150,0, 100, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 6.0));
-		AddSequential(new AutoDrive(20, 150, 0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
-		AddSequential(new AutoDrive(-10, 150, 0, 100, RadianToDegrees(FromRightPos_ToLeftSwitchPath::GetInstance()->GetEndHeading())));
+		AddSequential(new AutoDrive(20, 150, 0, 100, 180));
+		AddSequential(new AutoDrive(-10, 150, 0, 100, 180));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
 //		AddSequential(new PathExecuter(FromLeftSwitch_ToLeftScalePathReversed::GetInstance(), true));

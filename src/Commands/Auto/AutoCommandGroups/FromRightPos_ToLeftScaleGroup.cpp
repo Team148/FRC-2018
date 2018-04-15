@@ -14,14 +14,16 @@ FromRightPos_ToLeftScaleGroup::FromRightPos_ToLeftScaleGroup()
 {
 
 	AddParallel(new ReleaseIntake());
-	AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false)); // add pls
+	AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false, 0, 25)); // add pls
 	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, 0.0));
+//	AddParallel(new TurnPositionMagic(190, 0.3 ,120,70));
+
 
 	//Spit
 	AddSequential(new AutoIntake(-0.6, 0.3));
 //			AddSequential(new AutoDrive(-10, 100, 0, 70, 0));
 
 	//turn and bring elevator down
-	AddParallel(new TurnPositionMagic(190, 1.5,120,70));
-    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
+	AddParallel(new TurnPositionMagic(205, 1.5,120,90));
+    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 }

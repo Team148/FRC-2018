@@ -705,7 +705,7 @@ void Drivetrain::configDrivetrain(tDriveConfigs drive_config, double cruiseVeloc
 
 				m_current_drive_config = tDriveConfigs::MOTION_MAGIC_CONFIG;
 
-				std::cout << "CONFIG: POSITION" << std::endl;
+				std::cout << "CONFIG: MOTION MAGIC" << std::endl;
 	}
 
 }

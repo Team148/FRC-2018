@@ -98,8 +98,8 @@ bool PathExecuter::IsFinished() {
 
 // Called once after isFinished returns true
 void PathExecuter::End() {
-	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
-	Drivetrain::GetInstance()->Arcade(0,0);
+//	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+//	Drivetrain::GetInstance()->Arcade(0,0);
 	std::cout << "PathExecuterPath Done" << std::endl;
 
 }
