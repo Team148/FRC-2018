@@ -38,6 +38,10 @@
 #include "./Paths/FromRightSwitchFront_ToCenterPileReversed.h"
 #include "./Paths/FromCenterPile_ToRightSwitchFront.h"
 
+#include "./Paths/FromLeftSwitchFront_ToLeftScaleBackReversePath.h"
+#include "./Paths/FromLeftSwitchFront_ToCenterPileReversed.h"
+#include "./Paths/FromCenterPile_ToLeftSwitchFront.h"
+
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
