@@ -35,6 +35,8 @@
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
 #include "./Paths/FromRightSwitchFront_ToRightScaleBackReversePath.h"
+#include "./Paths/FromRightSwitchFront_ToCenterPileReversed.h"
+#include "./Paths/FromCenterPile_ToRightSwitchFront.h"
 
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
