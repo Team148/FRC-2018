@@ -183,8 +183,8 @@ public:
 				//	std::cout << "Hybrid" << std::endl;
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 					std::cout << "Switch Only" << std::endl;
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
-//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_BackSwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_BackSwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
