@@ -2,7 +2,6 @@
 #include "../../AutoPaths/PathExecuter.h"
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchBackPath.h"
-#include "./Paths/FromRightSwitchFront_ToLeftScaleBackReversePath.h"
 
 #include "../TurnPosition.h"
 #include "../TurnPositionMagic.h"

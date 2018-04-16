@@ -1,7 +1,7 @@
 #include <Commands/Auto/AutoSetElevator.h>
 #include <iostream>
 
-AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
+AutoSetElevator::AutoSetElevator(int position, double timeToWait) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
@@ -12,7 +12,7 @@ AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 	m_timeToWait = timeToWait;
 	m_tolerance = ELEVATOR_ERROR_TOLERANCE;
 }
-AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0, double tolerance = ELEVATOR_ERROR_TOLERANCE) {
+AutoSetElevator::AutoSetElevator(int position, double timeToWait, double tolerance) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());

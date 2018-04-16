@@ -34,7 +34,7 @@
 
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
-#include "./Paths/FromRightSwitchFront_ToLeftScaleBackReversePath.h"
+#include "./Paths/FromRightSwitchFront_ToRightScaleBackReversePath.h"
 
 #include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
