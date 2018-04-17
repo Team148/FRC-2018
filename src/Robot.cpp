@@ -149,18 +149,19 @@ public:
 			if(cubeAmount > 3) cubeAmount = 3;
 
 
-			if(oi->GetInstance()->GetSw4())
-			{
-//				autoPosition = tStartingPosition::LEFT_POS;
-			}
-			else
-			{
+//			if(oi->GetInstance()->GetSw4())
+//			{
+////				autoPosition = tStartingPosition::LEFT_POS;
+//			}
+//			else
+//			{
 				autoPosition = tStartingPosition::RIGHT_POS;
-			}
+//			}
 
 			if(oi->GetInstance()->GetSw1()) // THIS OVERRIDES ALL
 			{
 				current_auto_selection = currentAutoSelection::SWITCH_ONLY;
+
 //				autoPosition = tStartingPosition::MIDDLE_POS;
 
 			}
@@ -182,9 +183,19 @@ public:
 				case currentAutoSelection::SWITCH_ONLY:
 				//	std::cout << "Hybrid" << std::endl;
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
-					std::cout << "Switch Only" << std::endl;
-//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_BackSwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					if(oi->GetInstance()->GetSw3())
+					{
+						std::cout << "Switch Only Back included" << std::endl;
+
+						frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount, true));
+
+					}
+					else
+					{
+						std::cout << "Switch Only" << std::endl;
+						frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount, false));
+
+					}
 
 				break;
 				case currentAutoSelection::HYBRID_MODE:
@@ -192,8 +203,19 @@ public:
 				//	frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
 //					autoPosition = tStartingPosition::MIDDLE_POS;
 
-//					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Biffers(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
-					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+					if(oi->GetInstance()->GetSw3())
+					{
+						std::cout << "Biffers" << std::endl;
+						frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Biffers(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
+					}
+
+					else
+					{
+						std::cout << "Hybrid" << std::endl;
+						frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+
+					}
+
 
 
 				break;

@@ -10,7 +10,7 @@
 
 class AutonSelector_SwitchOnly : public frc::CommandGroup {
 public:
-	AutonSelector_SwitchOnly(int start_pos = tStartingPosition::MIDDLE_POS,  std::string FMS_Data = "", int cube_amount = 1);
+	AutonSelector_SwitchOnly(int start_pos = tStartingPosition::MIDDLE_POS,  std::string FMS_Data = "", int cube_amount = 1, bool backIncluded = false);
 
 private:
 	autoStringData autoConstData;

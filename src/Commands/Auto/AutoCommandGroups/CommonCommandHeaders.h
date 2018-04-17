@@ -30,9 +30,13 @@
 
 #include "./Paths/FromRightPos_ToLeftScale118Path.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleDumpPath.h"
+#include "./Paths/FromMiddlePos_ToRightScaleDumpPath.h"
+
 
 
 #include "./Paths/FromMiddlePos_ToLeftSwitchPath.h"
+#include "./Paths/FromMiddlePos_ToRightSwitchBackPath.h"
+#include "./Paths/FromMiddlePos_ToLeftSwitchBackPath.h"
 #include "./Paths/FromMiddlePos_ToRightSwitchPath.h"
 #include "./Paths/FromRightSwitchFront_ToRightScaleBackReversePath.h"
 #include "./Paths/FromRightSwitchFront_ToCenterPileReversed.h"
@@ -67,6 +71,9 @@
 
 #include "FromRightPos_ToLeftSwitchGroup.h"
 #include "FromRightPos_ToRightSwitchGroup.h"
+
+#include "FrontLeftSwitchGroup.h"
+#include "FrontRightSwitchGroup.h"
 
 
 

@@ -4,88 +4,132 @@
 #include "CommonCommandHeaders.h"
 
 
-AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FMS_Data, int cube_amount)
+AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FMS_Data, int cube_amount, bool backIncluded)
 {
 
 	std::string fms_data_truc = FMS_Data.substr (0,2);
 
 //	if(start_pos == tStartingPosition::MIDDLE_POS)
 //	{
+	if(!backIncluded)
+	{
 		if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.R_L) == 0 ) // MIDDLE LINEUP, RIGHT SWITCHES
 		{
-			AddParallel(new ReleaseIntake());
-			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.2));
-			AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchPath::GetInstance(), false));
-			AddSequential(new AutoIntake(-0.40, 0.5));
-			AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.35, 500));
-			AddSequential(new PathExecuter(FromRightSwitchFront_ToCenterPileReversed::GetInstance(), true));
-			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-			AddSequential(new AutoDrive(43, 100, 0, 90, 0));
-			AddSequential(new AutoDrive(-43, 150, 0, 120, 0));
-			AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 3.0));
-			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromCenterPile_ToRightSwitchFront::GetInstance()->GetTimeLength()-1.2));
-			AddSequential(new PathExecuter(FromCenterPile_ToRightSwitchFront::GetInstance(), false));
-			AddSequential(new AutoIntake(-0.40, 0.35));
-			AddSequential(new AutoDrive(-10, 150, 0, 120, 0));
-			AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
-			AddSequential(new TurnPositionMagic(55, 1.0, 150, 100));
-			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-			AddSequential(new AutoDrive(30, 50, 0, 100 ,55));
-			AddSequential(new PathExecuter(FromRightSwitchFront_ToRightScaleBackReversePath::GetInstance(), true));
+			AddSequential(new FrontRightSwitchGroup());
 
-//			AddSequential(new AutoDrive(-25, 20, 0, 100, 55));
-//			AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
-//			AddParallel(new TurnPositionMagic(0 ,1.5, 150, 100));
-//			AddSequential(new AutoDrive(10, 150, 0, 120, 0));
-//			AddSequential(new AutoIntake(-0.40, 0.5));
-//			AddSequential(new AutoDrive(-10, 150, 0, 120, 0));
-//			AddSequential(new TurnPositionMagic(55, 1.5, 150, 100));
-//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
-//			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-//			AddSequential(new AutoDrive(30, 20, 0, 100, 55));
-//			AddSequential(new AutoDrive(-20, 150, 0, 100, 65));
-//			AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-//			AddParallel(new TurnPositionMagic(0, 0.5, 150, 150));
-//			AddSequential(new CheckHeading(5, 5, 0.5));
-//			AddSequential(new AutoIntake(-0.40, 0.5));
-//			AddSequential(new TurnPositionMagic(65, 0.5, 150, 150));
-//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
-//			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 2.0));
-//			AddSequential(new AutoDrive(30, 150, 0, 100, 65));
-//			AddSequential(new PathExecuter(FromRightSwitchFront_ToRightScaleBackReversePath::GetInstance(), true));
+
 
 		}
 		if(fms_data_truc.compare(autoConstData.L_L) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0 ) // MIDDLE LINEUP, LEFT SWITCHES
 		{
-//			AddParallel(new ReleaseIntake());
-//			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH, FromMiddlePos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-1.0));
-//			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchPath::GetInstance(), false));
-//			AddSequential(new AutoIntake(OUTTAKE_PERCENT_AUTO, 2.0));
-//			AddSequential(new AutoDrive(-10, 150, 0, 100, 0));
-//			AddSequential(new AutoDrive(-10, 150, 0, 100, 0));
-//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
+			AddSequential(new FrontLeftSwitchGroup());
+
+		}
+	}
+	if(backIncluded)
+	{
+		if(fms_data_truc.compare(autoConstData.R_R) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
+		{
+			AddSequential(new FrontRightSwitchGroup());
+
+		}
+		if(fms_data_truc.compare(autoConstData.R_L) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
+		{
+			//	AddParallel(new ReleaseIntake());
+				AddParallel(new ReleaseIntake());
+			    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToRightSwitchBackPath::GetInstance()->GetTimeLength()-1.5));
+			    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchBackPath::GetInstance(), false, 0, 25));
+			    AddSequential(new TurnPositionMagic(140, 0.3,150,150));
+
+
+			//    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.2));
+			    //Spit
+			    AddSequential(new AutoIntake(-0.45, 0.4));
+
+			    //Backup and home elevator
+
+				AddSequential(new AutoDrive(-15, 150, 0, 120, 140));
+				AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+
+			    AddSequential(new TurnPositionMagic(120, 0.5,150,150));
+
+			    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+			    	AddSequential(new AutoDrive(30, 60, 0, 100, 120));
+				AddSequential(new AutoDrive(-20, 60, 0, 100, 120));
+
+				AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+			    AddSequential(new TurnPositionMagic(140, 0.5,150, 150));
+
+
+				AddSequential(new AutoDrive(20, 100, 0, 90, 140));
+				AddSequential(new AutoIntake(-0.40, 0.5));
+
+				AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.35));
+				AddSequential(new AutoDrive(-40, 150, 0, 110, 140));
+
+			    AddSequential(new TurnPositionMagic(120, 0.5,150, 150));
+
+			    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+				AddSequential(new AutoDrive(62 , 100, 0, 100, 120));
+
+			    AddSequential(new TurnPositionMagic(90, 0.5,150, 150));
+
+	//			AddSequential(new AutoIntake(-0.40, 0.5));
+
+	//			AddSequential(new AutoDrive(-10, 150, 0, 100, 180));
+	//			AddSequential(new TurnPositionMagic(100, 0.5, 150, 90));
+	//			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
+	//			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
+	//			AddSequential(new AutoDrive(30, 150, 0, 100, 110));
+	//			AddSequential(new TurnPositionMagic(60, 0.5, 150, 90));
+	//			AddSequential(new AutoDrive(50 , 150, 0, 100, 60));
+		}
+		if(fms_data_truc.compare(autoConstData.L_L) == 0) // MIDDLE LINEUP, LEFT SWITCHES
+		{
+
+			AddSequential(new FrontLeftSwitchGroup());
+
+		}
+		if(fms_data_truc.compare(autoConstData.L_R) == 0) // MIDDLE LINEUP, LEFT SWITCHES
+		{
 
 			AddParallel(new ReleaseIntake());
-			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-1.2));
-			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchPath::GetInstance(), false));
+			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToLeftSwitchBackPath::GetInstance()->GetTimeLength()-1.2));
+			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchBackPath::GetInstance(), false));
+		    AddSequential(new TurnPositionMagic(220, 0.3,150,150));
+
+		    //Spit
+		    AddSequential(new AutoIntake(-0.45, 0.4));
+
+		    //Backup and home elevator
+
+			AddSequential(new AutoDrive(-15, 150, 0, 120, 220));
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+
+		    AddSequential(new TurnPositionMagic(230, 0.5,150,150));
+
+		    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+		    	AddSequential(new AutoDrive(30, 60, 0, 100, 230));
+			AddSequential(new AutoDrive(-20, 60, 0, 100, 230));
+
+			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+		    AddSequential(new TurnPositionMagic(220, 0.5,150, 150));
+
+
+			AddSequential(new AutoDrive(20, 100, 0, 90, 220));
 			AddSequential(new AutoIntake(-0.40, 0.5));
-			AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.35, 500));
-			AddSequential(new PathExecuter(FromLeftSwitchFront_ToCenterPileReversed::GetInstance(), true));
-			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-			AddSequential(new AutoDrive(43, 100, 0, 90, 0));
-			AddSequential(new AutoDrive(-43, 150, 0, 120, 0));
-			AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 3.0));
-			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromCenterPile_ToLeftSwitchFront::GetInstance()->GetTimeLength()-1.2));
-			AddSequential(new PathExecuter(FromCenterPile_ToLeftSwitchFront::GetInstance(), false));
-			AddSequential(new AutoIntake(-0.40, 0.35));
-			AddSequential(new AutoDrive(-10, 150, 0, 120, 0));
-			AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0, 500));
-			AddSequential(new TurnPositionMagic(305, 1.0, 150, 100));
-			AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-			AddSequential(new AutoDrive(30, 50, 0, 100 ,305));
-			AddSequential(new PathExecuter(FromLeftSwitchFront_ToLeftScaleBackReversePath::GetInstance(), true));
+
+			AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.35));
+			AddSequential(new AutoDrive(-40, 150, 0, 110, 220));
+
+		    AddSequential(new TurnPositionMagic(240, 0.5,150, 150));
+
+		    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+			AddSequential(new AutoDrive(62 , 100, 0, 100, 240));
+
+		    AddSequential(new TurnPositionMagic(270, 0.5,150, 150));
 		}
-//	}
+	}
 }
 

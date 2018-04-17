@@ -23,6 +23,19 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 {
 	if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0) // R POS RR
 	{
+		if(OI::GetInstance()->GetSw3()) // 118 special mode activated
+		{
+			AddParallel(new ReleaseIntake());
+			AddSequential(new PathExecuter(FromMiddlePos_ToRightScaleSneakPath::GetInstance(), false)); //add me pls
+			AddSequential(new TurnPosition(90, 0.5));
+			AddSequential(new AutoDrive(-12, 150, 0, 100, 90));
+			AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+			AddSequential(new WaitCommand(0.5));
+			AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
+			AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+			AddSequential(new AutoDrive(-15, 150, 0, 100, 90));
+		}
+
 	    AddSequential(new FromRightPos_ToRightScaleGroup());
 
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
@@ -60,7 +73,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    if(OI::GetInstance()->GetSw3()) // 118 special mode activated
 	    {
-		//	AddParallel(new ReleaseIntake());
+			AddParallel(new ReleaseIntake());
 		//	AddSequential(new PathExecuter(FromRightPos_ToLeftScale118Path::GetInstance(), false)); //add me pls
 			AddSequential(new PathExecuter(FromMiddlePos_ToLeftScaleSneakPath::GetInstance(), false)); //add me pls
 			AddSequential(new TurnPosition(270, 0.5));
