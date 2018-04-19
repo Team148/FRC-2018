@@ -175,7 +175,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 3.0));
 //		AddSequential(new PathExecuter(FromLeftSwitch_ToLeftScalePathReversed::GetInstance(), true));
 		AddSequential(new TurnPosition(225, 0.5));
-		AddSequential(new AutoDrive(-120, 150, 0, 100, 225));
+		AddSequential(new AutoDrive(-130, 150, 0, 100, 225));
 		AddSequential(new TurnPosition(275, 0.5));
 		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 		AddSequential(new AutoDrive(6, 150, 0, 100, 275));
