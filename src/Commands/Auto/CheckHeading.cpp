@@ -29,7 +29,7 @@ void CheckHeading::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void CheckHeading::Execute() {
 	double m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
-	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
+//	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	double m_heading_err = (m_heading - m_cur_heading);
 	if(m_heading_err<-180)

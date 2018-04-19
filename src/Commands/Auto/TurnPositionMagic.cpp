@@ -21,6 +21,8 @@ void TurnPositionMagic::Initialize()
 {
 //	m_end_angle = Drivetrain::GetInstance()->getGyroYaw() + m_given_angle;
 	m_isFinished = false;
+	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::MOTION_MAGIC_CONFIG, m_cruiseVelocity, m_acceleration);
+
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
 	m_l_init_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
@@ -31,7 +33,6 @@ void TurnPositionMagic::Initialize()
 
 //	if(m_is_clockwise) m_heading = -1*(360 - m_heading);
 
-	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::MOTION_MAGIC_CONFIG, m_cruiseVelocity, m_acceleration);
 
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
@@ -43,9 +44,11 @@ void TurnPositionMagic::Initialize()
 		m_heading_err += 360;
 	if(m_heading_err>180)
 		m_heading_err -= 360;
+
 	double rotationsNeeded = m_heading_err/360; // 45/360 26pi
 	double inchesNeeded = rotationsNeeded*(DRIVETRAIN_BASE_DIAMETER*M_PI); // look into drivebase
 	init_ticksNeeded = unit_master.GetTicks(inchesNeeded, tUnits::INCHES);
+
 
 	m_l_pos_out = m_l_init_pos - init_ticksNeeded;
 	m_r_pos_out =  m_r_init_pos + init_ticksNeeded;
