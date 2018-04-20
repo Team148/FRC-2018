@@ -36,6 +36,8 @@ void TurnPositionMagic::Initialize()
 
 	m_l_cur_pos = Drivetrain::GetInstance()->getLeftDrivePosition();
 	m_r_cur_pos = Drivetrain::GetInstance()->getRightDrivePosition();
+	std::cout << "position_init_l: "<< m_l_cur_pos << "position_init_r" << m_r_cur_pos << std::endl;
+
 
 	m_cur_heading = Drivetrain::GetInstance()->getRobotPathHeading();
 
@@ -116,6 +118,7 @@ void TurnPositionMagic::Execute()
 
 
 	std::cout << "positionOutput_L: "<< m_l_pos_out - m_pos_err_l << "positionOutput_R" << m_r_pos_out + m_pos_err_r << std::endl;
+	std::cout << "m_heading_err: "<< m_heading_err << std::endl;
 
 //	if(abs(m_heading_err) < DRIVE_ANGLE_TOLERANCE) m_isFinished = true;
 
@@ -132,7 +135,7 @@ bool TurnPositionMagic::IsFinished() {
 
 // Called once after isFinished returns true
 void TurnPositionMagic::End() {
-	std::cout << "FINISHED: TurnPosition" << std::endl;
+	std::cout << "FINISHED: TurnPosition Magic" << std::endl;
 }
 
 // Called when another command which requires one or more of the same

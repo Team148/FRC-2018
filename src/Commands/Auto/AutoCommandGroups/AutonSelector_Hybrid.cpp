@@ -37,9 +37,9 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
 		AddSequential(new AutoDrive(37, 100, 0, 100, 135));
 	//	AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
+		AddSequential(new WaitCommand(0.25));
 		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 	//	AddSequential(new TurnPositionMagic(130, 1.0, 150, 150));
-		AddSequential(new WaitCommand(0.5));
 		//Grabbed Third Cube
 
 		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
@@ -101,17 +101,17 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
-		AddSequential(new AutoDrive(-20, 150,0, 100, 180));
+		AddSequential(new AutoDrive(-20, 150,0, 120, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-		AddSequential(new AutoDrive(25, 150, 0, 100, 180));
-		AddSequential(new AutoDrive(-13, 150, 0, 100, 180));
+		AddSequential(new AutoDrive(25, 120, 0, 90, 180));
+		AddSequential(new AutoDrive(-13, 150, 0, 120, 180));
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 		AddSequential(new TurnPosition(270,0.5));
 		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftSwitch_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
 		AddSequential(new PathExecuter(FromLeftSwitch_ToRightScalePath::GetInstance(),false));
-		AddSequential(new TurnPositionMagic(40, 1.5,120,70));
+		AddSequential(new TurnPositionMagic(40, 1.0,120,90));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
@@ -175,10 +175,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 3.0));
 //		AddSequential(new PathExecuter(FromLeftSwitch_ToLeftScalePathReversed::GetInstance(), true));
 		AddSequential(new TurnPosition(225, 0.5));
-		AddSequential(new AutoDrive(-130, 150, 0, 100, 225));
+		AddSequential(new AutoDrive(-135, 150, 0, 100, 225));
 		AddSequential(new TurnPosition(275, 0.5));
 		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
-		AddSequential(new AutoDrive(6, 150, 0, 100, 275));
+		AddSequential(new AutoDrive(3, 150, 0, 100, 275));
 
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.5));
 		AddSequential(new AutoDrive(-12, 150, 0, 100, 275));

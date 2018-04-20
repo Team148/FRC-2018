@@ -35,7 +35,7 @@ void SetElevator::Execute() {
 	{
 		Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
 		m_isFinished = true;
-		std::cout << "finish std case" <<std::endl;
+//		std::cout << "finish std case" <<std::endl;
 
 	}
 		if(m_isFinished == false)

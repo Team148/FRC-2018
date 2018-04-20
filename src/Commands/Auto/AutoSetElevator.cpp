@@ -58,7 +58,7 @@ void AutoSetElevator::Execute() {
 			if(m_position > ELEVATOR_ZERO)
 			{
 				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-				std::cout << "finish std case" <<std::endl;
+//				std::cout << "finish std case" <<std::endl;
 			}
 
 			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )

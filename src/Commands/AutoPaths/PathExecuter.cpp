@@ -76,6 +76,10 @@ void PathExecuter::Execute() {
 	frc::SmartDashboard::PutNumber("RobotX", Drivetrain::GetInstance()->getRobotPosition_x());
 	frc::SmartDashboard::PutNumber("RobotY", Drivetrain::GetInstance()->getRobotPosition_y());
 
+	std::cout << "TrajectoryX: " << m_trajectory->GetX(time_index) << " TrajectoryY: " << m_trajectory->GetY(time_index) << std::endl;
+	std::cout << "RobotX: " << Drivetrain::GetInstance()->getRobotPosition_x() << " RobotY: " << Drivetrain::GetInstance()->getRobotPosition_y() << std::endl;
+
+
 	if(!(time_index < (m_trajectory->GetIndexLength()-m_disabledPositionTimeFrames)))
 	{
 		m_correction_enable = false;
@@ -100,6 +104,7 @@ bool PathExecuter::IsFinished() {
 void PathExecuter::End() {
 //	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
 //	Drivetrain::GetInstance()->Arcade(0,0);
+	Drivetrain::GetInstance()->SetDriveVelocity(0,0);
 	std::cout << "PathExecuterPath Done" << std::endl;
 
 }

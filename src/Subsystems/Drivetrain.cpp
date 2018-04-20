@@ -477,6 +477,9 @@ void Drivetrain::SetPathDriveKinematics(double l_pos, double l_velo, double l_ac
 	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getLeftDriveVelocity())-left_output);
 	frc::SmartDashboard::PutNumber("LeftOutputError", unit_master.GetInchesPerSec(getRightDriveVelocity())-right_output);
 
+	std::cout << "left_output_SetPathDrive: " << left_output << "right_output_SetPathDrive: " << right_output << std::endl;
+
+
 	SetDriveVelocity(unit_master.GetTicksPer100ms(left_output), unit_master.GetTicksPer100ms(right_output));
 }
 

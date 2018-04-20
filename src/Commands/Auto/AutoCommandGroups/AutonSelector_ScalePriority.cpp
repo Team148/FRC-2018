@@ -46,18 +46,16 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	    AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 	    AddSequential(new TurnPositionMagic(40, 0.5,150,90));
-	    AddSequential(new CheckHeading(40, 10, 1.0));
 	    AddSequential(new AutoIntake(-0.6, 0.5));
 	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPositionMagic(145, 0.5,150,90));
+	    AddSequential(new TurnPositionMagic(130, 0.5,150,90));
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-	    AddSequential(new AutoDrive(60, 150, 0, 100, 145));
-	    AddSequential(new AutoDrive(-50, 150, 0, 100, 145));
+	    AddSequential(new AutoDrive(60, 150, 0, 100, 130));
+	    AddSequential(new AutoDrive(-60, 150, 0, 100, 130));
 //	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
 	    AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 3.0));
 	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0, 500));
-	    AddSequential(new TurnPositionMagic(30, 0.5,150,90));
-	    AddSequential(new CheckHeading(30, 10, 1.0));
+	    AddSequential(new TurnPositionMagic(45, 0.5,150,90));
 	    AddSequential(new AutoIntake(-0.6, 0.5));
 	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
@@ -112,8 +110,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 			AddSequential(new AutoDrive(-55, 150, 0, 120, 210));
 			AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.2));
 			AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, 0.0, 500));
-		    AddSequential(new TurnPosition(320, 0.5));
-		    AddSequential(new CheckHeading(320, 10, 1.0));
+		    AddSequential(new TurnPositionMagic(320, 0.5, 150, 90));
 		    AddSequential(new AutoIntake(-0.4, 0.4));
 //			AddSequential(new AutoDrive(50, 150, 0, 100, 0));
 //			AddSequential(new AutoIntake(-0.4, 0.3));
