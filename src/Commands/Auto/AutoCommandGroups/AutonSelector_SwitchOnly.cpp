@@ -15,26 +15,26 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 	{
 		if(fms_data_truc.compare(autoConstData.R_R) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
 		{
-			AddSequential(new FrontRightSwitchGroup(true));
+			AddSequential(new FrontRightSwitchGroup());
 
 
 
 		}
 		if(fms_data_truc.compare(autoConstData.R_L) == 0)
 		{
-			AddSequential(new FrontRightSwitchGroup(false));
+			AddSequential(new FrontRightSwitchGroup());
 
 		}
 
 		if(fms_data_truc.compare(autoConstData.L_L) == 0) // MIDDLE LINEUP, LEFT SWITCHES
 		{
 
-			AddSequential(new FrontLeftSwitchGroup(false));
+			AddSequential(new FrontLeftSwitchGroup());
 
 		}
 		if(fms_data_truc.compare(autoConstData.L_R) == 0 )
 		{
-			AddSequential(new FrontLeftSwitchGroup(true));
+			AddSequential(new FrontLeftSwitchGroup());
 
 		}
 	}
@@ -42,7 +42,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 	{
 		if(fms_data_truc.compare(autoConstData.R_R) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
 		{
-			AddSequential(new FrontRightSwitchGroup(true));
+			AddSequential(new FrontRightSwitchGroup());
 
 		}
 		if(fms_data_truc.compare(autoConstData.R_L) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
@@ -99,7 +99,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 		if(fms_data_truc.compare(autoConstData.L_L) == 0) // MIDDLE LINEUP, LEFT SWITCHES
 		{
 
-			AddSequential(new FrontLeftSwitchGroup(false));
+			AddSequential(new FrontLeftSwitchGroup());
 
 		}
 		if(fms_data_truc.compare(autoConstData.L_R) == 0) // MIDDLE LINEUP, LEFT SWITCHES

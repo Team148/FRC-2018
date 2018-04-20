@@ -10,7 +10,7 @@
 #include "CommonCommandHeaders.h"
 
 
-FrontRightSwitchGroup::FrontRightSwitchGroup(bool ScaleRight)
+FrontRightSwitchGroup::FrontRightSwitchGroup()
 {
 	AddParallel(new ReleaseIntake());
 	AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToRightSwitchPath::GetInstance()->GetTimeLength()-1.2));
@@ -47,7 +47,7 @@ FrontRightSwitchGroup::FrontRightSwitchGroup(bool ScaleRight)
 //	else // veryimportante
 //	{
 
-		AddSequential(new AutoDrive(-46, 150, 0, 120, 0));
+		AddSequential(new AutoDrive(-46, 150, 0, 100, 0));
 		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 3.0));
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromCenterPile_ToRightSwitchFront::GetInstance()->GetTimeLength()-1.2));
 		AddSequential(new PathExecuter(FromCenterPile_ToRightSwitchFront::GetInstance(), false));

@@ -16,6 +16,8 @@
 #include "./Paths/FromCenterPile_ToRightScaleSneak.h"
 #include "./Paths/FromCenterPile_ToLeftScaleSneak.h"
 
+#include "./Paths/FromMiddlePos_ToLeftSwitchSneakPath.h"
+#include "./Paths/FromMiddlePos_ToRightSwitchSneakPath.h"
 
 
 #include "./Paths/FromRightScale_ToRightFirstCubePath.h"

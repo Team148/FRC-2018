@@ -15,7 +15,7 @@
 
 class FrontLeftSwitchGroup : public frc::CommandGroup {
 public:
-	FrontLeftSwitchGroup(bool ScaleRight);
+	FrontLeftSwitchGroup();
 };
 
 #endif

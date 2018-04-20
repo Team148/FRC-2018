@@ -156,7 +156,15 @@ public:
 //			else
 //			{
 				autoPosition = tStartingPosition::RIGHT_POS;
+
 //			}
+			if(oi->GetInstance()->GetSw4())
+			{
+					frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Elim(tStartingPosition::RIGHT_POS, gameData, cubeAmount));
+			}
+			else
+			{
+
 
 			if(oi->GetInstance()->GetSw1()) // THIS OVERRIDES ALL
 			{
@@ -176,6 +184,7 @@ public:
 					current_auto_selection = currentAutoSelection::HYBRID_MODE;
 
 				}
+
 			}
 
 			switch(current_auto_selection)
@@ -227,6 +236,8 @@ public:
 //					frc::Scheduler::GetInstance()->AddCommand(new ReleaseIntake());
 //					frc::Scheduler::GetInstance()->AddCommand(new AutoDrive(120, 150, 0, 340));
 				break;
+			}
+
 			}
 	//		frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_Hybrid(autoPosition, gameData, cubeAmount));
 	//        frc::Scheduler::GetInstance()->AddCommand(new AutonSelector_SwitchOnly(tStartingPosition::MIDDLE_POS, gameData, cubeAmount));
