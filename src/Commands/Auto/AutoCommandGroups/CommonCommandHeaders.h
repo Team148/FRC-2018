@@ -13,6 +13,8 @@
 #include "./Paths/FromRightPos_ToRightScalePath.h"
 #include "./Paths/FromRightPos_ToLeftScalePath.h"
 #include "./Paths/FromLeftPos_ToLeftScalePath.h"
+#include "./Paths/FromCenterPile_ToRightScaleSneak.h"
+#include "./Paths/FromCenterPile_ToLeftScaleSneak.h"
 
 
 
@@ -67,7 +69,8 @@
 
 #include "FromRightPos_ToRightScaleGroup.h"
 #include "FromRightPos_ToLeftScaleGroup.h"
-
+#include "CenterPile_ToLeftScaleGroup.h"
+#include "CenterPile_ToRightScaleGroup.h"
 
 #include "FromRightPos_ToLeftSwitchGroup.h"
 #include "FromRightPos_ToRightSwitchGroup.h"

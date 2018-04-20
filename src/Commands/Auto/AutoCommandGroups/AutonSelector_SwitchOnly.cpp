@@ -13,18 +13,28 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 //	{
 	if(!backIncluded)
 	{
-		if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.R_L) == 0 ) // MIDDLE LINEUP, RIGHT SWITCHES
+		if(fms_data_truc.compare(autoConstData.R_R) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
 		{
-			AddSequential(new FrontRightSwitchGroup());
+			AddSequential(new FrontRightSwitchGroup(true));
 
 
 
 		}
+		if(fms_data_truc.compare(autoConstData.R_L) == 0)
+		{
+			AddSequential(new FrontRightSwitchGroup(false));
 
-		if(fms_data_truc.compare(autoConstData.L_L) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0 ) // MIDDLE LINEUP, LEFT SWITCHES
+		}
+
+		if(fms_data_truc.compare(autoConstData.L_L) == 0) // MIDDLE LINEUP, LEFT SWITCHES
 		{
 
-			AddSequential(new FrontLeftSwitchGroup());
+			AddSequential(new FrontLeftSwitchGroup(false));
+
+		}
+		if(fms_data_truc.compare(autoConstData.L_R) == 0 )
+		{
+			AddSequential(new FrontLeftSwitchGroup(true));
 
 		}
 	}
@@ -32,7 +42,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 	{
 		if(fms_data_truc.compare(autoConstData.R_R) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
 		{
-			AddSequential(new FrontRightSwitchGroup());
+			AddSequential(new FrontRightSwitchGroup(true));
 
 		}
 		if(fms_data_truc.compare(autoConstData.R_L) == 0) // MIDDLE LINEUP, RIGHT SWITCHES
@@ -41,7 +51,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 				AddParallel(new ReleaseIntake());
 			    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToRightSwitchBackPath::GetInstance()->GetTimeLength()-1.5));
 			    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchBackPath::GetInstance(), false, 0, 25));
-			    AddSequential(new TurnPositionMagic(140, 0.3,150,150));
+			    AddSequential(new TurnPositionMagic(140, 1.5,150,150));
 
 
 			//    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.2));
@@ -89,7 +99,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 		if(fms_data_truc.compare(autoConstData.L_L) == 0) // MIDDLE LINEUP, LEFT SWITCHES
 		{
 
-			AddSequential(new FrontLeftSwitchGroup());
+			AddSequential(new FrontLeftSwitchGroup(false));
 
 		}
 		if(fms_data_truc.compare(autoConstData.L_R) == 0) // MIDDLE LINEUP, LEFT SWITCHES
@@ -98,7 +108,7 @@ AutonSelector_SwitchOnly::AutonSelector_SwitchOnly(int start_pos, std::string FM
 			AddParallel(new ReleaseIntake());
 			AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToLeftSwitchBackPath::GetInstance()->GetTimeLength()-1.2));
 			AddSequential(new PathExecuter(FromMiddlePos_ToLeftSwitchBackPath::GetInstance(), false));
-		    AddSequential(new TurnPositionMagic(220, 0.3,150,150));
+		    AddSequential(new TurnPositionMagic(220, 1.5,150,150));
 
 		    //Spit
 		    AddSequential(new AutoIntake(-0.45, 0.4));

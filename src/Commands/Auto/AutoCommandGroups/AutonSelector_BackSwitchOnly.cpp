@@ -27,7 +27,7 @@ AutonSelector_BackSwitchOnly::AutonSelector_BackSwitchOnly(int start_pos, std::s
 			AddParallel(new ReleaseIntake());
 		    AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromMiddlePos_ToRightSwitchBackPath::GetInstance()->GetTimeLength()-1.5));
 		    AddSequential(new PathExecuter(FromMiddlePos_ToRightSwitchBackPath::GetInstance(), false, 0, 25));
-		    AddSequential(new TurnPositionMagic(140, 0.3,150,150));
+		    AddSequential(new TurnPositionMagic(140, 1.0,150,150));
 
 
 		//    AddSequential(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 0.2));

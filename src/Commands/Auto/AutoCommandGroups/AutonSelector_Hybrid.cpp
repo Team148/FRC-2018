@@ -36,14 +36,10 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	//	AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
 		AddSequential(new AutoDrive(37, 100, 0, 100, 135));
-	//	AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 5.0));
-		AddSequential(new WaitCommand(0.25));
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
-	//	AddSequential(new TurnPositionMagic(130, 1.0, 150, 150));
+		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
 		//Grabbed Third Cube
 
-		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
-	//	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
 		AddSequential(new TurnPositionMagic(165, 0.5, 150, 150));
 
 		AddSequential(new AutoDrive(15, 150, 0, 120, 165));

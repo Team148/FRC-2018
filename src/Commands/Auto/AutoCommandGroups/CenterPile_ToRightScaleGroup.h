@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#ifndef FrontLeftSwitchGroup_H
-#define FrontLeftSwitchGroup_H
 
+#ifndef CenterPile_ToRightScaleGroup_H
+#define CenterPile_ToRightScaleGroup_H
 
 #include <Commands/CommandGroup.h>
-
 #include "../../../Constants.h"
 
-class FrontLeftSwitchGroup : public frc::CommandGroup {
+
+class CenterPile_ToRightScaleGroup : public frc::CommandGroup {
 public:
-	FrontLeftSwitchGroup(bool ScaleRight);
+	CenterPile_ToRightScaleGroup();
 };
 
 #endif
