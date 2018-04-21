@@ -2,9 +2,6 @@
 #include "CommonCommandHeaders.h"
 
 
-#include "Paths/FromRightPos_ToLeftScalePath_Part1.h"
-#include "Paths/FromRightPos_ToLeftScalePath_Part2.h"
-#include "Paths/FromRightPos_ToLeftScalePath_Part3.h"
 
 #include "../../../OI.h"
 
@@ -133,39 +130,39 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 	}
 }
 
-if(start_pos == tStartingPosition::LEFT_POS)
-{
-
-	if(fms_data_truc.compare(autoConstData.L_L) == 0 || fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RR
-	{
-
-	    std::cout << FromLeftPos_ToLeftScalePath::GetInstance()->GetTimeLength() << std::endl;
-//	    AddParallel(new ReleaseIntake());
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftPos_ToLeftScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
-	    AddSequential(new PathExecuter(FromLeftPos_ToLeftScalePath::GetInstance(), false));
-	    AddSequential(new AutoIntake(-0.4, 0.3));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPositionMagic(210, 0.6,150,90));
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
-	    AddSequential(new AutoDrive(48, 150, 0, 100, 210));
-	    AddSequential(new AutoDrive(-48, 150, 0, 100, 210));
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
-	    AddSequential(new TurnPositionMagic(320, 0.5,150,90));
-	    AddSequential(new WaitCommand(0.5));
-	    AddSequential(new AutoIntake(-0.6, 0.5));
-	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	    AddSequential(new TurnPositionMagic(220, 0.5,150,90));
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
-	    AddSequential(new AutoDrive(60, 150, 0, 100, 220));
-	    AddSequential(new AutoDrive(-50, 150, 0, 100, 220));
-	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.1));
-	    AddSequential(new TurnPositionMagic(320, 0.5,150,80));
-	    AddSequential(new WaitCommand(0.7));
-	    AddSequential(new AutoIntake(-0.6, 0.5));
-	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	}
-
-}
+//if(start_pos == tStartingPosition::LEFT_POS)
+//{
+//
+//	if(fms_data_truc.compare(autoConstData.L_L) == 0 || fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RR
+//	{
+//
+//	    std::cout << FromLeftPos_ToLeftScalePath::GetInstance()->GetTimeLength() << std::endl;
+////	    AddParallel(new ReleaseIntake());
+//	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftPos_ToLeftScalePath::GetInstance()->GetTimeLength()-1.0)); // ADDED, NOT NORMAL
+//	    AddSequential(new PathExecuter(FromLeftPos_ToLeftScalePath::GetInstance(), false));
+//	    AddSequential(new AutoIntake(-0.4, 0.3));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//	    AddSequential(new TurnPositionMagic(210, 0.6,150,90));
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
+//	    AddSequential(new AutoDrive(48, 150, 0, 100, 210));
+//	    AddSequential(new AutoDrive(-48, 150, 0, 100, 210));
+//	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+//	    AddSequential(new TurnPositionMagic(320, 0.5,150,90));
+//	    AddSequential(new WaitCommand(0.5));
+//	    AddSequential(new AutoIntake(-0.6, 0.5));
+//	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//	    AddSequential(new TurnPositionMagic(220, 0.5,150,90));
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 10.0));
+//	    AddSequential(new AutoDrive(60, 150, 0, 100, 220));
+//	    AddSequential(new AutoDrive(-50, 150, 0, 100, 220));
+//	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.1));
+//	    AddSequential(new TurnPositionMagic(320, 0.5,150,80));
+//	    AddSequential(new WaitCommand(0.7));
+//	    AddSequential(new AutoIntake(-0.6, 0.5));
+//	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//	}
+//
+//}
 
 
 

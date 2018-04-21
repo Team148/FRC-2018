@@ -6,13 +6,14 @@
 
 
 #include "./Paths/FromRightPos_ToRightSwitchPath.h"
-#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePathReversed.h"
+//#include "./Paths/FromRightPos_ToLeftSwitchPathReversed.h"
+//#include "./Paths/FromLeftSwitch_ToLeftScalePathReversed.h"
 #include "./Paths/FromRightFirstCube_ToLeftSwitchPathReversed.h"
 
 #include "./Paths/FromRightPos_ToRightScalePath.h"
 #include "./Paths/FromRightPos_ToLeftScalePath.h"
-#include "./Paths/FromLeftPos_ToLeftScalePath.h"
+#include "./Paths/FromRightPos_ToLeftScaleShortPath.h"
+//#include "./Paths/FromLeftPos_ToLeftScalePath.h"
 #include "./Paths/FromCenterPile_ToRightScaleSneak.h"
 #include "./Paths/FromCenterPile_ToLeftScaleSneak.h"
 
@@ -20,15 +21,15 @@
 #include "./Paths/FromMiddlePos_ToRightSwitchSneakPath.h"
 
 
-#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
+//#include "./Paths/FromRightScale_ToRightFirstCubePath.h"
 #include "./Paths/FromRightFirstCube_ToLeftScalePath.h"
-#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
-#include "./Paths/FromRightSecondCube_ToRightScalePath.h"
-#include "./Paths/FromRightFirstCube_ToLeftSwitchPath.h"
+//#include "./Paths/FromRightScale_ToRightSecondCubePath.h"
+//#include "./Paths/FromRightSecondCube_ToRightScalePath.h"
+//#include "./Paths/FromRightFirstCube_ToLeftSwitchPath.h"
 
 
 #include "./Paths/FromLeftSwitch_ToRightScalePath.h"
-#include "./Paths/FromLeftSwitch_ToLeftScalePath.h"
+//#include "./Paths/FromLeftSwitch_ToLeftScalePath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchPath.h"
 
 
@@ -50,7 +51,7 @@
 #include "./Paths/FromLeftSwitchFront_ToCenterPileReversed.h"
 #include "./Paths/FromCenterPile_ToLeftSwitchFront.h"
 
-#include "./Paths/FromRightFirstCube_ToRightScalePath.h"
+//#include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
 
