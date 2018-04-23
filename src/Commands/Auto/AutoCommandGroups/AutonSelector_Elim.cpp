@@ -21,7 +21,7 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 	    AddSequential(new AutoIntake(-0.40, 0.3));
 
 	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.1, 500));
-	    AddSequential(new AutoDrive(-70, 100, 0, 60, 28.6));
+	    AddSequential(new AutoDrive(-70, 105, 0, 120, 28.6));
 
 
 	}
@@ -83,6 +83,19 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 	{
 		AddParallel(new ReleaseIntake());
 	    AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
+
+
+//		AddSequential(new WaitCommand(12.0));
+
+//	    AddParallel(new ReleaseIntake());
+//		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchPath::GetInstance()->GetTimeLength()-1.5));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchPath::GetInstance(), false)); // need to add
+//
+//		AddSequential(new TurnPosition(160, 0.4));
+//
+//		AddSequential(new AutoIntake(-0.45, 0.4));
+
+
 
 	}
 
