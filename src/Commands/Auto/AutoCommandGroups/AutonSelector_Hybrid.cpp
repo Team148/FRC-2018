@@ -105,8 +105,9 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 		//AddSequential(new TurnPosition(RadianToDegrees(FromLeftSwitch_ToLeftScalePath::GetInstance()->GetStartHeading()), 1.0));
 		AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
 		AddSequential(new TurnPosition(270,0.5));
-		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftSwitch_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
+//		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, FromLeftSwitch_ToRightScalePath::GetInstance()->GetTimeLength()-0.2));
 		AddSequential(new PathExecuter(FromLeftSwitch_ToRightScalePath::GetInstance(),false));
+		AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 		AddSequential(new TurnPositionMagic(40, 1.0,120,90));
 		AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 0.3));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
