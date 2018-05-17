@@ -15,10 +15,10 @@ FromRightPos_ToLeftScaleGroup::FromRightPos_ToLeftScaleGroup()
 
 	AddParallel(new ReleaseIntake());
 	AddSequential(new PathExecuter(FromRightPos_ToLeftScalePath::GetInstance(), false, 0, 25)); // add pls
-	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, 0.0));
+	AddSequential(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
 //	AddSequential(new WaitCommand(3.0));
 
-	AddParallel(new TurnPositionMagic(320, 0.7 ,120,90));
+	AddSequential(new TurnPositionMagic(320, 0.7 ,120,90));
 
 
 	//Spit

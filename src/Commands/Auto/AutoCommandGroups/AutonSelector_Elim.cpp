@@ -82,7 +82,17 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 	if(fms_data_truc.compare(autoConstData.L_L) == 0)
 	{
 		AddParallel(new ReleaseIntake());
-	    AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
+		AddSequential(new WaitCommand(4.0));
+//	    AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
+
+		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance()->GetTimeLength()-1.5));
+		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance(), false));
+		//spit cube #1
+	//	AddSequential(new AutoIntake(-0.40, 0.5));
+		AddSequential(new AutoDrive(-40, 150, 0, 100, 270));
+		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0));
+		AddSequential(new TurnPositionMagic(0, 1.0,120, 90));
+		AddSequential(new AutoDrive(90, 100, 0, 100, 0));
 
 
 //		AddSequential(new WaitCommand(12.0));

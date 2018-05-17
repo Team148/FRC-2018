@@ -54,6 +54,8 @@
 //#include "./Paths/FromRightFirstCube_ToRightScalePath.h"
 #include "./Paths/FromMiddlePos_ToRightScaleSneakPath.h"
 #include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
+#include "./Paths/FromRightPos_ToLeftSwitchSuperSneakPath.h"
+
 
 
 #include "../TurnPosition.h"
