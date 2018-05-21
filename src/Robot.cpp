@@ -332,10 +332,10 @@ public:
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
 
 		if (oi->drvStick->GetRawButton(7) && oi->drvStick->GetRawButton(8))
-			ClimberSpeed = -CLIMBER_OUTPUT_PERCENT;
+			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
 
 		if (oi->opStick->GetRawButton(7) && oi->opStick->GetRawButton(8))
-			ClimberSpeed = CLIMBER_OUTPUT_PERCENT;
+			ClimberSpeed = -CLIMBER_OUTPUT_PERCENT;
 
 		//POV buttons
 		if (oi->opStick->GetPOV() == 0)  frc::Scheduler::GetInstance()->AddCommand(new SetElevator(ELEVATOR_DOUBLE_STACK));
