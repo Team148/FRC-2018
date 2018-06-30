@@ -97,6 +97,7 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 
 	    AddSequential(new FromRightPos_ToLeftSwitchGroup());
 
+	    AddSequential(new TurnPosition(180, 0.4));
 		AddSequential(new AutoDrive(-15, 150,0, 120, 180));
 		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
