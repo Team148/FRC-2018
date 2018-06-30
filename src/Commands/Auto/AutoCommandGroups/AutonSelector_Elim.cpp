@@ -13,15 +13,38 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 	// Champs saturday -> Right position, score on right scale and get out of the way for 254 far side 3 cube
 	if(fms_data_truc.compare(autoConstData.R_R) == 0 || fms_data_truc.compare(autoConstData.L_R) == 0 )
 	{
-		AddParallel(new ReleaseIntake());
-		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
-	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
+	//	RR scale only
+	    AddSequential(new FromRightPos_ToRightScaleGroup());
 
-	    // spit cube out
-	    AddSequential(new AutoIntake(-0.40, 0.3));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.2));
+	    AddSequential(new AutoDrive(52, 150, 0, 100, 155));
+	    AddSequential(new AutoDrive(-48, 150, 0, 100, 155));
+	    AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 5.0));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0));
+	    AddSequential(new TurnPositionMagic(50, 1.0,150,90));
+	    AddSequential(new AutoIntake(-0.6, 0.5));
+	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+	    AddSequential(new TurnPositionMagic(135, 0.5,150,90));
+	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
+	    AddSequential(new AutoDrive(65, 150, 0, 100, 135));
+	    AddSequential(new AutoDrive(-65, 150, 0, 100, 135));
+//	    AddParallel(new AutoIntake(INTAKE_SLOW_PERCENT, 5.0));
+	    AddParallel(new AutoIntake(INTAKE_HOLD_AUTO_PERCENT, 3.0));
+	    AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 0.0, 500));
+	    AddSequential(new TurnPositionMagic(45, 1.0,150,90));
+	    AddSequential(new AutoIntake(-0.6, 0.5));
+	    AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 
-	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.1, 500));
-	    AddSequential(new AutoDrive(-70, 105, 0, 120, 28.6));
+	    //old elim set UIL /champs
+//		AddParallel(new ReleaseIntake());
+//		AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH-2500, FromRightPos_ToRightScalePath::GetInstance()->GetTimeLength()-1.0));
+//	    AddSequential(new PathExecuter(FromRightPos_ToRightScalePath::GetInstance(), false));
+//
+//	    // spit cube out
+//	    AddSequential(new AutoIntake(-0.40, 0.3));
+//
+//	    AddParallel(new AutoSetElevator(ELEVATOR_ZERO, 0.1, 500));
+//	    AddSequential(new AutoDrive(-70, 105, 0, 120, 28.6));
 
 
 	}
@@ -46,10 +69,10 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 
 		//drive and grab cube #2
 	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-	    	AddSequential(new AutoDrive(25, 100, 0, 100, 120));
+	    	AddSequential(new AutoDrive(30, 100, 0, 100, 120));
 
 	    	//backup
-		AddSequential(new AutoDrive(-10, 150, 0, 120, 120));
+		AddSequential(new AutoDrive(-15, 150, 0, 120, 120));
 
 		//change heading to score heading and raise elevator
 		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
@@ -72,7 +95,7 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 
 		// intake and drive into
 		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-		AddSequential(new AutoDrive(55, 100, 0, 100, 120));
+		AddSequential(new AutoDrive(60, 100, 0, 100, 120));
 
 		// turn to scale to prepare for teleop
 		AddSequential(new TurnPositionMagic(90, 0.5,150, 150));
@@ -82,17 +105,19 @@ AutonSelector_Elim::AutonSelector_Elim(int start_pos, std::string FMS_Data, int 
 	if(fms_data_truc.compare(autoConstData.L_L) == 0)
 	{
 		AddParallel(new ReleaseIntake());
-		AddSequential(new WaitCommand(4.0));
-//	    AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
-
-		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance()->GetTimeLength()-1.5));
-		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance(), false));
+        AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
+//commented out for TRI
+//		AddSequential(new WaitCommand(4.0));
+////	    AddSequential(new PathExecuter(FromRightPos_ToLeftScaleShortPath::GetInstance(), false));
+//
+//		AddParallel(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance()->GetTimeLength()-1.5));
+//		AddSequential(new PathExecuter(FromRightPos_ToLeftSwitchSuperSneakPath::GetInstance(), false));
 		//spit cube #1
 	//	AddSequential(new AutoIntake(-0.40, 0.5));
-		AddSequential(new AutoDrive(-40, 150, 0, 100, 270));
-		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0));
-		AddSequential(new TurnPositionMagic(0, 1.0,120, 90));
-		AddSequential(new AutoDrive(90, 100, 0, 100, 0));
+	//	AddSequential(new AutoDrive(-40, 150, 0, 100, 270));
+	//	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0));
+	//	AddSequential(new TurnPositionMagic(0, 1.0,120, 90));
+	//	AddSequential(new AutoDrive(90, 100, 0, 100, 0));
 
 
 //		AddSequential(new WaitCommand(12.0));
