@@ -22,6 +22,6 @@ FromRightPos_ToRightScaleGroup::FromRightPos_ToRightScaleGroup()
     AddSequential(new AutoIntake(-0.40, 0.3));
 
     //Turn while bringing the elevator down
-    AddParallel(new TurnPositionMagic(160, 1.5, 150, 70));
+    AddParallel(new TurnPositionMagic(160, 2.0, 150, 70));
     AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
 }
