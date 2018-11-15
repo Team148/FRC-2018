@@ -70,3 +70,11 @@ double* FromRightPos_ToLeftScale118Path::GetRightTrajectoryArray(int index)
 {
 	return right_wheel[index];
 }
+double FromRightPos_ToLeftScale118Path::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromRightPos_ToLeftScale118Path::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

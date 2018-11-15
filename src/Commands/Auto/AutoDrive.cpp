@@ -1,8 +1,9 @@
 #include <Commands/Auto/AutoDrive.h>
 #include <Util/UnitMaster.h>
 #include <iostream>
+#include "Subsystems/LimelightCamera.h"
 
-UnitMaster unit_master_conv;
+
 
 AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity) {
 	// Use Requires() here to declare subsystem dependencies
@@ -38,7 +39,7 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 
 }
 
-AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity, double heading) {
+AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocity, double accelRate, double heading) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
@@ -58,6 +59,7 @@ AutoDrive::AutoDrive(double inches, double cruise_velocity, double final_velocit
 		m_cruiseVelocity = m_maxdrivevelocity;
 	}
 	m_heading = heading;
+	m_accelRate = accelRate;
 }
 
 
@@ -67,108 +69,115 @@ void AutoDrive::Initialize() {
 
 	std::cout << "is initializing" << std::endl;
 
-	m_leftStartPos = Drivetrain::GetInstance()->getLeftDrivePosition();
-	m_rightStartPos = Drivetrain::GetInstance()->getRightDrivePosition();
+		m_leftStartPos = Drivetrain::GetInstance()->getLeftDrivePosition();
+		m_rightStartPos = Drivetrain::GetInstance()->getRightDrivePosition();
 
-//	m_distanceTicks = (m_travelDistance*TICKS_PER_ROTATIONS)/WHEEL_CIRC_INCHES;
+	//	m_distanceTicks = (m_travelDistance*TICKS_PER_ROTATIONS)/WHEEL_CIRC_INCHES;
 
-	//reset isFinished
-	m_isFinished=0;
+		//reset isFinished
+		m_isFinished=0;
 
-	float decel_dist,accel_dist,hold_time,hold_segments=0;
-	bool isTriangular=0;
+		float decel_dist,accel_dist,hold_time,hold_segments=0;
+		bool isTriangular=0;
 
-	//check that the Drivetrain is in closed loop
-	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
+		//check that the Drivetrain is in closed loop
+		Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 
-	//ensure the queue is empty
-	while(!m_trajectory.empty())
-		m_trajectory.pop();
+		//ensure the queue is empty
+		while(!m_trajectory.empty())
+			m_trajectory.pop();
 
-	//calculate the time we would need to accelerate to the theoretical max speed.
-	float decel_time = sqrt((2*m_travelDistance)/((pow(m_maxDecelRate,2)/m_maxAccelRate) + m_maxDecelRate));
-	float accel_time = (m_maxDecelRate/m_maxAccelRate)*decel_time;
+		//calculate the time we would need to accelerate to the theoretical max speed.
+		float decel_time = sqrt((2*m_travelDistance)/((pow(m_accelRate,2)/m_accelRate) + m_accelRate));
+		float accel_time = (m_accelRate/m_accelRate)*decel_time;
 
-	float max_accel_vel = m_maxAccelRate*accel_time;
-	float max_decel_vel = m_maxDecelRate*decel_time;
-	float max_vel = min(max_accel_vel,max_decel_vel);
+		float max_accel_vel = m_accelRate*accel_time;
+		float max_decel_vel = m_accelRate*decel_time;
+		float max_vel = min(max_accel_vel,max_decel_vel);
 
-	//If we can reach the max velocity, the profile is trapezoidal
-	if(max_vel>m_cruiseVelocity) {
-	    max_vel = m_cruiseVelocity;
-	    accel_time = m_cruiseVelocity/m_maxAccelRate;
-	    accel_dist = 0.5*m_maxAccelRate*pow(accel_time,2);
+		//If we can reach the max velocity, the profile is trapezoidal
+		if(max_vel>m_cruiseVelocity) {
+		    max_vel = m_cruiseVelocity;
+		    accel_time = m_cruiseVelocity/m_accelRate;
+		    accel_dist = 0.5*m_accelRate*pow(accel_time,2);
 
-		decel_time = m_cruiseVelocity/m_maxDecelRate;
-		decel_dist = 0.5*m_maxDecelRate*pow(decel_time,2);
+			decel_time = m_cruiseVelocity/m_accelRate;
+			decel_dist = 0.5*m_accelRate*pow(decel_time,2);
 
-		hold_time = (m_travelDistance-accel_dist-decel_dist)/m_cruiseVelocity;
+			hold_time = (m_travelDistance-accel_dist-decel_dist)/m_cruiseVelocity;
 
-	} else { //if we can't reach reach the max velocity, the profile is triangular
-	   isTriangular=true;
-	   accel_dist = 0.5*m_maxAccelRate*pow(accel_time,2);
-	   decel_dist = 0.5*m_maxDecelRate*pow(decel_time,2);
-	   hold_time = 0;
-	}
-
-	//calculate the number of points needed
-    float end_time = accel_time + decel_time + hold_time;
-    int accel_segments = ceil(accel_time/m_dt);
-	int decel_segments = ceil(decel_time/m_dt);
+    			hold_segments = ceil(hold_time/m_dt);
 
 
-	//generate acceleration curve
-	for(int i = 0;i < accel_segments;i++) {
-		double t = m_dt*i;
-		float v = (m_maxAccelRate*t);
-		float d = (0.5*m_maxAccelRate*t*t);
-
-		if(m_isReverse) {
-			v=-v;
-			d = -d;
+		} else { //if we can't reach reach the max velocity, the profile is triangular
+		   isTriangular=true;
+		   accel_dist = 0.5*m_accelRate*pow(accel_time,2);
+		   decel_dist = 0.5*m_accelRate*pow(decel_time,2);
+		   hold_time = 0;
 		}
 
-		m_trajectory.push({t,v,v,d,d,m_maxAccelRate,m_maxAccelRate});
-	}
+		//calculate the number of points needed
+	    float end_time = accel_time + decel_time + hold_time;
 
-	//if needed, generate the velocity hold
-	if(!isTriangular) {
-		for(int i = 0;i <= hold_segments;i++) {
+	    int accel_segments = ceil(accel_time/m_dt);
+		int decel_segments = ceil(decel_time/m_dt);
+
+
+		//generate acceleration curve
+		float ac_d = 0;
+		for(int i = 0;i < accel_segments;i++) {
 			double t = m_dt*i;
-			float v = m_cruiseVelocity;
-			float d = accel_dist+m_cruiseVelocity*t;
+			float curr_t = t + accel_time + hold_time;
+			float v = (m_accelRate*t);
+			float d = (0.5*m_accelRate*t*t);
+//			ac_d = ac_d + 0.5*m_accelRate*pow(m_dt,2);								//very negative
+
 
 			if(m_isReverse) {
 				v=-v;
 				d = -d;
 			}
 
-			m_trajectory.push({accel_time + t,v,v,d,d,0,0});
-		}
-	}
-
-	//generate deceleration curve
-	for(int i=1 ;i < decel_segments;i++) {
-		float t = m_dt*i;
-		float curr_t = t + accel_time + hold_time;
-	    float v = max_vel-(m_maxDecelRate*t);
-	    float d = m_travelDistance - 0.5*m_maxDecelRate*pow(curr_t-end_time,2);								//very negative
-
-		if(m_isReverse) {
-			v=-v;
-			d = -d;
+			m_trajectory.push({t,v,v,d,d,m_accelRate,m_accelRate});
 		}
 
-		m_trajectory.push({accel_time + hold_time + t,v,v,d,d,-m_maxDecelRate,-m_maxDecelRate});
+		//if needed, generate the velocity hold
+		if(!isTriangular) {
+			for(int i = 0;i <= hold_segments;i++) {
+				double t = m_dt*i;
+				float v = m_cruiseVelocity;
+				float d = accel_dist+m_cruiseVelocity*t;
 
-	}
+				if(m_isReverse) {
+					v=-v;
+					d = -d;
+				}
 
-	//push last point
-	if(m_isReverse)
-		m_trajectory.push({end_time,0,0,-m_travelDistance,-m_travelDistance});
-	else
-		m_trajectory.push({end_time,0,0,m_travelDistance,m_travelDistance});
+				m_trajectory.push({accel_time + t,v,v,d,d,0,0});
+			}
+		}
 
+		//generate deceleration curve
+		for(int i=1 ;i < decel_segments;i++) {
+			float t = m_dt*i;
+			float curr_t = t + accel_time + hold_time;
+		    float v = max_vel-(m_accelRate*t);
+		    float d = m_travelDistance - 0.5*m_accelRate*pow(curr_t-end_time,2);								//very negative
+
+			if(m_isReverse) {
+				v=-v;
+				d = -d;
+			}
+
+			m_trajectory.push({accel_time + hold_time + t,v,v,d,d,-m_accelRate,-m_accelRate});
+
+		}
+
+		//push last point
+		if(m_isReverse)
+			m_trajectory.push({end_time,0,0,-m_travelDistance,-m_travelDistance});
+		else
+			m_trajectory.push({end_time,0,0,m_travelDistance,m_travelDistance});
 
 }
 
@@ -185,14 +194,29 @@ void AutoDrive::Execute() {
 		double l_acc = m_trajectory.front().a_left;
 		double r_acc = m_trajectory.front().a_right;
 
+		frc::SmartDashboard::PutNumber("l_velocity_gen", l_vel);
+		frc::SmartDashboard::PutNumber("l_position_gen", l_pos);
+		frc::SmartDashboard::PutNumber("l_accel_gen", l_acc);
+
+
 		//after setting, remove from queue
 		m_trajectory.pop();
 
 	    //path code
 
-	//	std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
+//		std::cout << "l_vel: " << l_vel << " r_vel: " << r_vel << " l_pos: " << l_pos << " r_pos: " << r_pos << std::endl;
+//		if(LimelightCamera::GetInstance()->IsEnabled())
+//		{
+//			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, LimelightCamera::GetInstance()->GetTargetHeading()*(M_PI/180));
+//		}
+//		else
+//		{
+			Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
 
-		Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, m_heading*(M_PI/180));
+//		}
+
+//		Drivetrain::GetInstance()->SetDriveVelocity(unit_master_conv.GetTicksPer100ms(l_vel),unit_master_conv.GetTicksPer100ms(r_vel));
+
 /*
 	//read current values from queue
 	float cur_t = m_trajectory.front().t;

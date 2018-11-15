@@ -1,6 +1,7 @@
 #include <Commands/Auto/AutoSetElevator.h>
 #include <iostream>
-AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
+
+AutoSetElevator::AutoSetElevator(int position, double timeToWait) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Elevator::GetInstance());
@@ -9,13 +10,27 @@ AutoSetElevator::AutoSetElevator(int position, double timeToWait = 0) {
 
 	m_position = position;
 	m_timeToWait = timeToWait;
+	m_tolerance = ELEVATOR_ERROR_TOLERANCE;
 }
+AutoSetElevator::AutoSetElevator(int position, double timeToWait, double tolerance) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Elevator::GetInstance());
+
+	m_IsFinished = false;
+
+	m_position = position;
+	m_timeToWait = timeToWait;
+	m_tolerance = tolerance;
+}
+
 
 // Called just before this Command runs the first time
 void AutoSetElevator::Initialize() {
 	SetTimeout(1.5 + m_timeToWait);
 	m_IsFinished = false;
 	m_startTime = frc::Timer::GetFPGATimestamp();
+
 
 }
 
@@ -33,7 +48,7 @@ void AutoSetElevator::Execute() {
 	if(elaspedTime >= m_timeToWait)
 	{
 
-		if(abs(posErr) < ELEVATOR_ERROR_TOLERANCE)
+		if(abs(posErr) < m_tolerance)
 		{
 			m_IsFinished = true;
 		}
@@ -43,7 +58,7 @@ void AutoSetElevator::Execute() {
 			if(m_position > ELEVATOR_ZERO)
 			{
 				Elevator::GetInstance()->SetElevatorPosition(m_position, ELEVATOR_F);
-				std::cout << "finish std case" <<std::endl;
+//				std::cout << "finish std case" <<std::endl;
 			}
 
 			if(Elevator::GetInstance()->GetElevatorPosition() > ELEVATOR_ZERO_NEUTRAL_POSITION )
@@ -59,7 +74,7 @@ void AutoSetElevator::Execute() {
 
 				}
 				Elevator::GetInstance()->SetElevatorPosition(m_position, linear_F);
-				std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
+			//	std::cout << "feedforward: " << linear_F << "pos: " << Elevator::GetInstance()->GetElevatorPosition() << std::endl;
 			}
 		}
 	}

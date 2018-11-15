@@ -70,3 +70,11 @@ double* FromRightFirstCube_ToLeftSwitchPathReversed::GetRightTrajectoryArray(int
 {
 	return right_wheel[index];
 }
+double FromRightFirstCube_ToLeftSwitchPathReversed::GetX(int index)
+{
+	return (left_wheel[index][6] + right_wheel[index][6])*0.5;
+}
+double FromRightFirstCube_ToLeftSwitchPathReversed::GetY(int index)
+{
+	return (left_wheel[index][7] + right_wheel[index][7])*0.5;
+}

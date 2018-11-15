@@ -1,5 +1,5 @@
-  #ifndef Drive_H
-#define Drive_H
+  #ifndef AutoDrive_H
+#define AutoDrive_H
 #include "Util/UnitMaster.h"
 #include <queue>
 #include <math.h>
@@ -12,7 +12,7 @@ using namespace std;
 class AutoDrive : public CommandBase {
 public:
 	AutoDrive(double inches, double cruise_velocity, double final_velocity);
-	AutoDrive(double inches, double cruise_velocity, double final_velocity, double heading);
+	AutoDrive(double inches, double cruise_velocity, double final_velocity, double accelRate, double heading);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -20,6 +20,7 @@ public:
 	void Interrupted();
 
 private:
+	UnitMaster unit_master_conv;
 	float m_distanceTicks = 0.0;
 	float m_rightStartPos = 0.0;
 	float m_leftStartPos = 0.0;
@@ -31,10 +32,11 @@ private:
 	float m_initangle = 0.0;
 	bool m_isReverse = false;
 	double m_heading  = 0;
+	double m_accelRate = 0.0;
 
 	//drivetrain constraints
-	float m_maxAccelRate = 100; 		//Inches per sec^2
-	float m_maxDecelRate= 90;		//Inches per sec^2
+//	float m_maxAccelRate = 100; 		//Inches per sec^2
+//	float m_maxDecelRate= 90;		//Inches per sec^2
 	float m_maxdrivevelocity = 150; //Inches per se
 	float m_dt = AUTO_PERIODIC_DT;
 
@@ -51,4 +53,4 @@ private:
 	queue <Trajectory_points> m_trajectory;
 };
 
-#endif  // Drive_H
+#endif  // AutoDrive_H

@@ -51,20 +51,21 @@ void Elevator::ConfigOpenLoop()
 }
 
 void Elevator::ConfigClosedLoop() {
-	m_ElevatorMotor1->ConfigVoltageCompSaturation(11.0, 0);
+	m_ElevatorMotor1->ConfigVoltageCompSaturation(12.0, 0);
 	m_ElevatorMotor1->EnableVoltageCompensation(true);
 
 	m_ElevatorMotor1->ConfigNominalOutputForward(0.0,0);
 	m_ElevatorMotor1->ConfigNominalOutputReverse(0.0,0);
 
-	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.25,0);
+	m_ElevatorMotor1->ConfigPeakOutputForward(1.0,0);
+	m_ElevatorMotor1->ConfigPeakOutputReverse(-0.4,0);
 	m_ElevatorMotor1->ConfigForwardSoftLimitThreshold(ELEVATOR_SOFT_LIMIT,0);
 
 	m_ElevatorMotor1->Set(ControlMode::Position,0.0);
 	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
 	m_ElevatorMotor1->SetSensorPhase(false);
 
-	m_ElevatorMotor1->ConfigClosedloopRamp(0.25, 0);
+	m_ElevatorMotor1->ConfigClosedloopRamp(0.10, 0);
 
 	m_ElevatorMotor1->Config_kF(0, 0, 0);
 	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P, 0);
@@ -75,6 +76,41 @@ void Elevator::ConfigClosedLoop() {
 	std::cout << "elevator sensor zero'd" << std::endl;
 
 	m_isClosedLoop = 1;
+}
+
+void Elevator::ConfigClosedLoopMagic(double cruiseVelocity, double acceleration)
+{
+	m_ElevatorMotor1->Set(ControlMode::MotionMagic,0.0);
+	m_ElevatorMotor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	m_ElevatorMotor1->SetSensorPhase(false);
+
+
+	m_ElevatorMotor1->ConfigNominalOutputForward(0,0);
+	m_ElevatorMotor1->ConfigNominalOutputReverse(0,0);
+
+	m_ElevatorMotor1->ConfigPeakOutputForward(1.0,0);
+	m_ElevatorMotor1->ConfigPeakOutputReverse(-1.0,0);
+
+	m_ElevatorMotor1->ConfigVoltageCompSaturation(12.0, 0);
+	m_ElevatorMotor1->EnableVoltageCompensation(true);
+
+	m_ElevatorMotor1->ConfigClosedloopRamp(0, 0);
+
+	m_ElevatorMotor1->Config_kF(0, ELEVATOR_F_VEL, 0);
+	m_ElevatorMotor1->Config_kP(0, ELEVATOR_P_VEL, 0);
+	m_ElevatorMotor1->Config_kI(0, ELEVATOR_I_VEL, 0);
+	m_ElevatorMotor1->Config_kD(0, ELEVATOR_D_VEL, 0);
+
+	m_ElevatorMotor1->ConfigVelocityMeasurementWindow(32, 0);
+	m_ElevatorMotor1->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms , 0 );
+
+	m_ElevatorMotor1->ConfigMotionCruiseVelocity(cruiseVelocity, 0);
+	m_ElevatorMotor1->ConfigMotionAcceleration(acceleration, 0);
+
+	m_ElevatorMotor1->SetNeutralMode(NeutralMode::Brake);
+	m_ElevatorMotor2->SetNeutralMode(NeutralMode::Brake);
+
+	std::cout << "CONFIG: MAGIC POSITION" << std::endl;
 }
 
 void Elevator::ConfigNeutralClosedLoop() {
@@ -123,6 +159,13 @@ void Elevator::SetElevatorPosition(double a_position, double arb_ff)
 	m_ElevatorMotor1->Set(ControlMode::Position, m_position, DemandType::DemandType_ArbitraryFeedForward, arb_ff);
 }
 
+void Elevator::SetElevatorPositionMagic(double position, double arb_ff)
+{
+	m_position = position;
+	if(m_position < 1) m_position = 1; //prevent less than 1 numbers
+	m_ElevatorMotor1->Set(ControlMode::MotionMagic, m_position, DemandType::DemandType_ArbitraryFeedForward, arb_ff);
+}
+
 void Elevator::SetElevatorEncoderZero() {
 	m_ElevatorMotor1->SetSelectedSensorPosition(0,0,0);
 }
@@ -133,6 +176,7 @@ void Elevator::IncrementElevatorPosition(double dPosition){
 
 	double local_position = m_position;
 	local_position += dPosition;
+	if(GetElevatorPosition() > ELEVATOR_MAX_HEIGHT && dPosition > 0) local_position = GetElevatorPosition();
 
 	SetElevatorPosition(local_position, ELEVATOR_F);
 }

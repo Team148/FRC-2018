@@ -3,18 +3,23 @@
 #include <iostream>
 
 
-PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed) {
+
+PathExecuter::PathExecuter(TrajectoryPath* trajectory, bool IsReversed, int index_short, int disabledPositionTimeFrames) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Drivetrain::GetInstance());
 	m_trajectory = trajectory;
 	m_IsReversed = IsReversed;
+	m_index_short = index_short;
+	m_disabledPositionTimeFrames = disabledPositionTimeFrames;
+	m_correction_enable = true;
 }
 
 // Called just before this Command runs the first time
 void PathExecuter::Initialize() {
 	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::PATH_CONFIG);
 	m_initTime = frc::Timer::GetFPGATimestamp();
+	m_correction_enable = true;
 	m_isFinished = false;
 //	std::cout << "Init" << std::endl;
 }
@@ -26,9 +31,24 @@ void PathExecuter::Execute() {
 
 	int time_index = (int)(timeEnlapsed / m_pathDT);
 
+//	if(Drivetrain::GetInstance()->GetLineSenseF_L())
+//		std::cout << "F_L Triggered at " << time_index << std::endl;
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseF_R())
+//		std::cout << "F_R Triggered at " << time_index << std::endl;
+////
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_L())
+//		std::cout << "R_L Triggered"<<std::endl;;
+//
+//
+//	if(Drivetrain::GetInstance()->GetLineSenseR_R())
+//		std::cout << "R_R Triggered"<<std::endl;;
+
+
 //	std::cout << time_index << std::endl;
 
-	if(!(time_index < m_trajectory->GetIndexLength())){
+	if(!(time_index < (m_trajectory->GetIndexLength()-m_index_short))){
 		m_isFinished = true;
 	//	std::cout << m_trajectory->GetIndexLength() << std::endl;
 		std::cout << "done" << std::endl;
@@ -38,6 +58,7 @@ void PathExecuter::Execute() {
 
 //	double* left_wheel = m_trajectory->GetLeftTrajectoryArray(time_index);
 //	double* right_wheel = m_trajectory->GetRightTrajectoryArray(time_index);
+	Drivetrain::GetInstance()->accumRobotPosition();
 
 	double l_pos = m_trajectory->GetLeftPosition(time_index);
 	double l_vel = m_trajectory->GetLeftVelocity(time_index);
@@ -50,8 +71,27 @@ void PathExecuter::Execute() {
 	double heading = m_trajectory->GetHeading(time_index);
 
 	frc::SmartDashboard::PutNumber("TimeIndex", time_index);
+	frc::SmartDashboard::PutNumber("TrajectoryX", m_trajectory->GetX(time_index));
+	frc::SmartDashboard::PutNumber("TrajectoryY", m_trajectory->GetY(time_index));
+	frc::SmartDashboard::PutNumber("RobotX", Drivetrain::GetInstance()->getRobotPosition_x());
+	frc::SmartDashboard::PutNumber("RobotY", Drivetrain::GetInstance()->getRobotPosition_y());
 
-	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
+	std::cout << "TrajectoryX: " << m_trajectory->GetX(time_index) << " TrajectoryY: " << m_trajectory->GetY(time_index) << std::endl;
+	std::cout << "RobotX: " << Drivetrain::GetInstance()->getRobotPosition_x() << " RobotY: " << Drivetrain::GetInstance()->getRobotPosition_y() << std::endl;
+
+
+	if(!(time_index < (m_trajectory->GetIndexLength()-m_disabledPositionTimeFrames)))
+	{
+		m_correction_enable = false;
+		std::cout << "position correction off" << std::endl;
+	}
+	else
+	{
+		m_correction_enable = true;
+	}
+
+//	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
+	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_trajectory->GetDT(), m_IsReversed, m_correction_enable);
 
 }
 
@@ -62,8 +102,9 @@ bool PathExecuter::IsFinished() {
 
 // Called once after isFinished returns true
 void PathExecuter::End() {
-	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
-	Drivetrain::GetInstance()->Arcade(0,0);
+//	Drivetrain::GetInstance()->configDrivetrain(tDriveConfigs::OPEN_LOOP);
+//	Drivetrain::GetInstance()->Arcade(0,0);
+	Drivetrain::GetInstance()->SetDriveVelocity(0,0);
 	std::cout << "PathExecuterPath Done" << std::endl;
 
 }
