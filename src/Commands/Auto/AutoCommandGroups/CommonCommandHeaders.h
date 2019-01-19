@@ -56,6 +56,10 @@
 #include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchSuperSneakPath.h"
 
+#include "./Paths/FromRightPos_ToRightShip1.h"
+#include "./Paths/FromRightShip1_ToRightLS.h"
+#include "./Paths/FromRightLS_ToRightShip2.h"
+
 
 
 #include "../TurnPosition.h"

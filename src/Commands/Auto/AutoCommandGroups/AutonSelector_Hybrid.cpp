@@ -16,58 +16,63 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 {
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
-
-	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
-	    AddSequential(new FromRightPos_ToRightScaleGroup());
-	    //Scored First Cube
-	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
-	    AddSequential(new AutoDrive(44, 100, 0, 100, 160));
-
-	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
-		AddSequential(new AutoDrive(-5, 150, 0, 120, 160));
-		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 4.0));
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
-		AddSequential(new AutoDrive(10, 150, 0, 120,  160));
-		AddSequential(new AutoIntake(-0.45, 0.5));
-		//Scored Second Cube
-		AddSequential(new AutoDrive(-25, 100, 0, 100, 160));
-		AddParallel(new TurnPositionMagic(135, 0.5, 150, 150));
-		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-	//	AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
-		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
-		AddSequential(new AutoDrive(37, 100, 0, 100, 135));
-		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
-		//Grabbed Third Cube
-
-		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
-		AddSequential(new TurnPositionMagic(165, 0.5, 150, 150));
-
-		AddSequential(new AutoDrive(15, 150, 0, 120, 165));
-		AddParallel(new AutoIntake(-0.45, 0.5));
-		AddSequential(new AutoDrive(-10, 150, 0, 120, 165));
-		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-
-
-
-	    	//scored in switch */
-/*
-	    	AddParallel(new AutoSetElevator(ELEVATOR_ZERO , 0.0));
-//	    	AddSequential(new AutoDrive(-24, 150, 0, 170));
-	    	AddSequential(new TurnPosition(-80.0));
-	    	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
-	    	AddSequential(new AutoDrive(48, 100, 0, 90));
-	    	// picked up second cube
-
-	    	AddSequential(new TurnPosition(-140.0));
-	    	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
-	    	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
-	    	AddSequential(new FromRightSecondCube_ToRightScale());
-	    	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
-	    	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
-*/
-	    	// scored in scale
-
+		AddSequential(new PathExecuter(FromRightPos_ToRightShip1::GetInstance(), false));
+		AddSequential(new PathExecuter(FromRightShip1_ToRightLS::GetInstance(), false));
+		AddSequential(new PathExecuter(FromRightLS_ToRightShip2::GetInstance(), false));
 	}
+	//	{
+//
+//	    //drives to scale and scores in scale, grabs cube from behind and scores in switch, then a second in the scale.
+//	    AddSequential(new FromRightPos_ToRightScaleGroup());
+//	    //Scored First Cube
+//	    AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 4.0));
+//	    AddSequential(new AutoDrive(44, 100, 0, 100, 160));
+//
+//	    //   AddSequential(new PathExecuter(FromRightScale_ToRightFirstCubePath::GetInstance(), false));
+//		AddSequential(new AutoDrive(-5, 150, 0, 120, 160));
+//		AddParallel(new AutoIntake(INTAKE_SLOW_AUTO_PERCENT, 4.0));
+//		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+//		AddSequential(new AutoDrive(10, 150, 0, 120,  160));
+//		AddSequential(new AutoIntake(-0.45, 0.5));
+//		//Scored Second Cube
+//		AddSequential(new AutoDrive(-25, 100, 0, 100, 160));
+//		AddParallel(new TurnPositionMagic(135, 0.5, 150, 150));
+//		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//	//	AddSequential(new TurnPositionMagic(130, 0.5, 150, 150));
+//		AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 5.0));
+//		AddSequential(new AutoDrive(37, 100, 0, 100, 135));
+//		AddSequential(new AutoDrive(-10, 150, 0, 120, 135));
+//		//Grabbed Third Cube
+//
+//		AddSequential(new AutoSetElevator(ELEVATOR_SWITCH_AUTO, 0.0));
+//		AddSequential(new TurnPositionMagic(165, 0.5, 150, 150));
+//
+//		AddSequential(new AutoDrive(15, 150, 0, 120, 165));
+//		AddParallel(new AutoIntake(-0.45, 0.5));
+//		AddSequential(new AutoDrive(-10, 150, 0, 120, 165));
+//		AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//
+//
+//
+//	    	//scored in switch */
+///*
+//	    	AddParallel(new AutoSetElevator(ELEVATOR_ZERO , 0.0));
+////	    	AddSequential(new AutoDrive(-24, 150, 0, 170));
+//	    	AddSequential(new TurnPosition(-80.0));
+//	    	AddParallel(new AutoIntake(INTAKE_FAST_PERCENT, 3.0));
+//	    	AddSequential(new AutoDrive(48, 100, 0, 90));
+//	    	// picked up second cube
+//
+//	    	AddSequential(new TurnPosition(-140.0));
+//	    	AddSequential(new AutoSetElevator(ELEVATOR_SWITCH, 0.0));
+//	    	AddParallel(new AutoSetElevator(ELEVATOR_SCALE_HIGH, 1.0));
+//	    	AddSequential(new FromRightSecondCube_ToRightScale());
+//	    	AddSequential(new AutoIntake(OUTTAKE_FULL_PERCENT, 2.0));
+//	    	AddSequential(new AutoSetElevator(ELEVATOR_ZERO, 0.0));
+//*/
+//	    	// scored in scale
+//
+//	}
 
 	if(fms_data_truc.compare(autoConstData.R_L) == 0) // R POS RL
 	{
