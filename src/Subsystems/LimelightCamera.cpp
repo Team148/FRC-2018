@@ -9,9 +9,9 @@ LimelightCamera::LimelightCamera() : frc::Subsystem("LimelightCamera") {
 
 	table = NetworkTable::GetTable("limelight");
 
-	m_ledMode = 1.0;		//set LEDs to default to off
+	m_ledMode = 0.0;		//set LEDs to default to off
 	m_pipeline = 0.0;		//sort by largest
-	m_camMode = 1.0;		//vision processing ON
+	m_camMode = 0.0;		//vision processing ON
 
 }
 

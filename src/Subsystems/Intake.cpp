@@ -47,7 +47,7 @@ void Intake::SetIntakeMotor(float percent)
 
 float Intake::GetAverageCurrent()
 {
-	return (m_IntakeMotor1->GetOutputCurrent() + m_IntakeMotor2->GetOutputCurrent())/2;
+//	return (m_IntakeMotor1->GetOutputCurrent() + m_IntakeMotor2->GetOutputCurrent())/2;
 }
 
 

@@ -23,17 +23,22 @@ void DriveWithJoystick::Execute() {
 
 
 	static bool isAutoScoreActive = false;
-	if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2 && !isAutoScoreActive)
+//	if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2 && !isAutoScoreActive)
+//	{
+//		frc::Scheduler::GetInstance()->AddCommand(new AutoScoreCube());
+//		isAutoScoreActive = true;
+//	}
+//	if(OI::GetInstance()->drvStick->GetRawAxis(3) < 0.2 && isAutoScoreActive)
+//	{
+//		frc::Scheduler::GetInstance()->AddCommand(new ExitAutoScoreCube());
+//		isAutoScoreActive = false;
+//
+//	}
+	if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
 	{
-		frc::Scheduler::GetInstance()->AddCommand(new AutoScoreCube());
-		isAutoScoreActive = true;
+		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));
 	}
-	if(OI::GetInstance()->drvStick->GetRawAxis(3) < 0.2 && isAutoScoreActive)
-	{
-		frc::Scheduler::GetInstance()->AddCommand(new ExitAutoScoreCube());
-		isAutoScoreActive = false;
 
-	}
 	if(!isAutoScoreActive)
 	{
 		Drivetrain::GetInstance()->Arcade(OI::GetInstance()->drvStick->GetRawAxis(4)*DRIVETRAIN_TURBO_TURN_FILTER, (-(OI::GetInstance()->drvStick->GetRawAxis(1))*DRIVETRAIN_TURBO_THROTTLE_FILTER));

@@ -157,6 +157,12 @@ void Drivetrain::InitPathDriveHeading()
 {
 	initDriveHeading = getGyroYaw();
 }
+
+void Drivetrain::SetInitPathDriveHeading(double adder)
+{
+	initDriveHeading = getGyroYaw()+adder;
+}
+
 double Drivetrain::GetInitPathDriveHeading()
 {
 	return initDriveHeading;
@@ -323,6 +329,8 @@ void Drivetrain::SetPathDriveKinematics(double l_pos, double l_velo, double l_ac
 	double m_r_velo = r_velo;
 	double m_r_accel = r_accel;
 	double m_heading = heading * 57.2958;
+
+	m_heading = fmod (m_heading , 360.0);
 
 
 	if(isReverse)

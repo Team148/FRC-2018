@@ -16,9 +16,17 @@ if(start_pos == tStartingPosition::RIGHT_POS)
 {
 	if(fms_data_truc.compare(autoConstData.R_R) == 0) // R POS RR
 	{
-		AddSequential(new PathExecuter(FromRightPos_ToRightShip1::GetInstance(), false));
-		AddSequential(new PathExecuter(FromRightShip1_ToRightLS::GetInstance(), false));
-		AddSequential(new PathExecuter(FromRightLS_ToRightShip2::GetInstance(), false));
+		AddSequential(new PathExecuter(AFromRightPos_ToRightShip1Reversed::GetInstance(), true));
+	//	AddSequential(new PathExecuter(AFromRightPos_ToRightShip1::GetInstance(), false));
+		AddSequential(new PathExecuter(AFromRightPos_ToRightShip1Pt2::GetInstance(), false));
+		AddSequential(new PathExecuter(ABackupJReversed::GetInstance(), true));
+
+		//		AddSequential(new WaitCommand(15));
+		AddSequential(new PathExecuter(AFromRightShip1_ToRightLS::GetInstance(), false));
+		AddSequential(new PathExecuter(AFromRightLS_ToRightShip2Reversed::GetInstance(), true));
+		AddSequential(new PathExecuter(AFromRightLS_ToRightShip22::GetInstance(), false));
+
+	//	AddSequential(new PathExecuter(DriveStraight::GetInstance(), false));
 	}
 	//	{
 //

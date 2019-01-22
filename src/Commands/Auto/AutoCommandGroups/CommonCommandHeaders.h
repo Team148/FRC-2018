@@ -56,9 +56,17 @@
 #include "./Paths/FromMiddlePos_ToLeftScaleSneakPath.h"
 #include "./Paths/FromRightPos_ToLeftSwitchSuperSneakPath.h"
 
-#include "./Paths/FromRightPos_ToRightShip1.h"
-#include "./Paths/FromRightShip1_ToRightLS.h"
-#include "./Paths/FromRightLS_ToRightShip2.h"
+#include "./Paths/AFromRightPos_ToRightShip1.h"
+#include "./Paths/AFromRightPos_ToRightShip1Pt2.h"
+#include "./Paths/ABackupJReversed.h"
+#include "./Paths/AFromRightShip1_ToRightLS.h"
+#include "./Paths/AFromRightLS_ToRightShip2Reversed.h"
+#include "./Paths/AFromRightLS_ToRightShip22.h"
+
+#include "./Paths/AFromRightPos_ToRightShip1Reversed.h"
+
+
+#include "./Paths/DriveStraight.h"
 
 
 

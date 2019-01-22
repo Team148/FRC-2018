@@ -1,6 +1,7 @@
 #include "PathExecuter.h"
 #include "OI.h"
 #include <iostream>
+#include ".\Subsystems\LimelightCamera.h"
 
 
 
@@ -70,6 +71,8 @@ void PathExecuter::Execute() {
 
 	double heading = m_trajectory->GetHeading(time_index);
 
+	double limelightoffset = LimelightCamera::GetInstance()->GetOffsetAngle();
+
 	frc::SmartDashboard::PutNumber("TimeIndex", time_index);
 	frc::SmartDashboard::PutNumber("TrajectoryX", m_trajectory->GetX(time_index));
 	frc::SmartDashboard::PutNumber("TrajectoryY", m_trajectory->GetY(time_index));
@@ -91,7 +94,15 @@ void PathExecuter::Execute() {
 	}
 
 //	Drivetrain::GetInstance()->SetPathDriveVelocity(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_IsReversed);
-	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading, m_trajectory->GetDT(), m_IsReversed, m_correction_enable);
+	if(time_index < 100)
+	{
+		limelightoffset = 0;
+	}
+	limelightoffset *= 0.025;
+
+	limelightoffset = 0;
+
+	Drivetrain::GetInstance()->SetPathDriveKinematics(l_pos, l_vel, l_acc, r_pos, r_vel, r_acc, heading-limelightoffset , m_trajectory->GetDT(), m_IsReversed, m_correction_enable);
 
 }
 

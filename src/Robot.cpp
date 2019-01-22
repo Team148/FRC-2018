@@ -121,6 +121,8 @@ public:
 		frc::Scheduler::GetInstance()->RemoveAll();
 		frc::TimedRobot::SetPeriod(AUTO_PERIODIC_DT);
 		Drivetrain::GetInstance()->InitPathDriveHeading();
+
+		Drivetrain::GetInstance()->SetInitPathDriveHeading(180.0);
 		int current_auto_selection = 0;
 		enum currentAutoSelection
 		{
@@ -315,7 +317,7 @@ public:
 //		            table = NetworkTable::GetTable("limelight");
 //		                        table->PutNumber("ledMode", 1.0);
 //		        }
-
+/* for testing
 		if (oi->drvStick->GetRawAxis(2) >= 0.2 || oi->opStick->GetRawAxis(3) >= 0.2)
 			IntakeSpeed = OUTTAKE_PERCENT;
 		else if (oi->drvStick->GetRawButton(5) || oi->opStick->GetRawButton(6))
@@ -344,7 +346,7 @@ public:
 		if(OI::GetInstance()->drvStick->GetRawAxis(3) > 0.2)
 		{
 			IntakeSpeed = OUTTAKE_AUTOSCORE_PERCENT;
-		}
+		}*/
 
 //		if( lineTracker_l->GetVoltage() <4.4 ||lineTracker_r->GetVoltage() <4.4  )
 //			IntakeSpeed = 0.5;
